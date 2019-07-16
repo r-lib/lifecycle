@@ -123,40 +123,6 @@ stop_defunct <- function(msg) {
   stop(err)
 }
 
-scoped_lifecycle_silence <- function(frame = caller_env()) {
-  scoped_options(.frame = frame,
-    lifecycle_disable_warnings = TRUE
-  )
-}
-with_lifecycle_silence <- function(expr) {
-  scoped_lifecycle_silence()
-  expr
-}
-
-scoped_lifecycle_warnings <- function(frame = caller_env()) {
-  scoped_options(.frame = frame,
-    lifecycle_disable_warnings = FALSE,
-    lifecycle_verbose_soft_deprecation = TRUE,
-    lifecycle_repeat_warnings = TRUE
-  )
-}
-with_lifecycle_warnings <- function(expr) {
-  scoped_lifecycle_warnings()
-  expr
-}
-
-scoped_lifecycle_errors <- function(frame = caller_env()) {
-  scoped_lifecycle_warnings(frame = frame)
-  scoped_options(.frame = frame,
-    lifecycle_warnings_as_errors = TRUE
-  )
-}
-with_lifecycle_errors <- function(expr) {
-  scoped_lifecycle_errors()
-  expr
-}
-
-
 env_inherits_global <- function(env) {
   # `topenv(emptyenv())` returns the global env. Return `FALSE` in
   # that case to allow passing the empty env when the
