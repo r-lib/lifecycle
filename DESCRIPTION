@@ -12,9 +12,12 @@ Description: Manage the life cycle of your exported functions with
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Depends:
+    R (>= 3.2)
 Imports:
     rlang (>= 0.4.0)
 Suggests:
+    covr,
     testthat (>= 2.1.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
