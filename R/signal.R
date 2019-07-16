@@ -45,10 +45,9 @@
 #' All the `with_` helpers have `scoped_` variants that are
 #' particularly useful in testthat blocks.
 #'
-#' @noRd
 #' @seealso [lifecycle()]
-NULL
-
+#'
+#' @export
 signal_soft_deprecated <- function(msg, id = msg, env = caller_env(2)) {
   msg <- lifecycle_validate_message(msg)
   stopifnot(
@@ -79,6 +78,8 @@ signal_soft_deprecated <- function(msg, id = msg, env = caller_env(2)) {
   signal(msg, "lifecycle_soft_deprecated")
 }
 
+#' @rdname signal_soft_deprecated
+#' @export
 warn_deprecated <- function(msg, id = msg) {
   msg <- lifecycle_validate_message(msg)
   stopifnot(is_string(id))
@@ -108,6 +109,8 @@ warn_deprecated <- function(msg, id = msg) {
 }
 deprecation_env <- new.env(parent = emptyenv())
 
+#' @rdname signal_soft_deprecated
+#' @export
 stop_defunct <- function(msg) {
   msg <- lifecycle_validate_message(msg)
   err <- cnd(
