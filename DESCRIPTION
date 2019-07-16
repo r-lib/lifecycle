@@ -18,6 +18,7 @@ Imports:
     rlang (>= 0.4.0)
 Suggests:
     covr,
+    crayon,
     testthat (>= 2.1.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
