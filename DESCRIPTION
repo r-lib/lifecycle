@@ -12,3 +12,5 @@ Description: Manage the life cycle of your exported functions with
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Suggests:
+    testthat (>= 2.1.0)
