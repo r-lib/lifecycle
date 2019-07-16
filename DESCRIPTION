@@ -9,6 +9,6 @@ Authors@R:
 Description: Manage the life cycle of your exported functions with
     shared conventions, documentation badges, and non-invasive
     deprecation warnings.
-License: What license it uses
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
