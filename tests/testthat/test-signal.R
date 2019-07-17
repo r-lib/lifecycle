@@ -8,7 +8,7 @@ test_that("signallers require function call syntax for `what`", {
   expect_error(stop_defunct("1.0.0", "foo(arg = arg)"), "in the LHS")
 })
 
-test_that("deprecation messages are constructed", {
+test_that("deprecation messages are constructed for functions", {
   expect_known_output(file = test_path("output", "test-signal-message.txt"), {
     cat_line(c(
       "Inferred package name (here it is base b/c of testthat's eval env):\n",
@@ -48,6 +48,25 @@ test_that("deprecation messages are constructed", {
     cat_line(c(
       "\n\nDetails:\n",
       lifecycle_build_message("1.0.0", "foo()", "bar()", details = details, signaller = "stop_defunct")
+    ))
+  })
+})
+
+test_that("deprecation messages are constructed for arguments", {
+  expect_known_output(file = test_path("output", "test-signal-message-args.txt"), {
+    cat_line(c(
+      "\n\nDeprecated argument:\n",
+      lifecycle_build_message("1.0.0", "foo(quux = )", signaller = "stop_defunct")
+    ))
+
+    cat_line(c(
+      "\n\nDeprecated argument with function replacement:\n",
+      lifecycle_build_message("1.0.0", "foo(quux = )", "bar()", signaller = "stop_defunct")
+    ))
+
+    cat_line(c(
+      "\n\nDeprecated argument with argument replacement:\n",
+      lifecycle_build_message("1.0.0", "foo(quux = )", "foo(foofy = )", signaller = "stop_defunct")
     ))
   })
 })

@@ -168,7 +168,7 @@ lifecycle_build_message <- function(when,
   if (is_null(arg)) {
     msg <- glue::glue("`{ fn }()` is deprecated as of { pkg } { when }.")
   } else {
-    abort("TODO")
+    msg <- glue::glue("The argument `{ arg }` of `{ fn }()` is deprecated as of { pkg } { when }.")
   }
 
   if (!is_null(with)) {
@@ -187,7 +187,10 @@ lifecycle_build_message <- function(when,
        Please use `{ with_fn }()` instead."
       )
     } else {
-      abort("TODO")
+      msg <- glue::glue(
+        "{ msg }
+       Please use the argument `{ with_arg }` of `{ with_fn }()` instead."
+      )
     }
   }
 
