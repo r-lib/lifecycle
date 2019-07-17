@@ -54,29 +54,19 @@ test_that("deprecation messages are constructed for functions", {
 
 test_that("deprecation messages are constructed for arguments", {
   expect_known_output(file = test_path("output", "test-signal-message-args.txt"), {
-    cat_line(c(
-      "\n\nDeprecated argument:\n",
-      lifecycle_build_message("1.0.0", "foo(quux = )", signaller = "stop_defunct")
-    ))
+    cat_ruler("Deprecated argument")
+    cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", signaller = "stop_defunct"))
 
-    cat_line(c(
-      "\n\nDeprecated argument with function replacement:\n",
-      lifecycle_build_message("1.0.0", "foo(quux = )", "bar()", signaller = "stop_defunct")
-    ))
+    cat_ruler("Deprecated argument with function replacement")
+    cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "bar()", signaller = "stop_defunct"))
 
-    cat_line(c(
-      "\n\nDeprecated argument with argument replacement (same function):\n",
-      lifecycle_build_message("1.0.0", "foo(quux = )", "foo(foofy = )", signaller = "stop_defunct")
-    ))
+    cat_ruler("Deprecated argument with argument replacement (same function)")
+    cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "foo(foofy = )", signaller = "stop_defunct"))
 
-    cat_line(c(
-      "\n\nDeprecated argument with argument replacement (different function):\n",
-      lifecycle_build_message("1.0.0", "foo(quux = )", "bar(foofy = )", signaller = "stop_defunct")
-    ))
+    cat_ruler("Deprecated argument with argument replacement (different function)")
+    cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "bar(foofy = )", signaller = "stop_defunct"))
 
-    cat_line(c(
-      "\n\nDeprecated argument with argument replacement (different function, different package):\n",
-      lifecycle_build_message("1.0.0", "aaa::foo(quux = )", "zzz::bar(foofy = )", signaller = "stop_defunct")
-    ))
+    cat_ruler("Deprecated argument with argument replacement (different function, different package)")
+    cat_line(lifecycle_build_message("1.0.0", "aaa::foo(quux = )", "zzz::bar(foofy = )", signaller = "stop_defunct"))
   })
 })
