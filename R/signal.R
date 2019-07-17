@@ -48,12 +48,13 @@
 #' @seealso [lifecycle()]
 #'
 #' @export
-signal_soft_deprecated <- function(msg, id = msg, env = caller_env(2)) {
-  msg <- lifecycle_validate_message(msg)
-  stopifnot(
-    is_string(id),
-    is_environment(env)
-  )
+signal_soft_deprecated <- function(when,
+                                   what,
+                                   with = NULL,
+                                   details = NULL,
+                                   id = NULL,
+                                   env = caller_env(2)) {
+  stopifnot(is_environment(env))
 
   if (is_true(peek_option("lifecycle_disable_warnings"))) {
     return(invisible(NULL))
@@ -61,7 +62,7 @@ signal_soft_deprecated <- function(msg, id = msg, env = caller_env(2)) {
 
   if (is_true(peek_option("lifecycle_verbose_soft_deprecation")) ||
       env_inherits_global(env)) {
-    warn_deprecated(msg, id)
+    warn_deprecated(when, what, with = with, details = details, id = id)
     return(invisible(NULL))
   }
 
@@ -71,17 +72,23 @@ signal_soft_deprecated <- function(msg, id = msg, env = caller_env(2)) {
   if (nzchar(tested_package) &&
         identical(Sys.getenv("NOT_CRAN"), "true") &&
         env_name(topenv(env)) == env_name(ns_env(tested_package))) {
-    warn_deprecated(msg, id)
+    warn_deprecated(when, what, with = with, details = details, id = id)
     return(invisible(NULL))
   }
 
+  msg <- lifecycle_build_message(when, what, with, details, "warn_deprecated")
   signal(msg, "lifecycle_soft_deprecated")
 }
 
 #' @rdname signal_soft_deprecated
 #' @export
-warn_deprecated <- function(msg, id = msg) {
-  msg <- lifecycle_validate_message(msg)
+warn_deprecated <- function(when,
+                            what,
+                            with = NULL,
+                            details = NULL,
+                            id = NULL) {
+  msg <- lifecycle_build_message(when, what, with, details, "warn_deprecated")
+  id <- id %||% msg
   stopifnot(is_string(id))
 
   if (is_true(peek_option("lifecycle_disable_warnings"))) {
@@ -111,7 +118,10 @@ deprecation_env <- new.env(parent = emptyenv())
 
 #' @rdname signal_soft_deprecated
 #' @export
-stop_defunct <- function(when, what, with = NULL, details = NULL) {
+stop_defunct <- function(when,
+                         what,
+                         with = NULL,
+                         details = NULL) {
   msg <- lifecycle_build_message(when, what, with, details, "stop_defunct")
 
   stop(cnd(
