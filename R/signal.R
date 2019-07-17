@@ -2,8 +2,8 @@
 #'
 #' @description
 #'
-#' These functions provide two levels of verbosity for deprecation
-#' warnings.
+#' These functions provide three levels of verbosity for deprecated
+#' functions.
 #'
 #' * `signal_soft_deprecated()` warns only if called from the global
 #'   environment (so the user can change their script) or from the
@@ -14,10 +14,22 @@
 #'
 #' * `stop_defunct()` fails unconditionally.
 #'
-#' Both functions warn only once per session by default to avoid
-#' overwhelming the user with repeated warnings.
+#' Warnings are only issued once per session to avoid overwhelming the
+#' user with repeated warnings.
 #'
-#' @param msg The deprecation message.
+#' @param when The version the feature was deprecated in.
+#' @param what If the deprecated feature is a whole function, the
+#'   function name: `"foo()"`. If it's an argument that is being
+#'   deprecated, the function call should include the argument:
+#'   `"foo(arg = )"`.
+#'
+#'   You can optionally supply the namespace: `"ns::foo()"`. If you
+#'   don't, it is inferred from the caller environment.
+#' @param with A replacement for the deprecated feature. This should
+#'   be a string of the same form as `what`.
+#' @param details The deprecation message is generated from `when`,
+#'   `what`, and `with`. You can additionally supply a string
+#'   `details` to be appended to the message.
 #' @param id The id of the deprecation. A warning is issued only once
 #'   for each `id`. Defaults to `msg`, but you should give a unique ID
 #'   when the message is built programmatically and depends on inputs.
@@ -46,6 +58,23 @@
 #' particularly useful in testthat blocks.
 #'
 #' @seealso [lifecycle()]
+#'
+#' @examples
+#' # A deprecated function `foo`:
+#' warn_deprecated("1.0.0", "foo()")
+#'
+#' # A deprecated argument `arg`:
+#' warn_deprecated("1.0.0", "foo(arg = )")
+#'
+#' # A deprecated function with a function replacement:
+#' warn_deprecated("1.0.0", "foo()", "bar()")
+#'
+#' # A deprecated function with a function replacement from a
+#' # different package:
+#' warn_deprecated("1.0.0", "foo()", "otherpackage::bar()")
+#'
+#' # A deprecated function with an argument replacement:
+#' warn_deprecated("1.0.0", "foo()", "foo(bar = )")
 #'
 #' @export
 signal_soft_deprecated <- function(when,
@@ -88,6 +117,7 @@ warn_deprecated <- function(when,
                             details = NULL,
                             id = NULL) {
   msg <- lifecycle_build_message(when, what, with, details, "warn_deprecated")
+
   id <- id %||% msg
   stopifnot(is_string(id))
 
@@ -103,16 +133,13 @@ warn_deprecated <- function(when,
   env_poke(deprecation_env, id, TRUE);
 
   if (is_true(peek_option("lifecycle_warnings_as_errors"))) {
-    .Signal <- function(msg) stop_defunct("TODO", "TODO()", details = msg)
+    stop_defunct(when, what, with = with, details = details)
   } else {
-    .Signal <- .Deprecated
+    if (!is_true(peek_option("lifecycle_repeat_warnings"))) {
+      msg <- paste0(msg, "\n", silver("This warning is displayed once per session."))
+    }
+    .Deprecated(msg = msg)
   }
-
-  if (!is_true(peek_option("lifecycle_repeat_warnings"))) {
-    msg <- paste0(msg, "\n", silver("This warning is displayed once per session."))
-  }
-
-  .Signal(msg = msg)
 }
 deprecation_env <- new.env(parent = emptyenv())
 

@@ -47,7 +47,7 @@ if (rlang::is_installed("testthat")) {
   library(testthat)
 
   mytool <- function() {
-    signal_soft_deprecated("mytool is deprecated.")
+    signal_soft_deprecated("1.0.0", "mytool()")
     10 * 10
   }
 
@@ -55,7 +55,7 @@ if (rlang::is_installed("testthat")) {
   # force errors to test that the function is indeed deprecated:
   test_that("mytool is deprecated", {
     scoped_lifecycle_errors()
-    expect_error(mytool(), "is deprecated", class = "defunctError")
+    expect_error(mytool(), class = "defunctError")
   })
 
   # Or you can enforce silence to safely test that the function

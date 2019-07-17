@@ -6,14 +6,30 @@
 \alias{stop_defunct}
 \title{Signal deprecation}
 \usage{
-signal_soft_deprecated(msg, id = msg, env = caller_env(2))
+signal_soft_deprecated(when, what, with = NULL, details = NULL,
+  id = NULL, env = caller_env(2))
 
-warn_deprecated(msg, id = msg)
+warn_deprecated(when, what, with = NULL, details = NULL, id = NULL)
 
-stop_defunct(msg)
+stop_defunct(when, what, with = NULL, details = NULL)
 }
 \arguments{
-\item{msg}{The deprecation message.}
+\item{when}{The version the feature was deprecated in.}
+
+\item{what}{If the deprecated feature is a whole function, the
+function name: \code{"foo()"}. If it's an argument that is being
+deprecated, the function call should include the argument:
+\code{"foo(arg = )"}.
+
+You can optionally supply the namespace: \code{"ns::foo()"}. If you
+don't, it is inferred from the caller environment.}
+
+\item{with}{A replacement for the deprecated feature. This should
+be a string of the same form as \code{what}.}
+
+\item{details}{The deprecation message is generated from \code{when},
+\code{what}, and \code{with}. You can additionally supply a string
+\code{details} to be appended to the message.}
 
 \item{id}{The id of the deprecation. A warning is issued only once
 for each \code{id}. Defaults to \code{msg}, but you should give a unique ID
@@ -25,8 +41,8 @@ environment. If testthat is running, a warning is also called if
 the retired function was called from the package being tested.}
 }
 \description{
-These functions provide two levels of verbosity for deprecation
-warnings.
+These functions provide three levels of verbosity for deprecated
+functions.
 \itemize{
 \item \code{signal_soft_deprecated()} warns only if called from the global
 environment (so the user can change their script) or from the
@@ -36,8 +52,8 @@ the package).
 \item \code{stop_defunct()} fails unconditionally.
 }
 
-Both functions warn only once per session by default to avoid
-overwhelming the user with repeated warnings.
+Warnings are only issued once per session to avoid overwhelming the
+user with repeated warnings.
 }
 \section{Controlling verbosity}{
 
@@ -59,6 +75,24 @@ All the \code{with_} helpers have \code{scoped_} variants that are
 particularly useful in testthat blocks.
 }
 
+\examples{
+# A deprecated function `foo`:
+warn_deprecated("1.0.0", "foo()")
+
+# A deprecated argument `arg`:
+warn_deprecated("1.0.0", "foo(arg = )")
+
+# A deprecated function with a function replacement:
+warn_deprecated("1.0.0", "foo()", "bar()")
+
+# A deprecated function with a function replacement from a
+# different package:
+warn_deprecated("1.0.0", "foo()", "otherpackage::bar()")
+
+# A deprecated function with an argument replacement:
+warn_deprecated("1.0.0", "foo()", "foo(bar = )")
+
+}
 \seealso{
 \code{\link[=lifecycle]{lifecycle()}}
 }
