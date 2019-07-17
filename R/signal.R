@@ -149,12 +149,17 @@ lifecycle_build_message <- function(when, what, details, signaller) {
     is_character(details)
   )
 
-  what_call <- signal_validate_what(what, signaller)
-  fn <- signal_validate_fn(what_call)
-  arg <- signal_validate_arg(what_call, signaller)
+  what <- signal_validate_what(what, signaller)
 
-  env <- topenv(caller_env(2))
-  pkg <- signal_validate_pkg(env)
+  fn <- signal_validate_fn(what$call)
+  arg <- signal_validate_arg(what$call, signaller)
+
+  if (is_null(what$pkg)) {
+    env <- topenv(caller_env(2))
+    pkg <- signal_validate_pkg(env)
+  } else {
+    pkg <- what$pkg
+  }
 
   if (is_null(arg)) {
     glue::glue("`{ fn }()` is deprecated as of { pkg } { when }.")
@@ -181,7 +186,15 @@ signal_validate_what <- function(what, signaller) {
     ))
   }
 
-  call
+  head <- node_car(call)
+  if (is_call(head, "::")) {
+    pkg <- as_string(node_cadr(head))
+    call[[1]] <- node_cadr(node_cdr(head))
+  } else {
+    pkg <- NULL
+  }
+
+  list(pkg = pkg, call = call)
 }
 
 signal_validate_fn <- function(call) {

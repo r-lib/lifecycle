@@ -1,3 +1,8 @@
-Normal:
+Inferred package name (here it is base b/c of testthat's eval env):
 
 `foo()` is deprecated as of base 1.0.0.
+
+
+Overridden package name:
+
+`foo()` is deprecated as of mypkg 1.0.0.
