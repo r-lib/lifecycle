@@ -34,5 +34,20 @@ test_that("deprecation messages are constructed", {
       "\n\nReplacement function with overridden package names (2):\n",
       lifecycle_build_message("1.0.0", "foo::quux()", "bar::foofy()", signaller = "stop_defunct")
     ))
+
+    details <- glue::glue(
+      "
+
+        # Before:
+        foo()
+
+        # After:
+        bar()
+      "
+    )
+    cat_line(c(
+      "\n\nDetails:\n",
+      lifecycle_build_message("1.0.0", "foo()", "bar()", details = details, signaller = "stop_defunct")
+    ))
   })
 })

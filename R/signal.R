@@ -191,7 +191,7 @@ lifecycle_build_message <- function(when,
     }
   }
 
-  msg
+  paste_line(msg, details)
 }
 
 signal_validate_what <- function(what, arg, signaller) {

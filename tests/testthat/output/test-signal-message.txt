@@ -24,3 +24,15 @@ Replacement function with overridden package names (2):
 
 `quux()` is deprecated as of foo 1.0.0.
 Please use `bar::foofy()` instead.
+
+
+Details:
+
+`foo()` is deprecated as of base 1.0.0.
+Please use `bar()` instead.
+
+  # Before:
+  foo()
+
+  # After:
+  bar()

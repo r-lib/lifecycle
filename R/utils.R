@@ -10,3 +10,6 @@ upcase1 <- function(x) {
 cat_line <- function(...) {
   cat(paste0(..., "\n", collapse = ""))
 }
+paste_line <- function(...) {
+  paste(chr(...), collapse = "\n")
+}
