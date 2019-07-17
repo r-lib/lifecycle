@@ -134,3 +134,8 @@ env_inherits_global <- function(env) {
 
   is_reference(topenv(env), global_env())
 }
+
+lifecycle_validate_message <- function(msg) {
+  stopifnot(is_character(msg))
+  paste0(msg, collapse = "\n")
+}

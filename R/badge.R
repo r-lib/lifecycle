@@ -67,15 +67,3 @@ lifecycle_img <- function(stage, url) {
 
   )
 }
-upcase1 <- function(x) {
-  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
-  x
-}
-
-lifecycle_validate_message <- function(msg) {
-  stopifnot(is_character(msg))
-  paste0(msg, collapse = "\n")
-}
-
-
-# nocov end
