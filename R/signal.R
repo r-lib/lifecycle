@@ -96,7 +96,7 @@ warn_deprecated <- function(msg, id = msg) {
   env_poke(deprecation_env, id, TRUE);
 
   if (is_true(peek_option("lifecycle_warnings_as_errors"))) {
-    .Signal <- stop_defunct
+    .Signal <- function(msg) stop_defunct("TODO", "TODO()", details = msg)
   } else {
     .Signal <- .Deprecated
   }
@@ -111,16 +111,16 @@ deprecation_env <- new.env(parent = emptyenv())
 
 #' @rdname signal_soft_deprecated
 #' @export
-stop_defunct <- function(msg) {
-  msg <- lifecycle_validate_message(msg)
-  err <- cnd(
+stop_defunct <- function(when, what, details = NULL) {
+  msg <- lifecycle_build_message(when, what, details, "stop_defunct")
+
+  stop(cnd(
     c("defunctError", "error", "condition"),
     old = NULL,
     new = NULL,
     package = NULL,
     message = msg
-  )
-  stop(err)
+  ))
 }
 
 env_inherits_global <- function(env) {
@@ -138,4 +138,113 @@ env_inherits_global <- function(env) {
 lifecycle_validate_message <- function(msg) {
   stopifnot(is_character(msg))
   paste0(msg, collapse = "\n")
+}
+
+lifecycle_build_message <- function(when, what, details, signaller) {
+  details <- details %||% chr()
+
+  stopifnot(
+    is_string(when),
+    is_string(what),
+    is_character(details)
+  )
+
+  what_call <- signal_validate_what(what, signaller)
+  fn <- signal_validate_fn(what_call)
+  arg <- signal_validate_arg(what_call, signaller)
+
+  env <- topenv(caller_env(2))
+  pkg <- signal_validate_pkg(env)
+
+  if (is_null(arg)) {
+    glue::glue("`{ fn }()` is deprecated as of { pkg } { when }.")
+  } else {
+    abort("TODO")
+  }
+}
+
+signal_validate_what <- function(what, signaller) {
+  call <- parse_expr(what)
+
+  if (!is_call(call)) {
+    abort(glue::glue(
+      "
+      Internal error: `what` must have function call syntax.
+
+        # Good:
+        { signaller }(what = \"myfunction()\")
+
+        # Bad:
+        { signaller }(what = \"myfunction\")
+
+      "
+    ))
+  }
+
+  call
+}
+
+signal_validate_fn <- function(call) {
+  fn <- node_car(call)
+
+  if (!is_symbol(fn)) {
+    abort("Internal error: `what` must refer to a function name.")
+  }
+
+  # Deparse so non-syntactic names are backticked
+  expr_deparse(fn)
+}
+
+signal_validate_arg <- function(call, signaller) {
+  arg <- node_cdr(call)
+
+  if (is_null(arg)) {
+    return(NULL)
+  }
+
+  if (length(arg) != 1L) {
+    abort("Internal error: `what` can't refer to more than one argument.")
+  }
+
+  if (is_null(node_tag(arg)) || !is_missing(node_car(arg))) {
+    abort(glue::glue(
+      "
+        Internal error: `what` must refer to arguments in the LHS of `=`.
+
+          # Good:
+          { signaller }(what = \"myfunction(arg = )\")
+
+          # Bad:
+          { signaller }(what = \"myfunction(arg)\")
+
+        "
+    ))
+  }
+
+  # Deparse so non-syntactic names are backticked
+  expr_deparse(node_tag(arg))
+}
+
+signal_validate_pkg <- function(env) {
+  if (is_reference(env, global_env())) {
+    # Convenient for experimenting interactively
+    return("<NA>")
+  }
+
+  if(is_namespace(env)) {
+    return(ns_env_name(env))
+  }
+
+  abort(glue::glue(
+    "
+    Internal error: Can't detect the package of the deprecated function.
+    Please mention the namespace:
+
+      # Good:
+      { signaller }(what = \"namespace::myfunction()\")
+
+      # Bad:
+      { signaller }(what = \"myfunction()\")
+    "
+  ))
 }

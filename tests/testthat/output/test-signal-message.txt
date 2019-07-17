@@ -1,0 +1,3 @@
+Normal:
+
+`foo()` is deprecated as of base 1.0.0.
