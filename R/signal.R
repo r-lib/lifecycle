@@ -182,16 +182,14 @@ lifecycle_build_message <- function(when,
     }
 
     if (is_null(with_arg)) {
-      msg <- glue::glue(
-        "{ msg }
-       Please use `{ with_fn }()` instead."
-      )
+      please <- glue::glue("Please use `{ with_fn }()` instead.")
+    } else if (fn == with_fn) {
+      please <- glue::glue("Please use the argument `{ with_arg }` instead.")
     } else {
-      msg <- glue::glue(
-        "{ msg }
-       Please use the argument `{ with_arg }` of `{ with_fn }()` instead."
-      )
+      please <- glue::glue("Please use the argument `{ with_arg }` of `{ with_fn }()` instead.")
     }
+
+    msg <- paste0(msg, "\n", please)
   }
 
   paste_line(msg, details)
