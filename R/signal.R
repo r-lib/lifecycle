@@ -5,14 +5,14 @@
 #' These functions provide three levels of verbosity for deprecated
 #' functions.
 #'
-#' * `signal_soft_deprecated()` warns only if called from the global
+#' * `deprecate_soft()` warns only if called from the global
 #'   environment (so the user can change their script) or from the
 #'   package currently being tested (so the package developer can fix
 #'   the package).
 #'
-#' * `warn_deprecated()` warns unconditionally.
+#' * `deprecate_warn()` warns unconditionally.
 #'
-#' * `stop_defunct()` fails unconditionally.
+#' * `deprecate_stop()` fails unconditionally.
 #'
 #' Warnings are only issued once per session to avoid overwhelming the
 #' user with repeated warnings.
@@ -61,28 +61,28 @@
 #'
 #' @examples
 #' # A deprecated function `foo`:
-#' warn_deprecated("1.0.0", "foo()")
+#' deprecate_warn("1.0.0", "foo()")
 #'
 #' # A deprecated argument `arg`:
-#' warn_deprecated("1.0.0", "foo(arg = )")
+#' deprecate_warn("1.0.0", "foo(arg = )")
 #'
 #' # A deprecated function with a function replacement:
-#' warn_deprecated("1.0.0", "foo()", "bar()")
+#' deprecate_warn("1.0.0", "foo()", "bar()")
 #'
 #' # A deprecated function with a function replacement from a
 #' # different package:
-#' warn_deprecated("1.0.0", "foo()", "otherpackage::bar()")
+#' deprecate_warn("1.0.0", "foo()", "otherpackage::bar()")
 #'
 #' # A deprecated function with an argument replacement:
-#' warn_deprecated("1.0.0", "foo()", "foo(bar = )")
+#' deprecate_warn("1.0.0", "foo()", "foo(bar = )")
 #'
 #' @export
-signal_soft_deprecated <- function(when,
-                                   what,
-                                   with = NULL,
-                                   details = NULL,
-                                   id = NULL,
-                                   env = caller_env(2)) {
+deprecate_soft <- function(when,
+                           what,
+                           with = NULL,
+                           details = NULL,
+                           id = NULL,
+                           env = caller_env(2)) {
   stopifnot(is_environment(env))
 
   if (is_true(peek_option("lifecycle_disable_warnings"))) {
@@ -91,7 +91,7 @@ signal_soft_deprecated <- function(when,
 
   if (is_true(peek_option("lifecycle_verbose_soft_deprecation")) ||
       env_inherits_global(env)) {
-    warn_deprecated(when, what, with = with, details = details, id = id)
+    deprecate_warn(when, what, with = with, details = details, id = id)
     return(invisible(NULL))
   }
 
@@ -101,22 +101,22 @@ signal_soft_deprecated <- function(when,
   if (nzchar(tested_package) &&
         identical(Sys.getenv("NOT_CRAN"), "true") &&
         env_name(topenv(env)) == env_name(ns_env(tested_package))) {
-    warn_deprecated(when, what, with = with, details = details, id = id)
+    deprecate_warn(when, what, with = with, details = details, id = id)
     return(invisible(NULL))
   }
 
-  msg <- lifecycle_build_message(when, what, with, details, "warn_deprecated")
+  msg <- lifecycle_build_message(when, what, with, details, "deprecate_warn")
   signal(msg, "lifecycle_soft_deprecated")
 }
 
-#' @rdname signal_soft_deprecated
+#' @rdname deprecate_soft
 #' @export
-warn_deprecated <- function(when,
-                            what,
-                            with = NULL,
-                            details = NULL,
-                            id = NULL) {
-  msg <- lifecycle_build_message(when, what, with, details, "warn_deprecated")
+deprecate_warn <- function(when,
+                           what,
+                           with = NULL,
+                           details = NULL,
+                           id = NULL) {
+  msg <- lifecycle_build_message(when, what, with, details, "deprecate_warn")
 
   id <- id %||% msg
   stopifnot(is_string(id))
@@ -133,7 +133,7 @@ warn_deprecated <- function(when,
   env_poke(deprecation_env, id, TRUE);
 
   if (is_true(peek_option("lifecycle_warnings_as_errors"))) {
-    stop_defunct(when, what, with = with, details = details)
+    deprecate_stop(when, what, with = with, details = details)
   } else {
     if (!is_true(peek_option("lifecycle_repeat_warnings"))) {
       msg <- paste0(msg, "\n", silver("This warning is displayed once per session."))
@@ -143,13 +143,13 @@ warn_deprecated <- function(when,
 }
 deprecation_env <- new.env(parent = emptyenv())
 
-#' @rdname signal_soft_deprecated
+#' @rdname deprecate_soft
 #' @export
-stop_defunct <- function(when,
-                         what,
-                         with = NULL,
-                         details = NULL) {
-  msg <- lifecycle_build_message(when, what, with, details, "stop_defunct")
+deprecate_stop <- function(when,
+                           what,
+                           with = NULL,
+                           details = NULL) {
+  msg <- lifecycle_build_message(when, what, with, details, "deprecate_stop")
 
   stop(cnd(
     c("defunctError", "error", "condition"),

@@ -47,7 +47,7 @@ if (rlang::is_installed("testthat")) {
   library(testthat)
 
   mytool <- function() {
-    signal_soft_deprecated("1.0.0", "mytool()")
+    deprecate_soft("1.0.0", "mytool()")
     10 * 10
   }
 
