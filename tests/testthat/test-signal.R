@@ -10,31 +10,22 @@ test_that("signallers require function call syntax for `what`", {
 
 test_that("deprecation messages are constructed for functions", {
   expect_known_output(file = test_path("output", "test-signal-message.txt"), {
-    cat_line(c(
-      "Inferred package name (here it is base b/c of testthat's eval env):\n",
-      lifecycle_build_message("1.0.0", "foo()", signaller = "stop_defunct")
-    ))
+    cat_ruler("Inferred package name (here it is base b/c of testthat's eval env)")
+    cat_line(lifecycle_build_message("1.0.0", "foo()", signaller = "stop_defunct"))
 
-    cat_line(c(
-      "\n\nOverridden package name:\n",
-      lifecycle_build_message("1.0.0", "mypkg::foo()", signaller = "stop_defunct")
-    ))
+    cat_ruler("Overridden package name")
+    cat_line(lifecycle_build_message("1.0.0", "mypkg::foo()", signaller = "stop_defunct"))
 
-    cat_line(c(
-      "\n\nReplacement function:\n",
-      lifecycle_build_message("1.0.0", "foo()", "bar()", signaller = "stop_defunct")
-    ))
+    cat_ruler("Replacement function")
+    cat_line(lifecycle_build_message("1.0.0", "foo()", "bar()", signaller = "stop_defunct"))
 
-    cat_line(c(
-      "\n\nReplacement function with overridden package names (1):\n",
-      lifecycle_build_message("1.0.0", "foo::quux()", "foofy()", signaller = "stop_defunct")
-    ))
+    cat_ruler("Replacement function with overridden package names (1)")
+    cat_line(lifecycle_build_message("1.0.0", "foo::quux()", "foofy()", signaller = "stop_defunct"))
 
-    cat_line(c(
-      "\n\nReplacement function with overridden package names (2):\n",
-      lifecycle_build_message("1.0.0", "foo::quux()", "bar::foofy()", signaller = "stop_defunct")
-    ))
+    cat_ruler("Replacement function with overridden package names (2)")
+    cat_line(lifecycle_build_message("1.0.0", "foo::quux()", "bar::foofy()", signaller = "stop_defunct"))
 
+    cat_ruler("Details")
     details <- glue::glue(
       "
 
@@ -45,10 +36,7 @@ test_that("deprecation messages are constructed for functions", {
         bar()
       "
     )
-    cat_line(c(
-      "\n\nDetails:\n",
-      lifecycle_build_message("1.0.0", "foo()", "bar()", details = details, signaller = "stop_defunct")
-    ))
+    cat_line(lifecycle_build_message("1.0.0", "foo()", "bar()", details = details, signaller = "stop_defunct"))
   })
 })
 
