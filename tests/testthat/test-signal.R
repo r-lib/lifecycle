@@ -26,7 +26,12 @@ test_that("deprecation messages are constructed", {
     ))
 
     cat_line(c(
-      "\n\nReplacement function with overridden package names:\n",
+      "\n\nReplacement function with overridden package names (1):\n",
+      lifecycle_build_message("1.0.0", "foo::quux()", "foofy()", signaller = "stop_defunct")
+    ))
+
+    cat_line(c(
+      "\n\nReplacement function with overridden package names (2):\n",
       lifecycle_build_message("1.0.0", "foo::quux()", "bar::foofy()", signaller = "stop_defunct")
     ))
   })

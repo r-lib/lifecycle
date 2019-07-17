@@ -11,10 +11,16 @@ Overridden package name:
 Replacement function:
 
 `foo()` is deprecated as of base 1.0.0.
-Please use `base::bar()` instead.
+Please use `bar()` instead.
 
 
-Replacement function with overridden package names:
+Replacement function with overridden package names (1):
+
+`quux()` is deprecated as of foo 1.0.0.
+Please use `foofy()` instead.
+
+
+Replacement function with overridden package names (2):
 
 `quux()` is deprecated as of foo 1.0.0.
 Please use `bar::foofy()` instead.

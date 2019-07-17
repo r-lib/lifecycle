@@ -177,7 +177,7 @@ lifecycle_build_message <- function(when,
     with_arg <- signal_validate_arg(with$call, signaller)
 
     with_pkg <- with$pkg %||% pkg
-    if (!is_null(with_pkg)) {
+    if (!is_null(with_pkg) && pkg != with_pkg) {
       with_fn <- glue::glue("{ with_pkg }::{ with_fn }")
     }
 
