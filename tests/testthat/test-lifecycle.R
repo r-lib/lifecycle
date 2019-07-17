@@ -109,12 +109,6 @@ test_that("once-per-session note is not displayed on repeated warnings", {
   expect_false(grepl("once per session", wrn$message))
 })
 
-test_that("inputs are type checked", {
-  expect_error(deprecate_soft(1), "is_string")
-  expect_error(deprecate_warn(1), "is_string")
-  expect_error(deprecate_stop(1), "is_string")
-})
-
 test_that("the topenv of the empty env is not the global env", {
   expect_silent(deprecate_soft("1.0.0", "foo()", env = empty_env(), id = "topenv of empty env"))
 })

@@ -7,3 +7,7 @@
 ## usethis namespace: start
 ## usethis namespace: end
 NULL
+
+.onLoad <- function(libname, pkgname) {
+  backports::import(pkgname, "strrep")
+}
