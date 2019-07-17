@@ -6,3 +6,15 @@ Inferred package name (here it is base b/c of testthat's eval env):
 Overridden package name:
 
 `foo()` is deprecated as of mypkg 1.0.0.
+
+
+Replacement function:
+
+`foo()` is deprecated as of base 1.0.0.
+Please use `base::bar()` instead.
+
+
+Replacement function with overridden package names:
+
+`quux()` is deprecated as of foo 1.0.0.
+Please use `bar::foofy()` instead.

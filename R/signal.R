@@ -111,8 +111,8 @@ deprecation_env <- new.env(parent = emptyenv())
 
 #' @rdname signal_soft_deprecated
 #' @export
-stop_defunct <- function(when, what, details = NULL) {
-  msg <- lifecycle_build_message(when, what, details, "stop_defunct")
+stop_defunct <- function(when, what, with = NULL, details = NULL) {
+  msg <- lifecycle_build_message(when, what, with, details, "stop_defunct")
 
   stop(cnd(
     c("defunctError", "error", "condition"),
@@ -140,17 +140,21 @@ lifecycle_validate_message <- function(msg) {
   paste0(msg, collapse = "\n")
 }
 
-lifecycle_build_message <- function(when, what, details, signaller) {
+lifecycle_build_message <- function(when,
+                                    what,
+                                    with = NULL,
+                                    details = chr(),
+                                    signaller) {
   details <- details %||% chr()
 
   stopifnot(
     is_string(when),
     is_string(what),
+    is_null(with) || is_string(with),
     is_character(details)
   )
 
-  what <- signal_validate_what(what, signaller)
-
+  what <- signal_validate_what(what, "what", signaller)
   fn <- signal_validate_fn(what$call)
   arg <- signal_validate_arg(what$call, signaller)
 
@@ -162,13 +166,35 @@ lifecycle_build_message <- function(when, what, details, signaller) {
   }
 
   if (is_null(arg)) {
-    glue::glue("`{ fn }()` is deprecated as of { pkg } { when }.")
+    msg <- glue::glue("`{ fn }()` is deprecated as of { pkg } { when }.")
   } else {
     abort("TODO")
   }
+
+  if (!is_null(with)) {
+    with <- signal_validate_what(with, "with", signaller)
+    with_fn <- signal_validate_fn(with$call)
+    with_arg <- signal_validate_arg(with$call, signaller)
+
+    with_pkg <- with$pkg %||% pkg
+    if (!is_null(with_pkg)) {
+      with_fn <- glue::glue("{ with_pkg }::{ with_fn }")
+    }
+
+    if (is_null(with_arg)) {
+      msg <- glue::glue(
+        "{ msg }
+       Please use `{ with_fn }()` instead."
+      )
+    } else {
+      abort("TODO")
+    }
+  }
+
+  msg
 }
 
-signal_validate_what <- function(what, signaller) {
+signal_validate_what <- function(what, arg, signaller) {
   call <- parse_expr(what)
 
   if (!is_call(call)) {
@@ -177,10 +203,10 @@ signal_validate_what <- function(what, signaller) {
       Internal error: `what` must have function call syntax.
 
         # Good:
-        { signaller }(what = \"myfunction()\")
+        { signaller }({ what } = \"myfunction()\")
 
         # Bad:
-        { signaller }(what = \"myfunction\")
+        { signaller }({ what } = \"myfunction\")
 
       "
     ))
