@@ -58,3 +58,10 @@ test_that("deprecation messages are constructed for arguments", {
     cat_line(lifecycle_build_message("1.0.0", "aaa::foo(quux = )", "zzz::bar(foofy = )", signaller = "deprecate_stop"))
   })
 })
+
+test_that("non-syntactic names are handled gracefully", {
+  expect_known_output(file = test_path("output", "test-signal-message-non-syntactic.txt"), {
+    cat_ruler("Non-syntactic function name and non-syntactic parameter name")
+    cat_line(lifecycle_build_message("1.0.0", "bar::`foo-fy`(`qu-ux` = )", signaller = "deprecate_stop"))
+  })
+})

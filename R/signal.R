@@ -285,8 +285,7 @@ signal_validate_arg <- function(call, signaller) {
     ))
   }
 
-  # Deparse so non-syntactic names are backticked
-  expr_deparse(node_tag(arg))
+  as_string(node_tag(arg))
 }
 
 signal_validate_pkg <- function(env) {
