@@ -24,16 +24,18 @@ deprecated, the function call should include the argument:
 You can optionally supply the namespace: \code{"ns::foo()"}. If you
 don't, it is inferred from the caller environment.}
 
-\item{with}{A replacement for the deprecated feature. This should
-be a string of the same form as \code{what}.}
+\item{with}{An optional replacement for the deprecated feature.
+This should be a string of the same form as \code{what}.}
 
 \item{details}{The deprecation message is generated from \code{when},
 \code{what}, and \code{with}. You can additionally supply a string
 \code{details} to be appended to the message.}
 
 \item{id}{The id of the deprecation. A warning is issued only once
-for each \code{id}. Defaults to \code{msg}, but you should give a unique ID
-when the message is built programmatically and depends on inputs.}
+for each \code{id}. Defaults to the generated message, but you should
+give a unique ID when the message in \code{details} is built
+programmatically and depends on inputs, or when you'd like to
+deprecate multiple functions but warn only once for all of them.}
 
 \item{env}{The environment in which the soft-deprecated function
 was called. A warning is issued if called from the global
@@ -44,16 +46,17 @@ the retired function was called from the package being tested.}
 These functions provide three levels of verbosity for deprecated
 functions.
 \itemize{
-\item \code{deprecate_soft()} warns only if called from the global
-environment (so the user can change their script) or from the
-package currently being tested (so the package developer can fix
-the package).
+\item \code{deprecate_soft()} warns only if the deprecated function is
+called from the global environment (so the user can change their
+script) or from the package currently being tested (so the
+package developer can fix the package).
 \item \code{deprecate_warn()} warns unconditionally.
 \item \code{deprecate_stop()} fails unconditionally.
 }
 
 Warnings are only issued once per session to avoid overwhelming the
-user with repeated warnings.
+user with repeated warnings. See \code{\link[=with_lifecycle_warnings]{with_lifecycle_warnings()}} and
+variants to force silence, warnings, or errors.
 }
 \section{Controlling verbosity}{
 

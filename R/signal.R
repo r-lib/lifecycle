@@ -5,17 +5,18 @@
 #' These functions provide three levels of verbosity for deprecated
 #' functions.
 #'
-#' * `deprecate_soft()` warns only if called from the global
-#'   environment (so the user can change their script) or from the
-#'   package currently being tested (so the package developer can fix
-#'   the package).
+#' * `deprecate_soft()` warns only if the deprecated function is
+#'   called from the global environment (so the user can change their
+#'   script) or from the package currently being tested (so the
+#'   package developer can fix the package).
 #'
 #' * `deprecate_warn()` warns unconditionally.
 #'
 #' * `deprecate_stop()` fails unconditionally.
 #'
 #' Warnings are only issued once per session to avoid overwhelming the
-#' user with repeated warnings.
+#' user with repeated warnings. See [with_lifecycle_warnings()] and
+#' variants to force silence, warnings, or errors.
 #'
 #' @param when The version the feature was deprecated in.
 #' @param what If the deprecated feature is a whole function, the
@@ -25,14 +26,16 @@
 #'
 #'   You can optionally supply the namespace: `"ns::foo()"`. If you
 #'   don't, it is inferred from the caller environment.
-#' @param with A replacement for the deprecated feature. This should
-#'   be a string of the same form as `what`.
+#' @param with An optional replacement for the deprecated feature.
+#'   This should be a string of the same form as `what`.
 #' @param details The deprecation message is generated from `when`,
 #'   `what`, and `with`. You can additionally supply a string
 #'   `details` to be appended to the message.
 #' @param id The id of the deprecation. A warning is issued only once
-#'   for each `id`. Defaults to `msg`, but you should give a unique ID
-#'   when the message is built programmatically and depends on inputs.
+#'   for each `id`. Defaults to the generated message, but you should
+#'   give a unique ID when the message in `details` is built
+#'   programmatically and depends on inputs, or when you'd like to
+#'   deprecate multiple functions but warn only once for all of them.
 #' @param env The environment in which the soft-deprecated function
 #'   was called. A warning is issued if called from the global
 #'   environment. If testthat is running, a warning is also called if
