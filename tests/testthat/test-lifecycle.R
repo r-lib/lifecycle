@@ -23,8 +23,10 @@ test_that("deprecate_soft() warns when called from global env", {
 })
 
 test_that("deprecate_soft() warns when called from package being tested", {
+  old <- Sys.getenv("NOT_CRAN")
+  on.exit(Sys.setenv("NOT_CRAN" = old))
+
   Sys.setenv("NOT_CRAN" = "true")
-  on.exit(Sys.setenv("NOT_CRAN" = ""))
   retired <- function() deprecate_soft("1.0.0", "foo()")
   expect_warning(retired(), "is deprecated")
 })
