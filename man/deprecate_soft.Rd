@@ -54,6 +54,9 @@ package developer can fix the package).
 \item \code{deprecate_stop()} fails unconditionally.
 }
 
+These verbosity levels are appropriate for the following lifecycle
+stages respectively: soft-deprecated, deprecated, and defunct.
+
 Warnings are only issued once per session to avoid overwhelming the
 user with repeated warnings. See \code{\link[=with_lifecycle_warnings]{with_lifecycle_warnings()}} and
 variants to force silence, warnings, or errors.
