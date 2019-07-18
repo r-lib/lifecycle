@@ -2,15 +2,16 @@
 #'
 #' @description
 #'
-#' Use `lifecycle()` within a `Sexpr` macro to embed a
+#' Use `badge()` within a `Sexpr` macro to embed a
 #' [lifecycle](https://www.tidyverse.org/lifecycle/) badge in your
-#' documentation. The badge should appear first in the description:
+#' documentation. A good place for this badge is at the top of the
+#' topic description:
 #'
 #' ```
-#' \Sexpr[results=rd, stage=render]{mypkg:::lifecycle("questioning")}
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("questioning")}
 #' ```
 #'
-#' The badge appears as an image in the HTML version of the
+#' The badge is displayed as an image in the HTML version of the
 #' documentation. To make them available in your package, visit
 #' <https://github.com/r-lib/rlang/tree/master/man/figures> and copy
 #' all the files starting with `lifecycle-` in your `man/figures/`
@@ -20,18 +21,12 @@
 #'   `"experimental"`, `"maturing"`, `"stable"`, `"questioning"`,
 #'   `"archived"`, `"soft-deprecated"`, `"deprecated"`, `"defunct"`.
 #'
-#' @noRd
-NULL
-
-lifecycle <- function(stage) {
+#' @export
+badge <- function(stage) {
   url <- paste0("https://www.tidyverse.org/lifecycle/#", stage)
   img <- lifecycle_img(stage, url)
 
-  sprintf(
-    "\\ifelse{html}{%s}{\\strong{%s}}",
-    img,
-    upcase1(stage)
-  )
+  sprintf("\\ifelse{html}{%s}{\\strong{%s}}", img, upcase1(stage))
 }
 
 lifecycle_img <- function(stage, url) {
