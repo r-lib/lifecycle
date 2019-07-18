@@ -1,0 +1,46 @@
+
+
+Inferred package name (here it is base b/c of testthat's eval env)
+==================================================================
+
+`foo()` is deprecated as of base 1.0.0.
+
+
+Overridden package name
+=======================
+
+`foo()` is deprecated as of mypkg 1.0.0.
+
+
+Replacement function
+====================
+
+`foo()` is deprecated as of base 1.0.0.
+Please use `bar()` instead.
+
+
+Replacement function with overridden package names (1)
+======================================================
+
+`quux()` is deprecated as of foo 1.0.0.
+Please use `foofy()` instead.
+
+
+Replacement function with overridden package names (2)
+======================================================
+
+`quux()` is deprecated as of foo 1.0.0.
+Please use `bar::foofy()` instead.
+
+
+Details
+=======
+
+`foo()` is deprecated as of base 1.0.0.
+Please use `bar()` instead.
+
+  # Before:
+  foo()
+
+  # After:
+  bar()

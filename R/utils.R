@@ -6,3 +6,10 @@ upcase1 <- function(x) {
   substr(x, 1, 1) <- toupper(substr(x, 1, 1))
   x
 }
+
+cat_line <- function(...) {
+  cat(paste0(..., "\n", collapse = ""))
+}
+paste_line <- function(...) {
+  paste(chr(...), collapse = "\n")
+}
