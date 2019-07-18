@@ -44,25 +44,6 @@
 #'   environment. If testthat is running, a warning is also called if
 #'   the retired function was called from the package being tested.
 #'
-#' @section Controlling verbosity:
-#'
-#' The verbosity of retirement warnings can be controlled with global
-#' options. You'll generally want to set these options locally with
-#' one of these helpers:
-#'
-#' * `with_lifecycle_silence()` disables all soft-deprecation and
-#'   deprecation warnings.
-#'
-#' * `with_lifecycle_warnings()` enforces warnings for both
-#'   soft-deprecated and deprecated functions. The warnings are
-#'   repeated rather than signalled once per session.
-#'
-#' * `with_lifecycle_errors()` enforces errors for both
-#'   soft-deprecated and deprecated functions.
-#'
-#' All the `with_` helpers have `scoped_` variants that are
-#' particularly useful in testthat blocks.
-#'
 #' @seealso [lifecycle()]
 #'
 #' @examples

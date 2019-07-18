@@ -61,26 +61,6 @@ Warnings are only issued once per session to avoid overwhelming the
 user with repeated warnings. See \code{\link[=with_lifecycle_warnings]{with_lifecycle_warnings()}} and
 variants to force silence, warnings, or errors.
 }
-\section{Controlling verbosity}{
-
-
-The verbosity of retirement warnings can be controlled with global
-options. You'll generally want to set these options locally with
-one of these helpers:
-\itemize{
-\item \code{with_lifecycle_silence()} disables all soft-deprecation and
-deprecation warnings.
-\item \code{with_lifecycle_warnings()} enforces warnings for both
-soft-deprecated and deprecated functions. The warnings are
-repeated rather than signalled once per session.
-\item \code{with_lifecycle_errors()} enforces errors for both
-soft-deprecated and deprecated functions.
-}
-
-All the \code{with_} helpers have \code{scoped_} variants that are
-particularly useful in testthat blocks.
-}
-
 \examples{
 # A deprecated function `foo`:
 deprecate_warn("1.0.0", "foo()")

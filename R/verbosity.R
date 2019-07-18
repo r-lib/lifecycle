@@ -5,15 +5,28 @@
 #' There are 3 levels of verbosity for deprecated functions: silence,
 #' warning, and error. Which level of verbosity is applicable when you
 #' call a deprecated function depends on its lifecycle status, on the
-#' context of the caller, and on the state of the session. If you need
-#' to enforce a verbosity level for testing or debugging purposes,
-#' use one of the `with_` and `scoped_` functions.
+#' context of the caller, and on the state of the session (see the
+#' help for [deprecation functions][deprecate_soft]).
 #'
-#' - `with_` helpers enforce a verbosity level during the evaluation
-#'   of an expression.
+#' The default verbosity of deprecated functions can be controlled
+#' with global options. You'll generally want to set these options
+#' locally with one of these helpers:
 #'
-#' - `scoped_` helpers enforce a verbosity level for the duration of
-#'   the enclosing scope.
+#' * `with_lifecycle_silence()` disables all soft-deprecation and
+#'   deprecation warnings.
+#'
+#' * `with_lifecycle_warnings()` enforces warnings for both
+#'   soft-deprecated and deprecated functions. The warnings are
+#'   repeated rather than signalled once per session.
+#'
+#' * `with_lifecycle_errors()` enforces errors for both
+#'   soft-deprecated and deprecated functions.
+#'
+#' All the `with_` helpers have `scoped_` variants that are
+#' particularly useful in testthat blocks. Whereas `with_` helpers
+#' enforce a verbosity level during the evaluation of an expression,
+#' `scoped_` helpers enforce a verbosity level for the duration of the
+#' enclosing scope.
 #'
 #' @param expr For `with_` functions, an expression to evaluate with
 #'   the verbosity settings.
