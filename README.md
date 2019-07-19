@@ -156,3 +156,46 @@ foobar_adder <- function(foo, bar, baz = deprecated()) {
   foo + bar
 }
 ```
+
+
+### Workflow
+
+#### Where do these deprecation warnings come from?
+
+Call `lifecycle::last_warnings()` to see backtraces for all the deprecation warnings that were issued during the last top-level command.
+
+
+#### Bumping deprecation stage
+
+Some manual search and replace is needed to bump the status of deprecated features. We recommend starting with defunct features and work your way up:
+
+1. Search for `deprecate_stop()` and remove the feature from the package. The feature is now archived.
+
+1. Search for `deprecate_warn()` and replace with `deprecate_stop()`.
+
+1. Search for `deprecate_soft()` and replace with `deprecate_warn()`.
+
+1. Call `deprecate_soft()` from newly deprecated functions.
+
+Don't forget to update the badges in the documentation topics.
+
+
+### Test for deprecated features
+
+You can test that a deprecated feature still works by disabling the warnings with `scoped_lifecycle_silence()`:
+
+```{r}
+test_that("`baz` argument of `foobar_adder()` still works", {
+  scoped_lifecycle_silence()
+  foo(1, baz = 2)
+})
+```
+
+You can test that a feature is deprecated by forcing the warnings or forcing errors:
+
+```{r}
+test_that("`baz` argument of `foobar_adder()` is deprecated", {
+  scoped_lifecycle_errors()
+  expect_error(foo(1, baz = 2), class = "defunctError")
+})
+```
