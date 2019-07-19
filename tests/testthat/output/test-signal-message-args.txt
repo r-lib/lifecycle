@@ -17,7 +17,7 @@ Deprecated argument with argument replacement (same function)
 =============================================================
 
 The `quux` argument of `foo()` is deprecated as of base 1.0.0.
-Please use the argument `foofy` instead.
+Please use the `foofy` argument instead.
 
 
 Deprecated argument with argument replacement (different function)
