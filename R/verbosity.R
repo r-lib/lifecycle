@@ -90,7 +90,7 @@ with_lifecycle_warnings <- function(expr) {
 scoped_lifecycle_errors <- function(frame = caller_env()) {
   scoped_lifecycle_warnings(frame = frame)
   scoped_options(.frame = frame,
-    lifecycle_warnings_as_errors = TRUE
+    lifecycle_force_errors = TRUE
   )
 }
 #' @rdname scoped_lifecycle_silence

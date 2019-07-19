@@ -119,7 +119,7 @@ deprecate_warn <- function(when,
 
   env_poke(deprecation_env, id, TRUE);
 
-  if (is_true(peek_option("lifecycle_warnings_as_errors"))) {
+  if (is_true(peek_option("lifecycle_force_errors"))) {
     deprecate_stop(when, what, with = with, details = details)
   } else {
     if (!is_true(peek_option("lifecycle_force_warnings"))) {
