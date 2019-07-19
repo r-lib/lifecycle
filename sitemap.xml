@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://lifecycle.r-lib.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://lifecycle.r-lib.org/reference/badge.html</loc>
+  </url>
+  <url>
+    <loc>https://lifecycle.r-lib.org/reference/deprecate_soft.html</loc>
+  </url>
+  <url>
+    <loc>https://lifecycle.r-lib.org/reference/deprecated.html</loc>
+  </url>
+  <url>
+    <loc>https://lifecycle.r-lib.org/reference/last_warnings.html</loc>
+  </url>
+  <url>
+    <loc>https://lifecycle.r-lib.org/reference/lifecycle-package.html</loc>
+  </url>
+  <url>
+    <loc>https://lifecycle.r-lib.org/reference/scoped_lifecycle_silence.html</loc>
+  </url>
+</urlset>
