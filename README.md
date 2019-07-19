@@ -69,7 +69,7 @@ Make sure your users know what stage a feature is by adding badges in the help t
     #' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
     ```
 
-    This badge renders as text in non-HTML documentation. A good place to include it is at the top of the `@description` block.
+    This badge renders as text in non-HTML documentation. To document the status of a whole function, a good place to include the badge is at the top of the `@description` block. To document an argument, you can put the badge in the argument description.
 
 *   For functions in development, you typically don't need to advertise the status if it is the same as the package as a whole. For instance, if your package is [maturing](https://www.tidyverse.org/lifecycle/#maturing), only signal functions in the experimental, stable, and questioning stages.
 
