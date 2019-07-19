@@ -88,6 +88,9 @@ deprecate_soft <- function(when,
   if (nzchar(tested_package) &&
         identical(Sys.getenv("NOT_CRAN"), "true") &&
         env_name(topenv(env)) == env_name(ns_env(tested_package))) {
+    # Warn repeatedly in unit tests
+    scoped_options(lifecycle_force_warnings = TRUE)
+
     deprecate_warn(when, what, with = with, details = details, id = id)
     return(invisible(NULL))
   }
