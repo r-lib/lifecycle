@@ -83,8 +83,12 @@ print.lifecycle_warning_deprecated <- function(x, ..., simplify = c("branch", "c
 }
 
 warnings_env <- env(empty_env())
-warnings_env$last_top_frame <- NULL
-warnings_env$warnings <- list()
+
+init_warnings <- function() {
+  warnings_env$last_top_frame <- NULL
+  warnings_env$warnings <- list()
+}
+init_warnings()
 
 push_warning <- function(wrn) {
   current <- sexp_address(sys.frame(1))

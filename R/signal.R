@@ -133,7 +133,20 @@ deprecate_warn <- function(when,
     trace <- trace_back(bottom = caller_env())
     wrn <- new_deprecated_warning(msg, trace)
 
-    push_warning(wrn)
+    # Record muffled warnings if testthat is running because it
+    # muffles all warnings but we still want to examine them after a
+    # run of `devtools::test()`
+    maybe_push_warning <- function() {
+      if (Sys.getenv("TESTTHAT_PKG") != "") {
+        push_warning(wrn)
+      }
+    }
+
+    withRestarts(muffleWarning = maybe_push_warning, {
+      signalCondition(wrn)
+      push_warning(wrn)
+    })
+
     warning(wrn)
   }
 }
