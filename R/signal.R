@@ -112,7 +112,7 @@ deprecate_warn <- function(when,
     return(invisible(NULL))
   }
 
-  if (!is_true(peek_option("lifecycle_repeat_warnings")) &&
+  if (!is_true(peek_option("lifecycle_force_warnings")) &&
         env_has(deprecation_env, id)) {
     return(invisible(NULL))
   }
@@ -122,7 +122,7 @@ deprecate_warn <- function(when,
   if (is_true(peek_option("lifecycle_warnings_as_errors"))) {
     deprecate_stop(when, what, with = with, details = details)
   } else {
-    if (!is_true(peek_option("lifecycle_repeat_warnings"))) {
+    if (!is_true(peek_option("lifecycle_force_warnings"))) {
       msg <- paste_line(
         msg,
         silver("This warning is displayed once per session."),

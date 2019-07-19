@@ -47,10 +47,6 @@ test_that("deprecate_warn() repeats warnings when option is set", {
   expect_warning(retired1(), "is deprecated")
   expect_warning(retired2(), "is deprecated")
 
-  expect_no_warning(retired1())
-  expect_no_warning(retired2())
-
-  scoped_options(lifecycle_repeat_warnings = TRUE)
   expect_warning(retired1(), "is deprecated")
   expect_warning(retired2(), "is deprecated")
 })
@@ -76,8 +72,7 @@ test_that("lifecycle warnings helper enable warnings", {
 test_that("can disable lifecycle warnings", {
   scoped_lifecycle_silence()
   scoped_options(
-    lifecycle_force_warnings = TRUE,
-    lifecycle_repeat_warnings = TRUE
+    lifecycle_force_warnings = TRUE
   )
 
   expect_no_warning(deprecate_soft("1.0.0", "foo()"))
@@ -105,7 +100,7 @@ test_that("once-per-session note is not displayed on repeated warnings", {
   wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-per-session-note"))
   expect_true(grepl("once per session", wrn$message))
 
-  scoped_options(lifecycle_repeat_warnings = TRUE)
+  scoped_options(lifecycle_force_warnings = TRUE)
 
   wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-per-session-no-note"))
   expect_false(grepl("once per session", wrn$message))
