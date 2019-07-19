@@ -9,13 +9,13 @@ test_that("deprecate_soft() warns when called from global env", {
   env_bind(global_env(), retired = retired)
   on.exit(env_unbind(global_env(), "retired"), add = TRUE)
 
-  with_options(lifecycle_verbose_soft_deprecation = FALSE, {
+  with_options(lifecycle_force_warnings = FALSE, {
     locally({
       expect_no_warning(retired("rlang_test3"), "foo")
     })
   })
 
-  with_options(lifecycle_verbose_soft_deprecation = FALSE, {
+  with_options(lifecycle_force_warnings = FALSE, {
     with_env(global_env(), {
       expect_warning(retired("rlang_test4"), "foo")
     })
@@ -33,13 +33,13 @@ test_that("deprecate_soft() warns when called from package being tested", {
 
 test_that("deprecate_soft() warns when option is set", {
   retired <- function(id) deprecate_soft("1.0.0", "foo()", id = id)
-  with_options(lifecycle_verbose_soft_deprecation = TRUE, {
+  with_options(lifecycle_force_warnings = TRUE, {
     expect_warning(retired("rlang_test5"), "is deprecated")
   })
 })
 
 test_that("deprecate_warn() repeats warnings when option is set", {
-  scoped_options(lifecycle_verbose_soft_deprecation = TRUE)
+  scoped_options(lifecycle_force_warnings = TRUE)
 
   retired1 <- function() deprecate_soft("1.0.0", "foo()", id = "signal repeat")
   retired2 <- function() deprecate_warn("1.0.0", "foo()", id = "warn repeat")
@@ -76,7 +76,7 @@ test_that("lifecycle warnings helper enable warnings", {
 test_that("can disable lifecycle warnings", {
   scoped_lifecycle_silence()
   scoped_options(
-    lifecycle_verbose_soft_deprecation = TRUE,
+    lifecycle_force_warnings = TRUE,
     lifecycle_repeat_warnings = TRUE
   )
 

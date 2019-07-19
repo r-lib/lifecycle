@@ -76,7 +76,7 @@ deprecate_soft <- function(when,
     return(invisible(NULL))
   }
 
-  if (is_true(peek_option("lifecycle_verbose_soft_deprecation")) ||
+  if (is_true(peek_option("lifecycle_force_warnings")) ||
       env_inherits_global(env)) {
     deprecate_warn(when, what, with = with, details = details, id = id)
     return(invisible(NULL))

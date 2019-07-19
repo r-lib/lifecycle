@@ -75,7 +75,7 @@ with_lifecycle_silence <- function(expr) {
 scoped_lifecycle_warnings <- function(frame = caller_env()) {
   scoped_options(.frame = frame,
     lifecycle_disable_warnings = FALSE,
-    lifecycle_verbose_soft_deprecation = TRUE,
+    lifecycle_force_warnings = TRUE,
     lifecycle_repeat_warnings = TRUE
   )
 }
