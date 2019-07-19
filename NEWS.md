@@ -1,6 +1,11 @@
 
 # lifecycle 0.0.0.9000
 
+* Deprecation warnings now record a backtrace. Call
+  `lifecycle::last_warnings()` and `lifecycle::last_warning()` to
+  print the warnings that occurred during the last command, along with
+  their backtraces.
+
 * The naming scheme of signaller functions has been simplified:
 
   - `signal_soft_deprecated()` is now `deprecate_soft()`.

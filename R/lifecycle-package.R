@@ -26,3 +26,11 @@ strrep <- function(x, times) {
     paste0(replicate(times, x), collapse = "")
   }, list(x = x, times = times), MoreArgs = list()), use.names = FALSE)
 }
+
+
+sexp_address <- NULL
+
+.onLoad <- function(lib, pkg) {
+  # FIXME: Export from rlang
+  sexp_address <<- env_get(ns_env("rlang"), "sexp_address")
+}

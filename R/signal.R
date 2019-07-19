@@ -123,12 +123,33 @@ deprecate_warn <- function(when,
     deprecate_stop(when, what, with = with, details = details)
   } else {
     if (!is_true(peek_option("lifecycle_repeat_warnings"))) {
-      msg <- paste0(msg, "\n", silver("This warning is displayed once per session."))
+      msg <- paste_line(
+        msg,
+        silver("This warning is displayed once per session."),
+        silver("Call `lifecycle::last_warnings()` to see where this warning was generated.")
+      )
     }
-    .Deprecated(msg = msg)
+
+    trace <- trace_back(bottom = caller_env())
+    wrn <- new_deprecated_warning(msg, trace)
+
+    # Record muffled warnings if testthat is running because it
+    # muffles all warnings but we still want to examine them after a
+    # run of `devtools::test()`
+    maybe_push_warning <- function() {
+      if (Sys.getenv("TESTTHAT_PKG") != "") {
+        push_warning(wrn)
+      }
+    }
+
+    withRestarts(muffleWarning = maybe_push_warning, {
+      signalCondition(wrn)
+      push_warning(wrn)
+    })
+
+    warning(wrn)
   }
 }
-deprecation_env <- new.env(parent = emptyenv())
 
 #' @rdname deprecate_soft
 #' @export

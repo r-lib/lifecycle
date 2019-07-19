@@ -1,0 +1,33 @@
+
+
+default
+=======
+
+<deprecated>
+message: `trace()` is deprecated as of lifecycle 1.0.0.
+This warning is displayed once per session.
+Call `lifecycle::last_warnings()` to see where this warning was generated.
+backtrace:
+ 1. testthat::expect_warning(f(), class = "lifecycle_warning_deprecated")
+ 6. lifecycle:::f()
+ 7. lifecycle:::g()
+ 8. lifecycle:::h()
+
+
+full
+====
+
+<deprecated>
+message: `trace()` is deprecated as of lifecycle 1.0.0.
+This warning is displayed once per session.
+Call `lifecycle::last_warnings()` to see where this warning was generated.
+backtrace:
+    █
+ 1. ├─testthat::expect_warning(f(), class = "lifecycle_warning_deprecated")
+ 2. │ └─testthat:::quasi_capture(enquo(object), label, capture_warnings)
+ 3. │   ├─testthat:::.capture(...)
+ 4. │   │ └─base::withCallingHandlers(...)
+ 5. │   └─rlang::eval_bare(get_expr(.quo), get_env(.quo))
+ 6. └─lifecycle:::f()
+ 7.   └─lifecycle:::g()
+ 8.     └─lifecycle:::h()
