@@ -180,7 +180,7 @@ Some manual search and replace is needed to bump the status of deprecated featur
 Don't forget to update the badges in the documentation topics.
 
 
-### Test for deprecated features
+### Test deprecated features
 
 You can test that a deprecated feature still works by disabling the warnings with `scoped_lifecycle_silence()`:
 
@@ -191,11 +191,26 @@ test_that("`baz` argument of `foobar_adder()` still works", {
 })
 ```
 
-You can test that a feature is deprecated by forcing the warnings or forcing errors:
+You can test that a feature is correctly deprecated by forcing warnings and checking the class:
 
 ```{r}
 test_that("`baz` argument of `foobar_adder()` is deprecated", {
-  scoped_lifecycle_errors()
-  expect_error(foo(1, baz = 2), class = "defunctError")
+  scoped_lifecycle_warnings()
+  expect_warning(foo(1, baz = 2), class = "lifecycle_warning_deprecated")
 })
 ```
+
+
+### Find out what deprecated features you rely on
+
+Test whether your package depends on deprecated features directly or indirectly by inserting `scoped_lifecycle_errors()` in the `tests/testthat.R` file just before `test_check()` is called:
+
+```{r}
+library(testthat)
+library(mypackage)
+
+scoped_lifecycle_errors()
+test_check("mypackage")
+```
+
+This forces all deprecated features to fail.
