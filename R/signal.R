@@ -39,10 +39,14 @@
 #'   give a unique ID when the message in `details` is built
 #'   programmatically and depends on inputs, or when you'd like to
 #'   deprecate multiple functions but warn only once for all of them.
-#' @param env The environment in which the soft-deprecated function
+#' @param env The environment in which the deprecated function
 #'   was called. A warning is issued if called from the global
 #'   environment. If testthat is running, a warning is also called if
-#'   the retired function was called from the package being tested.
+#'   the deprecated function was called from the package being tested.
+#'
+#'   This typically doesn't need to be specified, unless you call
+#'   `deprecate_soft()` or `deprecate_warn()` from an internal helper.
+#'   In that case, you need to forward the calling environment.
 #'
 #' @seealso [lifecycle()]
 #'
@@ -110,7 +114,8 @@ deprecate_warn <- function(when,
                            what,
                            with = NULL,
                            details = NULL,
-                           id = NULL) {
+                           id = NULL,
+                           env = caller_env(2)) {
   msg <- lifecycle_build_message(when, what, with, details, "deprecate_warn")
 
   id <- id %||% msg
@@ -121,7 +126,8 @@ deprecate_warn <- function(when,
   }
 
   if (!is_true(peek_option("lifecycle_force_warnings")) &&
-        env_has(deprecation_env, id)) {
+        env_has(deprecation_env, id) &&
+        !from_testthat(env)) {
     return(invisible(NULL))
   }
 
