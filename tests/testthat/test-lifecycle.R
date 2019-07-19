@@ -56,7 +56,7 @@ test_that("lifecycle warnings helper enable warnings", {
   retired2 <- function() deprecate_warn("1.0.0", "foo()")
 
   with_options(
-    lifecycle_disable_warnings = TRUE,
+    lifecycle_quiet_warnings = TRUE,
     {
       evalq({
         scoped_lifecycle_warnings()

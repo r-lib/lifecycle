@@ -72,7 +72,7 @@ deprecate_soft <- function(when,
                            env = caller_env(2)) {
   stopifnot(is_environment(env))
 
-  if (is_true(peek_option("lifecycle_disable_warnings"))) {
+  if (is_true(peek_option("lifecycle_quiet_warnings"))) {
     return(invisible(NULL))
   }
 
@@ -108,7 +108,7 @@ deprecate_warn <- function(when,
   id <- id %||% msg
   stopifnot(is_string(id))
 
-  if (is_true(peek_option("lifecycle_disable_warnings"))) {
+  if (is_true(peek_option("lifecycle_quiet_warnings"))) {
     return(invisible(NULL))
   }
 

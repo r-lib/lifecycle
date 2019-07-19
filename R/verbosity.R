@@ -60,7 +60,7 @@
 #' @export
 scoped_lifecycle_silence <- function(frame = caller_env()) {
   scoped_options(.frame = frame,
-    lifecycle_disable_warnings = TRUE
+    lifecycle_quiet_warnings = TRUE
   )
 }
 #' @rdname scoped_lifecycle_silence
@@ -74,7 +74,7 @@ with_lifecycle_silence <- function(expr) {
 #' @export
 scoped_lifecycle_warnings <- function(frame = caller_env()) {
   scoped_options(.frame = frame,
-    lifecycle_disable_warnings = FALSE,
+    lifecycle_quiet_warnings = FALSE,
     lifecycle_force_warnings = TRUE
   )
 }
