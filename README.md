@@ -187,16 +187,24 @@ You can test that a deprecated feature still works by disabling the warnings wit
 ```{r}
 test_that("`baz` argument of `foobar_adder()` still works", {
   scoped_lifecycle_silence()
-  foo(1, baz = 2)
+  foobar_adder(1, baz = 2)
 })
 ```
 
-You can test that a feature is correctly deprecated by forcing warnings and checking the class:
+You can test that a feature is correctly deprecated by forcing warnings and checking the class `"lifecycle_warning_deprecated"`:
 
 ```{r}
 test_that("`baz` argument of `foobar_adder()` is deprecated", {
   scoped_lifecycle_warnings()
-  expect_warning(foo(1, baz = 2), class = "lifecycle_warning_deprecated")
+  expect_warning(foobar_adder(1, baz = 2), class = "lifecycle_warning_deprecated")
+})
+```
+
+Defunct features throw errors of class `"lifecycle_error_deprecated"`:
+
+```{r}
+test_that("`foo()` is defunct", {
+  expect_error(foo(), class = "lifecycle_error_deprecated")
 })
 ```
 

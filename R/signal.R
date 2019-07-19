@@ -160,7 +160,7 @@ deprecate_stop <- function(when,
   msg <- lifecycle_build_message(when, what, with, details, "deprecate_stop")
 
   stop(cnd(
-    c("defunctError", "error", "condition"),
+    c("lifecycle_error_deprecated", "defunctError", "error", "condition"),
     old = NULL,
     new = NULL,
     package = NULL,
