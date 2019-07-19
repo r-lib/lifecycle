@@ -39,10 +39,14 @@
 #'   give a unique ID when the message in `details` is built
 #'   programmatically and depends on inputs, or when you'd like to
 #'   deprecate multiple functions but warn only once for all of them.
-#' @param env The environment in which the soft-deprecated function
+#' @param env The environment in which the deprecated function
 #'   was called. A warning is issued if called from the global
 #'   environment. If testthat is running, a warning is also called if
-#'   the retired function was called from the package being tested.
+#'   the deprecated function was called from the package being tested.
+#'
+#'   This typically doesn't need to be specified, unless you call
+#'   `deprecate_soft()` or `deprecate_warn()` from an internal helper.
+#'   In that case, you need to forward the calling environment.
 #'
 #' @seealso [lifecycle()]
 #'
@@ -70,24 +74,20 @@ deprecate_soft <- function(when,
                            details = NULL,
                            id = NULL,
                            env = caller_env(2)) {
-  stopifnot(is_environment(env))
-
-  if (is_true(peek_option("lifecycle_disable_warnings"))) {
+  if (is_true(peek_option("lifecycle_quiet_warnings"))) {
     return(invisible(NULL))
   }
 
-  if (is_true(peek_option("lifecycle_verbose_soft_deprecation")) ||
+  if (is_true(peek_option("lifecycle_force_warnings")) ||
       env_inherits_global(env)) {
     deprecate_warn(when, what, with = with, details = details, id = id)
     return(invisible(NULL))
   }
 
-  # Test for environment names rather than reference/contents because
-  # testthat clones the namespace
-  tested_package <- Sys.getenv("TESTTHAT_PKG")
-  if (nzchar(tested_package) &&
-        identical(Sys.getenv("NOT_CRAN"), "true") &&
-        env_name(topenv(env)) == env_name(ns_env(tested_package))) {
+  if (from_testthat(env)) {
+    # Warn repeatedly in unit tests
+    scoped_options(lifecycle_force_warnings = TRUE)
+
     deprecate_warn(when, what, with = with, details = details, id = id)
     return(invisible(NULL))
   }
@@ -96,33 +96,47 @@ deprecate_soft <- function(when,
   signal(msg, "lifecycle_soft_deprecated")
 }
 
+# TRUE if we are in unit tests and the package being tested is the
+# same as the package that called
+from_testthat <- function(env) {
+  tested_package <- Sys.getenv("TESTTHAT_PKG")
+
+  # Test for environment names rather than reference/contents because
+  # testthat clones the namespace
+  nzchar(tested_package) &&
+    identical(Sys.getenv("NOT_CRAN"), "true") &&
+    env_name(topenv(env)) == env_name(ns_env(tested_package))
+}
+
 #' @rdname deprecate_soft
 #' @export
 deprecate_warn <- function(when,
                            what,
                            with = NULL,
                            details = NULL,
-                           id = NULL) {
+                           id = NULL,
+                           env = caller_env(2)) {
   msg <- lifecycle_build_message(when, what, with, details, "deprecate_warn")
 
   id <- id %||% msg
   stopifnot(is_string(id))
 
-  if (is_true(peek_option("lifecycle_disable_warnings"))) {
+  if (is_true(peek_option("lifecycle_quiet_warnings"))) {
     return(invisible(NULL))
   }
 
-  if (!is_true(peek_option("lifecycle_repeat_warnings")) &&
-        env_has(deprecation_env, id)) {
+  if (!is_true(peek_option("lifecycle_force_warnings")) &&
+        env_has(deprecation_env, id) &&
+        !from_testthat(env)) {
     return(invisible(NULL))
   }
 
   env_poke(deprecation_env, id, TRUE);
 
-  if (is_true(peek_option("lifecycle_warnings_as_errors"))) {
+  if (is_true(peek_option("lifecycle_force_errors"))) {
     deprecate_stop(when, what, with = with, details = details)
   } else {
-    if (!is_true(peek_option("lifecycle_repeat_warnings"))) {
+    if (!is_true(peek_option("lifecycle_force_warnings"))) {
       msg <- paste_line(
         msg,
         silver("This warning is displayed once per session."),

@@ -1,6 +1,9 @@
 
 # lifecycle 0.0.0.9000
 
+* Deprecated functions under the control of the developer now warn
+  repeatedly in unit tests.
+
 * Deprecation warnings now record a backtrace. Call
   `lifecycle::last_warnings()` and `lifecycle::last_warning()` to
   print the warnings that occurred during the last command, along with

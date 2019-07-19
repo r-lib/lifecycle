@@ -60,7 +60,7 @@
 #' @export
 scoped_lifecycle_silence <- function(frame = caller_env()) {
   scoped_options(.frame = frame,
-    lifecycle_disable_warnings = TRUE
+    lifecycle_quiet_warnings = TRUE
   )
 }
 #' @rdname scoped_lifecycle_silence
@@ -74,9 +74,8 @@ with_lifecycle_silence <- function(expr) {
 #' @export
 scoped_lifecycle_warnings <- function(frame = caller_env()) {
   scoped_options(.frame = frame,
-    lifecycle_disable_warnings = FALSE,
-    lifecycle_verbose_soft_deprecation = TRUE,
-    lifecycle_repeat_warnings = TRUE
+    lifecycle_quiet_warnings = FALSE,
+    lifecycle_force_warnings = TRUE
   )
 }
 #' @rdname scoped_lifecycle_silence
@@ -91,7 +90,7 @@ with_lifecycle_warnings <- function(expr) {
 scoped_lifecycle_errors <- function(frame = caller_env()) {
   scoped_lifecycle_warnings(frame = frame)
   scoped_options(.frame = frame,
-    lifecycle_warnings_as_errors = TRUE
+    lifecycle_force_errors = TRUE
   )
 }
 #' @rdname scoped_lifecycle_silence
