@@ -126,7 +126,7 @@ deprecate_warn <- function(when,
       msg <- paste_line(
         msg,
         silver("This warning is displayed once per session."),
-        silver("Call `lifecycle::last_warnings()` to see a backtrace.")
+        silver("Call `lifecycle::last_warnings()` to see where this warning was generated.")
       )
     }
 
