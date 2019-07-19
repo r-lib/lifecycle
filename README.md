@@ -222,4 +222,21 @@ scoped_lifecycle_errors()
 test_check("mypackage")
 ```
 
-This forces all deprecated features to fail.
+This forces all deprecated features to fail. You can also set the relevant options manually to force warnings or errors in your session:
+
+```{r}
+# Force warnings
+options(
+  lifecycle_quiet_warnings = FALSE,
+  lifecycle_force_warnings = TRUE
+)
+
+# Force errors
+options(
+  lifecycle_quiet_warnings = FALSE,
+  lifecycle_force_warnings = TRUE,
+  lifecycle_force_errors = TRUE
+)
+```
+
+Forcing warnings can be useful in conjuction with `last_warnings()`, which prints backtraces for all the deprecation warnings issued during the last top-level command.
