@@ -12,15 +12,29 @@ badge(stage)
 \code{"archived"}, \code{"soft-deprecated"}, \code{"deprecated"}, \code{"defunct"}.}
 }
 \description{
-Use \code{badge()} within a \code{Sexpr} macro to embed a
-\href{https://www.tidyverse.org/lifecycle/}{lifecycle} badge in your
-documentation. A good place for this badge is at the top of the
-topic description:\preformatted{\Sexpr[results=rd, stage=render]{lifecycle::badge("questioning")}
+Call \code{usethis::use_lifecycle()} to import the badges in your
+package. Then use the \code{lifecycle} Rd macro to insert a lifecycle
+badges in your documentation, with the relevant lifecycle stage as
+argument:\preformatted{\lifecycle{experimental}
+\lifecycle{soft-deprecated}
 }
 
-The badge is displayed as an image in the HTML version of the
-documentation. To make them available in your package, visit
-\url{https://github.com/r-lib/rlang/tree/master/man/figures} and copy
-all the files starting with \code{lifecycle-} in your \code{man/figures/}
-folder.
+The badge is displayed as image in the HTML version of the
+documentation and as text otherwise.
+
+If the deprecated feature is a function, a good place for this
+badge is at the top of the topic description (if the deprecated
+function is documented with other functions, it might be a good
+idea to extract it in its own documentation topic to prevent
+confusion). If it is an argument, you can put the badge in the
+argument description.
+}
+\details{
+The \code{lifecycle{}} macro is made available by adding this field to
+DESCRIPTION (this is done automatically by
+\code{usethis::use_lifecycle()}):\preformatted{RdMacros: lifecycle
+}
+
+The macro expands to this expression:\preformatted{\Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+}
 }

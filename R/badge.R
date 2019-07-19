@@ -2,20 +2,42 @@
 #'
 #' @description
 #'
-#' Use `badge()` within a `Sexpr` macro to embed a
-#' [lifecycle](https://www.tidyverse.org/lifecycle/) badge in your
-#' documentation. A good place for this badge is at the top of the
-#' topic description:
+#' Call `usethis::use_lifecycle()` to import the badges in your
+#' package. Then use the `lifecycle` Rd macro to insert a lifecycle
+#' badges in your documentation, with the relevant lifecycle stage as
+#' argument:
 #'
 #' ```
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("questioning")}
+#' \lifecycle{experimental}
+#' \lifecycle{soft-deprecated}
 #' ```
 #'
-#' The badge is displayed as an image in the HTML version of the
-#' documentation. To make them available in your package, visit
-#' <https://github.com/r-lib/rlang/tree/master/man/figures> and copy
-#' all the files starting with `lifecycle-` in your `man/figures/`
-#' folder.
+#' The badge is displayed as image in the HTML version of the
+#' documentation and as text otherwise.
+#'
+#' If the deprecated feature is a function, a good place for this
+#' badge is at the top of the topic description (if the deprecated
+#' function is documented with other functions, it might be a good
+#' idea to extract it in its own documentation topic to prevent
+#' confusion). If it is an argument, you can put the badge in the
+#' argument description.
+#'
+#'
+#' @details
+#'
+#' The `lifecycle{}` macro is made available by adding this field to
+#' DESCRIPTION (this is done automatically by
+#' `usethis::use_lifecycle()`):
+#'
+#' ```
+#' RdMacros: lifecycle
+#' ```
+#'
+#' The macro expands to this expression:
+#'
+#' ```
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+#' ```
 #'
 #' @param stage A lifecycle stage as a string, one of:
 #'   `"experimental"`, `"maturing"`, `"stable"`, `"questioning"`,

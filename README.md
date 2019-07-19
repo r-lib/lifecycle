@@ -63,10 +63,11 @@ Make sure your users know what stage a feature is by adding badges in the help t
 
 *   Call `usethis::use_lifecycle()` to import the badges in your package.
 
-*   Include the following macro to insert a badge:
+*   Use the `lifecycle` Rd macro to insert a badge:
 
     ```
-    #' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+    #' \lifecycle{experimental}
+    #' \lifecycle{soft-deprecated}
     ```
 
     This badge renders as text in non-HTML documentation. To document the status of a whole function, a good place to include the badge is at the top of the `@description` block. To document an argument, you can put the badge in the argument description.
