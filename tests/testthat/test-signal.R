@@ -65,3 +65,7 @@ test_that("non-syntactic names are handled gracefully", {
     cat_line(lifecycle_build_message("1.0.0", "bar::`foo-fy`(`qu-ux` = )", signaller = "deprecate_stop"))
   })
 })
+
+test_that("defunct errors inherit from lifecycle subclass", {
+  expect_error(deprecate_stop("1.0.0", "foo()"), class = "lifecycle_error_deprecated")
+})
