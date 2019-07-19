@@ -1,1 +1,12 @@
 url: https://lifecycle.r-lib.org
+
+navbar:
+  structure:
+    left:  [home, reference, news]
+    right: [github]
+  components:
+    news:
+      text: News
+      menu:
+      - text: "Changelog"
+        href: news/index.html
