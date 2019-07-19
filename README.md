@@ -55,9 +55,28 @@ Once the decision of discontinuing a feature has been made, it goes through 3 __
 Finally, when a feature is no longer exposed or mentioned in the released version of the package, it is said to be __archived__.
 
 
-### Verbosity
+### Badges
 
-lifecycle offers 3 levels of verbosity corresponding to the deprecation stages.
+Make sure your users know what stage a feature is by adding badges in the help topics of your functions.
+
+<img src="man/figures/example-badge.png" align="center" alt = "badge" />
+
+*   Call `usethis::use_lifecycle()` to import the badges in your package.
+
+*   Include the following macro to insert a badge:
+
+    ```
+    #' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+    ```
+
+    This badge renders as text in non-HTML documentation. A good place to include it is at the top of the `@description` block.
+
+*   For functions in development, you typically don't need to advertise the status if it is the same as the package as a whole. For instance, if your package is [maturing](https://www.tidyverse.org/lifecycle/#maturing), only signal functions in the experimental, stable, and questioning stages.
+
+
+### Verbosity of deprecation
+
+lifecycle offers three levels of verbosity corresponding to the three deprecation stages.
 
 *   __Soft deprecation__: At this stage, call `deprecate_soft()` to start warning users about the deprecation in the least disruptive way.
 
@@ -137,20 +156,3 @@ foobar_adder <- function(foo, bar, baz = deprecated()) {
   foo + bar
 }
 ```
-
-
-### Badges
-
-Finally, add a badge in the documentation topic of your functions so their lifecycle status stands out.
-
-*   Call `usethis::use_lifecycle()` to import the badges in your package.
-
-*   Include the following macro to insert a badge:
-
-    ```
-    #' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
-    ```
-
-    This badge renders as text in non-HTML documentation. A good place to include it is at the top of the `@description` block.
-
-*   For functions in development, you typically don't need to advertise the status if it is the same as the package as a whole. For instance, if your package is [maturing](https://www.tidyverse.org/lifecycle/#maturing), only signal functions in the experimental, stable, and questioning stages.
