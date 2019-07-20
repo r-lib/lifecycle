@@ -25,10 +25,7 @@ the backtrace. It supports one of \code{"branch"} (the default),
 }
 \examples{
 
-# Do not run this. This reduces the verbosity of backtraces when
-# run inside knitr or pkgdown.
-options(rlang_trace_top_env = environment())
-
+if (FALSE) {
 
 f <- function() invisible(g())
 g <- function() list(h(), i())
@@ -46,5 +43,7 @@ last_warning()
 # By default, the backtraces are printed in their simplified form.
 # Use `simplify` to control the verbosity:
 print(last_warnings(), simplify = "none")
+
+}
 
 }
