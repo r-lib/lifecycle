@@ -20,7 +20,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-home">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -60,7 +60,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/r-lib/lifecycle">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -70,12 +77,17 @@
 
       
       </header><div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
+    
 
-<p><a href="https://travis-ci.org/r-lib/lifecycle"><img src="https://travis-ci.org/r-lib/lifecycle.svg?branch=master" alt="Travis build status"></a> <a href="https://codecov.io/gh/r-lib/lifecycle?branch=master"><img src="https://codecov.io/gh/r-lib/lifecycle/branch/master/graph/badge.svg" alt="Codecov test coverage"></a> <!-- badges: end --></p>
+    
+    
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 <div id="lifecycle" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#lifecycle" class="anchor"></a>lifecycle</h1></div>
+<!-- badges: start -->
+<p><a href="https://travis-ci.org/r-lib/lifecycle"><img src="https://travis-ci.org/r-lib/lifecycle.svg?branch=master" alt="Travis build status"></a> <a href="https://codecov.io/gh/r-lib/lifecycle?branch=master"><img src="https://codecov.io/gh/r-lib/lifecycle/branch/master/graph/badge.svg" alt="Codecov test coverage"></a> <!-- badges: end --></p>
 <p>lifecycle provides a set of tools and conventions to manage the life cycle of your exported functions.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -86,6 +98,7 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(lifecycle)</a></code></pre></div>
 <p>Use lifecycle to document the status of your exported functions and arguments:</p>
 <ul>
 <li><p>Choose one of the 7 lifecycle stages a function or argument can be in. You can choose from 4 development stages (experimental, maturing, stable, and questining) and 3 deprecation stages (soft-deprecated, deprecated, and defunct).</p></li>
@@ -97,14 +110,14 @@
 <a href="#stages" class="anchor"></a>Stages</h3>
 <p>The lifecycle stages for functions and arguments closely mirror the <a href="https://www.tidyverse.org/lifecycle/">lifecycle stages for packages</a>.</p>
 <p>There are 4 <strong>development</strong> stages.</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li><p><img src="reference/figures/lifecycle-experimental.svg" align="left" alt="Experimental"> This is a new feature that is in the very early stage of development. It is exported so users can start to use it and report feedback, but its interface and/or behaviour is likely to change in the future. It is generally best to avoid depending on experimental features.</p></li>
 <li><p><img src="reference/figures/lifecycle-maturing.svg" align="left" alt="Maturing">. The interface and behaviour of a maturing feature has been roughed out, but finer details are likely to change. It still needs more feedback to find the optimal API.</p></li>
 <li><p><img src="reference/figures/lifecycle-stable.svg" align="left" alt="Stable"> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.</p></li>
 <li><p><img src="reference/figures/lifecycle-questioning.svg" align="left" alt="Questioning"> The author is no longer convinced that the feature is the optimal approach. However, there are no recommended alternatives yet.</p></li>
 </ol>
 <p>Once the decision of discontinuing a feature has been made, it goes through 3 <strong>deprecation</strong> stages.</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li><p><img src="reference/figures/lifecycle-soft-deprecated.svg" align="left" alt="Soft deprecated">. The author is no longer happy with a feature because they consider it sub-optimal compared to some other approach, or simply because they no longer have the time to maintain it. A soft-deprecated feature can still be used without hassle, but users should consider switching to an alternative approach.</p></li>
 <li><p><img src="reference/figures/lifecycle-deprecated.svg" align="left" alt="Deprecated">. The feature is likely to be discontinued in the next major release. Users should switch to an alternative approach as soon as possible.</p></li>
 <li><p><img src="reference/figures/lifecycle-defunct.svg" align="left" alt="Defunct">. The feature can no longer be used. A defunct function is still exported, and a defunct argument is still part of the signature. This way an informative error can be thrown.</p></li>
@@ -145,52 +158,78 @@
 <h3 class="hasAnchor">
 <a href="#deprecating-functions" class="anchor"></a>Deprecating functions</h3>
 <p>These functions take the version number starting from which the feature is considered deprecated (it should remain the same across all deprecation stages), and a feature descriptor:</p>
-<pre><code><a href="reference/deprecate_soft.html">deprecate_warn("1.0.0", "mypkg::foo()")
-#&gt; Warning message:
-#&gt; `foo()` is deprecated as of mypkg 1.0.0.</a></code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; Warning: `foo()` is deprecated as of mypkg 1.0.0.</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; Warning: `foo()` is deprecated as of mypkg 1.0.0.</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a></code></pre></div>
 <p>You can optionally provide a replacement:</p>
-<pre><code><a href="reference/deprecate_soft.html">deprecate_warn("1.0.0", "mypkg::foo()", "new()")
-#&gt; Warning message:
-#&gt; `foo()` is deprecated as of mypkg 1.0.0.
-#&gt; Please use `new()` instead.</a></code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span>, <span class="st">"new()"</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; Warning: `foo()` is deprecated as of mypkg 1.0.0.</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; Please use `new()` instead.</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; Warning: `foo()` is deprecated as of mypkg 1.0.0.</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; Please use `new()` instead.</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a></code></pre></div>
 <p>For the purpose of these examples we explicitly mentioned the namespace with <code>mypkg::</code>, however you can typically omit it because lifecycle infers the namespace from the calling environment. Specifying the namespace is mostly useful when the replacement is implemented in a different package.</p>
-<pre class="{r}"><code># The new replacement
-foobar_adder &lt;- function(foo, bar) {
-  foo + bar
-}
-
-# The old function still exported for compatibility
-foobaz_adder &lt;- function(foo, bar) {
-  deprecate_warn("1.0.0", "foobaz_adder()", "foobar_adder()")
-  foobar_adder(foo, bar)
-}</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># The new replacement</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">foobar_adder &lt;-<span class="st"> </span><span class="cf">function</span>(foo, bar) {</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  foo <span class="op">+</span><span class="st"> </span>bar</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co"># The old function still exported for compatibility</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">foobaz_adder &lt;-<span class="st"> </span><span class="cf">function</span>(foo, bar) {</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">  <span class="kw"><a href="reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"foobaz_adder()"</span>, <span class="st">"foobar_adder()"</span>)</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">  <span class="kw">foobar_adder</span>(foo, bar)</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">}</a></code></pre></div>
 </div>
 <div id="deprecating-arguments" class="section level3">
 <h3 class="hasAnchor">
 <a href="#deprecating-arguments" class="anchor"></a>Deprecating arguments</h3>
 <p>The syntax for deprecating argument is based on the syntax for deprecating functions:</p>
-<pre class="{r}"><code><a href="reference/deprecate_soft.html">deprecate_warn("1.0.0", "mypkg::foo(arg = )")
-#&gt; Warning message:
-#&gt; The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
-
-deprecate_warn("1.0.0", "mypkg::foo(arg = )", "mypkg::foo(new = )")
-#&gt; Warning message:
-#&gt; The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
-#&gt; Please use the `new` argument instead.</a></code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = )"</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; Warning message:</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="kw"><a href="reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = )"</span>, <span class="st">"mypkg::foo(new = )"</span>)</a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; Please use the `new` argument instead.</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.</span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; Please use the `new` argument instead.</span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; Warning message:</span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.</span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; Please use the `new` argument instead.</span></a></code></pre></div>
 <p>lifecycle also provides the <code><a href="reference/deprecated.html">deprecated()</a></code> sentinel to use as default argument. This provides self-documentation for your users, and makes it possible for external tools to determine which arguments are deprecated. This sentinel is simply the missing argument, so you can test whether the argument was supplied with <code><a href="https://rlang.r-lib.org/reference/missing_arg.html">rlang::is_missing()</a></code>:</p>
-<pre class="{r}"><code>foobar_adder &lt;- function(foo, bar, baz = deprecated()) {
-  # Check if user has supplied `baz` instead of `bar`
-  if (!rlang::is_missing(baz)) {
-
-    # Signal the deprecation to the user
-    deprecate_warn("1.0.0", "foobar_adder(baz = )", "foobar_adder(bar = )")
-
-    # Deal with the deprecated argument for compatibility
-    bar &lt;- baz
-  }
-
-  foo + bar
-}</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">foobar_adder &lt;-<span class="st"> </span><span class="cf">function</span>(foo, bar, <span class="dt">baz =</span> <span class="kw"><a href="reference/deprecated.html">deprecated</a></span>()) {</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="co"># Check if user has supplied `baz` instead of `bar`</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="cf">if</span> (<span class="op">!</span>rlang<span class="op">::</span><span class="kw"><a href="https://rlang.r-lib.org/reference/missing_arg.html">is_missing</a></span>(baz)) {</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">    <span class="co"># Signal the deprecation to the user</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">    <span class="kw"><a href="reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"foobar_adder(baz = )"</span>, <span class="st">"foobar_adder(bar = )"</span>)</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">    <span class="co"># Deal with the deprecated argument for compatibility</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">    bar &lt;-<span class="st"> </span>baz</a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">  }</a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">  foo <span class="op">+</span><span class="st"> </span>bar</a>
+<a class="sourceLine" id="cb8-13" data-line-number="13">}</a></code></pre></div>
 </div>
 <div id="workflow" class="section level3">
 <h3 class="hasAnchor">
@@ -204,7 +243,7 @@ deprecate_warn("1.0.0", "mypkg::foo(arg = )", "mypkg::foo(new = )")
 <h4 class="hasAnchor">
 <a href="#bumping-deprecation-stage" class="anchor"></a>Bumping deprecation stage</h4>
 <p>Some manual search and replace is needed to bump the status of deprecated features. We recommend starting with defunct features and work your way up:</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li><p>Search for <code><a href="reference/deprecate_soft.html">deprecate_stop()</a></code> and remove the feature from the package. The feature is now archived.</p></li>
 <li><p>Search for <code><a href="reference/deprecate_soft.html">deprecate_warn()</a></code> and replace with <code><a href="reference/deprecate_soft.html">deprecate_stop()</a></code>.</p></li>
 <li><p>Search for <code><a href="reference/deprecate_soft.html">deprecate_soft()</a></code> and replace with <code><a href="reference/deprecate_soft.html">deprecate_warn()</a></code>.</p></li>
@@ -217,51 +256,59 @@ deprecate_warn("1.0.0", "mypkg::foo(arg = )", "mypkg::foo(new = )")
 <h3 class="hasAnchor">
 <a href="#test-deprecated-features" class="anchor"></a>Test deprecated features</h3>
 <p>You can test that a deprecated feature still works by disabling the warnings with <code><a href="reference/scoped_lifecycle_silence.html">scoped_lifecycle_silence()</a></code>:</p>
-<pre class="{r}"><code><a href="https://www.rdocumentation.org/packages/testthat/topics/test_that">test_that("`baz` argument of `foobar_adder()` still works", {
-  scoped_lifecycle_silence()
-  foobar_adder(1, baz = 2)
-})</a></code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">"`baz` argument of `foobar_adder()` still works"</span>, {</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">  <span class="kw"><a href="reference/scoped_lifecycle_silence.html">scoped_lifecycle_silence</a></span>()</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">  <span class="kw">foobar_adder</span>(<span class="dv">1</span>, <span class="dt">baz =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">})</a></code></pre></div>
 <p>You can test that a feature is correctly deprecated by forcing warnings and checking the class <code>"lifecycle_warning_deprecated"</code>:</p>
-<pre class="{r}"><code><a href="https://www.rdocumentation.org/packages/testthat/topics/test_that">test_that("`baz` argument of `foobar_adder()` is deprecated", {
-  scoped_lifecycle_warnings()
-  expect_warning(foobar_adder(1, baz = 2), class = "lifecycle_warning_deprecated")
-})</a></code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">"`baz` argument of `foobar_adder()` is deprecated"</span>, {</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="kw"><a href="reference/scoped_lifecycle_silence.html">scoped_lifecycle_warnings</a></span>()</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="kw">expect_warning</span>(<span class="kw">foobar_adder</span>(<span class="dv">1</span>, <span class="dt">baz =</span> <span class="dv">2</span>), <span class="dt">class =</span> <span class="st">"lifecycle_warning_deprecated"</span>)</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">})</a></code></pre></div>
 <p>Defunct features throw errors of class <code>"lifecycle_error_deprecated"</code>:</p>
-<pre class="{r}"><code><a href="https://www.rdocumentation.org/packages/testthat/topics/test_that">test_that("`foo()` is defunct", {
-  expect_error(foo(), class = "lifecycle_error_deprecated")
-})</a></code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">"`foo()` is defunct"</span>, {</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">  <span class="kw">expect_error</span>(<span class="kw">foo</span>(), <span class="dt">class =</span> <span class="st">"lifecycle_error_deprecated"</span>)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">})</a></code></pre></div>
 </div>
 <div id="find-out-what-deprecated-features-you-rely-on" class="section level3">
 <h3 class="hasAnchor">
 <a href="#find-out-what-deprecated-features-you-rely-on" class="anchor"></a>Find out what deprecated features you rely on</h3>
 <p>Test whether your package depends on deprecated features directly or indirectly by inserting <code><a href="reference/scoped_lifecycle_silence.html">scoped_lifecycle_errors()</a></code> in the <code>tests/testthat.R</code> file just before <code><a href="https://www.rdocumentation.org/packages/testthat/topics/test_dir">test_check()</a></code> is called:</p>
-<pre class="{r}"><code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(testthat)
-library(mypackage)
-
-scoped_lifecycle_errors()
-test_check("mypackage")</a></code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(testthat)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(mypackage)</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw"><a href="reference/scoped_lifecycle_silence.html">scoped_lifecycle_errors</a></span>()</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/testthat/topics/test_dir">test_check</a></span>(<span class="st">"mypackage"</span>)</a></code></pre></div>
 <p>This forces all deprecated features to fail. You can also set the relevant options manually to force warnings or errors in your session:</p>
-<pre class="{r}"><code><a href="https://www.rdocumentation.org/packages/base/topics/options"># Force warnings
-options(
-  lifecycle_quiet_warnings = FALSE,
-  lifecycle_force_warnings = TRUE
-)
-
-# Force errors
-options(
-  lifecycle_quiet_warnings = FALSE,
-  lifecycle_force_warnings = TRUE,
-  lifecycle_force_errors = TRUE
-)</a></code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># Force warnings</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/options">options</a></span>(</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">  <span class="dt">lifecycle_quiet_warnings =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">  <span class="dt">lifecycle_force_warnings =</span> <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co"># Force errors</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/options">options</a></span>(</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9">  <span class="dt">lifecycle_quiet_warnings =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb13-10" data-line-number="10">  <span class="dt">lifecycle_force_warnings =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">  <span class="dt">lifecycle_force_errors =</span> <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12">)</a></code></pre></div>
 <p>Forcing warnings can be useful in conjuction with <code><a href="reference/last_warnings.html">last_warnings()</a></code>, which prints backtraces for all the deprecation warnings issued during the last top-level command.</p>
 </div>
 </div>
 </div>
-
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div class="license">
+    <div class="links">
+<h2>Links</h2>
+<ul class="list-unstyled">
+<li>Browse source code at <br><a href="https://github.com/r-lib/lifecycle">https://​github.com/​r-lib/​lifecycle</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/r-lib/lifecycle/issues">https://​github.com/​r-lib/​lifecycle/​issues</a>
+</li>
+</ul>
+</div>
+<div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
@@ -275,8 +322,10 @@ options(
 </ul>
 </div>
 
-  </div>
+      </div>
+
 </div>
+
 
       <footer><div class="copyright">
   <p>Developed by Lionel Henry.</p>
