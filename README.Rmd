@@ -143,13 +143,8 @@ The syntax for deprecating argument is based on the syntax for deprecating funct
 
 ```{r}
 deprecate_warn("1.0.0", "mypkg::foo(arg = )")
-#> Warning message:
-#> The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
 
 deprecate_warn("1.0.0", "mypkg::foo(arg = )", "mypkg::foo(new = )")
-#> Warning message:
-#> The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
-#> Please use the `new` argument instead.
 ```
 
 lifecycle also provides the `deprecated()` sentinel to use as default argument. This provides self-documentation for your users, and makes it possible for external tools to determine which arguments are deprecated. This sentinel is simply the missing argument, so you can test whether the argument was supplied with `rlang::is_missing()`:

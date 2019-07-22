@@ -211,8 +211,6 @@ deprecate_warn("1.0.0", "mypkg::foo(arg = )")
 #> Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
 #> This warning is displayed once per session.
 #> Call `lifecycle::last_warnings()` to see where this warning was generated.
-#> Warning message:
-#> The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
 
 deprecate_warn("1.0.0", "mypkg::foo(arg = )", "mypkg::foo(new = )")
 #> Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
@@ -223,9 +221,6 @@ deprecate_warn("1.0.0", "mypkg::foo(arg = )", "mypkg::foo(new = )")
 #> Please use the `new` argument instead.
 #> This warning is displayed once per session.
 #> Call `lifecycle::last_warnings()` to see where this warning was generated.
-#> Warning message:
-#> The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
-#> Please use the `new` argument instead.
 ```
 
 lifecycle also provides the `deprecated()` sentinel to use as default
