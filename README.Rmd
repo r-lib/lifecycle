@@ -72,7 +72,7 @@ Once the decision of discontinuing a feature has been made, it goes through 3 __
 Finally, when a feature is no longer exposed or mentioned in the released version of the package, it is said to be __archived__.
 
 
-### Badges
+### Badges {#rd-badges}
 
 Make sure your users know what stage a feature is by adding badges in the help topics of your functions.
 
