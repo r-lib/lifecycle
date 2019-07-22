@@ -1,4 +1,4 @@
-#' Signal deprecation
+#' Deprecate functions and arguments
 #'
 #' @description
 #'
@@ -8,27 +8,25 @@
 #' * `deprecate_soft()` warns only if the deprecated function is
 #'   called from the global environment (so the user can change their
 #'   script) or from the package currently being tested (so the
-#'   package developer can fix the package).
+#'   package developer can fix the package). Use for soft-deprecated
+#'   functions.
 #'
-#' * `deprecate_warn()` warns unconditionally.
+#' * `deprecate_warn()` warns unconditionally. Use for deprecated functions.
 #'
-#' * `deprecate_stop()` fails unconditionally.
-#'
-#' These verbosity levels are appropriate for the following lifecycle
-#' stages respectively: soft-deprecated, deprecated, and defunct.
+#' * `deprecate_stop()` fails unconditionally. Use for defunct functions.
 #'
 #' Warnings are only issued once per session to avoid overwhelming the
-#' user with repeated warnings. See the [verbosity option][verbosity]
-#' to force silence, warnings, or errors.
+#' user. See the [verbosity option][verbosity] to control this
+#' behaviour.
 #'
-#' @param when The version the feature was deprecated in.
+#' @param when The package version when function/argument was deprecated.
 #' @param what If the deprecated feature is a whole function, the
 #'   function name: `"foo()"`. If it's an argument that is being
 #'   deprecated, the function call should include the argument:
 #'   `"foo(arg = )"`.
 #'
-#'   You can optionally supply the namespace: `"ns::foo()"`. If you
-#'   don't, it is inferred from the caller environment.
+#'   You can optionally supply the namespace: `"ns::foo()"`. If not
+#'   supplied, it is inferred from the caller environment.
 #' @param with An optional replacement for the deprecated feature.
 #'   This should be a string of the same form as `what`.
 #' @param details The deprecation message is generated from `when`,

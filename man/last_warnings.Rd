@@ -24,9 +24,6 @@ the backtrace. It supports one of \code{"branch"} (the default),
 \code{"collapse"}, and \code{"none"} (in increasing order of verbosity).
 }
 \examples{
-
-if (FALSE) {
-
 f <- function() invisible(g())
 g <- function() list(h(), i())
 h <- function() deprecate_warn("1.0.0", "this()")
@@ -43,7 +40,4 @@ last_warning()
 # By default, the backtraces are printed in their simplified form.
 # Use `simplify` to control the verbosity:
 print(last_warnings(), simplify = "none")
-
-}
-
 }
