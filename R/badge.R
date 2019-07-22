@@ -22,6 +22,15 @@
 #' confusion). If it is an argument, you can put the badge in the
 #' argument description.
 #'
+#' @section Badges:
+#' * \lifecycle{experimental}
+#' * \lifecycle{maturing}
+#' * \lifecycle{stable}
+#' * \lifecycle{questioning}
+#' * \lifecycle{archived}
+#' * \lifecycle{soft-deprecated}
+#' * \lifecycle{deprecated}
+#' * \lifecycle{defunct}
 #'
 #' @details
 #'

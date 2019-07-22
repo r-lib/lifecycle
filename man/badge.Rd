@@ -38,3 +38,17 @@ DESCRIPTION (this is done automatically by
 The macro expands to this expression:\preformatted{\Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 }
 }
+\section{Badges}{
+
+\itemize{
+\item \lifecycle{experimental}
+\item \lifecycle{maturing}
+\item \lifecycle{stable}
+\item \lifecycle{questioning}
+\item \lifecycle{archived}
+\item \lifecycle{soft-deprecated}
+\item \lifecycle{deprecated}
+\item \lifecycle{defunct}
+}
+}
+
