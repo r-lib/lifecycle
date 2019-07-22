@@ -10,6 +10,14 @@ Manage the life cycle of your exported functions with
     shared conventions, documentation badges, and non-invasive
     deprecation warnings.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/r-lib/lifecycle}
+  \item Report bugs at \url{https://github.com/r-lib/lifecycle/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Lionel Henry \email{lionel@rstudio.com}
 
