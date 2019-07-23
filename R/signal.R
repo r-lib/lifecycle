@@ -159,9 +159,8 @@ deprecate_warn <- function(when,
     withRestarts(muffleWarning = maybe_push_warning, {
       signalCondition(wrn)
       push_warning(wrn)
+      warning(wrn)
     })
-
-    warning(wrn)
   }
 }
 
