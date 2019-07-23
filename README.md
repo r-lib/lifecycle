@@ -53,42 +53,42 @@ The lifecycle stages for functions and arguments closely mirror the
 
 There are 4 **development** stages.
 
-1.  <img src="man/figures/lifecycle-experimental.svg" align="left" alt = "Experimental" />
+1.  <img src="man/figures/lifecycle-experimental.svg" alt = "Experimental" style="vertical-align:middle" />
     This is a new feature that is in the very early stage of
     development. It is exported so users can start to use it and report
     feedback, but its interface and/or behaviour is likely to change in
     the future. It is generally best to avoid depending on experimental
     features.
 
-2.  <img src="man/figures/lifecycle-maturing.svg" align="left" alt = "Maturing" />.
+2.  <img src="man/figures/lifecycle-maturing.svg" alt = "Maturing" style="vertical-align:middle" />
     The interface and behaviour of a maturing feature has been roughed
     out, but finer details are likely to change. It still needs more
     feedback to find the optimal API.
 
-3.  <img src="man/figures/lifecycle-stable.svg" align="left" alt = "Stable" />
+3.  <img src="man/figures/lifecycle-stable.svg" alt = "Stable" style="vertical-align:middle" />
     A feature is considered stable when the author is happy with its
     interface and behaviour. Major changes are unlikely, and breaking
     changes will occur gradually, through a deprecation process.
 
-4.  <img src="man/figures/lifecycle-questioning.svg" align="left" alt = "Questioning" />
+4.  <img src="man/figures/lifecycle-questioning.svg" alt = "Questioning" style="vertical-align:middle" />
     The author is no longer convinced that the feature is the optimal
     approach. However, there are no recommended alternatives yet.
 
 Once the decision of discontinuing a feature has been made, it goes
 through 3 **deprecation** stages.
 
-1.  <img src="man/figures/lifecycle-soft-deprecated.svg" align="left" alt = "Soft deprecated" />.
+1.  <img src="man/figures/lifecycle-soft-deprecated.svg" alt = "Soft deprecated" style="vertical-align:middle" />
     The author is no longer happy with a feature because they consider
     it sub-optimal compared to some other approach, or simply because
     they no longer have the time to maintain it. A soft-deprecated
     feature can still be used without hassle, but users should consider
     switching to an alternative approach.
 
-2.  <img src="man/figures/lifecycle-deprecated.svg" align="left" alt = "Deprecated" />.
+2.  <img src="man/figures/lifecycle-deprecated.svg" alt = "Deprecated" style="vertical-align:middle" />
     The feature is likely to be discontinued in the next major release.
     Users should switch to an alternative approach as soon as possible.
 
-3.  <img src="man/figures/lifecycle-defunct.svg" align="left" alt = "Defunct" />.
+3.  <img src="man/figures/lifecycle-defunct.svg" alt = "Defunct" style="vertical-align:middle" />
     The feature can no longer be used. A defunct function is still
     exported, and a defunct argument is still part of the signature.
     This way an informative error can be thrown.
@@ -158,11 +158,6 @@ deprecation stages), and a feature descriptor:
 deprecate_warn("1.0.0", "mypkg::foo()")
 #> Warning: `foo()` is deprecated as of mypkg 1.0.0.
 #> This warning is displayed once per session.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
-
-#> Warning: `foo()` is deprecated as of mypkg 1.0.0.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
 ```
 
 You can optionally provide a replacement:
@@ -172,12 +167,6 @@ deprecate_warn("1.0.0", "mypkg::foo()", "new()")
 #> Warning: `foo()` is deprecated as of mypkg 1.0.0.
 #> Please use `new()` instead.
 #> This warning is displayed once per session.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
-
-#> Warning: `foo()` is deprecated as of mypkg 1.0.0.
-#> Please use `new()` instead.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
 ```
 
 For the purpose of these examples we explicitly mentioned the namespace
@@ -208,21 +197,11 @@ deprecating functions:
 deprecate_warn("1.0.0", "mypkg::foo(arg = )")
 #> Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
 #> This warning is displayed once per session.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
-
-#> Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
 
 deprecate_warn("1.0.0", "mypkg::foo(arg = )", "mypkg::foo(new = )")
 #> Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
-#> Please use the `new` argument instead.
+#> Please use the argument `new` instead.
 #> This warning is displayed once per session.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
-#> Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.
-#> Please use the `new` argument instead.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
 ```
 
 lifecycle also provides the `deprecated()` sentinel to use as default
