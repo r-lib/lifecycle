@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Signal deprecation — deprecate_soft • lifecycle</title>
+<title>Deprecate functions and arguments — deprecate_soft • lifecycle</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,23 +30,22 @@
 
 
 
-<meta property="og:title" content="Signal deprecation — deprecate_soft" />
+<meta property="og:title" content="Deprecate functions and arguments — deprecate_soft" />
 
 <meta property="og:description" content="These functions provide three levels of verbosity for deprecated
 functions.
 deprecate_soft() warns only if the deprecated function is
 called from the global environment (so the user can change their
 script) or from the package currently being tested (so the
-package developer can fix the package).
-deprecate_warn() warns unconditionally.
-deprecate_stop() fails unconditionally.
+package developer can fix the package). Use for soft-deprecated
+functions.
+deprecate_warn() warns unconditionally. Use for deprecated functions.
+deprecate_stop() fails unconditionally. Use for defunct functions.
 " />
 
-<meta property="og:description" content="These verbosity levels are appropriate for the following lifecycle
-stages respectively: soft-deprecated, deprecated, and defunct.
-Warnings are only issued once per session to avoid overwhelming the
-user with repeated warnings. See the verbosity option
-to force silence, warnings, or errors." />
+<meta property="og:description" content="Warnings are only issued once per session to avoid overwhelming the
+user. See the verbosity option to control this
+behaviour." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -128,7 +127,7 @@ to force silence, warnings, or errors." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Signal deprecation</h1>
+    <h1>Deprecate functions and arguments</h1>
     <small class="dont-index">Source: <a href='https://github.com/r-lib/lifecycle/blob/master/R/signal.R'><code>R/signal.R</code></a></small>
     <div class="hidden name"><code>deprecate_soft.Rd</code></div>
     </div>
@@ -140,16 +139,15 @@ functions.</p><ul>
 <li><p><code>deprecate_soft()</code> warns only if the deprecated function is
 called from the global environment (so the user can change their
 script) or from the package currently being tested (so the
-package developer can fix the package).</p></li>
-<li><p><code>deprecate_warn()</code> warns unconditionally.</p></li>
-<li><p><code>deprecate_stop()</code> fails unconditionally.</p></li>
+package developer can fix the package). Use for soft-deprecated
+functions.</p></li>
+<li><p><code>deprecate_warn()</code> warns unconditionally. Use for deprecated functions.</p></li>
+<li><p><code>deprecate_stop()</code> fails unconditionally. Use for defunct functions.</p></li>
 </ul>
 
-    <p>These verbosity levels are appropriate for the following lifecycle
-stages respectively: soft-deprecated, deprecated, and defunct.</p>
-<p>Warnings are only issued once per session to avoid overwhelming the
-user with repeated warnings. See the <a href='verbosity.html'>verbosity option</a>
-to force silence, warnings, or errors.</p>
+    <p>Warnings are only issued once per session to avoid overwhelming the
+user. See the <a href='verbosity.html'>verbosity option</a> to control this
+behaviour.</p>
     
     </div>
 
@@ -166,7 +164,7 @@ to force silence, warnings, or errors.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>when</th>
-      <td><p>The version the feature was deprecated in.</p></td>
+      <td><p>The package version when function/argument was deprecated.</p></td>
     </tr>
     <tr>
       <th>what</th>
@@ -174,8 +172,8 @@ to force silence, warnings, or errors.</p>
 function name: <code>"foo()"</code>. If it's an argument that is being
 deprecated, the function call should include the argument:
 <code>"foo(arg = )"</code>.</p>
-<p>You can optionally supply the namespace: <code>"ns::foo()"</code>. If you
-don't, it is inferred from the caller environment.</p></td>
+<p>You can optionally supply the namespace: <code>"ns::foo()"</code>. If not
+supplied, it is inferred from the caller environment.</p></td>
     </tr>
     <tr>
       <th>with</th>
