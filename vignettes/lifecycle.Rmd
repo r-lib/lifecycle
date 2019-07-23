@@ -2,7 +2,7 @@
 title: "Usage of the lifecycle package"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{usage}
+  %\VignetteIndexEntry{lifecycle}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

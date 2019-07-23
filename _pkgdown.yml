@@ -2,12 +2,9 @@ url: https://lifecycle.r-lib.org
 
 navbar:
   structure:
-    left:  [home, usage]
-    right: [reference, articles, news, github]
+    left:  [home, reference]
+    right: [articles, news, github]
   components:
-    usage:
-      text: Usage
-      href: articles/usage.html
     news:
       text: News
       menu:
