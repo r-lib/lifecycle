@@ -69,3 +69,15 @@ test_that("non-syntactic names are handled gracefully", {
 test_that("defunct errors inherit from lifecycle subclass", {
   expect_error(deprecate_stop("1.0.0", "foo()"), class = "lifecycle_error_deprecated")
 })
+
+test_that("warning conditions are signaled only once if warnings are suppressed", {
+  scoped_lifecycle_warnings()
+
+  x <- 0L
+  suppressWarnings(withCallingHandlers(
+    warning = function(...) x <<- x + 1L,
+    deprecate_warn("1.0.0", "foo()")
+  ))
+
+  expect_identical(x, 1L)
+})
