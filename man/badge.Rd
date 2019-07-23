@@ -41,14 +41,14 @@ The macro expands to this expression:\preformatted{\Sexpr[results=rd, stage=rend
 \section{Badges}{
 
 \itemize{
-\item \lifecycle{experimental}
-\item \lifecycle{maturing}
-\item \lifecycle{stable}
-\item \lifecycle{questioning}
-\item \lifecycle{archived}
-\item \lifecycle{soft-deprecated}
-\item \lifecycle{deprecated}
-\item \lifecycle{defunct}
+\item \verb{\lifecycle{experimental}}: \lifecycle{experimental}
+\item \verb{\lifecycle{maturing}}: \lifecycle{maturing}
+\item \verb{\lifecycle{stable}}: \lifecycle{stable}
+\item \verb{\lifecycle{questioning}}: \lifecycle{questioning}
+\item \verb{\lifecycle{archived}}: \lifecycle{archived}
+\item \verb{\lifecycle{soft-deprecated}}: \lifecycle{soft-deprecated}
+\item \verb{\lifecycle{deprecated}}: \lifecycle{deprecated}
+\item \verb{\lifecycle{defunct}}: \lifecycle{defunct}
 }
 }
 

@@ -18,13 +18,12 @@
 #' reason for the user to call `deprecated()` themselves.
 #'
 #' @examples
-#'
 #' foobar_adder <- function(foo, bar, baz = deprecated()) {
 #'   # Check if user has supplied `baz` instead of `bar`
 #'   if (!rlang::is_missing(baz)) {
 #'
 #'     # Signal the deprecation to the user
-#'     deprecate_warn("1.0.0", "foobar_adder(baz = )", "foobar_adder(bar = )")
+#'     deprecate_warn("1.0.0", "foo::bar_adder(baz = )", "foo::bar_adder(bar = )")
 #'
 #'     # Deal with the deprecated argument for compatibility
 #'     bar <- baz

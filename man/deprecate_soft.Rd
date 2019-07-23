@@ -4,7 +4,7 @@
 \alias{deprecate_soft}
 \alias{deprecate_warn}
 \alias{deprecate_stop}
-\title{Signal deprecation}
+\title{Deprecate functions and arguments}
 \usage{
 deprecate_soft(when, what, with = NULL, details = NULL, id = NULL,
   env = caller_env(2))
@@ -15,15 +15,15 @@ deprecate_warn(when, what, with = NULL, details = NULL, id = NULL,
 deprecate_stop(when, what, with = NULL, details = NULL)
 }
 \arguments{
-\item{when}{The version the feature was deprecated in.}
+\item{when}{The package version when function/argument was deprecated.}
 
 \item{what}{If the deprecated feature is a whole function, the
 function name: \code{"foo()"}. If it's an argument that is being
 deprecated, the function call should include the argument:
 \code{"foo(arg = )"}.
 
-You can optionally supply the namespace: \code{"ns::foo()"}. If you
-don't, it is inferred from the caller environment.}
+You can optionally supply the namespace: \code{"ns::foo()"}. If not
+supplied, it is inferred from the caller environment.}
 
 \item{with}{An optional replacement for the deprecated feature.
 This should be a string of the same form as \code{what}.}
@@ -54,17 +54,15 @@ functions.
 \item \code{deprecate_soft()} warns only if the deprecated function is
 called from the global environment (so the user can change their
 script) or from the package currently being tested (so the
-package developer can fix the package).
-\item \code{deprecate_warn()} warns unconditionally.
-\item \code{deprecate_stop()} fails unconditionally.
+package developer can fix the package). Use for soft-deprecated
+functions.
+\item \code{deprecate_warn()} warns unconditionally. Use for deprecated functions.
+\item \code{deprecate_stop()} fails unconditionally. Use for defunct functions.
 }
 
-These verbosity levels are appropriate for the following lifecycle
-stages respectively: soft-deprecated, deprecated, and defunct.
-
 Warnings are only issued once per session to avoid overwhelming the
-user with repeated warnings. See the \link[=verbosity]{verbosity option}
-to force silence, warnings, or errors.
+user. See the \link[=verbosity]{verbosity option} to control this
+behaviour.
 }
 \examples{
 # A deprecated function `foo`:
