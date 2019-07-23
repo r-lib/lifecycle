@@ -16,6 +16,10 @@
 #' `"collapse"`, and `"none"` (in increasing order of verbosity).
 #'
 #' @examples
+#' # These examples are not run because `last_warnings()` does not
+#' # work well within knitr and pkgdown
+#' \dontrun{
+#'
 #' f <- function() invisible(g())
 #' g <- function() list(h(), i())
 #' h <- function() deprecate_warn("1.0.0", "this()")
@@ -32,6 +36,8 @@
 #' # By default, the backtraces are printed in their simplified form.
 #' # Use `simplify` to control the verbosity:
 #' print(last_warnings(), simplify = "none")
+#'
+#' }
 #' @export
 last_warnings <- function() {
   warnings_env$warnings
