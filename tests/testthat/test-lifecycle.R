@@ -5,19 +5,16 @@ test_that("deprecate_soft() warns when called from global env", {
   Sys.setenv("TESTTHAT_PKG" = "")
   on.exit(Sys.setenv("TESTTHAT_PKG" = old))
 
-  retired <- function(id) deprecate_soft("1.0.0", "foo()", id = id)
-  env_bind(global_env(), retired = retired)
-  on.exit(env_unbind(global_env(), "retired"), add = TRUE)
+  fn <- function(id) deprecate_soft("1.0.0", "foo()", id = id)
+  scoped_bindings(.env = global_env(), fn = fn)
 
-  with_options(lifecycle_force_warnings = FALSE, {
-    locally({
-      expect_no_warning(retired("rlang_test3"), "foo")
-    })
-  })
+  locally(
+    expect_no_warning(fn("called from local env"))
+  )
 
-  with_options(lifecycle_force_warnings = FALSE, {
+  with_lifecycle("default", {
     with_env(global_env(), {
-      expect_warning(retired("rlang_test4"), "foo")
+      expect_warning(fn("called from global env"), "foo")
     })
   })
 })
@@ -33,13 +30,13 @@ test_that("deprecate_soft() warns when called from package being tested", {
 
 test_that("deprecate_soft() warns when option is set", {
   retired <- function(id) deprecate_soft("1.0.0", "foo()", id = id)
-  with_options(lifecycle_force_warnings = TRUE, {
+  with_lifecycle("warning", {
     expect_warning(retired("rlang_test5"), "is deprecated")
   })
 })
 
 test_that("deprecate_warn() repeats warnings when option is set", {
-  scoped_options(lifecycle_force_warnings = TRUE)
+  scoped_lifecycle("warning")
 
   retired1 <- function() deprecate_soft("1.0.0", "foo()", id = "signal repeat")
   retired2 <- function() deprecate_warn("1.0.0", "foo()", id = "warn repeat")
@@ -55,28 +52,15 @@ test_that("lifecycle warnings helper enable warnings", {
   retired1 <- function() deprecate_soft("1.0.0", "foo()")
   retired2 <- function() deprecate_warn("1.0.0", "foo()")
 
-  with_options(
-    lifecycle_quiet_warnings = TRUE,
-    {
-      evalq({
-        scoped_lifecycle_warnings()
-        expect_warning(retired1(), "is deprecated")
-        expect_warning(retired1(), "is deprecated")
-        expect_warning(retired2(), "is deprecated")
-        expect_warning(retired2(), "is deprecated")
-      })
-    }
-  )
-})
-
-test_that("can disable lifecycle warnings", {
-  scoped_lifecycle_silence()
-  scoped_options(
-    lifecycle_force_warnings = TRUE
-  )
-
-  expect_no_warning(deprecate_soft("1.0.0", "foo()"))
-  expect_no_warning(deprecate_warn("1.0.0", "foo()"))
+  with_lifecycle("warning", {
+    evalq({
+      scoped_lifecycle("warning")
+      expect_warning(retired1(), "is deprecated")
+      expect_warning(retired1(), "is deprecated")
+      expect_warning(retired2(), "is deprecated")
+      expect_warning(retired2(), "is deprecated")
+    })
+  })
 })
 
 test_that("can promote lifecycle warnings to errors", {
@@ -100,7 +84,7 @@ test_that("once-per-session note is not displayed on repeated warnings", {
   wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-per-session-note"))
   expect_true(grepl("once per session", wrn$message))
 
-  scoped_options(lifecycle_force_warnings = TRUE)
+  scoped_lifecycle("warning")
 
   wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-per-session-no-note"))
   expect_false(grepl("once per session", wrn$message))

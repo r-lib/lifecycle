@@ -298,18 +298,14 @@ This forces all deprecated features to fail. You can also set the
 relevant options manually to force warnings or errors in your session:
 
 ``` r
+# Force silence
+options(lifecycle_verbosity = "quiet")
+
 # Force warnings
-options(
-  lifecycle_quiet_warnings = FALSE,
-  lifecycle_force_warnings = TRUE
-)
+options(lifecycle_verbosity = "warning")
 
 # Force errors
-options(
-  lifecycle_quiet_warnings = FALSE,
-  lifecycle_force_warnings = TRUE,
-  lifecycle_force_errors = TRUE
-)
+options(lifecycle_verbosity = "error")
 ```
 
 Forcing warnings can be useful in conjuction with `last_warnings()`,

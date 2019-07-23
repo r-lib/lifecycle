@@ -3,21 +3,30 @@
 #' @description
 #'
 #' There are 3 levels of verbosity for deprecated functions: silence,
-#' warning, and error. Which level of verbosity is applicable when you
-#' call a deprecated function depends on its lifecycle status, on the
-#' context of the caller, and on the state of the session (see the
-#' help for [deprecation functions][deprecate_soft]).
+#' warning, and error. Since the lifecycle package avoids disruptive
+#' warnings, the default level of verbosity depends on the lifecycle
+#' stage of the deprecated function, on the context of the caller
+#' (global environment or testthat unit tests cause more warnings),
+#' and whether the warning was already issued (see the help for
+#' [deprecation functions][deprecate_soft]).
 #'
-#' The default verbosity of deprecated functions can be controlled
-#' with global options. You'll generally want to set these options
-#' locally with one of these helpers:
+#' You can control the level of verbosity with the global option
+#' `lifecycle_verbosity`. It can be set to:
 #'
-#' * `with_lifecycle_silence()` disables all soft-deprecation and
-#'   deprecation warnings.
+#' * `"default"` or `NULL` for the default non-disruptive settings.
 #'
-#' * `with_lifecycle_warnings()` enforces warnings for both
-#'   soft-deprecated and deprecated functions. The warnings are
-#'   repeated rather than signalled once per session.
+#' * `"quiet"`, `"warning"` or `"error"` to force silence, warnings or
+#'   errors for deprecated functions.
+#'
+#' Note that functions calling [deprecate_stop()] invariably throw
+#' errors.
+#'
+#' You'll generally want to set these options locally with one of
+#' these helpers:
+#'
+#' * `with_lifecycle_silence()`
+#'
+#' * `with_lifecycle_warnings()`
 #'
 #' * `with_lifecycle_errors()` enforces errors for both
 #'   soft-deprecated and deprecated functions.
@@ -59,9 +68,7 @@
 #'
 #' @export
 scoped_lifecycle_silence <- function(frame = caller_env()) {
-  scoped_options(.frame = frame,
-    lifecycle_quiet_warnings = TRUE
-  )
+  scoped_lifecycle("quiet", frame = frame)
 }
 #' @rdname scoped_lifecycle_silence
 #' @export
@@ -73,10 +80,7 @@ with_lifecycle_silence <- function(expr) {
 #' @rdname scoped_lifecycle_silence
 #' @export
 scoped_lifecycle_warnings <- function(frame = caller_env()) {
-  scoped_options(.frame = frame,
-    lifecycle_quiet_warnings = FALSE,
-    lifecycle_force_warnings = TRUE
-  )
+  scoped_lifecycle("warning", frame = frame)
 }
 #' @rdname scoped_lifecycle_silence
 #' @export
@@ -88,10 +92,7 @@ with_lifecycle_warnings <- function(expr) {
 #' @rdname scoped_lifecycle_silence
 #' @export
 scoped_lifecycle_errors <- function(frame = caller_env()) {
-  scoped_lifecycle_warnings(frame = frame)
-  scoped_options(.frame = frame,
-    lifecycle_force_errors = TRUE
-  )
+  scoped_lifecycle("error", frame = frame)
 }
 #' @rdname scoped_lifecycle_silence
 #' @export
@@ -100,3 +101,26 @@ with_lifecycle_errors <- function(expr) {
   expr
 }
 
+lifecycle_verbosity <- function() {
+  opt <- peek_option("lifecycle_verbosity") %||% "default"
+
+  if (!is_string(opt, c("quiet", "default", "warning", "error"))) {
+    options(lifecycle_verbosity = "default")
+    abort(glue::glue(
+      "
+      The `lifecycle_verbosity` option must be set to one of:
+      \"quiet\", \"default\", \"warning\", or \"error\".
+      "
+    ))
+  }
+
+  opt
+}
+
+with_lifecycle <- function(stage, expr) {
+  scoped_options(lifecycle_verbosity = stage)
+  expr
+}
+scoped_lifecycle <- function(stage, frame = caller_env()) {
+  scoped_options(lifecycle_verbosity = stage, .frame = frame)
+}

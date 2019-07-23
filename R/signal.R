@@ -74,19 +74,20 @@ deprecate_soft <- function(when,
                            details = NULL,
                            id = NULL,
                            env = caller_env(2)) {
-  if (is_true(peek_option("lifecycle_quiet_warnings"))) {
+  verbosity <- lifecycle_verbosity()
+
+  if (verbosity == "quiet") {
     return(invisible(NULL))
   }
 
-  if (is_true(peek_option("lifecycle_force_warnings")) ||
-      env_inherits_global(env)) {
+  if (verbosity %in% c("warning", "error") || env_inherits_global(env)) {
     deprecate_warn(when, what, with = with, details = details, id = id)
     return(invisible(NULL))
   }
 
   if (from_testthat(env)) {
     # Warn repeatedly in unit tests
-    scoped_options(lifecycle_force_warnings = TRUE)
+    scoped_lifecycle("warning")
 
     deprecate_warn(when, what, with = with, details = details, id = id)
     return(invisible(NULL))
@@ -117,26 +118,25 @@ deprecate_warn <- function(when,
                            id = NULL,
                            env = caller_env(2)) {
   msg <- lifecycle_build_message(when, what, with, details, "deprecate_warn")
+  verbosity <- lifecycle_verbosity()
 
   id <- id %||% msg
   stopifnot(is_string(id))
 
-  if (is_true(peek_option("lifecycle_quiet_warnings"))) {
+  if (verbosity == "quiet") {
     return(invisible(NULL))
   }
 
-  if (!is_true(peek_option("lifecycle_force_warnings")) &&
-        env_has(deprecation_env, id) &&
-        !from_testthat(env)) {
+  if (verbosity == "default" && env_has(deprecation_env, id) && !from_testthat(env)) {
     return(invisible(NULL))
   }
 
   env_poke(deprecation_env, id, TRUE);
 
-  if (is_true(peek_option("lifecycle_force_errors"))) {
+  if (verbosity == "error") {
     deprecate_stop(when, what, with = with, details = details)
   } else {
-    if (!is_true(peek_option("lifecycle_force_warnings"))) {
+    if (verbosity == "default") {
       msg <- paste_line(
         msg,
         silver("This warning is displayed once per session."),

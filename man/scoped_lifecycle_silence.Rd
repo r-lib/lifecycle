@@ -30,20 +30,29 @@ the verbosity settings.}
 }
 \description{
 There are 3 levels of verbosity for deprecated functions: silence,
-warning, and error. Which level of verbosity is applicable when you
-call a deprecated function depends on its lifecycle status, on the
-context of the caller, and on the state of the session (see the
-help for \link[=deprecate_soft]{deprecation functions}).
+warning, and error. Since the lifecycle package avoids disruptive
+warnings, the default level of verbosity depends on the lifecycle
+stage of the deprecated function, on the context of the caller
+(global environment or testthat unit tests cause more warnings),
+and whether the warning was already issued (see the help for
+\link[=deprecate_soft]{deprecation functions}).
 
-The default verbosity of deprecated functions can be controlled
-with global options. You'll generally want to set these options
-locally with one of these helpers:
+You can control the level of verbosity with the global option
+\code{lifecycle_verbosity}. It can be set to:
 \itemize{
-\item \code{with_lifecycle_silence()} disables all soft-deprecation and
-deprecation warnings.
-\item \code{with_lifecycle_warnings()} enforces warnings for both
-soft-deprecated and deprecated functions. The warnings are
-repeated rather than signalled once per session.
+\item \code{"default"} or \code{NULL} for the default non-disruptive settings.
+\item \code{"quiet"}, \code{"warning"} or \code{"error"} to force silence, warnings or
+errors for deprecated functions.
+}
+
+Note that functions calling \code{\link[=deprecate_stop]{deprecate_stop()}} invariably throw
+errors.
+
+You'll generally want to set these options locally with one of
+these helpers:
+\itemize{
+\item \code{with_lifecycle_silence()}
+\item \code{with_lifecycle_warnings()}
 \item \code{with_lifecycle_errors()} enforces errors for both
 soft-deprecated and deprecated functions.
 }
