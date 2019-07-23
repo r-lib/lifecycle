@@ -33,18 +33,25 @@
 <meta property="og:title" content="Control the verbosity of deprecation signals — scoped_lifecycle_silence" />
 
 <meta property="og:description" content="There are 3 levels of verbosity for deprecated functions: silence,
-warning, and error. Which level of verbosity is applicable when you
-call a deprecated function depends on its lifecycle status, on the
-context of the caller, and on the state of the session (see the
-help for deprecation functions).
-The default verbosity of deprecated functions can be controlled
-with global options. You'll generally want to set these options
-locally with one of these helpers:
-with_lifecycle_silence() disables all soft-deprecation and
-deprecation warnings.
-with_lifecycle_warnings() enforces warnings for both
-soft-deprecated and deprecated functions. The warnings are
-repeated rather than signalled once per session.
+warning, and error. Since the lifecycle package avoids disruptive
+warnings, the default level of verbosity depends on the lifecycle
+stage of the deprecated function, on the context of the caller
+(global environment or testthat unit tests cause more warnings),
+and whether the warning was already issued (see the help for
+deprecation functions).
+You can control the level of verbosity with the global option
+lifecycle_verbosity. It can be set to:
+&quot;default&quot; or NULL for the default non-disruptive settings.
+&quot;quiet&quot;, &quot;warning&quot; or &quot;error&quot; to force silence, warnings or
+errors for deprecated functions.
+" />
+
+<meta property="og:description" content="Note that functions calling deprecate_stop() invariably throw
+errors.
+You'll generally want to set these options locally with one of
+these helpers:
+with_lifecycle_silence()
+with_lifecycle_warnings()
 with_lifecycle_errors() enforces errors for both
 soft-deprecated and deprecated functions.
 " />
@@ -140,18 +147,25 @@ enclosing scope." />
     <div class="ref-description">
     
     <p>There are 3 levels of verbosity for deprecated functions: silence,
-warning, and error. Which level of verbosity is applicable when you
-call a deprecated function depends on its lifecycle status, on the
-context of the caller, and on the state of the session (see the
-help for <a href='deprecate_soft.html'>deprecation functions</a>).</p>
-<p>The default verbosity of deprecated functions can be controlled
-with global options. You'll generally want to set these options
-locally with one of these helpers:</p><ul>
-<li><p><code>with_lifecycle_silence()</code> disables all soft-deprecation and
-deprecation warnings.</p></li>
-<li><p><code>with_lifecycle_warnings()</code> enforces warnings for both
-soft-deprecated and deprecated functions. The warnings are
-repeated rather than signalled once per session.</p></li>
+warning, and error. Since the lifecycle package avoids disruptive
+warnings, the default level of verbosity depends on the lifecycle
+stage of the deprecated function, on the context of the caller
+(global environment or testthat unit tests cause more warnings),
+and whether the warning was already issued (see the help for
+<a href='deprecate_soft.html'>deprecation functions</a>).</p>
+<p>You can control the level of verbosity with the global option
+<code>lifecycle_verbosity</code>. It can be set to:</p><ul>
+<li><p><code>"default"</code> or <code>NULL</code> for the default non-disruptive settings.</p></li>
+<li><p><code>"quiet"</code>, <code>"warning"</code> or <code>"error"</code> to force silence, warnings or
+errors for deprecated functions.</p></li>
+</ul>
+
+    <p>Note that functions calling <code><a href='deprecate_soft.html'>deprecate_stop()</a></code> invariably throw
+errors.</p>
+<p>You'll generally want to set these options locally with one of
+these helpers:</p><ul>
+<li><p><code>with_lifecycle_silence()</code></p></li>
+<li><p><code>with_lifecycle_warnings()</code></p></li>
 <li><p><code>with_lifecycle_errors()</code> enforces errors for both
 soft-deprecated and deprecated functions.</p></li>
 </ul>

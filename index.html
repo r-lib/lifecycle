@@ -258,18 +258,14 @@
 <a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw"><a href="reference/scoped_lifecycle_silence.html">scoped_lifecycle_errors</a></span>()</a>
 <a class="sourceLine" id="cb12-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/testthat/topics/test_dir">test_check</a></span>(<span class="st">"mypackage"</span>)</a></code></pre></div>
 <p>This forces all deprecated features to fail. You can also set the relevant options manually to force warnings or errors in your session:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># Force warnings</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/options">options</a></span>(</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">  <span class="dt">lifecycle_quiet_warnings =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4">  <span class="dt">lifecycle_force_warnings =</span> <span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5">)</a>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># Force silence</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/options">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"quiet"</span>)</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co"># Force warnings</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/options">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"warning"</span>)</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co"># Force errors</span></a>
-<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/options">options</a></span>(</a>
-<a class="sourceLine" id="cb13-9" data-line-number="9">  <span class="dt">lifecycle_quiet_warnings =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb13-10" data-line-number="10">  <span class="dt">lifecycle_force_warnings =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb13-11" data-line-number="11">  <span class="dt">lifecycle_force_errors =</span> <span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb13-12" data-line-number="12">)</a></code></pre></div>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/options">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"error"</span>)</a></code></pre></div>
 <p>Forcing warnings can be useful in conjuction with <code><a href="reference/last_warnings.html">last_warnings()</a></code>, which prints backtraces for all the deprecation warnings issued during the last top-level command.</p>
 </div>
 </div>
