@@ -168,44 +168,15 @@ Some manual search and replace is needed to bump the status of deprecated featur
 Don't forget to update the badges in the documentation topics.
 
 
-### Test deprecated features
-
-You can test that a deprecated feature still works by disabling the warnings with `scoped_lifecycle_silence()`:
-
-```{r, eval = FALSE}
-test_that("`baz` argument of `foobar_adder()` still works", {
-  scoped_lifecycle_silence()
-  foobar_adder(1, baz = 2)
-})
-```
-
-You can test that a feature is correctly deprecated by forcing warnings and checking the class `"lifecycle_warning_deprecated"`:
-
-```{r, eval = FALSE}
-test_that("`baz` argument of `foobar_adder()` is deprecated", {
-  scoped_lifecycle_warnings()
-  expect_warning(foobar_adder(1, baz = 2), class = "lifecycle_warning_deprecated")
-})
-```
-
-Defunct features throw errors of class `"lifecycle_error_deprecated"`:
-
-```{r, eval = FALSE}
-test_that("`foo()` is defunct", {
-  expect_error(foo(), class = "lifecycle_error_deprecated")
-})
-```
-
-
 ### Find out what deprecated features you rely on
 
-Test whether your package depends on deprecated features directly or indirectly by inserting `scoped_lifecycle_errors()` in the `tests/testthat.R` file just before `test_check()` is called:
+Test whether your package depends on deprecated features directly or indirectly by inserting `withr::local_options()` in the `tests/testthat.R` file just before `test_check()` is called:
 
 ```{r, eval = FALSE}
 library(testthat)
 library(mypackage)
 
-scoped_lifecycle_errors()
+withr::local_options(list(lifecycle_verbosity = "error"))
 test_check("mypackage")
 ```
 
@@ -223,3 +194,32 @@ options(lifecycle_verbosity = "error")
 ```
 
 Forcing warnings can be useful in conjuction with `last_warnings()`, which prints backtraces for all the deprecation warnings issued during the last top-level command.
+
+
+### Test deprecated features
+
+You can test that a deprecated feature still works by disabling the warnings with `scoped_lifecycle_silence()`:
+
+```{r, eval = FALSE}
+test_that("`baz` argument of `foobar_adder()` still works", {
+  withr::local_options(list(lifecycle_verbosity = "quiet"))
+  foobar_adder(1, baz = 2)
+})
+```
+
+You can test that a feature is correctly deprecated by forcing warnings and checking the class `"lifecycle_warning_deprecated"`:
+
+```{r, eval = FALSE}
+test_that("`baz` argument of `foobar_adder()` is deprecated", {
+  withr::local_options(list(lifecycle_verbosity = "warning"))
+  expect_warning(foobar_adder(1, baz = 2), class = "lifecycle_warning_deprecated")
+})
+```
+
+Defunct features throw errors of class `"lifecycle_error_deprecated"`:
+
+```{r, eval = FALSE}
+test_that("`foo()` is defunct", {
+  expect_error(foo(), class = "lifecycle_error_deprecated")
+})
+```

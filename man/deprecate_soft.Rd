@@ -63,8 +63,8 @@ These verbosity levels are appropriate for the following lifecycle
 stages respectively: soft-deprecated, deprecated, and defunct.
 
 Warnings are only issued once per session to avoid overwhelming the
-user with repeated warnings. See \code{\link[=with_lifecycle_warnings]{with_lifecycle_warnings()}} and
-variants to force silence, warnings, or errors.
+user with repeated warnings. See the \link[=verbosity]{verbosity option}
+to force silence, warnings, or errors.
 }
 \examples{
 # A deprecated function `foo`:

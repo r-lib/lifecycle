@@ -18,8 +18,8 @@
 #' stages respectively: soft-deprecated, deprecated, and defunct.
 #'
 #' Warnings are only issued once per session to avoid overwhelming the
-#' user with repeated warnings. See [with_lifecycle_warnings()] and
-#' variants to force silence, warnings, or errors.
+#' user with repeated warnings. See the [verbosity option][verbosity]
+#' to force silence, warnings, or errors.
 #'
 #' @param when The version the feature was deprecated in.
 #' @param what If the deprecated feature is a whole function, the
@@ -87,7 +87,7 @@ deprecate_soft <- function(when,
 
   if (from_testthat(env)) {
     # Warn repeatedly in unit tests
-    scoped_lifecycle("warning")
+    scoped_options(lifecycle_verbosity = "warning")
 
     deprecate_warn(when, what, with = with, details = details, id = id)
     return(invisible(NULL))
