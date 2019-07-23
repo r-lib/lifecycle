@@ -214,20 +214,13 @@ In that case, you need to forward the calling environment.</p></td>
     <pre class="examples"><div class='input'><span class='co'># A deprecated function `foo`:</span>
 <span class='fu'>deprecate_warn</span>(<span class='st'>"1.0.0"</span>, <span class='st'>"foo()"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
 #&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'>
 <span class='co'># A deprecated argument `arg`:</span>
 <span class='fu'>deprecate_warn</span>(<span class='st'>"1.0.0"</span>, <span class='st'>"foo(arg = )"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The `arg` argument of `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt; <span class='warning'>Warning: The `arg` argument of `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'>
 <span class='co'># A deprecated function with a function replacement:</span>
 <span class='fu'>deprecate_warn</span>(<span class='st'>"1.0.0"</span>, <span class='st'>"foo()"</span>, <span class='st'>"bar()"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
-#&gt; <span class='warning'>Please use `bar()` instead.</span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
 #&gt; <span class='warning'>Please use `bar()` instead.</span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'>
@@ -236,15 +229,9 @@ In that case, you need to forward the calling environment.</p></td>
 <span class='fu'>deprecate_warn</span>(<span class='st'>"1.0.0"</span>, <span class='st'>"foo()"</span>, <span class='st'>"otherpackage::bar()"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
 #&gt; <span class='warning'>Please use `otherpackage::bar()` instead.</span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
-#&gt; <span class='warning'>Please use `otherpackage::bar()` instead.</span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'>
 <span class='co'># A deprecated function with an argument replacement:</span>
 <span class='fu'>deprecate_warn</span>(<span class='st'>"1.0.0"</span>, <span class='st'>"foo()"</span>, <span class='st'>"foo(bar = )"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
-#&gt; <span class='warning'>Please use the `bar` argument instead.</span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
 #&gt; <span class='warning'>Please use the `bar` argument instead.</span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>This warning is displayed once per session.</span><span></span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'>
