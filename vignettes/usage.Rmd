@@ -1,43 +1,22 @@
 ---
-output: github_document
+title: "Usage of the lifecycle package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+  comment = "#>"
 )
 ```
 
-# lifecycle
-
-<!-- badges: start -->
-[![Travis build status](https://travis-ci.org/r-lib/lifecycle.svg?branch=master)](https://travis-ci.org/r-lib/lifecycle)
-[![Codecov test coverage](https://codecov.io/gh/r-lib/lifecycle/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/lifecycle?branch=master)
-[![CRAN status](https://www.r-pkg.org/badges/version/lifecycle)](https://CRAN.R-project.org/package=lifecycle)
-<!-- badges: end -->
-
-lifecycle provides a set of tools and conventions to manage the life cycle of your exported functions.
-
-## Installation
-
-Install the development version of lifecycle from GitHub with:
-
-``` r
-remotes::install_github("r-lib/lifecycle")
-```
-
-
-## Usage
-
-```{r}
+```{r setup}
 library(lifecycle)
 ```
-
 
 Use lifecycle to document the status of your exported functions and arguments:
 
@@ -54,21 +33,21 @@ The lifecycle stages for functions and arguments closely mirror the [lifecycle s
 
 There are 4 __development__ stages.
 
-1. <img src="man/figures/lifecycle-experimental.svg" alt = "Experimental" style="vertical-align:middle" /> This is a new feature that is in the very early stage of development. It is exported so users can start to use it and report feedback, but its interface and/or behaviour is likely to change in the future. It is generally best to avoid depending on experimental features.
+1. <img src="figures/lifecycle-experimental.svg" alt = "Experimental" style="vertical-align:middle" /> This is a new feature that is in the very early stage of development. It is exported so users can start to use it and report feedback, but its interface and/or behaviour is likely to change in the future. It is generally best to avoid depending on experimental features.
 
-1. <img src="man/figures/lifecycle-maturing.svg" alt = "Maturing" style="vertical-align:middle" /> The interface and behaviour of a maturing feature has been roughed out, but finer details are likely to change. It still needs more feedback to find the optimal API.
+1. <img src="figures/lifecycle-maturing.svg" alt = "Maturing" style="vertical-align:middle" /> The interface and behaviour of a maturing feature has been roughed out, but finer details are likely to change. It still needs more feedback to find the optimal API.
 
-1. <img src="man/figures/lifecycle-stable.svg" alt = "Stable" style="vertical-align:middle" /> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.
+1. <img src="figures/lifecycle-stable.svg" alt = "Stable" style="vertical-align:middle" /> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.
 
-1. <img src="man/figures/lifecycle-questioning.svg" alt = "Questioning" style="vertical-align:middle" /> The author is no longer convinced that the feature is the optimal approach. However, there are no recommended alternatives yet.
+1. <img src="figures/lifecycle-questioning.svg" alt = "Questioning" style="vertical-align:middle" /> The author is no longer convinced that the feature is the optimal approach. However, there are no recommended alternatives yet.
 
 Once the decision of discontinuing a feature has been made, it goes through 3 __deprecation__ stages.
 
-1. <img src="man/figures/lifecycle-soft-deprecated.svg" alt = "Soft deprecated" style="vertical-align:middle" /> The author is no longer happy with a feature because they consider it sub-optimal compared to some other approach, or simply because they no longer have the time to maintain it. A soft-deprecated feature can still be used without hassle, but users should consider switching to an alternative approach.
+1. <img src="figures/lifecycle-soft-deprecated.svg" alt = "Soft deprecated" style="vertical-align:middle" /> The author is no longer happy with a feature because they consider it sub-optimal compared to some other approach, or simply because they no longer have the time to maintain it. A soft-deprecated feature can still be used without hassle, but users should consider switching to an alternative approach.
 
-1. <img src="man/figures/lifecycle-deprecated.svg" alt = "Deprecated" style="vertical-align:middle" /> The feature is likely to be discontinued in the next major release. Users should switch to an alternative approach as soon as possible.
+1. <img src="figures/lifecycle-deprecated.svg" alt = "Deprecated" style="vertical-align:middle" /> The feature is likely to be discontinued in the next major release. Users should switch to an alternative approach as soon as possible.
 
-1. <img src="man/figures/lifecycle-defunct.svg" alt = "Defunct" style="vertical-align:middle" /> The feature can no longer be used. A defunct function is still exported, and a defunct argument is still part of the signature. This way an informative error can be thrown.
+1. <img src="figures/lifecycle-defunct.svg" alt = "Defunct" style="vertical-align:middle" /> The feature can no longer be used. A defunct function is still exported, and a defunct argument is still part of the signature. This way an informative error can be thrown.
 
 Finally, when a feature is no longer exposed or mentioned in the released version of the package, it is said to be __archived__.
 
@@ -77,7 +56,7 @@ Finally, when a feature is no longer exposed or mentioned in the released versio
 
 Make sure your users know what stage a feature is by adding badges in the help topics of your functions.
 
-<img src="man/figures/example-badge.png" align="center" alt = "badge" />
+<img src="figures/example-badge.png" align="center" alt = "badge" />
 
 *   Call `usethis::use_lifecycle()` to import the badges in your package.
 
