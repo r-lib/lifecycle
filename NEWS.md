@@ -1,5 +1,5 @@
 
-# lifecycle 0.0.0.9000
+# lifecycle 0.1.0
 
 * Deprecated functions under the control of the developer now warn
   repeatedly in unit tests.
