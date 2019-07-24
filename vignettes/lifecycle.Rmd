@@ -168,7 +168,7 @@ Some manual search and replace is needed to bump the status of deprecated featur
 Don't forget to update the badges in the documentation topics.
 
 
-### Find out what deprecated features you rely on
+#### Find out what deprecated features you rely on
 
 Test whether your package depends on deprecated features directly or indirectly by setting the verbosity option in the `tests/testthat.R` file just before `test_check()` is called:
 
@@ -196,7 +196,7 @@ options(lifecycle_verbosity = "error")
 Forcing warnings can be useful in conjuction with `last_warnings()`, which prints backtraces for all the deprecation warnings issued during the last top-level command.
 
 
-### Test deprecated features
+#### Test deprecated features
 
 Test whether a deprecated feature still works by disabling the warnings with `scoped_lifecycle_silence()`:
 
