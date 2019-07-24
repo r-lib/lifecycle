@@ -221,10 +221,9 @@
 </ol>
 <p>Don’t forget to update the badges in the documentation topics.</p>
 </div>
-</div>
-<div id="find-out-what-deprecated-features-you-rely-on" class="section level3">
-<h3 class="hasAnchor">
-<a href="#find-out-what-deprecated-features-you-rely-on" class="anchor"></a>Find out what deprecated features you rely on</h3>
+<div id="find-out-what-deprecated-features-you-rely-on" class="section level4">
+<h4 class="hasAnchor">
+<a href="#find-out-what-deprecated-features-you-rely-on" class="anchor"></a>Find out what deprecated features you rely on</h4>
 <p>Test whether your package depends on deprecated features directly or indirectly by setting the verbosity option in the <code>tests/testthat.R</code> file just before <code><a href="https://www.rdocumentation.org/packages/testthat/topics/test_dir">test_check()</a></code> is called:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(testthat)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(mypackage)</a>
@@ -242,9 +241,9 @@
 <a class="sourceLine" id="cb9-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/options">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"error"</span>)</a></code></pre></div>
 <p>Forcing warnings can be useful in conjuction with <code><a href="../reference/last_warnings.html">last_warnings()</a></code>, which prints backtraces for all the deprecation warnings issued during the last top-level command.</p>
 </div>
-<div id="test-deprecated-features" class="section level3">
-<h3 class="hasAnchor">
-<a href="#test-deprecated-features" class="anchor"></a>Test deprecated features</h3>
+<div id="test-deprecated-features" class="section level4">
+<h4 class="hasAnchor">
+<a href="#test-deprecated-features" class="anchor"></a>Test deprecated features</h4>
 <p>Test whether a deprecated feature still works by disabling the warnings with <code>scoped_lifecycle_silence()</code>:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/testthat/topics/test_that">test_that</a></span>(<span class="st">"`baz` argument of `foobar_adder()` still works"</span>, {</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">  withr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/withr/topics/with_options">local_options</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"quiet"</span>))</a>
@@ -259,6 +258,7 @@
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/testthat/topics/test_that">test_that</a></span>(<span class="st">"`foo()` is defunct"</span>, {</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">  <span class="kw"><a href="https://www.rdocumentation.org/packages/testthat/topics/output-expectations">expect_error</a></span>(<span class="kw">foo</span>(), <span class="dt">class =</span> <span class="st">"lifecycle_error_deprecated"</span>)</a>
 <a class="sourceLine" id="cb12-3" data-line-number="3">})</a></code></pre></div>
+</div>
 </div>
   </div>
 
