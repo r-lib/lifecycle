@@ -5,6 +5,7 @@
 [![Travis build status](https://travis-ci.org/r-lib/lifecycle.svg?branch=master)](https://travis-ci.org/r-lib/lifecycle)
 [![Codecov test coverage](https://codecov.io/gh/r-lib/lifecycle/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/lifecycle?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/lifecycle)](https://CRAN.R-project.org/package=lifecycle)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
 lifecycle provides a set of tools and conventions to manage the life cycle of your exported functions.
