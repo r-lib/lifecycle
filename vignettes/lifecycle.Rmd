@@ -170,13 +170,13 @@ Don't forget to update the badges in the documentation topics.
 
 ### Find out what deprecated features you rely on
 
-Test whether your package depends on deprecated features directly or indirectly by inserting `withr::local_options()` in the `tests/testthat.R` file just before `test_check()` is called:
+Test whether your package depends on deprecated features directly or indirectly by setting the verbosity option in the `tests/testthat.R` file just before `test_check()` is called:
 
 ```{r, eval = FALSE}
 library(testthat)
 library(mypackage)
 
-withr::local_options(list(lifecycle_verbosity = "error"))
+options(lifecycle_verbosity = "error")
 test_check("mypackage")
 ```
 
@@ -198,7 +198,7 @@ Forcing warnings can be useful in conjuction with `last_warnings()`, which print
 
 ### Test deprecated features
 
-You can test that a deprecated feature still works by disabling the warnings with `scoped_lifecycle_silence()`:
+Test whether a deprecated feature still works by disabling the warnings with `scoped_lifecycle_silence()`:
 
 ```{r, eval = FALSE}
 test_that("`baz` argument of `foobar_adder()` still works", {
@@ -207,7 +207,7 @@ test_that("`baz` argument of `foobar_adder()` still works", {
 })
 ```
 
-You can test that a feature is correctly deprecated by forcing warnings and checking the class `"lifecycle_warning_deprecated"`:
+Test that a feature is correctly deprecated by forcing warnings and checking the class `"lifecycle_warning_deprecated"`:
 
 ```{r, eval = FALSE}
 test_that("`baz` argument of `foobar_adder()` is deprecated", {
