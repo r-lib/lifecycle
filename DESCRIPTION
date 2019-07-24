@@ -2,10 +2,10 @@ Package: lifecycle
 Title: Manage the Life Cycle of your Package Functions
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Lionel",
-           family = "Henry",
-           role = c("aut", "cre"),
-           email = "lionel@rstudio.com")
+    c(
+      person(given = "Lionel", family = "Henry", role = c("aut", "cre"), email = "lionel@rstudio.com"),
+      person(given = "RStudio", role = "cph")
+    )
 Description: Manage the life cycle of your exported functions with
     shared conventions, documentation badges, and non-invasive
     deprecation warnings.

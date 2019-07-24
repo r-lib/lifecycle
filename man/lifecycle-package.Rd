@@ -21,5 +21,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Lionel Henry \email{lionel@rstudio.com}
 
+Other contributors:
+\itemize{
+  \item RStudio [copyright holder]
+}
+
 }
 \keyword{internal}
