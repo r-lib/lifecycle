@@ -1,4 +1,6 @@
 
+Longer description, return values documented.
+
 ## Test environments
 * local OS X install, R 3.6.0
 * Travis Ubuntu: 3.2, 3.3, oldrel, release, devel
