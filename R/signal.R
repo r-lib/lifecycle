@@ -45,6 +45,7 @@
 #'   This typically doesn't need to be specified, unless you call
 #'   `deprecate_soft()` or `deprecate_warn()` from an internal helper.
 #'   In that case, you need to forward the calling environment.
+#' @return `NULL`, invisibly.
 #'
 #' @seealso [lifecycle()]
 #'

@@ -47,6 +47,9 @@ This typically doesn't need to be specified, unless you call
 \code{deprecate_soft()} or \code{deprecate_warn()} from an internal helper.
 In that case, you need to forward the calling environment.}
 }
+\value{
+\code{NULL}, invisibly.
+}
 \description{
 These functions provide three levels of verbosity for deprecated
 functions.

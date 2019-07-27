@@ -11,6 +11,9 @@ badge(stage)
 \code{"experimental"}, \code{"maturing"}, \code{"stable"}, \code{"questioning"},
 \code{"archived"}, \code{"soft-deprecated"}, \code{"deprecated"}, \code{"defunct"}.}
 }
+\value{
+An \code{Rd} expression describing the lifecycle stage.
+}
 \description{
 Call \code{usethis::use_lifecycle()} to import the badges in your
 package. Then use the \code{lifecycle} Rd macro to insert a lifecycle

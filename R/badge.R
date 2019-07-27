@@ -51,6 +51,7 @@
 #' @param stage A lifecycle stage as a string, one of:
 #'   `"experimental"`, `"maturing"`, `"stable"`, `"questioning"`,
 #'   `"archived"`, `"soft-deprecated"`, `"deprecated"`, `"defunct"`.
+#' @return An `Rd` expression describing the lifecycle stage.
 #'
 #' @export
 badge <- function(stage) {
