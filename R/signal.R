@@ -92,7 +92,7 @@ deprecate_soft <- function(when,
     return(invisible(NULL))
   }
 
-  msg <- lifecycle_build_message(when, what, with, details, "deprecate_warn")
+  msg <- lifecycle_build_message(when, what, with, details, "deprecate_soft")
   signal(msg, "lifecycle_soft_deprecated")
 }
 
