@@ -1,7 +1,7 @@
 
 # lifecycle 0.1.0.9000
 
-* New `is_supplied()` function to test whether the caller has supplied a
+* New `is_present()` function to test whether the caller has supplied a
   `deprecated()` function.
 
 

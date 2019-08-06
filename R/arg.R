@@ -2,7 +2,7 @@
 #'
 #' Signal deprecated argument by using self-documenting sentinel
 #' `deprecated()` as default argument. Test whether the caller has
-#' supplied the argument with `is_supplied()`.
+#' supplied the argument with `is_present()`.
 #'
 #' @section Magical defaults:
 #'
@@ -19,7 +19,7 @@
 #' @examples
 #' foobar_adder <- function(foo, bar, baz = deprecated()) {
 #'   # Check if user has supplied `baz` instead of `bar`
-#'   if (lifecycle::is_supplied(baz)) {
+#'   if (lifecycle::is_present(baz)) {
 #'
 #'     # Signal the deprecation to the user
 #'     deprecate_warn("1.0.0", "foo::bar_adder(baz = )", "foo::bar_adder(bar = )")
@@ -41,6 +41,6 @@ deprecated <- function() {
 #' @rdname deprecated
 #' @param arg A `deprecated()` function argument.
 #' @export
-is_supplied <- function(arg) {
+is_present <- function(arg) {
   !is_missing(arg)
 }

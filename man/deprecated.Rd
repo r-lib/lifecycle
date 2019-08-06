@@ -2,12 +2,12 @@
 % Please edit documentation in R/arg.R
 \name{deprecated}
 \alias{deprecated}
-\alias{is_supplied}
+\alias{is_present}
 \title{Mark an argument as deprecated}
 \usage{
 deprecated()
 
-is_supplied(arg)
+is_present(arg)
 }
 \arguments{
 \item{arg}{A \code{deprecated()} function argument.}
@@ -15,7 +15,7 @@ is_supplied(arg)
 \description{
 Signal deprecated argument by using self-documenting sentinel
 \code{deprecated()} as default argument. Test whether the caller has
-supplied the argument with \code{is_supplied()}.
+supplied the argument with \code{is_present()}.
 }
 \section{Magical defaults}{
 
@@ -33,7 +33,7 @@ reason for the user to call \code{deprecated()} themselves.
 \examples{
 foobar_adder <- function(foo, bar, baz = deprecated()) {
   # Check if user has supplied `baz` instead of `bar`
-  if (lifecycle::is_supplied(baz)) {
+  if (lifecycle::is_present(baz)) {
 
     # Signal the deprecation to the user
     deprecate_warn("1.0.0", "foo::bar_adder(baz = )", "foo::bar_adder(bar = )")
