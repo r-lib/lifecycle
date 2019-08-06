@@ -1,6 +1,8 @@
 
 # lifecycle 0.1.0.9000
 
+* Added the "superseded" lifecycle stage to the documentation.
+
 * `deprecate_stop()` now mentions that function is defunct (#28).
 
 * New `expect_deprecated()` and `expect_defunct()` functions for

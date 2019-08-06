@@ -33,7 +33,7 @@ The lifecycle stages for functions and arguments are summarised in the figure be
 
 <img src="figures/lifecycle.svg" width="75%" />
 
-There are 4 __development__ stages.
+There are four __development__ stages.
 
 1. <img src="figures/lifecycle-experimental.svg" alt = "Experimental" style="vertical-align:middle" /> This is a new feature that is in the very early stage of development. It is exported so users can start to use it and report feedback, but its interface and/or behaviour is likely to change in the future. It is generally best to avoid depending on experimental features.
 
@@ -43,7 +43,11 @@ There are 4 __development__ stages.
 
 1. <img src="figures/lifecycle-questioning.svg" alt = "Questioning" style="vertical-align:middle" /> The author is no longer convinced that the feature is the optimal approach. However, there are no recommended alternatives yet.
 
-Once the decision of discontinuing a feature has been made, it goes through 3 __deprecation__ stages.
+When a feature is no longer under development, it can be either __retired__ or __deprecated__.
+
+1. <img src="figures/lifecycle-retired.svg" alt = "Retired" style="vertical-align:middle" /> A retired feature is no longer under active development, and a known better alternative is available. However, it is indefinitely kept in the package for backward compatibility. The author only makes the necessary changes to ensure that the function continues working. No new features will be added, and only the most critical of bugs will be fixed.
+
+The deprecation lifecycle is subdivided into three stages.
 
 1. <img src="figures/lifecycle-soft-deprecated.svg" alt = "Soft deprecated" style="vertical-align:middle" /> The author is no longer happy with a feature because they consider it sub-optimal compared to some other approach, or simply because they no longer have the time to maintain it. A soft-deprecated feature can still be used without hassle, but users should consider switching to an alternative approach.
 

@@ -27,6 +27,7 @@
 #' * \verb{\lifecycle{maturing}}: \lifecycle{maturing}
 #' * \verb{\lifecycle{stable}}: \lifecycle{stable}
 #' * \verb{\lifecycle{questioning}}: \lifecycle{questioning}
+#' * \verb{\lifecycle{retired}}: \lifecycle{retired}
 #' * \verb{\lifecycle{archived}}: \lifecycle{archived}
 #' * \verb{\lifecycle{soft-deprecated}}: \lifecycle{soft-deprecated}
 #' * \verb{\lifecycle{deprecated}}: \lifecycle{deprecated}
