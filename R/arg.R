@@ -42,5 +42,5 @@ deprecated <- function() {
 #' @param arg A `deprecated()` function argument.
 #' @export
 is_present <- function(arg) {
-  !is_missing(arg)
+  !is_missing(maybe_missing(arg))
 }
