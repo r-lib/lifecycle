@@ -30,4 +30,4 @@ Use lifecycle to document the status of your exported functions and arguments:
 
 * Include the relevant lifecycle badge in your documentation.
 
-Consult the usage vignette to learn about the workflow: `vignette("usage", package = "lifecycle")`.
+Consult the usage vignette to learn about the workflow: `vignette("lifecycle", package = "lifecycle")`.
