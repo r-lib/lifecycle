@@ -29,7 +29,9 @@ Use lifecycle to document the status of your exported functions and arguments:
 
 ### Stages
 
-The lifecycle stages for functions and arguments closely mirror the [lifecycle stages for packages](https://www.tidyverse.org/lifecycle/).
+The lifecycle stages for functions and arguments are summarised in the figure below. They're designed to closely mirror the lifecycle stages for [packages](https://www.tidyverse.org/lifecycle/).
+
+<img src="figures/lifecycle.svg" width="75%" />
 
 There are 4 __development__ stages.
 
