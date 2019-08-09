@@ -1,9 +1,8 @@
 #' Mark an argument as deprecated
 #'
 #' Signal deprecated argument by using self-documenting sentinel
-#' `deprecated()` as default argument. It returns
-#' [rlang::missing_arg()], so you can test whether the user supplied
-#' the argument with [rlang::is_missing()] (see examples).
+#' `deprecated()` as default argument. Test whether the caller has
+#' supplied the argument with `is_present()`.
 #'
 #' @section Magical defaults:
 #'
@@ -20,7 +19,7 @@
 #' @examples
 #' foobar_adder <- function(foo, bar, baz = deprecated()) {
 #'   # Check if user has supplied `baz` instead of `bar`
-#'   if (!rlang::is_missing(baz)) {
+#'   if (lifecycle::is_present(baz)) {
 #'
 #'     # Signal the deprecation to the user
 #'     deprecate_warn("1.0.0", "foo::bar_adder(baz = )", "foo::bar_adder(bar = )")
@@ -38,4 +37,10 @@
 #' @export
 deprecated <- function() {
   missing_arg()
+}
+#' @rdname deprecated
+#' @param arg A `deprecated()` function argument.
+#' @export
+is_present <- function(arg) {
+  !is_missing(maybe_missing(arg))
 }
