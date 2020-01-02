@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Display last deprecation warnings — last_warnings • lifecycle</title>
+<title>Page not found (404) • lifecycle</title>
 
 
 <!-- jquery -->
@@ -29,25 +29,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script>
+<link href="https://lifecycle.r-lib.org/pkgdown.css" rel="stylesheet">
+<script src="https://lifecycle.r-lib.org/pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="Display last deprecation warnings — last_warnings" />
-<meta property="og:description" content="Call these helpers to see the last deprecation warnings along with
-their backtrace:
-last_warnings() returns a list of all warnings that occurred
-during the last top-level R command.
-last_warning() returns only the last.
-
-
-If you call these in the console, these warnings are printed with a
-backtrace. Pass the simplify argument to control the verbosity of
-the backtrace. It supports one of &quot;branch&quot; (the default),
-&quot;collapse&quot;, and &quot;none&quot; (in increasing order of verbosity)." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Page not found (404)" />
 
 
 
@@ -66,7 +54,7 @@ the backtrace. It supports one of &quot;branch&quot; (the default),
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -78,7 +66,7 @@ the backtrace. It supports one of &quot;branch&quot; (the default),
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">lifecycle</a>
+        <a class="navbar-link" href="https://lifecycle.r-lib.org/index.html">lifecycle</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
@@ -86,16 +74,16 @@ the backtrace. It supports one of &quot;branch&quot; (the default),
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
+  <a href="index.html">
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../articles/lifecycle.html">Get started</a>
+  <a href="articles/lifecycle.html">Get started</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -107,7 +95,7 @@ the backtrace. It supports one of &quot;branch&quot; (the default),
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../news/index.html">Changelog</a>
+      <a href="news/index.html">Changelog</a>
     </li>
   </ul>
 </li>
@@ -128,65 +116,17 @@ the backtrace. It supports one of &quot;branch&quot; (the default),
       </header>
 
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-9">
     <div class="page-header">
-    <h1>Display last deprecation warnings</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-lib/lifecycle/blob/master/R/warning.R'><code>R/warning.R</code></a></small>
-    <div class="hidden name"><code>last_warnings.Rd</code></div>
+      <h1>Page not found (404)</h1>
     </div>
 
-    <div class="ref-description">
-    <p>Call these helpers to see the last deprecation warnings along with
-their backtrace:</p><ul>
-<li><p><code>last_warnings()</code> returns a list of all warnings that occurred
-during the last top-level R command.</p></li>
-<li><p><code>last_warning()</code> returns only the last.</p></li>
-</ul>
-
-<p>If you call these in the console, these warnings are printed with a
-backtrace. Pass the <code>simplify</code> argument to control the verbosity of
-the backtrace. It supports one of <code>"branch"</code> (the default),
-<code>"collapse"</code>, and <code>"none"</code> (in increasing order of verbosity).</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>last_warnings</span>()
-
-<span class='fu'>last_warning</span>()</pre>
-
-
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># These examples are not run because `last_warnings()` does not</span>
-<span class='co'># work well within knitr and pkgdown</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>() <span class='fu'><a href='https://rdrr.io/r/base/invisible.html'>invisible</a></span>(<span class='fu'>g</span>())
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>() <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'>h</span>(), <span class='fu'>i</span>())
-<span class='no'>h</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>() <span class='fu'><a href='deprecate_soft.html'>deprecate_warn</a></span>(<span class='st'>"1.0.0"</span>, <span class='st'>"this()"</span>)
-<span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>() <span class='fu'><a href='deprecate_soft.html'>deprecate_warn</a></span>(<span class='st'>"1.0.0"</span>, <span class='st'>"that()"</span>)
-<span class='fu'>f</span>()
-
-<span class='co'># Print all the warnings that occurred during the last command:</span>
-<span class='fu'>last_warnings</span>()
-
-<span class='co'># Print only the last one:</span>
-<span class='fu'>last_warning</span>()
-
-
-<span class='co'># By default, the backtraces are printed in their simplified form.</span>
-<span class='co'># Use `simplify` to control the verbosity:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>last_warnings</span>(), <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='st'>"none"</span>)
-
-}</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+Content not found. Please use links in the navbar.
 
   </div>
+
 </div>
+
 
 
       <footer>
