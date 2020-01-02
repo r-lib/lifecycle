@@ -201,7 +201,7 @@ lifecycle_build_message <- function(when,
                                     what,
                                     with = NULL,
                                     details = chr(),
-                                    env,
+                                    env = caller_env(2),
                                     signaller) {
   details <- details %||% chr()
 
