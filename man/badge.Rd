@@ -18,8 +18,8 @@ An \code{Rd} expression describing the lifecycle stage.
 Call \code{usethis::use_lifecycle()} to import the badges in your
 package. Then use the \code{lifecycle} Rd macro to insert a lifecycle
 badges in your documentation, with the relevant lifecycle stage as
-argument:\preformatted{\lifecycle{experimental}
-\lifecycle{soft-deprecated}
+argument:\preformatted{\\lifecycle\{experimental\}
+\\lifecycle\{soft-deprecated\}
 }
 
 The badge is displayed as image in the HTML version of the
@@ -33,12 +33,12 @@ confusion). If it is an argument, you can put the badge in the
 argument description.
 }
 \details{
-The \code{lifecycle{}} macro is made available by adding this field to
+The \verb{lifecycle\{\}} macro is made available by adding this field to
 DESCRIPTION (this is done automatically by
 \code{usethis::use_lifecycle()}):\preformatted{RdMacros: lifecycle
 }
 
-The macro expands to this expression:\preformatted{\Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+The macro expands to this expression:\preformatted{\\Sexpr[results=rd, stage=render]\{lifecycle::badge("experimental")\}
 }
 }
 \section{Badges}{

@@ -6,11 +6,23 @@
 \alias{deprecate_stop}
 \title{Deprecate functions and arguments}
 \usage{
-deprecate_soft(when, what, with = NULL, details = NULL, id = NULL,
-  env = caller_env(2))
+deprecate_soft(
+  when,
+  what,
+  with = NULL,
+  details = NULL,
+  id = NULL,
+  env = caller_env(2)
+)
 
-deprecate_warn(when, what, with = NULL, details = NULL, id = NULL,
-  env = caller_env(2))
+deprecate_warn(
+  when,
+  what,
+  with = NULL,
+  details = NULL,
+  id = NULL,
+  env = caller_env(2)
+)
 
 deprecate_stop(when, what, with = NULL, details = NULL)
 }
