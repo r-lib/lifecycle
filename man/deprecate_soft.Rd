@@ -86,6 +86,9 @@ deprecate_warn("1.0.0", "foo()")
 # A deprecated argument `arg`:
 deprecate_warn("1.0.0", "foo(arg = )")
 
+# A partially deprecated argument `arg`:
+deprecate_warn("1.0.0", "foo(arg = 'must be a scalar integer')")
+
 # A deprecated function with a function replacement:
 deprecate_warn("1.0.0", "foo()", "bar()")
 
