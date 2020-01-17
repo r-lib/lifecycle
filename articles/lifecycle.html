@@ -189,20 +189,25 @@
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; Please use the `new` argument instead.</span></a>
 <a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; This warning is displayed once per session.</span></a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a></code></pre></div>
+<p>An argument can be partially deprecated by disallowing certain input types:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = 'must be a scalar integer')"</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; Warning: The `arg` argument of `foo()` must be a scalar integer as of mypkg 1.0.0.</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a></code></pre></div>
 <p>lifecycle also provides the <code><a href="../reference/deprecated.html">deprecated()</a></code> sentinel to use as default argument. This provides self-documentation for your users and makes it possible for external tools to determine which arguments are deprecated. Test whether the argument was supplied by the caller with <code><a href="../reference/deprecated.html">lifecycle::is_present()</a></code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">foobar_adder &lt;-<span class="st"> </span><span class="cf">function</span>(foo, bar, <span class="dt">baz =</span> <span class="kw"><a href="../reference/deprecated.html">deprecated</a></span>()) {</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="co"># Check if user has supplied `baz` instead of `bar`</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="cf">if</span> (lifecycle<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/lifecycle/man/deprecated.html">is_present</a></span>(baz)) {</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="co"># Signal the deprecation to the user</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="kw"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"foobar_adder(baz = )"</span>, <span class="st">"foobar_adder(bar = )"</span>)</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">    <span class="co"># Deal with the deprecated argument for compatibility</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">    bar &lt;-<span class="st"> </span>baz</a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">  }</a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12">  foo <span class="op">+</span><span class="st"> </span>bar</a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">}</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">foobar_adder &lt;-<span class="st"> </span><span class="cf">function</span>(foo, bar, <span class="dt">baz =</span> <span class="kw"><a href="../reference/deprecated.html">deprecated</a></span>()) {</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="co"># Check if user has supplied `baz` instead of `bar`</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="cf">if</span> (lifecycle<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/lifecycle/man/deprecated.html">is_present</a></span>(baz)) {</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">    <span class="co"># Signal the deprecation to the user</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">    <span class="kw"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"foobar_adder(baz = )"</span>, <span class="st">"foobar_adder(bar = )"</span>)</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">    <span class="co"># Deal with the deprecated argument for compatibility</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">    bar &lt;-<span class="st"> </span>baz</a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">  }</a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">  foo <span class="op">+</span><span class="st"> </span>bar</a>
+<a class="sourceLine" id="cb8-13" data-line-number="13">}</a></code></pre></div>
 </div>
 <div id="workflow" class="section level3">
 <h3 class="hasAnchor">
@@ -228,39 +233,39 @@
 <h4 class="hasAnchor">
 <a href="#find-out-what-deprecated-features-you-rely-on" class="anchor"></a>Find out what deprecated features you rely on</h4>
 <p>Test whether your package depends on deprecated features directly or indirectly by setting the verbosity option in the <code>tests/testthat.R</code> file just before <code><a href="https://rdrr.io/pkg/testthat/man/test_dir.html">test_check()</a></code> is called:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(testthat)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(mypackage)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"error"</span>)</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_dir.html">test_check</a></span>(<span class="st">"mypackage"</span>)</a></code></pre></div>
-<p>This forces all deprecated features to fail. You can also set the relevant options manually to force warnings or errors in your session:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># Force silence</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"quiet"</span>)</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(testthat)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(mypackage)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co"># Force warnings</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"warning"</span>)</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co"># Force errors</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"error"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"error"</span>)</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_dir.html">test_check</a></span>(<span class="st">"mypackage"</span>)</a></code></pre></div>
+<p>This forces all deprecated features to fail. You can also set the relevant options manually to force warnings or errors in your session:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># Force silence</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"quiet"</span>)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co"># Force warnings</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"warning"</span>)</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co"># Force errors</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"error"</span>)</a></code></pre></div>
 <p>Forcing warnings can be useful in conjuction with <code><a href="../reference/last_warnings.html">last_warnings()</a></code>, which prints backtraces for all the deprecation warnings issued during the last top-level command.</p>
 </div>
 <div id="test-deprecated-features" class="section level4">
 <h4 class="hasAnchor">
 <a href="#test-deprecated-features" class="anchor"></a>Test deprecated features</h4>
 <p>Test whether a deprecated feature still works by disabling the warnings with <code>scoped_lifecycle_silence()</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"`baz` argument of `foobar_adder()` still works"</span>, {</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">  withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_options.html">local_options</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"quiet"</span>))</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="kw">foobar_adder</span>(<span class="dv">1</span>, <span class="dt">baz =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">})</a></code></pre></div>
-<p>Test that a feature is correctly deprecated by forcing warnings and checking the class <code>"lifecycle_warning_deprecated"</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"`baz` argument of `foobar_adder()` is deprecated"</span>, {</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">  withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_options.html">local_options</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"warning"</span>))</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_message.html">expect_warning</a></span>(<span class="kw">foobar_adder</span>(<span class="dv">1</span>, <span class="dt">baz =</span> <span class="dv">2</span>), <span class="dt">class =</span> <span class="st">"lifecycle_warning_deprecated"</span>)</a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"`baz` argument of `foobar_adder()` still works"</span>, {</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">  withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_options.html">local_options</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"quiet"</span>))</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">  <span class="kw">foobar_adder</span>(<span class="dv">1</span>, <span class="dt">baz =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">})</a></code></pre></div>
+<p>Test that a feature is correctly deprecated by forcing warnings and checking the class <code>"lifecycle_warning_deprecated"</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"`baz` argument of `foobar_adder()` is deprecated"</span>, {</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">  withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_options.html">local_options</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"warning"</span>))</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_message.html">expect_warning</a></span>(<span class="kw">foobar_adder</span>(<span class="dv">1</span>, <span class="dt">baz =</span> <span class="dv">2</span>), <span class="dt">class =</span> <span class="st">"lifecycle_warning_deprecated"</span>)</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">})</a></code></pre></div>
 <p>Defunct features throw errors of class <code>"lifecycle_error_deprecated"</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"`foo()` is defunct"</span>, {</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_error.html">expect_error</a></span>(<span class="kw">foo</span>(), <span class="dt">class =</span> <span class="st">"lifecycle_error_deprecated"</span>)</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">})</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"`foo()` is defunct"</span>, {</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_error.html">expect_error</a></span>(<span class="kw">foo</span>(), <span class="dt">class =</span> <span class="st">"lifecycle_error_deprecated"</span>)</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">})</a></code></pre></div>
 </div>
 </div>
   </div>
