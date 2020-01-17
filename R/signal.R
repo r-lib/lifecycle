@@ -56,6 +56,9 @@
 #' # A deprecated argument `arg`:
 #' deprecate_warn("1.0.0", "foo(arg = )")
 #'
+#' # A partially deprecated argument `arg`:
+#' deprecate_warn("1.0.0", "foo(arg = 'must be a scalar integer')")
+#'
 #' # A deprecated function with a function replacement:
 #' deprecate_warn("1.0.0", "foo()", "bar()")
 #'
@@ -214,6 +217,7 @@ lifecycle_build_message <- function(when,
   what <- signal_validate_what(what, "what", signaller)
   fn <- signal_validate_fn(what$call)
   arg <- signal_validate_arg(what$call, signaller)
+  reason <- signal_validate_reason(what$call, signaller)
 
   if (is_null(what$pkg)) {
     env <- topenv(caller_env(2))
@@ -225,7 +229,7 @@ lifecycle_build_message <- function(when,
   if (is_null(arg)) {
     msg <- glue::glue("`{ fn }()` is deprecated as of { pkg } { when }.")
   } else {
-    msg <- glue::glue("The `{ arg }` argument of `{ fn }()` is deprecated as of { pkg } { when }.")
+    msg <- glue::glue("The `{ arg }` argument of `{ fn }()` { reason } as of { pkg } { when }.")
   }
 
   if (!is_null(with)) {
@@ -303,7 +307,7 @@ signal_validate_arg <- function(call, signaller) {
     abort("Internal error: `what` can't refer to more than one argument.")
   }
 
-  if (is_null(node_tag(arg)) || !is_missing(node_car(arg))) {
+  if (is_null(node_tag(arg))) {
     abort(glue::glue(
       "
         Internal error: `what` must refer to arguments in the LHS of `=`.
@@ -319,6 +323,39 @@ signal_validate_arg <- function(call, signaller) {
   }
 
   as_string(node_tag(arg))
+}
+
+signal_validate_reason <- function(call, signaller) {
+  arg <- node_cdr(call)
+
+  if (is_null(arg)) {
+    return(NULL)
+  }
+
+  if (length(arg) != 1L) {
+    abort("Internal error: `what` can't refer to more than one argument.")
+  }
+
+  if (is_missing(node_car(arg))) {
+    reason <- "is deprecated"
+  } else if (is_string(node_car(arg)))  {
+    reason <- node_car(arg)
+  } else {
+    abort(glue::glue(
+      "
+        Internal error: `what` must contain reason as a string in the LHS of `=`.
+
+          # Good:
+          { signaller }(what = \"myfunction(arg = 'must be a string')\")
+
+          # Bad:
+          { signaller }(what = \"myfunction(arg = 42)\")
+
+        "
+    ))
+  }
+
+  reason
 }
 
 signal_validate_pkg <- function(env) {

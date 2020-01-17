@@ -1,6 +1,9 @@
 
 # lifecycle 0.1.0.9000
 
+* New syntax `"foo(arg = 'can\\'t be a baz')"` to describe that specific inputs
+  for an argument are deprecated (#30, @krlmlr).
+
 * New `is_present()` function to test whether the caller has supplied a
   `deprecated()` function.
 

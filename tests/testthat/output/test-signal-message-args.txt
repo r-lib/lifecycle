@@ -32,3 +32,9 @@ Deprecated argument with argument replacement (different function, different pac
 
 The `quux` argument of `foo()` is deprecated as of aaa 1.0.0.
 Please use the `foofy` argument of `zzz::bar()` instead.
+
+
+Deprecated argument with reason
+===============================
+
+The `quux` argument of `foo()` can't be a baz as of aaa 1.0.0.

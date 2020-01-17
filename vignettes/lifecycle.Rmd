@@ -129,6 +129,12 @@ deprecate_warn("1.0.0", "mypkg::foo(arg = )")
 deprecate_warn("1.0.0", "mypkg::foo(arg = )", "mypkg::foo(new = )")
 ```
 
+An argument can be partially deprecated by disallowing certain input types:
+
+```{r}
+deprecate_warn("1.0.0", "mypkg::foo(arg = 'must be a scalar integer')")
+```
+
 lifecycle also provides the `deprecated()` sentinel to use as default argument. This provides self-documentation for your users and makes it possible for external tools to determine which arguments are deprecated. Test whether the argument was supplied by the caller with `lifecycle::is_present()`:
 
 ```{r}
