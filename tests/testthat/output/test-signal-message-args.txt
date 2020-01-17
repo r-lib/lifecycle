@@ -37,4 +37,4 @@ Please use the `foofy` argument of `zzz::bar()` instead.
 Deprecated argument with reason
 ===============================
 
-The `quux` argument of `foo()` can not be a baz as of aaa 1.0.0.
+The `quux` argument of `foo()` can't be a baz as of aaa 1.0.0.
