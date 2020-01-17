@@ -56,6 +56,9 @@ test_that("deprecation messages are constructed for arguments", {
 
     cat_ruler("Deprecated argument with argument replacement (different function, different package)")
     cat_line(lifecycle_build_message("1.0.0", "aaa::foo(quux = )", "zzz::bar(foofy = )", signaller = "deprecate_stop"))
+
+    cat_ruler("Deprecated argument with reason")
+    cat_line(lifecycle_build_message("1.0.0", "aaa::foo(quux = 'can not be a baz')", signaller = "deprecate_stop"))
   })
 })
 
