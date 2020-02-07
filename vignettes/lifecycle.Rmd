@@ -206,8 +206,6 @@ Forcing warnings can be useful in conjuction with `last_warnings()`, which print
 
 #### Test deprecated features
 
-The `lifecycle_verbosity` option is useful for unit tests. See `?verbosity` for the values it can be set to.
-
 Test whether a deprecated feature still works by setting `lifecycle_verbosity` to `"quiet"`:
 
 ```{r, eval = FALSE}
@@ -217,26 +215,25 @@ test_that("`baz` argument of `foobar_adder()` still works", {
 })
 ```
 
-Test that a feature is correctly deprecated by forcing warnings and checking the class `"lifecycle_warning_deprecated"`:
-
-```{r, eval = FALSE}
-test_that("`baz` argument of `foobar_adder()` is deprecated", {
-  withr::local_options(list(lifecycle_verbosity = "warning"))
-  expect_warning(foobar_adder(1, baz = 2), class = "lifecycle_warning_deprecated")
-})
-```
-
-Defunct features throw errors of class `"lifecycle_error_deprecated"`:
-
-```{r, eval = FALSE}
-test_that("`foo()` is defunct", {
-  expect_error(foo(), class = "lifecycle_error_deprecated")
-})
-```
-
 You can also set up verbosity for a whole testthat file within `setup()` and `teardown()` blocks:
 
 ```{r, eval = FALSE}
 setup(options(lifecycle_verbosity = "quiet"))
 teardown(options(lifecycle_verbosity = NULL))
 ```
+
+Test that a feature is correctly deprecated with
+`expect_deprecated()` or `expect_defunct()`:
+
+```{r, eval = FALSE}
+test_that("`baz` argument of `foobar_adder()` is deprecated", {
+  expect_deprecated(foobar_adder(1, baz = 2))
+})
+
+test_that("`foo()` is defunct", {
+  expect_defunct(foo())
+})
+```
+
+More control over verbosity can be exercised with the
+`lifecycle_verbosity` option. See `?verbosity`.
