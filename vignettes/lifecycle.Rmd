@@ -43,9 +43,9 @@ There are four __development__ stages.
 
 1. <img src="figures/lifecycle-questioning.svg" alt = "Questioning" style="vertical-align:middle" /> The author is no longer convinced that the feature is the optimal approach. However, there are no recommended alternatives yet.
 
-When a feature is no longer under development, it can be either __retired__ or __deprecated__.
+When a feature is no longer under development, it can be either __superseded__ or __deprecated__.
 
-1. <img src="figures/lifecycle-retired.svg" alt = "Retired" style="vertical-align:middle" /> A retired feature is no longer under active development, and a known better alternative is available. However, it is indefinitely kept in the package for backward compatibility. The author only makes the necessary changes to ensure that the function continues working. No new features will be added, and only the most critical of bugs will be fixed.
+1. <img src="figures/lifecycle-superseded.svg" alt = "Superseded" style="vertical-align:middle" /> A superseded feature is no longer under active development, and a known better alternative is available. However, it is indefinitely kept in the package for backward compatibility. The author only makes the necessary changes to ensure that the function continues working. No new features will be added, and only the most critical of bugs will be fixed.
 
 The deprecation lifecycle is subdivided into three stages.
 

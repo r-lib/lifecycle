@@ -27,7 +27,7 @@
 #' * \verb{\lifecycle{maturing}}: \lifecycle{maturing}
 #' * \verb{\lifecycle{stable}}: \lifecycle{stable}
 #' * \verb{\lifecycle{questioning}}: \lifecycle{questioning}
-#' * \verb{\lifecycle{retired}}: \lifecycle{retired}
+#' * \verb{\lifecycle{superseded}}: \lifecycle{superseded}
 #' * \verb{\lifecycle{archived}}: \lifecycle{archived}
 #' * \verb{\lifecycle{soft-deprecated}}: \lifecycle{soft-deprecated}
 #' * \verb{\lifecycle{deprecated}}: \lifecycle{deprecated}
@@ -73,6 +73,7 @@ lifecycle_img <- function(stage, url) {
     stable = ,
     questioning = ,
     retired = ,
+    superseded = ,
     archived =
       sprintf(
         "\\out{<a href='%s'><img src='%s' alt='%s lifecycle'></a>}",

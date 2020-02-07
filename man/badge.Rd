@@ -48,7 +48,7 @@ The macro expands to this expression:\preformatted{\\Sexpr[results=rd, stage=ren
 \item \verb{\lifecycle{maturing}}: \lifecycle{maturing}
 \item \verb{\lifecycle{stable}}: \lifecycle{stable}
 \item \verb{\lifecycle{questioning}}: \lifecycle{questioning}
-\item \verb{\lifecycle{retired}}: \lifecycle{retired}
+\item \verb{\lifecycle{superseded}}: \lifecycle{superseded}
 \item \verb{\lifecycle{archived}}: \lifecycle{archived}
 \item \verb{\lifecycle{soft-deprecated}}: \lifecycle{soft-deprecated}
 \item \verb{\lifecycle{deprecated}}: \lifecycle{deprecated}
