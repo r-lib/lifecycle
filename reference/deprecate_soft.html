@@ -49,7 +49,10 @@ deprecate_stop() fails unconditionally. Use for defunct functions.
 
 Warnings are only issued once per session to avoid overwhelming the
 user. See the verbosity option to control this
-behaviour." />
+behaviour.
+Deprecation warnings have class
+lifecycle_warning_deprecated. Deprecation errors have class
+lifecycle_error_deprecated." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -163,6 +166,9 @@ functions.</p></li>
 <p>Warnings are only issued once per session to avoid overwhelming the
 user. See the <a href='verbosity.html'>verbosity option</a> to control this
 behaviour.</p>
+<p>Deprecation warnings have class
+<code>lifecycle_warning_deprecated</code>. Deprecation errors have class
+<code>lifecycle_error_deprecated</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>deprecate_soft</span>(
