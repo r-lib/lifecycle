@@ -19,6 +19,7 @@ Manage the life cycle of your exported functions with
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://lifecycle.r-lib.org/}
   \item \url{https://github.com/r-lib/lifecycle}
   \item Report bugs at \url{https://github.com/r-lib/lifecycle/issues}
 }
