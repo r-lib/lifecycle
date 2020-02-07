@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • lifecycle</title>
+<title>Does expression produce lifecycle warnings or errors? — expect_deprecated • lifecycle</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,19 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Does expression produce lifecycle warnings or errors? — expect_deprecated" />
+<meta property="og:description" content="These functions are equivalent to testthat::expect_warning() and
+testthat::expect_error() but check specifically for lifecycle
+warnings or errors.
+To test whether a deprecated feature still works without causing a
+deprecation warning, set the lifecycle_verbosity option to
+&quot;quiet&quot;.test_that(&quot;feature still works&quot;, {
+  withr::local_options(lifecycle_verbosity = &quot;quiet&quot;)
+  expect_true(my_deprecated_function())
+})
+
+" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -64,7 +76,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -126,72 +138,55 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Does expression produce lifecycle warnings or errors?</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/lifecycle/blob/master/R/expect.R'><code>R/expect.R</code></a></small>
+    <div class="hidden name"><code>expect_deprecated.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>These functions are equivalent to <code><a href='https://rdrr.io/pkg/testthat/man/expect_message.html'>testthat::expect_warning()</a></code> and
+<code><a href='https://rdrr.io/pkg/testthat/man/expect_error.html'>testthat::expect_error()</a></code> but check specifically for lifecycle
+warnings or errors.</p>
+<p>To test whether a deprecated feature still works without causing a
+deprecation warning, set the <code>lifecycle_verbosity</code> option to
+<code>"quiet"</code>.</p><pre>test_that("feature still works", {
+  withr::local_options(lifecycle_verbosity = "quiet")
+  expect_true(my_deprecated_function())
+})
+</pre>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    </div>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="badge.html">badge()</a></code> </p>
-        </td>
-        <td><p>Embed a lifecycle badge in documentation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="deprecate_soft.html">deprecate_soft()</a></code> <code><a href="deprecate_soft.html">deprecate_warn()</a></code> <code><a href="deprecate_soft.html">deprecate_stop()</a></code> </p>
-        </td>
-        <td><p>Deprecate functions and arguments</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="deprecated.html">deprecated()</a></code> <code><a href="deprecated.html">is_present()</a></code> </p>
-        </td>
-        <td><p>Mark an argument as deprecated</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="expect_deprecated.html">expect_deprecated()</a></code> <code><a href="expect_deprecated.html">expect_defunct()</a></code> </p>
-        </td>
-        <td><p>Does expression produce lifecycle warnings or errors?</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="last_warnings.html">last_warnings()</a></code> <code><a href="last_warnings.html">last_warning()</a></code> </p>
-        </td>
-        <td><p>Display last deprecation warnings</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="verbosity.html">verbosity</a></code> </p>
-        </td>
-        <td><p>Control the verbosity of deprecation signals</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>expect_deprecated</span>(<span class='no'>expr</span>)
+
+<span class='fu'>expect_defunct</span>(<span class='no'>expr</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>expr</th>
+      <td><p>Expression that should produce a lifecycle warning or
+error.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>expect_deprecated()</code> sets the <a href='verbosity.html'>lifecycle_verbosity</a>
+option to <code>"warning"</code> to enforce deprecation warnings which are
+otherwise only shown once per session.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#details">Details</a></li>
     </ul>
+
   </div>
 </div>
 

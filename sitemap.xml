@@ -13,6 +13,9 @@
     <loc>https://lifecycle.r-lib.org/reference/deprecated.html</loc>
   </url>
   <url>
+    <loc>https://lifecycle.r-lib.org/reference/expect_deprecated.html</loc>
+  </url>
+  <url>
     <loc>https://lifecycle.r-lib.org/reference/last_warnings.html</loc>
   </url>
   <url>

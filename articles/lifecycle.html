@@ -258,20 +258,23 @@
 <div id="test-deprecated-features" class="section level4">
 <h4 class="hasAnchor">
 <a href="#test-deprecated-features" class="anchor"></a>Test deprecated features</h4>
-<p>Test whether a deprecated feature still works by disabling the warnings with <code>scoped_lifecycle_silence()</code>:</p>
+<p>Test whether a deprecated feature still works by setting <code>lifecycle_verbosity</code> to <code>"quiet"</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"`baz` argument of `foobar_adder()` still works"</span>, {</a>
 <a class="sourceLine" id="cb11-2" data-line-number="2">  withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_options.html">local_options</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"quiet"</span>))</a>
 <a class="sourceLine" id="cb11-3" data-line-number="3">  <span class="kw">foobar_adder</span>(<span class="dv">1</span>, <span class="dt">baz =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">})</a></code></pre></div>
-<p>Test that a feature is correctly deprecated by forcing warnings and checking the class <code>"lifecycle_warning_deprecated"</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"`baz` argument of `foobar_adder()` is deprecated"</span>, {</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">  withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_options.html">local_options</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"warning"</span>))</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_message.html">expect_warning</a></span>(<span class="kw">foobar_adder</span>(<span class="dv">1</span>, <span class="dt">baz =</span> <span class="dv">2</span>), <span class="dt">class =</span> <span class="st">"lifecycle_warning_deprecated"</span>)</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4">})</a></code></pre></div>
-<p>Defunct features throw errors of class <code>"lifecycle_error_deprecated"</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"`foo()` is defunct"</span>, {</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_error.html">expect_error</a></span>(<span class="kw">foo</span>(), <span class="dt">class =</span> <span class="st">"lifecycle_error_deprecated"</span>)</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">})</a></code></pre></div>
+<p>You can also set up verbosity for a whole testthat file within <code><a href="https://rdrr.io/pkg/testthat/man/teardown.html">setup()</a></code> and <code><a href="https://rdrr.io/pkg/testthat/man/teardown.html">teardown()</a></code> blocks:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/teardown.html">setup</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="st">"quiet"</span>))</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/teardown.html">teardown</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">lifecycle_verbosity =</span> <span class="ot">NULL</span>))</a></code></pre></div>
+<p>Test that a feature is correctly deprecated with <code><a href="../reference/expect_deprecated.html">expect_deprecated()</a></code> or <code><a href="../reference/expect_deprecated.html">expect_defunct()</a></code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"`baz` argument of `foobar_adder()` is deprecated"</span>, {</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">  <span class="kw"><a href="../reference/expect_deprecated.html">expect_deprecated</a></span>(<span class="kw">foobar_adder</span>(<span class="dv">1</span>, <span class="dt">baz =</span> <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">})</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"`foo()` is defunct"</span>, {</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">  <span class="kw"><a href="../reference/expect_deprecated.html">expect_defunct</a></span>(<span class="kw">foo</span>())</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">})</a></code></pre></div>
+<p>More control over verbosity can be exercised with the <code>lifecycle_verbosity</code> option. See <code><a href="../reference/verbosity.html">?verbosity</a></code>.</p>
 </div>
 </div>
   </div>
