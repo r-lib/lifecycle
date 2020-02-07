@@ -206,7 +206,9 @@ Forcing warnings can be useful in conjuction with `last_warnings()`, which print
 
 #### Test deprecated features
 
-Test whether a deprecated feature still works by disabling the warnings with `scoped_lifecycle_silence()`:
+The `lifecycle_verbosity` option is useful for unit tests. See `?verbosity` for the values it can be set to.
+
+Test whether a deprecated feature still works by setting `lifecycle_verbosity` to `"quiet"`:
 
 ```{r, eval = FALSE}
 test_that("`baz` argument of `foobar_adder()` still works", {
@@ -230,4 +232,11 @@ Defunct features throw errors of class `"lifecycle_error_deprecated"`:
 test_that("`foo()` is defunct", {
   expect_error(foo(), class = "lifecycle_error_deprecated")
 })
+```
+
+You can also set up verbosity for a whole testthat file within `setup()` and `teardown()` blocks:
+
+```{r, eval = FALSE}
+setup(options(lifecycle_verbosity = "quiet"))
+teardown(options(lifecycle_verbosity = NULL))
 ```
