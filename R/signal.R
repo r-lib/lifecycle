@@ -133,12 +133,13 @@ deprecate_warn <- function(when,
     return(invisible(NULL))
   }
 
-  env_poke(deprecation_env, id, TRUE);
-
   if (verbosity == "error") {
     deprecate_stop(when, what, with = with, details = details)
   } else {
     if (verbosity == "default") {
+      # Prevent warning from being displayed again
+      env_poke(deprecation_env, id, TRUE);
+
       msg <- paste_line(
         msg,
         silver("This warning is displayed once per session."),
