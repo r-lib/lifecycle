@@ -78,6 +78,10 @@ functions.
 Warnings are only issued once per session to avoid overwhelming the
 user. See the \link[=verbosity]{verbosity option} to control this
 behaviour.
+
+Deprecation warnings have class
+\code{lifecycle_warning_deprecated}. Deprecation errors have class
+\code{lifecycle_error_deprecated}.
 }
 \examples{
 # A deprecated function `foo`:

@@ -19,6 +19,10 @@
 #' user. See the [verbosity option][verbosity] to control this
 #' behaviour.
 #'
+#' Deprecation warnings have class
+#' `lifecycle_warning_deprecated`. Deprecation errors have class
+#' `lifecycle_error_deprecated`.
+#'
 #' @param when The package version when function/argument was deprecated.
 #' @param what If the deprecated feature is a whole function, the
 #'   function name: `"foo()"`. If it's an argument that is being
