@@ -39,7 +39,7 @@ There are two development stages.
 
 * <img src="figures/lifecycle-maturing.svg" alt = "Maturing" style="vertical-align:middle" /> The interface and behaviour of a maturing feature has been roughed out, but finer details are likely to change. It still needs more feedback to find the optimal API.
 
-When the development of a feature has reached completion and we are reasonably certain that its interface and behaviour are correct, it is promoted to _stable_. This is the probable end state of most functions.
+The probable end state of most functions is _stable_.
 
 * <img src="figures/lifecycle-stable.svg" alt = "Stable" style="vertical-align:middle" /> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.
 
