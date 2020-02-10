@@ -232,9 +232,17 @@ lifecycle_build_message <- function(when,
   }
 
   if (is_null(arg)) {
-    msg <- glue::glue("`{ fn }()` is deprecated as of { pkg } { when }.")
+    if (signaller == "deprecate_stop") {
+      msg <- glue::glue("`{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
+    } else {
+      msg <- glue::glue("`{ fn }()` is deprecated as of { pkg } { when }.")
+    }
   } else {
-    msg <- glue::glue("The `{ arg }` argument of `{ fn }()` { reason } as of { pkg } { when }.")
+    if (signaller == "deprecate_stop" && reason == "is deprecated") {
+      msg <- glue::glue("The `{ arg }` argument of `{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
+    } else {
+      msg <- glue::glue("The `{ arg }` argument of `{ fn }()` { reason } as of { pkg } { when }.")
+    }
   }
 
   if (!is_null(with)) {

@@ -3,4 +3,4 @@
 Non-syntactic function name and non-syntactic parameter name
 ============================================================
 
-The `qu-ux` argument of ``foo-fy`()` is deprecated as of bar 1.0.0.
+The `qu-ux` argument of ``foo-fy`()` was deprecated in bar 1.0.0 and is now defunct.
