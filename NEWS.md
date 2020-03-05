@@ -1,6 +1,9 @@
 
 # lifecycle 0.1.0.9000
 
+* Added experimental `signal_experimental()` and `signal_superseded()`
+  functions.
+
 * Added the "superseded" lifecycle stage to the documentation.
 
 * `deprecate_stop()` now mentions that function is defunct (#28).
