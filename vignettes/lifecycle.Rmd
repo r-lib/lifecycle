@@ -43,7 +43,7 @@ The probable end state of most functions is _stable_:
 
 * <img src="figures/lifecycle-stable.svg" alt = "Stable" style="vertical-align:middle" /> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.
 
-Sometimes we are no longer certain that a feature follows or implements the right approach. In this case, we mark it as _questioning_. It can then either become _superseded_ once we have implemented an alternative, or _deprecated_. The difference between superseded and deprecated is that a superseded feature is maintained indefinitely for backward compatibility.
+Sometimes we are no longer certain that a feature follows or implements the right approach. In this case, we mark it as _questioning_. It can then either become _superseded_ once we have implemented an alternative, or _deprecated_. The difference between superseded and deprecated is that a superseded feature is maintained indefinitely for backward compatibility. Alternatively, we may realise that a questioning feature is actually important, and move it back to stable. User feedback is usually important for taking these decisions and always welcome.
 
 1. <img src="figures/lifecycle-questioning.svg" alt = "Questioning" style="vertical-align:middle" /> The author is no longer convinced that the feature is the optimal approach. However, there are no recommended alternatives yet.
 
