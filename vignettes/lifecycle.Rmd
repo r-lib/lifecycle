@@ -39,7 +39,7 @@ There are two development stages.
 
 * <img src="figures/lifecycle-maturing.svg" alt = "Maturing" style="vertical-align:middle" /> The interface and behaviour of a maturing feature has been roughed out, but finer details are likely to change. It still needs more feedback to find the optimal API.
 
-The probable end state of most functions is _stable_.
+The probable end state of most functions is _stable_:
 
 * <img src="figures/lifecycle-stable.svg" alt = "Stable" style="vertical-align:middle" /> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.
 
@@ -47,7 +47,7 @@ Sometimes we are no longer certain that a feature follows or implements the righ
 
 1. <img src="figures/lifecycle-questioning.svg" alt = "Questioning" style="vertical-align:middle" /> The author is no longer convinced that the feature is the optimal approach. However, there are no recommended alternatives yet.
 
-1. <img src="figures/lifecycle-superseded.svg" alt = "Superseded" style="vertical-align:middle" /> A superseded feature is no longer under active development, and a known better alternative is available. However, it is indefinitely kept in the package for backward compatibility. The author only makes the necessary changes to ensure that the function continues working. No new features will be added, and only the most critical of bugs will be fixed.
+1. <img src="figures/lifecycle-superseded.svg" alt = "Superseded" style="vertical-align:middle" /> (Previously called retired) A superseded feature is no longer under active development, and a known better alternative is available. However, it is indefinitely kept in the package for backward compatibility. The author will only make the necessary changes to ensure that the function continues working. No new features will be added, and only critical bugs will be fixed.
 
 The deprecation lifecycle is divided into three stages in order to give time to users to switch to an alternative.
 
