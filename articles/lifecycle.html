@@ -110,20 +110,28 @@
 <a href="#stages" class="anchor"></a>Stages</h3>
 <p>The lifecycle stages for functions and arguments are summarised in the figure below. They’re designed to closely mirror the lifecycle stages for <a href="https://www.tidyverse.org/lifecycle/">packages</a>.</p>
 <p><img src="figures/lifecycle.svg" width="75%"></p>
-<p>There are 4 <strong>development</strong> stages.</p>
-<ol style="list-style-type: decimal">
+<p>There are two development stages.</p>
+<ul>
 <li><p><img src="figures/lifecycle-experimental.svg" alt="Experimental" style="vertical-align:middle"> This is a new feature that is in the very early stage of development. It is exported so users can start to use it and report feedback, but its interface and/or behaviour is likely to change in the future. It is generally best to avoid depending on experimental features.</p></li>
 <li><p><img src="figures/lifecycle-maturing.svg" alt="Maturing" style="vertical-align:middle"> The interface and behaviour of a maturing feature has been roughed out, but finer details are likely to change. It still needs more feedback to find the optimal API.</p></li>
-<li><p><img src="figures/lifecycle-stable.svg" alt="Stable" style="vertical-align:middle"> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.</p></li>
+</ul>
+<p>The probable end state of most functions is <em>stable</em>:</p>
+<ul>
+<li>
+<img src="figures/lifecycle-stable.svg" alt="Stable" style="vertical-align:middle"> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.</li>
+</ul>
+<p>Sometimes we are no longer certain that a feature follows or implements the right approach. In this case, we mark it as <em>questioning</em>. It can then either become <em>superseded</em> once we have implemented an alternative, or <em>deprecated</em>. The difference between superseded and deprecated is that a superseded feature is maintained indefinitely for backward compatibility. Alternatively, we may realise that a questioning feature is actually important, and move it back to stable. User feedback is usually important for taking these decisions and always welcome.</p>
+<ol style="list-style-type: decimal">
 <li><p><img src="figures/lifecycle-questioning.svg" alt="Questioning" style="vertical-align:middle"> The author is no longer convinced that the feature is the optimal approach. However, there are no recommended alternatives yet.</p></li>
+<li><p><img src="figures/lifecycle-superseded.svg" alt="Superseded" style="vertical-align:middle"> (Previously called retired) A superseded feature is no longer under active development, and a known better alternative is available. However, it is indefinitely kept in the package for backward compatibility. The author will only make the necessary changes to ensure that the function continues working. No new features will be added, and only critical bugs will be fixed.</p></li>
 </ol>
-<p>Once the decision of discontinuing a feature has been made, it goes through 3 <strong>deprecation</strong> stages.</p>
+<p>The deprecation lifecycle is divided into three stages in order to give time to users to switch to an alternative.</p>
 <ol style="list-style-type: decimal">
 <li><p><img src="figures/lifecycle-soft-deprecated.svg" alt="Soft deprecated" style="vertical-align:middle"> The author is no longer happy with a feature because they consider it sub-optimal compared to some other approach, or simply because they no longer have the time to maintain it. A soft-deprecated feature can still be used without hassle, but users should consider switching to an alternative approach.</p></li>
 <li><p><img src="figures/lifecycle-deprecated.svg" alt="Deprecated" style="vertical-align:middle"> The feature is likely to be discontinued in the next major release. Users should switch to an alternative approach as soon as possible.</p></li>
 <li><p><img src="figures/lifecycle-defunct.svg" alt="Defunct" style="vertical-align:middle"> The feature can no longer be used. A defunct function is still exported, and a defunct argument is still part of the signature. This way an informative error can be thrown.</p></li>
 </ol>
-<p>Finally, when a feature is no longer exposed or mentioned in the released version of the package, it is said to be <strong>archived</strong>.</p>
+<p>Finally, when a feature is no longer exposed or mentioned in the released version of the package, it is said to be <em>archived</em>.</p>
 </div>
 <div id="rd-badges" class="section level3">
 <h3 class="hasAnchor">
