@@ -1,0 +1,37 @@
+
+signallers require function call syntax for `what`
+==================================================
+
+> deprecate_stop("1.0.0", "foo")
+Error: Internal error: `what` must have function call syntax.
+
+  # Good:
+  deprecate_stop(foo = "myfunction()")
+
+  # Bad:
+  deprecate_stop(foo = "myfunction")
+
+> deprecate_stop("1.0.0", "foo()()")
+Error: Internal error: `what` must refer to a function name.
+
+> deprecate_stop("1.0.0", "foo(arg = , arg = )")
+Error: Internal error: `what` can't refer to more than one argument.
+
+> deprecate_stop("1.0.0", "foo(arg)")
+Error: Internal error: `what` must refer to arguments in the LHS of `=`.
+
+  # Good:
+  deprecate_stop(what = "myfunction(arg = )")
+
+  # Bad:
+  deprecate_stop(what = "myfunction(arg)")
+
+> deprecate_stop("1.0.0", "foo(arg = arg)")
+Error: Internal error: `what` must contain reason as a string in the LHS of `=`.
+
+  # Good:
+  deprecate_stop(what = "myfunction(arg = 'must be a string')")
+
+  # Bad:
+  deprecate_stop(what = "myfunction(arg = 42)")
+

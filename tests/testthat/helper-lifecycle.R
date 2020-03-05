@@ -15,3 +15,5 @@ try2 <- function(expr) {
 cat_ruler <- function(title) {
   cat(paste0("\n\n", title, "\n", strrep("=", nchar(title)), "\n\n"))
 }
+
+verify_errors <- function(expr) expr
