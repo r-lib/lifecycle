@@ -1,5 +1,3 @@
-context("signal")
-
 test_that("signallers require function call syntax for `what`", {
   expect_error(deprecate_stop("1.0.0", "foo"), "must have function call syntax")
   expect_error(deprecate_stop("1.0.0", "foo()()"), "must refer to a function name")
