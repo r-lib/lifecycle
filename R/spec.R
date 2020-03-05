@@ -3,15 +3,20 @@ spec_validate_what <- function(what, arg, signaller) {
   call <- parse_expr(what)
 
   if (!is_call(call)) {
+    if (is_symbol(what) || is_string(what)) {
+      what <- as_string(what)
+    } else {
+      what <- "myfunction"
+    }
     abort(glue::glue(
       "
       Internal error: `what` must have function call syntax.
 
         # Good:
-        { signaller }({ what } = \"myfunction()\")
+        { signaller }(\"{what}()\")
 
         # Bad:
-        { signaller }({ what } = \"myfunction\")
+        { signaller }(\"{what}\")
 
       "
     ))
@@ -51,15 +56,16 @@ spec_validate_arg <- function(call, signaller) {
   }
 
   if (is_null(node_tag(arg))) {
+    fn <- as_string(node_car(call))
     abort(glue::glue(
       "
         Internal error: `what` must refer to arguments in the LHS of `=`.
 
           # Good:
-          { signaller }(what = \"myfunction(arg = )\")
+          {signaller}(\"{fn}(arg = )\")
 
           # Bad:
-          { signaller }(what = \"myfunction(arg)\")
+          {signaller}(\"{fn}(arg)\")
 
         "
     ))
@@ -84,15 +90,16 @@ spec_validate_reason <- function(call, signaller) {
   } else if (is_string(node_car(arg)))  {
     reason <- node_car(arg)
   } else {
+    fn <- as_string(node_car(call))
     abort(glue::glue(
       "
         Internal error: `what` must contain reason as a string in the LHS of `=`.
 
           # Good:
-          { signaller }(what = \"myfunction(arg = 'must be a string')\")
+          {signaller}(\"{fn}(arg = 'must be a string')\")
 
           # Bad:
-          { signaller }(what = \"myfunction(arg = 42)\")
+          {signaller}(\"{fn}(arg = 42)\")
 
         "
     ))
