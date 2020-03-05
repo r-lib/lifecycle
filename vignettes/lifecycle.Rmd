@@ -33,17 +33,23 @@ The lifecycle stages for functions and arguments are summarised in the figure be
 
 <img src="figures/lifecycle.svg" width="75%" />
 
-There are 4 __development__ stages.
+There are two development stages.
 
-1. <img src="figures/lifecycle-experimental.svg" alt = "Experimental" style="vertical-align:middle" /> This is a new feature that is in the very early stage of development. It is exported so users can start to use it and report feedback, but its interface and/or behaviour is likely to change in the future. It is generally best to avoid depending on experimental features.
+* <img src="figures/lifecycle-experimental.svg" alt = "Experimental" style="vertical-align:middle" /> This is a new feature that is in the very early stage of development. It is exported so users can start to use it and report feedback, but its interface and/or behaviour is likely to change in the future. It is generally best to avoid depending on experimental features.
 
-1. <img src="figures/lifecycle-maturing.svg" alt = "Maturing" style="vertical-align:middle" /> The interface and behaviour of a maturing feature has been roughed out, but finer details are likely to change. It still needs more feedback to find the optimal API.
+* <img src="figures/lifecycle-maturing.svg" alt = "Maturing" style="vertical-align:middle" /> The interface and behaviour of a maturing feature has been roughed out, but finer details are likely to change. It still needs more feedback to find the optimal API.
 
-1. <img src="figures/lifecycle-stable.svg" alt = "Stable" style="vertical-align:middle" /> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.
+The probable end state of most functions is _stable_:
+
+* <img src="figures/lifecycle-stable.svg" alt = "Stable" style="vertical-align:middle" /> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.
+
+Sometimes we are no longer certain that a feature follows or implements the right approach. In this case, we mark it as _questioning_. It can then either become _superseded_ once we have implemented an alternative, or _deprecated_. The difference between superseded and deprecated is that a superseded feature is maintained indefinitely for backward compatibility. Alternatively, we may realise that a questioning feature is actually important, and move it back to stable. User feedback is usually important for taking these decisions and always welcome.
 
 1. <img src="figures/lifecycle-questioning.svg" alt = "Questioning" style="vertical-align:middle" /> The author is no longer convinced that the feature is the optimal approach. However, there are no recommended alternatives yet.
 
-Once the decision of discontinuing a feature has been made, it goes through 3 __deprecation__ stages.
+1. <img src="figures/lifecycle-superseded.svg" alt = "Superseded" style="vertical-align:middle" /> (Previously called retired) A superseded feature is no longer under active development, and a known better alternative is available. However, it is indefinitely kept in the package for backward compatibility. The author will only make the necessary changes to ensure that the function continues working. No new features will be added, and only critical bugs will be fixed.
+
+The deprecation lifecycle is divided into three stages in order to give time to users to switch to an alternative.
 
 1. <img src="figures/lifecycle-soft-deprecated.svg" alt = "Soft deprecated" style="vertical-align:middle" /> The author is no longer happy with a feature because they consider it sub-optimal compared to some other approach, or simply because they no longer have the time to maintain it. A soft-deprecated feature can still be used without hassle, but users should consider switching to an alternative approach.
 
@@ -51,7 +57,7 @@ Once the decision of discontinuing a feature has been made, it goes through 3 __
 
 1. <img src="figures/lifecycle-defunct.svg" alt = "Defunct" style="vertical-align:middle" /> The feature can no longer be used. A defunct function is still exported, and a defunct argument is still part of the signature. This way an informative error can be thrown.
 
-Finally, when a feature is no longer exposed or mentioned in the released version of the package, it is said to be __archived__.
+Finally, when a feature is no longer exposed or mentioned in the released version of the package, it is said to be _archived_.
 
 
 ### Badges {#rd-badges}
