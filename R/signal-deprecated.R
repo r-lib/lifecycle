@@ -222,7 +222,7 @@ lifecycle_build_message <- function(when,
   what <- spec_validate_what(what, "what", signaller)
   fn <- spec_validate_fn(what$call)
   arg <- spec_validate_arg(what$call, signaller)
-  reason <- spec_validate_reason(what$call, signaller)
+  reason <- signal_validate_reason(what$call, signaller)
 
   if (is_null(what$pkg)) {
     env <- topenv(caller_env(2))
@@ -291,4 +291,14 @@ signal_validate_pkg <- function(env) {
       { signaller }(what = \"myfunction()\")
     "
   ))
+}
+
+signal_validate_reason <- function(call, signaller) {
+  details <- spec_validate_details(call, signaller)
+
+  if (is_null(details)) {
+    "is deprecated"
+  } else {
+    details
+  }
 }

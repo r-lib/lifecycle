@@ -17,3 +17,12 @@ cat_ruler <- function(title) {
 }
 
 verify_errors <- function(expr) expr
+
+spec_data <- function(fn = NULL, arg = NULL, pkg = NULL, details = NULL) {
+  list(
+    fn = fn,
+    arg = arg,
+    pkg = pkg,
+    details = details
+  )
+}
