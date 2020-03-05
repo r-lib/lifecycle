@@ -219,10 +219,10 @@ lifecycle_build_message <- function(when,
     is_character(details)
   )
 
-  what <- signal_validate_what(what, "what", signaller)
-  fn <- signal_validate_fn(what$call)
-  arg <- signal_validate_arg(what$call, signaller)
-  reason <- signal_validate_reason(what$call, signaller)
+  what <- spec_validate_what(what, "what", signaller)
+  fn <- spec_validate_fn(what$call)
+  arg <- spec_validate_arg(what$call, signaller)
+  reason <- spec_validate_reason(what$call, signaller)
 
   if (is_null(what$pkg)) {
     env <- topenv(caller_env(2))
@@ -246,9 +246,9 @@ lifecycle_build_message <- function(when,
   }
 
   if (!is_null(with)) {
-    with <- signal_validate_what(with, "with", signaller)
-    with_fn <- signal_validate_fn(with$call)
-    with_arg <- signal_validate_arg(with$call, signaller)
+    with <- spec_validate_what(with, "with", signaller)
+    with_fn <- spec_validate_fn(with$call)
+    with_arg <- spec_validate_arg(with$call, signaller)
 
     with_pkg <- with$pkg %||% pkg
     if (!is_null(with_pkg) && pkg != with_pkg) {

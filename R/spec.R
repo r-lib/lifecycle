@@ -1,5 +1,5 @@
 
-signal_validate_what <- function(what, arg, signaller) {
+spec_validate_what <- function(what, arg, signaller) {
   call <- parse_expr(what)
 
   if (!is_call(call)) {
@@ -28,7 +28,7 @@ signal_validate_what <- function(what, arg, signaller) {
   list(pkg = pkg, call = call)
 }
 
-signal_validate_fn <- function(call) {
+spec_validate_fn <- function(call) {
   fn <- node_car(call)
 
   if (!is_symbol(fn)) {
@@ -39,7 +39,7 @@ signal_validate_fn <- function(call) {
   expr_deparse(fn)
 }
 
-signal_validate_arg <- function(call, signaller) {
+spec_validate_arg <- function(call, signaller) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
@@ -68,7 +68,7 @@ signal_validate_arg <- function(call, signaller) {
   as_string(node_tag(arg))
 }
 
-signal_validate_reason <- function(call, signaller) {
+spec_validate_reason <- function(call, signaller) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
