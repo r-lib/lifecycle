@@ -157,9 +157,9 @@
 <li>
 <p><strong>Soft deprecation</strong>: At this stage, call <code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> to start warning users about the deprecation in the least disruptive way.</p>
 <p>This function only warns (a) users who try the feature from the global workspace, and (b) developers who directly use the feature, when they run unit tests with testthat. No warning is issued outside of unit tests, or when the deprecated feature is called from another package then ther own.</p>
-<p>When a warning does get issued, users only see it once per session rather than at each invokation.</p>
+<p>When a warning does get issued, users only see it once every 8 hours rather than at each invokation.</p>
 </li>
-<li><p><strong>Deprecation</strong>: At this stage, call <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> to warn unconditionally about the deprecated feature. The warning is issued only once per session.</p></li>
+<li><p><strong>Deprecation</strong>: At this stage, call <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> to warn unconditionally about the deprecated feature. The warning is issued only once every 8 hours.</p></li>
 <li><p><strong>Defunct</strong>: The feature is discontinued. Call <code><a href="../reference/deprecate_soft.html">deprecate_stop()</a></code> to fail with an error.</p></li>
 </ul>
 </div>
@@ -169,13 +169,13 @@
 <p>These functions take the version number starting from which the feature is considered deprecated (it should remain the same across all deprecation stages), and a feature descriptor:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; Warning: `foo()` is deprecated as of mypkg 1.0.0.</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; This warning is displayed once every 8 hours.</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a></code></pre></div>
 <p>You can optionally provide a replacement:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span>, <span class="st">"new()"</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; Warning: `foo()` is deprecated as of mypkg 1.0.0.</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; Please use `new()` instead.</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; This warning is displayed once every 8 hours.</span></a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a></code></pre></div>
 <p>For the purpose of these examples we explicitly mentioned the namespace with <code>mypkg::</code>, however you can typically omit it because lifecycle infers the namespace from the calling environment. Specifying the namespace is mostly useful when the replacement is implemented in a different package.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># The new replacement</span></a>
@@ -195,18 +195,18 @@
 <p>The syntax for deprecating argument is based on the syntax for deprecating functions:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = )"</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; This warning is displayed once every 8 hours.</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = )"</span>, <span class="st">"mypkg::foo(new = )"</span>)</a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.</span></a>
 <a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; Please use the `new` argument instead.</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; This warning is displayed once every 8 hours.</span></a>
 <a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a></code></pre></div>
 <p>An argument can be partially deprecated by disallowing certain input types:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = 'must be a scalar integer')"</span>)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; Warning: The `arg` argument of `foo()` must be a scalar integer as of mypkg 1.0.0.</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; This warning is displayed once every 8 hours.</span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></a></code></pre></div>
 <p>lifecycle also provides the <code><a href="../reference/deprecated.html">deprecated()</a></code> sentinel to use as default argument. This provides self-documentation for your users and makes it possible for external tools to determine which arguments are deprecated. Test whether the argument was supplied by the caller with <code><a href="../reference/deprecated.html">lifecycle::is_present()</a></code>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">foobar_adder &lt;-<span class="st"> </span><span class="cf">function</span>(foo, bar, <span class="dt">baz =</span> <span class="kw"><a href="../reference/deprecated.html">deprecated</a></span>()) {</a>
