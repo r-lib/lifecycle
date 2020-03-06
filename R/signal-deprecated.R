@@ -181,7 +181,7 @@ needs_warning <- function(id) {
   }
 
   # Warn every 8 hours
-  (Sys.time() - last) > 28800
+  (Sys.time() - last) > (8 * 60 * 60)
 }
 
 #' @rdname deprecate_soft
