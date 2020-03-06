@@ -1,4 +1,18 @@
 
+feature_spec <- function(spec, signaller = "signal_lifecycle") {
+  what <- spec_validate_what(spec, "spec", signaller)
+  fn <- spec_validate_fn(what$call)
+  arg <- spec_validate_arg(what$call, signaller)
+  details <- spec_validate_details(what$call, signaller)
+
+  list(
+    fn = fn,
+    arg = arg,
+    pkg = what$pkg,
+    details = details
+  )
+}
+
 spec_validate_what <- function(what, arg, signaller) {
   call <- parse_expr(what)
 
@@ -74,7 +88,7 @@ spec_validate_arg <- function(call, signaller) {
   as_string(node_tag(arg))
 }
 
-spec_validate_reason <- function(call, signaller) {
+spec_validate_details <- function(call, signaller) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
@@ -86,12 +100,15 @@ spec_validate_reason <- function(call, signaller) {
   }
 
   if (is_missing(node_car(arg))) {
-    reason <- "is deprecated"
-  } else if (is_string(node_car(arg)))  {
-    reason <- node_car(arg)
-  } else {
-    fn <- as_string(node_car(call))
-    abort(glue::glue(
+    return(NULL)
+  }
+
+  if (is_string(node_car(arg)))  {
+    return(node_car(arg))
+  }
+
+  fn <- as_string(node_car(call))
+  abort(glue::glue(
       "
         Internal error: `what` must contain reason as a string in the LHS of `=`.
 
@@ -102,8 +119,5 @@ spec_validate_reason <- function(call, signaller) {
           {signaller}(\"{fn}(arg = 42)\")
 
         "
-    ))
-  }
-
-  reason
+  ))
 }

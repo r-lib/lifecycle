@@ -1,0 +1,37 @@
+
+feature_spec() builds feature data
+==================================
+
+> feature_spec("foo")
+Error: Internal error: `what` must have function call syntax.
+
+  # Good:
+  signal_lifecycle("foo()")
+
+  # Bad:
+  signal_lifecycle("foo")
+
+> feature_spec("foo()()")
+Error: Internal error: `what` must refer to a function name.
+
+> feature_spec("foo(arg = , arg = )")
+Error: Internal error: `what` can't refer to more than one argument.
+
+> feature_spec("foo(arg)")
+Error: Internal error: `what` must refer to arguments in the LHS of `=`.
+
+  # Good:
+  signal_lifecycle("foo(arg = )")
+
+  # Bad:
+  signal_lifecycle("foo(arg)")
+
+> feature_spec("foo(arg = arg)")
+Error: Internal error: `what` must contain reason as a string in the LHS of `=`.
+
+  # Good:
+  signal_lifecycle("foo(arg = 'must be a string')")
+
+  # Bad:
+  signal_lifecycle("foo(arg = 42)")
+
