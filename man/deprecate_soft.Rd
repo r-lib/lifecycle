@@ -75,8 +75,8 @@ functions.
 \item \code{deprecate_stop()} fails unconditionally. Use for defunct functions.
 }
 
-Warnings are only issued once per session to avoid overwhelming the
-user. See the \link[=verbosity]{verbosity option} to control this
+Warnings are only issued once every 8 hours to avoid overwhelming
+the user. See the \link[=verbosity]{verbosity option} to control this
 behaviour.
 
 Deprecation warnings have class

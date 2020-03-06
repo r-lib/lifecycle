@@ -15,8 +15,8 @@
 #'
 #' * `deprecate_stop()` fails unconditionally. Use for defunct functions.
 #'
-#' Warnings are only issued once per session to avoid overwhelming the
-#' user. See the [verbosity option][verbosity] to control this
+#' Warnings are only issued once every 8 hours to avoid overwhelming
+#' the user. See the [verbosity option][verbosity] to control this
 #' behaviour.
 #'
 #' Deprecation warnings have class
@@ -133,7 +133,7 @@ deprecate_warn <- function(when,
     return(invisible(NULL))
   }
 
-  if (verbosity == "default" && env_has(deprecation_env, id) && !from_testthat(env)) {
+  if (verbosity == "default" && !needs_warning(id) && !from_testthat(env)) {
     return(invisible(NULL))
   }
 
@@ -142,11 +142,11 @@ deprecate_warn <- function(when,
   } else {
     if (verbosity == "default") {
       # Prevent warning from being displayed again
-      env_poke(deprecation_env, id, TRUE);
+      env_poke(deprecation_env, id, Sys.time());
 
       msg <- paste_line(
         msg,
-        silver("This warning is displayed once per session."),
+        silver("This warning is displayed once every 8 hours."),
         silver("Call `lifecycle::last_warnings()` to see where this warning was generated.")
       )
     }
@@ -169,6 +169,19 @@ deprecate_warn <- function(when,
       warning(wrn)
     })
   }
+}
+needs_warning <- function(id) {
+  last <- deprecation_env[[id]]
+  if (is_null(last)) {
+    return(TRUE)
+  }
+
+  if (!inherits(last, "POSIXct")) {
+    abort("Internal error: Expected `POSIXct` value in `lifecycle::needs_warning()`.")
+  }
+
+  # Warn every 8 hours
+  (Sys.time() - last) > 28800
 }
 
 #' @rdname deprecate_soft

@@ -1,6 +1,8 @@
 
 # lifecycle 0.1.0.9000
 
+* Lifecycle warnings are now displayed once every 8 hours.
+
 * Added experimental `signal_experimental()` and `signal_superseded()`
   functions.
 

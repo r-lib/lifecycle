@@ -59,14 +59,14 @@ test_that("soft-deprecation warnings are issued when called from child of global
   expect_warning(eval_bare(call2(fn), env(global_env())), "is deprecated")
 })
 
-test_that("once-per-session note is not displayed on repeated warnings", {
-  wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-per-session-note"))
-  expect_true(grepl("once per session", wrn$message))
+test_that("deprecation warnings are not displayed again", {
+  wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-every-8-hours-note"))
+  expect_true(grepl("once every 8 hours", wrn$message))
 
   scoped_options(lifecycle_verbosity = "warning")
 
-  wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-per-session-no-note"))
-  expect_false(grepl("once per session", wrn$message))
+  wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-every-8-hours-no-note"))
+  expect_false(grepl("once every 8 hours", wrn$message))
 })
 
 test_that("the topenv of the empty env is not the global env", {
