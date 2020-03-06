@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • lifecycle</title>
+<title>Signal experimental or superseded features — signal_experimental • lifecycle</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,13 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Signal experimental or superseded features — signal_experimental" />
+<meta property="og:description" content="
+These functions signal simple conditions with rlang::signal()
+(see also base::signalCondition()). They don't have any effect
+unless a condition handler is installed for conditions of class
+lifecycle_experimental or lifecycle_superseded." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -64,7 +70,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -128,57 +134,61 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/r-lib/lifecycle/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Signal experimental or superseded features</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/lifecycle/blob/master/R/signal.R'><code>R/signal.R</code></a></small>
+    <div class="hidden name"><code>signal_experimental.Rd</code></div>
     </div>
 
-    <div id="lifecycle-0-1-0-9000" class="section level1">
-<h1 class="page-header">
-<a href="#lifecycle-0-1-0-9000" class="anchor"></a>lifecycle 0.1.0.9000<small> Unreleased </small>
-</h1>
-<ul>
-<li><p>Added experimental <code><a href="../reference/signal_experimental.html">signal_experimental()</a></code> and <code><a href="../reference/signal_experimental.html">signal_superseded()</a></code> functions.</p></li>
-<li><p>Added the “superseded” lifecycle stage to the documentation.</p></li>
-<li><p><code><a href="../reference/deprecate_soft.html">deprecate_stop()</a></code> now mentions that function is defunct (<a href='https://github.com/r-lib/lifecycle/issues/28'>#28</a>).</p></li>
-<li><p>New <code><a href="../reference/expect_deprecated.html">expect_deprecated()</a></code> and <code><a href="../reference/expect_deprecated.html">expect_defunct()</a></code> functions for testting lifecycle warnings and errors. <code><a href="../reference/expect_deprecated.html">expect_deprecated()</a></code> automatically sets the <code>lifecycle_verbosity</code> option to <code>"warning"</code> to enforce warnings at each invokation rather than once per session.</p></li>
-<li><p>New syntax <code>"foo(arg = 'can\\'t be a baz')"</code> to describe that specific inputs for an argument are deprecated (<a href='https://github.com/r-lib/lifecycle/issues/30'>#30</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</p></li>
-<li><p>New <code><a href="../reference/deprecated.html">is_present()</a></code> function to test whether the caller has supplied a <code><a href="../reference/deprecated.html">deprecated()</a></code> function.</p></li>
-</ul>
-</div>
-    <div id="lifecycle-0-1-0" class="section level1">
-<h1 class="page-header">
-<a href="#lifecycle-0-1-0" class="anchor"></a>lifecycle 0.1.0<small> 2019-08-01 </small>
-</h1>
-<ul>
-<li><p>Deprecated functions under the control of the developer now warn repeatedly in unit tests.</p></li>
-<li><p>Deprecation warnings now record a backtrace. Call <code><a href="../reference/last_warnings.html">lifecycle::last_warnings()</a></code> and <code><a href="../reference/last_warnings.html">lifecycle::last_warning()</a></code> to print the warnings that occurred during the last command, along with their backtraces.</p></li>
-<li>
-<p>The naming scheme of signaller functions has been simplified:</p>
-<ul>
-<li>
-<code>signal_soft_deprecated()</code> is now <code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code>.</li>
-<li>
-<code>warn_deprecated()</code> is now <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code>.</li>
-<li>
-<code>stop_defunct()</code> is now <code><a href="../reference/deprecate_soft.html">deprecate_stop()</a></code>.</li>
-</ul>
-</li>
-<li><p>The signaller functions now take a version and two descriptors for the deprecated feature and its replacement (the latter is optional). The deprecation message is built from these components. You can pass a <code>details</code> argument to append additional information to the generated deprecation message.</p></li>
-<li><p>Helpers from rlang’s <code>compat-lifecycle.R</code> drop-in file are now exported in this package.</p></li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p>These functions signal simple conditions with <code><a href='https://rlang.r-lib.org/reference/abort.html'>rlang::signal()</a></code>
+(see also <code><a href='https://rdrr.io/r/base/conditions.html'>base::signalCondition()</a></code>). They don't have any effect
+unless a condition handler is installed for conditions of class
+<code>lifecycle_experimental</code> or <code>lifecycle_superseded</code>.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>signal_experimental</span>(<span class='no'>when</span>, <span class='no'>what</span>)
+
+<span class='fu'>signal_superseded</span>(<span class='no'>when</span>, <span class='no'>what</span>, <span class='kw'>with</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>lifecycle_cnd_data</span>(<span class='no'>cnd</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>when</th>
+      <td><p>The version at which the feature was assigned a
+lifecycle stage.</p></td>
+    </tr>
+    <tr>
+      <th>what, with</th>
+      <td><p>Feature specifications for the feature and
+optionally its replacement. See <code><a href='deprecate_soft.html'>deprecate_soft()</a></code> for details.</p></td>
+    </tr>
+    <tr>
+      <th>cnd</th>
+      <td><p>A condition object thrown by <code>signal_experimental()</code> or
+<code>signal_superseded()</code>.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>In order to be fast, <code>signal_experimental()</code> and
+<code>signal_superseded()</code> do not validate their arguments. Instead, you
+need to catch the condition object and pass it to
+<code>lifecycle_cnd_data()</code> to get structured data.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#lifecycle-0-1-0-9000">0.1.0.9000</a></li>
-        <li><a href="#lifecycle-0-1-0">0.1.0</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#details">Details</a></li>
+    </ul>
 
+  </div>
 </div>
 
 
