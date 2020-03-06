@@ -29,5 +29,5 @@ deprecation warning, set the \code{lifecycle_verbosity} option to
 \details{
 \code{expect_deprecated()} sets the \link[=verbosity]{lifecycle_verbosity}
 option to \code{"warning"} to enforce deprecation warnings which are
-otherwise only shown once per session.
+otherwise only shown once every 8 hours.
 }

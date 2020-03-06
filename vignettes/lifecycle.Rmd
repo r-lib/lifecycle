@@ -88,9 +88,9 @@ lifecycle offers three levels of verbosity corresponding to the three deprecatio
 
     This function only warns (a) users who try the feature from the global workspace, and (b) developers who directly use the feature, when they run unit tests with testthat. No warning is issued outside of unit tests, or when the deprecated feature is called from another package then ther own.
 
-    When a warning does get issued, users only see it once per session rather than at each invokation.
+    When a warning does get issued, users only see it once every 8 hours rather than at each invokation.
 
-*   __Deprecation__: At this stage, call `deprecate_warn()` to warn unconditionally about the deprecated feature. The warning is issued only once per session.
+*   __Deprecation__: At this stage, call `deprecate_warn()` to warn unconditionally about the deprecated feature. The warning is issued only once every 8 hours.
 
 *   __Defunct__: The feature is discontinued. Call `deprecate_stop()` to fail with an error.
 
