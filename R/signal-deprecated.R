@@ -87,7 +87,7 @@ deprecate_soft <- function(when,
   }
 
   if (verbosity %in% c("warning", "error") || env_inherits_global(env)) {
-    deprecate_warn(when, what, with = with, details = details, id = id)
+    deprecate_warn(when, what, with = with, details = details, id = id, env = env)
     return(invisible(NULL))
   }
 
@@ -95,7 +95,7 @@ deprecate_soft <- function(when,
     # Warn repeatedly in unit tests
     scoped_options(lifecycle_verbosity = "warning")
 
-    deprecate_warn(when, what, with = with, details = details, id = id)
+    deprecate_warn(when, what, with = with, details = details, id = id, env = env)
     return(invisible(NULL))
   }
 
