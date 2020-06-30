@@ -86,7 +86,7 @@ lifecycle offers three levels of verbosity corresponding to the three deprecatio
 
 *   __Soft deprecation__: At this stage, call `deprecate_soft()` to start warning users about the deprecation in the least disruptive way.
 
-    This function only warns (a) users who try the feature from the global workspace, and (b) developers who directly use the feature, when they run unit tests with testthat. No warning is issued outside of unit tests, or when the deprecated feature is called from another package then ther own.
+    This function only warns (a) users who try the feature from the global workspace, and (b) developers who directly use the feature, when they run unit tests with testthat. No warning is issued outside of unit tests, or when the deprecated feature is called from another package than their own.
 
     When a warning does get issued, users only see it once every 8 hours rather than at each invokation.
 
