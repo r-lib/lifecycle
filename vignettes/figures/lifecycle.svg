@@ -42,7 +42,7 @@
       </g>
       <g id="Graphic_4">
         <rect x="11.338583" y="110.55118" width="138.89764" height="48.188976" fill="white"/>
-        <rect x="11.338583" y="110.55118" width="138.89764" height="48.188976" stroke="#76d6ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+        <rect x="11.338583" y="110.55118" width="138.89764" height="48.188976" stroke="#007ec6" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
         <text transform="translate(16.338583 125.42167)" fill="black">
           <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="32.880822" y="15">maturing</tspan>
         </text>
@@ -107,7 +107,7 @@
       </g>
       <g id="Graphic_25">
         <rect x="532.9134" y="110.55118" width="138.89764" height="48.188976" fill="white"/>
-        <rect x="532.9134" y="110.55118" width="138.89764" height="48.188976" stroke="#76d6ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+        <rect x="532.9134" y="110.55118" width="138.89764" height="48.188976" stroke="#007ec6" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
         <text transform="translate(537.9134 125.42167)" fill="black">
           <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="22.216822" y="15">superseded</tspan>
         </text>
@@ -120,7 +120,7 @@
       </g>
       <g id="Graphic_6">
         <rect x="337.32283" y="110.55118" width="138.89764" height="48.188976" fill="white"/>
-        <rect x="337.32283" y="110.55118" width="138.89764" height="48.188976" stroke="#76d6ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+        <rect x="337.32283" y="110.55118" width="138.89764" height="48.188976" stroke="#007ec6" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
         <text transform="translate(342.32283 125.42167)" fill="black">
           <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="22.808822" y="15">questioning</tspan>
         </text>
