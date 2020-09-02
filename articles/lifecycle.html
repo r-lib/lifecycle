@@ -268,7 +268,7 @@
 <a href="#test-deprecated-features" class="anchor"></a>Test deprecated features</h4>
 <p>Test whether a deprecated feature still works by setting <code>lifecycle_verbosity</code> to <code>"quiet"</code>:</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span>(<span class="st">"`baz` argument of `foobar_adder()` still works"</span>, {
-  <span class="kw pkg">withr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/withr/man/with_options.html">local_options</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">lifecycle_verbosity</span> <span class="kw">=</span> <span class="st">"quiet"</span>))
+  <span class="kw pkg">withr</span><span class="kw ns">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html">local_options</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">lifecycle_verbosity</span> <span class="kw">=</span> <span class="st">"quiet"</span>))
   <span class="fu">foobar_adder</span>(<span class="fl">1</span>, <span class="kw">baz</span> <span class="kw">=</span> <span class="fl">2</span>)
 })</pre></body></html></div>
 <p>You can also set up verbosity for a whole testthat file within <code><a href="https://testthat.r-lib.org/reference/teardown.html">setup()</a></code> and <code><a href="https://testthat.r-lib.org/reference/teardown.html">teardown()</a></code> blocks:</p>

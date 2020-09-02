@@ -154,7 +154,7 @@ warnings or errors.</p>
 <p>To test whether a deprecated feature still works without causing a
 deprecation warning, set the <code>lifecycle_verbosity</code> option to
 <code>"quiet"</code>.</p><pre><span class='fu'>test_that</span>(<span class='st'>"feature still works"</span>, {
-  <span class='kw pkg'>withr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/withr/man/with_options.html'>local_options</a></span>(<span class='kw'>lifecycle_verbosity</span> <span class='kw'>=</span> <span class='st'>"quiet"</span>)
+  <span class='kw pkg'>withr</span><span class='kw ns'>::</span><span class='fu'><a href='https://withr.r-lib.org/reference/with_options.html'>local_options</a></span>(<span class='kw'>lifecycle_verbosity</span> <span class='kw'>=</span> <span class='st'>"quiet"</span>)
   <span class='fu'>expect_true</span>(<span class='fu'>my_deprecated_function</span>())
 })</pre>
 
