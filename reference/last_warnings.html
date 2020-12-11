@@ -48,9 +48,10 @@ last_warning() returns only the last.
 
 
 If you call these in the console, these warnings are printed with a
-backtrace. Pass the simplify argument to control the verbosity of
-the backtrace. It supports one of &quot;branch&quot; (the default),
-&quot;collapse&quot;, and &quot;none&quot; (in increasing order of verbosity)." />
+backtrace. Use print(last_warnings(), simplify = level) to
+control the verbosity of the backtrace. The simplify argument
+supports one of &quot;branch&quot; (the default), &quot;collapse&quot;, and
+&quot;none&quot; (in increasing order of verbosity)." />
 
 
 
@@ -157,9 +158,10 @@ during the last top-level R command.</p></li>
 </ul>
 
 <p>If you call these in the console, these warnings are printed with a
-backtrace. Pass the <code>simplify</code> argument to control the verbosity of
-the backtrace. It supports one of <code>"branch"</code> (the default),
-<code>"collapse"</code>, and <code>"none"</code> (in increasing order of verbosity).</p>
+backtrace. Use <code><a href='https://rdrr.io/r/base/print.html'>print(last_warnings(), simplify = level)</a></code> to
+control the verbosity of the backtrace. The <code>simplify</code> argument
+supports one of <code>"branch"</code> (the default), <code>"collapse"</code>, and
+<code>"none"</code> (in increasing order of verbosity).</p>
     </div>
 
     <pre class="usage"><span class='fu'>last_warnings</span><span class='op'>(</span><span class='op'>)</span>
