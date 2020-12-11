@@ -170,7 +170,7 @@ confusion). If it is an argument, you can put the badge in the
 argument description.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>badge</span>(<span class='no'>stage</span>)</pre>
+    <pre class="usage"><span class='fu'>badge</span><span class='op'>(</span><span class='va'>stage</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,7 +190,8 @@ argument description.</p>
 
     <p>The <code>lifecycle{}</code> macro is made available by adding this field to
 DESCRIPTION (this is done automatically by
-<code>usethis::use_lifecycle()</code>):</p><pre><span class='no'>RdMacros</span>: <span class='no'>lifecycle</span></pre>
+<code>usethis::use_lifecycle()</code>):</p><pre><span class='va'>RdMacros</span><span class='op'>:</span> <span class='va'>lifecycle</span>
+</pre>
 
 <p>The macro expands to this expression:</p><pre>\Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 </pre>
@@ -227,7 +228,7 @@ DESCRIPTION (this is done automatically by
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

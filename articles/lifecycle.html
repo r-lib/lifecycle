@@ -85,7 +85,8 @@
 
       
 
-      </header><div class="row">
+      </header><script src="lifecycle_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="lifecycle_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="lifecycle_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Usage of the lifecycle package</h1>
@@ -98,7 +99,8 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lifecycle</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lifecycle.r-lib.org/">lifecycle</a></span><span class="op">)</span></code></pre></div>
 <p>Use lifecycle to document the status of your exported functions and arguments:</p>
 <ul>
 <li><p>Choose one of the 7 lifecycle stages a function or argument can be in. You can choose from 4 development stages (experimental, maturing, stable, and questioning) and 3 deprecation stages (soft-deprecated, deprecated, and defunct).</p></li>
@@ -137,7 +139,7 @@
 <h3 class="hasAnchor">
 <a href="#rd-badges" class="anchor"></a>Badges</h3>
 <p>Make sure your users know what stage a feature is by adding badges in the help topics of your functions.</p>
-<p><img src="figures/example-badge.png" align="center" alt="badge"></p>
+<p><img src="figures/example-badge.png" alt="badge" align="center"></p>
 <ul>
 <li><p>Call <code>usethis::use_lifecycle()</code> to import the badges in your package.</p></li>
 <li>
@@ -167,61 +169,67 @@
 <h3 class="hasAnchor">
 <a href="#deprecating-functions" class="anchor"></a>Deprecating functions</h3>
 <p>These functions take the version number starting from which the feature is considered deprecated (it should remain the same across all deprecation stages), and a feature descriptor:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span><span class="op">)</span>
 <span class="co">#&gt; Warning: `foo()` is deprecated as of mypkg 1.0.0.</span>
 <span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></pre></body></html></div>
+<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></code></pre></div>
 <p>You can optionally provide a replacement:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span>, <span class="st">"new()"</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span>, <span class="st">"new()"</span><span class="op">)</span>
 <span class="co">#&gt; Warning: `foo()` is deprecated as of mypkg 1.0.0.</span>
 <span class="co">#&gt; Please use `new()` instead.</span>
 <span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></pre></body></html></div>
+<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></code></pre></div>
 <p>For the purpose of these examples we explicitly mentioned the namespace with <code>mypkg::</code>, however you can typically omit it because lifecycle infers the namespace from the calling environment. Specifying the namespace is mostly useful when the replacement is implemented in a different package.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># The new replacement</span>
-<span class="no">foobar_adder</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">foo</span>, <span class="no">bar</span>) {
-  <span class="no">foo</span> + <span class="no">bar</span>
-}
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># The new replacement</span>
+<span class="va">foobar_adder</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">foo</span>, <span class="va">bar</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">foo</span> <span class="op">+</span> <span class="va">bar</span>
+<span class="op">}</span>
 
 <span class="co"># The old function still exported for compatibility</span>
-<span class="no">foobaz_adder</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">foo</span>, <span class="no">bar</span>) {
-  <span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"foobaz_adder()"</span>, <span class="st">"foobar_adder()"</span>)
-  <span class="fu">foobar_adder</span>(<span class="no">foo</span>, <span class="no">bar</span>)
-}</pre></body></html></div>
+<span class="va">foobaz_adder</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">foo</span>, <span class="va">bar</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foobaz_adder()"</span>, <span class="st">"foobar_adder()"</span><span class="op">)</span>
+  <span class="fu">foobar_adder</span><span class="op">(</span><span class="va">foo</span>, <span class="va">bar</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
 </div>
 <div id="deprecating-arguments" class="section level3">
 <h3 class="hasAnchor">
 <a href="#deprecating-arguments" class="anchor"></a>Deprecating arguments</h3>
 <p>The syntax for deprecating argument is based on the syntax for deprecating functions:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = )"</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = )"</span><span class="op">)</span>
 <span class="co">#&gt; Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.</span>
 <span class="co">#&gt; This warning is displayed once every 8 hours.</span>
 <span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
 
-<span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = )"</span>, <span class="st">"mypkg::foo(new = )"</span>)
+<span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = )"</span>, <span class="st">"mypkg::foo(new = )"</span><span class="op">)</span>
 <span class="co">#&gt; Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.</span>
 <span class="co">#&gt; Please use the `new` argument instead.</span>
 <span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></pre></body></html></div>
+<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></code></pre></div>
 <p>An argument can be partially deprecated by disallowing certain input types:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = 'must be a scalar integer')"</span>)
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = 'must be a scalar integer')"</span><span class="op">)</span>
 <span class="co">#&gt; Warning: The `arg` argument of `foo()` must be a scalar integer as of mypkg 1.0.0.</span>
 <span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></pre></body></html></div>
+<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></code></pre></div>
 <p>lifecycle also provides the <code><a href="../reference/deprecated.html">deprecated()</a></code> sentinel to use as default argument. This provides self-documentation for your users and makes it possible for external tools to determine which arguments are deprecated. Test whether the argument was supplied by the caller with <code><a href="../reference/deprecated.html">lifecycle::is_present()</a></code>:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">foobar_adder</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">foo</span>, <span class="no">bar</span>, <span class="no">baz</span> <span class="kw">=</span> <span class="fu"><a href="../reference/deprecated.html">deprecated</a></span>()) {
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">foobar_adder</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">foo</span>, <span class="va">bar</span>, <span class="va">baz</span> <span class="op">=</span> <span class="fu"><a href="../reference/deprecated.html">deprecated</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># Check if user has supplied `baz` instead of `bar`</span>
-  <span class="kw">if</span> (<span class="kw pkg">lifecycle</span><span class="kw ns">::</span><span class="fu"><a href="../reference/deprecated.html">is_present</a></span>(<span class="no">baz</span>)) {
+  <span class="kw">if</span> <span class="op">(</span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecated.html">is_present</a></span><span class="op">(</span><span class="va">baz</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
 
     <span class="co"># Signal the deprecation to the user</span>
-    <span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span>(<span class="st">"1.0.0"</span>, <span class="st">"foobar_adder(baz = )"</span>, <span class="st">"foobar_adder(bar = )"</span>)
+    <span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foobar_adder(baz = )"</span>, <span class="st">"foobar_adder(bar = )"</span><span class="op">)</span>
 
     <span class="co"># Deal with the deprecated argument for compatibility</span>
-    <span class="no">bar</span> <span class="kw">&lt;-</span> <span class="no">baz</span>
-  }
+    <span class="va">bar</span> <span class="op">&lt;-</span> <span class="va">baz</span>
+  <span class="op">}</span>
 
-  <span class="no">foo</span> + <span class="no">bar</span>
-}</pre></body></html></div>
+  <span class="va">foo</span> <span class="op">+</span> <span class="va">bar</span>
+<span class="op">}</span></code></pre></div>
 </div>
 <div id="workflow" class="section level3">
 <h3 class="hasAnchor">
@@ -246,42 +254,47 @@
 <div id="find-out-what-deprecated-features-you-rely-on" class="section level4">
 <h4 class="hasAnchor">
 <a href="#find-out-what-deprecated-features-you-rely-on" class="anchor"></a>Find out what deprecated features you rely on</h4>
-<p>Test whether your package depends on deprecated features directly or indirectly by setting the verbosity option in the <code>tests/testthat.R</code> file just before <code><a href="https://testthat.r-lib.org/reference/test_dir.html">test_check()</a></code> is called:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">testthat</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mypackage</span>)
+<p>Test whether your package depends on deprecated features directly or indirectly by setting the verbosity option in the <code>tests/testthat.R</code> file just before <code><a href="https://testthat.r-lib.org/reference/test_package.html">test_check()</a></code> is called:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://testthat.r-lib.org">testthat</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">mypackage</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">lifecycle_verbosity</span> <span class="kw">=</span> <span class="st">"error"</span>)
-<span class="fu"><a href="https://testthat.r-lib.org/reference/test_dir.html">test_check</a></span>(<span class="st">"mypackage"</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_package.html">test_check</a></span><span class="op">(</span><span class="st">"mypackage"</span><span class="op">)</span></code></pre></div>
 <p>This forces all deprecated features to fail. You can also set the relevant options manually to force warnings or errors in your session:</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co"># Force silence</span>
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">lifecycle_verbosity</span> <span class="kw">=</span> <span class="st">"quiet"</span>)
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Force silence</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"quiet"</span><span class="op">)</span>
 
 <span class="co"># Force warnings</span>
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">lifecycle_verbosity</span> <span class="kw">=</span> <span class="st">"warning"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span>
 
 <span class="co"># Force errors</span>
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">lifecycle_verbosity</span> <span class="kw">=</span> <span class="st">"error"</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span></code></pre></div>
 <p>Forcing warnings can be useful in conjuction with <code><a href="../reference/last_warnings.html">last_warnings()</a></code>, which prints backtraces for all the deprecation warnings issued during the last top-level command.</p>
 </div>
 <div id="test-deprecated-features" class="section level4">
 <h4 class="hasAnchor">
 <a href="#test-deprecated-features" class="anchor"></a>Test deprecated features</h4>
 <p>Test whether a deprecated feature still works by setting <code>lifecycle_verbosity</code> to <code>"quiet"</code>:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span>(<span class="st">"`baz` argument of `foobar_adder()` still works"</span>, {
-  <span class="kw pkg">withr</span><span class="kw ns">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html">local_options</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">lifecycle_verbosity</span> <span class="kw">=</span> <span class="st">"quiet"</span>))
-  <span class="fu">foobar_adder</span>(<span class="fl">1</span>, <span class="kw">baz</span> <span class="kw">=</span> <span class="fl">2</span>)
-})</pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"`baz` argument of `foobar_adder()` still works"</span>, <span class="op">{</span>
+  <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html">local_options</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"quiet"</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">foobar_adder</span><span class="op">(</span><span class="fl">1</span>, baz <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>You can also set up verbosity for a whole testthat file within <code><a href="https://testthat.r-lib.org/reference/teardown.html">setup()</a></code> and <code><a href="https://testthat.r-lib.org/reference/teardown.html">teardown()</a></code> blocks:</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://testthat.r-lib.org/reference/teardown.html">setup</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">lifecycle_verbosity</span> <span class="kw">=</span> <span class="st">"quiet"</span>))
-<span class="fu"><a href="https://testthat.r-lib.org/reference/teardown.html">teardown</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">lifecycle_verbosity</span> <span class="kw">=</span> <span class="kw">NULL</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/teardown.html">setup</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"quiet"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/teardown.html">teardown</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Test that a feature is correctly deprecated with <code><a href="../reference/expect_deprecated.html">expect_deprecated()</a></code> or <code><a href="../reference/expect_deprecated.html">expect_defunct()</a></code>:</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span>(<span class="st">"`baz` argument of `foobar_adder()` is deprecated"</span>, {
-  <span class="fu"><a href="../reference/expect_deprecated.html">expect_deprecated</a></span>(<span class="fu">foobar_adder</span>(<span class="fl">1</span>, <span class="kw">baz</span> <span class="kw">=</span> <span class="fl">2</span>))
-})
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"`baz` argument of `foobar_adder()` is deprecated"</span>, <span class="op">{</span>
+  <span class="fu"><a href="../reference/expect_deprecated.html">expect_deprecated</a></span><span class="op">(</span><span class="fu">foobar_adder</span><span class="op">(</span><span class="fl">1</span>, baz <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
 
-<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span>(<span class="st">"`foo()` is defunct"</span>, {
-  <span class="fu"><a href="../reference/expect_deprecated.html">expect_defunct</a></span>(<span class="fu">foo</span>())
-})</pre></body></html></div>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"`foo()` is defunct"</span>, <span class="op">{</span>
+  <span class="fu"><a href="../reference/expect_deprecated.html">expect_defunct</a></span><span class="op">(</span><span class="fu">foo</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>More control over verbosity can be exercised with the <code>lifecycle_verbosity</code> option. See <code><a href="../reference/verbosity.html">?verbosity</a></code>.</p>
 </div>
 </div>
@@ -300,7 +313,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

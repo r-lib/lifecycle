@@ -176,30 +176,33 @@ errors.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='kw pkg'>rlang</span><span class='kw ns'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/is_installed.html'>is_installed</a></span>(<span class='st'>"testthat"</span>)) {
-  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>testthat</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'>rlang</span><span class='fu'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/is_installed.html'>is_installed</a></span><span class='op'>(</span><span class='st'>"testthat"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://testthat.r-lib.org'>testthat</a></span><span class='op'>)</span>
 
-  <span class='no'>mytool</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>() {
-    <span class='fu'><a href='deprecate_soft.html'>deprecate_soft</a></span>(<span class='st'>"1.0.0"</span>, <span class='st'>"mytool()"</span>)
-    <span class='fl'>10</span> * <span class='fl'>10</span>
-  }
+  <span class='va'>mytool</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='fu'><a href='deprecate_soft.html'>deprecate_soft</a></span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='st'>"mytool()"</span><span class='op'>)</span>
+    <span class='fl'>10</span> <span class='op'>*</span> <span class='fl'>10</span>
+  <span class='op'>}</span>
 
   <span class='co'># Forcing the verbosity level is useful for unit testing. You can</span>
   <span class='co'># force errors to test that the function is indeed deprecated:</span>
-  <span class='fu'><a href='https://testthat.r-lib.org/reference/test_that.html'>test_that</a></span>(<span class='st'>"mytool is deprecated"</span>, {
-    <span class='kw pkg'>rlang</span><span class='kw ns'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/local_options.html'>with_options</a></span>(<span class='kw'>lifecycle_verbosity</span> <span class='kw'>=</span> <span class='st'>"error"</span>, {
-      <span class='fu'><a href='https://testthat.r-lib.org/reference/expect_error.html'>expect_error</a></span>(<span class='fu'>mytool</span>(), <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"defunctError"</span>)
-    })
-  })
+  <span class='fu'><a href='https://testthat.r-lib.org/reference/test_that.html'>test_that</a></span><span class='op'>(</span><span class='st'>"mytool is deprecated"</span>, <span class='op'>{</span>
+    <span class='fu'>rlang</span><span class='fu'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/local_options.html'>with_options</a></span><span class='op'>(</span>lifecycle_verbosity <span class='op'>=</span> <span class='st'>"error"</span>, <span class='op'>{</span>
+      <span class='fu'><a href='https://testthat.r-lib.org/reference/expect_error.html'>expect_error</a></span><span class='op'>(</span><span class='fu'>mytool</span><span class='op'>(</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='st'>"defunctError"</span><span class='op'>)</span>
+    <span class='op'>}</span><span class='op'>)</span>
+  <span class='op'>}</span><span class='op'>)</span>
 
   <span class='co'># Or you can enforce silence to safely test that the function</span>
   <span class='co'># still works:</span>
-  <span class='fu'><a href='https://testthat.r-lib.org/reference/test_that.html'>test_that</a></span>(<span class='st'>"mytool still works"</span>, {
-    <span class='kw pkg'>rlang</span><span class='kw ns'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/local_options.html'>with_options</a></span>(<span class='kw'>lifecycle_verbosity</span> <span class='kw'>=</span> <span class='st'>"quiet"</span>, {
-      <span class='fu'><a href='https://testthat.r-lib.org/reference/equality-expectations.html'>expect_equal</a></span>(<span class='fu'>mytool</span>(), <span class='fl'>100</span>)
-    })
-  })
-}</div></pre>
+  <span class='fu'><a href='https://testthat.r-lib.org/reference/test_that.html'>test_that</a></span><span class='op'>(</span><span class='st'>"mytool still works"</span>, <span class='op'>{</span>
+    <span class='fu'>rlang</span><span class='fu'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/local_options.html'>with_options</a></span><span class='op'>(</span>lifecycle_verbosity <span class='op'>=</span> <span class='st'>"quiet"</span>, <span class='op'>{</span>
+      <span class='fu'><a href='https://testthat.r-lib.org/reference/equality-expectations.html'>expect_equal</a></span><span class='op'>(</span><span class='fu'>mytool</span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>100</span><span class='op'>)</span>
+    <span class='op'>}</span><span class='op'>)</span>
+  <span class='op'>}</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span style='color: #00BB00;'>Test passed</span><span> 🥇
+#&gt; </span><span style='color: #00BB00;'>Test passed</span><span> 🎊</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -215,7 +218,7 @@ errors.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

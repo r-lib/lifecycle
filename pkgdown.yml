@@ -1,9 +1,9 @@
-pandoc: '2.2'
-pkgdown: 1.5.1
+pandoc: 2.7.3
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   lifecycle: lifecycle.html
-last_built: 2020-09-02T17:03Z
+last_built: 2020-12-11T10:16Z
 urls:
   reference: https://lifecycle.r-lib.org/reference
   article: https://lifecycle.r-lib.org/articles
