@@ -55,11 +55,20 @@ last_warning <- function() {
 }
 
 
-new_deprecated_warning <- function(msg, trace) {
+new_deprecated_warning <- function(msg, trace, ...) {
   warning_cnd(
     "lifecycle_warning_deprecated",
     message = msg,
-    trace = trace
+    trace = trace,
+    internal = list(...)
+  )
+}
+
+#' @export
+conditionMessage.lifecycle_warning_deprecated <- function(c) {
+  paste_line(
+    c$message,
+    c$internal$footer
   )
 }
 

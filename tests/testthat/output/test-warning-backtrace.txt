@@ -5,8 +5,6 @@ default
 
 <deprecated>
 message: `trace()` was deprecated in lifecycle 1.0.0.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_warnings()` to see where this warning was generated.
 Backtrace:
  1. testthat::expect_warning(f(), class = "lifecycle_warning_deprecated")
  6. lifecycle:::f()
@@ -19,8 +17,6 @@ full
 
 <deprecated>
 message: `trace()` was deprecated in lifecycle 1.0.0.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_warnings()` to see where this warning was generated.
 Backtrace:
     █
  1. ├─testthat::expect_warning(f(), class = "lifecycle_warning_deprecated")

@@ -61,7 +61,8 @@ test_that("soft-deprecation warnings are issued when called from child of global
 
 test_that("deprecation warnings are not displayed again", {
   wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-every-8-hours-note"))
-  expect_true(grepl("once every 8 hours", wrn$message))
+  footer <- wrn$internal$footer
+  expect_true(is_string(footer) && grepl("once every 8 hours", footer))
 
   scoped_options(lifecycle_verbosity = "warning")
 

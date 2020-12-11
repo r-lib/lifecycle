@@ -1,5 +1,6 @@
-
 # lifecycle (development version)
+
+* Warnings printed manually now omit the advice footer (#68).
 
 
 # lifecycle 0.2.0

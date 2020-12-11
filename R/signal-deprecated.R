@@ -146,15 +146,16 @@ deprecate_warn <- function(when,
     # Prevent warning from being displayed again
     env_poke(deprecation_env, id, Sys.time());
 
-    msg <- paste_line(
-      msg,
+    footer <- paste_line(
       silver("This warning is displayed once every 8 hours."),
       silver("Call `lifecycle::last_warnings()` to see where this warning was generated.")
     )
+  } else {
+    footer <- NULL
   }
 
   trace <- trace_back(bottom = caller_env())
-  wrn <- new_deprecated_warning(msg, trace)
+  wrn <- new_deprecated_warning(msg, trace, footer = footer)
 
   # Record muffled warnings if testthat is running because it
   # muffles all warnings but we still want to examine them after a
