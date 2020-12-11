@@ -19,9 +19,10 @@ during the last top-level R command.
 }
 
 If you call these in the console, these warnings are printed with a
-backtrace. Pass the \code{simplify} argument to control the verbosity of
-the backtrace. It supports one of \code{"branch"} (the default),
-\code{"collapse"}, and \code{"none"} (in increasing order of verbosity).
+backtrace. Use \code{print(last_warnings(), simplify = level)} to
+control the verbosity of the backtrace. The \code{simplify} argument
+supports one of \code{"branch"} (the default), \code{"collapse"}, and
+\code{"none"} (in increasing order of verbosity).
 }
 \examples{
 # These examples are not run because `last_warnings()` does not

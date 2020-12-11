@@ -11,9 +11,10 @@
 #' * `last_warning()` returns only the last.
 #'
 #' If you call these in the console, these warnings are printed with a
-#' backtrace. Pass the `simplify` argument to control the verbosity of
-#' the backtrace. It supports one of `"branch"` (the default),
-#' `"collapse"`, and `"none"` (in increasing order of verbosity).
+#' backtrace. Use `print(last_warnings(), simplify = level)` to
+#' control the verbosity of the backtrace. The `simplify` argument
+#' supports one of `"branch"` (the default), `"collapse"`, and
+#' `"none"` (in increasing order of verbosity).
 #'
 #' @examples
 #' # These examples are not run because `last_warnings()` does not
