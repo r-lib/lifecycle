@@ -139,36 +139,37 @@ deprecate_warn <- function(when,
 
   if (verbosity == "error") {
     deprecate_stop(when, what, with = with, details = details)
-  } else {
-    if (verbosity == "default") {
-      # Prevent warning from being displayed again
-      env_poke(deprecation_env, id, Sys.time());
-
-      msg <- paste_line(
-        msg,
-        silver("This warning is displayed once every 8 hours."),
-        silver("Call `lifecycle::last_warnings()` to see where this warning was generated.")
-      )
-    }
-
-    trace <- trace_back(bottom = caller_env())
-    wrn <- new_deprecated_warning(msg, trace)
-
-    # Record muffled warnings if testthat is running because it
-    # muffles all warnings but we still want to examine them after a
-    # run of `devtools::test()`
-    maybe_push_warning <- function() {
-      if (Sys.getenv("TESTTHAT_PKG") != "") {
-        push_warning(wrn)
-      }
-    }
-
-    withRestarts(muffleWarning = maybe_push_warning, {
-      signalCondition(wrn)
-      push_warning(wrn)
-      warning(wrn)
-    })
+    stop("unreached")
   }
+
+  if (verbosity == "default") {
+    # Prevent warning from being displayed again
+    env_poke(deprecation_env, id, Sys.time());
+
+    msg <- paste_line(
+      msg,
+      silver("This warning is displayed once every 8 hours."),
+      silver("Call `lifecycle::last_warnings()` to see where this warning was generated.")
+    )
+  }
+
+  trace <- trace_back(bottom = caller_env())
+  wrn <- new_deprecated_warning(msg, trace)
+
+  # Record muffled warnings if testthat is running because it
+  # muffles all warnings but we still want to examine them after a
+  # run of `devtools::test()`
+  maybe_push_warning <- function() {
+    if (Sys.getenv("TESTTHAT_PKG") != "") {
+      push_warning(wrn)
+    }
+  }
+
+  withRestarts(muffleWarning = maybe_push_warning, {
+    signalCondition(wrn)
+    push_warning(wrn)
+    warning(wrn)
+  })
 }
 needs_warning <- function(id) {
   last <- deprecation_env[[id]]
