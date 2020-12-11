@@ -171,13 +171,13 @@
 <p>These functions take the version number starting from which the feature is considered deprecated (it should remain the same across all deprecation stages), and a feature descriptor:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span><span class="op">)</span>
-<span class="co">#&gt; Warning: `foo()` is deprecated as of mypkg 1.0.0.</span>
+<span class="co">#&gt; Warning: `foo()` was deprecated in mypkg 1.0.0.</span>
 <span class="co">#&gt; This warning is displayed once every 8 hours.</span>
 <span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></code></pre></div>
 <p>You can optionally provide a replacement:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span>, <span class="st">"new()"</span><span class="op">)</span>
-<span class="co">#&gt; Warning: `foo()` is deprecated as of mypkg 1.0.0.</span>
+<span class="co">#&gt; Warning: `foo()` was deprecated in mypkg 1.0.0.</span>
 <span class="co">#&gt; Please use `new()` instead.</span>
 <span class="co">#&gt; This warning is displayed once every 8 hours.</span>
 <span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></code></pre></div>
