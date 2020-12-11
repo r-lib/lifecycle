@@ -72,13 +72,18 @@ print.lifecycle_warning_deprecated <- function(x, ..., simplify = c("branch", "c
     cat_line(sprintf("message: %s", italic(message)))
   }
 
-  trace <- x$trace
-  if (!is_null(trace)) {
-    cat_line("backtrace:")
-    cat_line(red(format(trace, ..., simplify = simplify)))
-  }
+  print_trace(x, ..., simplify = simplify)
 
   invisible(x)
+}
+
+print_trace <- function(cnd, ..., simplify = c("branch", "collapse", "none")) {
+  trace <- cnd$trace
+
+  if (!is_null(trace)) {
+    cat_line(bold("Backtrace:"))
+    cat_line(red(format(trace, ..., simplify = simplify)))
+  }
 }
 
 warnings_env <- env(empty_env())
