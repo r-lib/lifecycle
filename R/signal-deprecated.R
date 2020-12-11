@@ -248,7 +248,7 @@ lifecycle_build_message <- function(when,
     if (signaller == "deprecate_stop") {
       msg <- glue::glue("`{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
     } else {
-      msg <- glue::glue("`{ fn }()` is deprecated as of { pkg } { when }.")
+      msg <- glue::glue("`{ fn }()` was deprecated in { pkg } { when }.")
     }
   } else {
     if (signaller == "deprecate_stop" && reason == "is deprecated") {

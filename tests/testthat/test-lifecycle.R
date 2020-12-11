@@ -25,13 +25,13 @@ test_that("deprecate_soft() warns when called from package being tested", {
 
   Sys.setenv("NOT_CRAN" = "true")
   retired <- function() deprecate_soft("1.0.0", "foo()")
-  expect_warning(retired(), "is deprecated")
+  expect_warning(retired(), "was deprecated")
 })
 
 test_that("deprecate_soft() warns when option is set", {
   retired <- function(id) deprecate_soft("1.0.0", "foo()", id = id)
   with_options(lifecycle_verbosity = "warning", {
-    expect_warning(retired("rlang_test5"), "is deprecated")
+    expect_warning(retired("rlang_test5"), "was deprecated")
   })
 })
 
@@ -41,22 +41,22 @@ test_that("deprecate_warn() repeats warnings when option is set", {
   retired1 <- function() deprecate_soft("1.0.0", "foo()", id = "signal repeat")
   retired2 <- function() deprecate_warn("1.0.0", "foo()", id = "warn repeat")
 
-  expect_warning(retired1(), "is deprecated")
-  expect_warning(retired2(), "is deprecated")
+  expect_warning(retired1(), "was deprecated")
+  expect_warning(retired2(), "was deprecated")
 
-  expect_warning(retired1(), "is deprecated")
-  expect_warning(retired2(), "is deprecated")
+  expect_warning(retired1(), "was deprecated")
+  expect_warning(retired2(), "was deprecated")
 })
 
 test_that("can promote lifecycle warnings to errors", {
   scoped_options(lifecycle_verbosity = "error")
-  expect_defunct(deprecate_soft("1.0.0", "foo()"), "is deprecated")
-  expect_defunct(deprecate_warn("1.0.0", "foo()"), "is deprecated")
+  expect_lifecycle_defunct(deprecate_soft("1.0.0", "foo()"), "was deprecated")
+  expect_lifecycle_defunct(deprecate_warn("1.0.0", "foo()"), "was deprecated")
 })
 
 test_that("soft-deprecation warnings are issued when called from child of global env as well", {
   fn <- function() deprecate_soft("1.0.0", "foo()", id = "child of global env")
-  expect_warning(eval_bare(call2(fn), env(global_env())), "is deprecated")
+  expect_warning(eval_bare(call2(fn), env(global_env())), "was deprecated")
 })
 
 test_that("deprecation warnings are not displayed again", {
