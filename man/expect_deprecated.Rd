@@ -14,7 +14,7 @@ expect_defunct(expr)
 error.}
 }
 \description{
-These functions are equivalent to \code{\link[testthat:expect_warning]{testthat::expect_warning()}} and
+These functions are equivalent to \code{\link[testthat:expect_error]{testthat::expect_warning()}} and
 \code{\link[testthat:expect_error]{testthat::expect_error()}} but check specifically for lifecycle
 warnings or errors.
 

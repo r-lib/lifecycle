@@ -25,8 +25,8 @@ optionally its replacement. See \code{\link[=deprecate_soft]{deprecate_soft()}} 
 \description{
 \lifecycle{experimental}
 
-These functions signal simple conditions with \code{\link[rlang:signal]{rlang::signal()}}
-(see also \code{\link[base:signalCondition]{base::signalCondition()}}). They don't have any effect
+These functions signal simple conditions with \code{\link[rlang:abort]{rlang::signal()}}
+(see also \code{\link[base:conditions]{base::signalCondition()}}). They don't have any effect
 unless a condition handler is installed for conditions of class
 \code{lifecycle_experimental} or \code{lifecycle_superseded}.
 }
