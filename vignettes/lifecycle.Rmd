@@ -29,13 +29,13 @@ The lifecycle stages for functions[^1] are summarised in the figure below.
 
 <img src="figures/lifecycle.svg" width="75%"/>
 
-The default development stage is usually ![Stable](figures/lifecycle-stable.svg){style="vertical-align:middle"}.
+The default development stage is ![Stable](figures/lifecycle-stable.svg){style="vertical-align:middle"}.
 A function is considered stable when the author is happy with its interface and behaviour and major changes are unlikely.
-Breaking changes will occur gradually, through a deprecation process.
+If breaking changes are needed, they will occur gradually, through the deprecation process described below.
 
 The exception to the rule is sub-1.0.0 packages where all functions are considered ![Experimental](figures/lifecycle-experimental.svg){style="vertical-align:middle"}.
 Experimental functions are made available so people can try them out and provide feedback, but the author makes no promises to avoid breaking changes.
-All functions in sub-1.0.0 packages are experimental, but \>=1.0.0 packages can also contain some experimental functions.
+All functions in sub-1.0.0 packages are experimental; \>=1.0.0 packages can also contain some experimental functions.
 
 (![Maturing](figures/lifecycle-maturing.svg){style="vertical-align:middle"} functions lie somewhere in between experimental and stable. It's hard to be precise about exactly what this means, so we are gradually phasing out our use of this badge.)
 
@@ -43,7 +43,7 @@ All functions in sub-1.0.0 packages are experimental, but \>=1.0.0 packages can 
 
 There are two ways that a function might reach the end of its life: it might be superseded or deprecated.
 
--   A ![Superseded](figures/lifecycle-superseded.svg)[^2] function has a better alternative available, but the function itself is not going away. While a superseded function will not receive new features, it will be kept working for the foreseeable future so that existing code does not need to change.
+-   A ![Superseded](figures/lifecycle-superseded.svg)[^2] function has a better alternative available, but the function itself is not going away. While a superseded function will not receive new features, it will be kept working for the foreseeable future so that existing code does not need to change. A superseded feature preserves all the guarantees of a stable feature, and is just as safe to use.
 -   A ![Deprecated](figures/lifecycle-deprecated.svg){style="vertical-align:middle"} function has a better alternative available and will be removed in the near future. Deprecated functions should also produce a message describing the alternative, and whenever you encounter a deprecation message in your code, you should make fixing it a priority.
 
 [^2]: This stage was previously called retired.
