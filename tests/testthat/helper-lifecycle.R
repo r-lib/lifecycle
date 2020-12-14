@@ -1,5 +1,5 @@
 
-expect_defunct <- function(object, ...) {
+expect_lifecycle_defunct <- function(object, ...) {
   expect_error(object, class = "defunctError")
 }
 

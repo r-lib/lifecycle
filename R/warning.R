@@ -11,9 +11,10 @@
 #' * `last_warning()` returns only the last.
 #'
 #' If you call these in the console, these warnings are printed with a
-#' backtrace. Pass the `simplify` argument to control the verbosity of
-#' the backtrace. It supports one of `"branch"` (the default),
-#' `"collapse"`, and `"none"` (in increasing order of verbosity).
+#' backtrace. Use `print(last_warnings(), simplify = level)` to
+#' control the verbosity of the backtrace. The `simplify` argument
+#' supports one of `"branch"` (the default), `"collapse"`, and
+#' `"none"` (in increasing order of verbosity).
 #'
 #' @examples
 #' # These examples are not run because `last_warnings()` does not
@@ -55,11 +56,20 @@ last_warning <- function() {
 }
 
 
-new_deprecated_warning <- function(msg, trace) {
+new_deprecated_warning <- function(msg, trace, ...) {
   warning_cnd(
     "lifecycle_warning_deprecated",
     message = msg,
-    trace = trace
+    trace = trace,
+    internal = list(...)
+  )
+}
+
+#' @export
+conditionMessage.lifecycle_warning_deprecated <- function(c) {
+  paste_line(
+    c$message,
+    c$internal$footer
   )
 }
 
@@ -72,13 +82,18 @@ print.lifecycle_warning_deprecated <- function(x, ..., simplify = c("branch", "c
     cat_line(sprintf("message: %s", italic(message)))
   }
 
-  trace <- x$trace
-  if (!is_null(trace)) {
-    cat_line("backtrace:")
-    cat_line(red(format(trace, ..., simplify = simplify)))
-  }
+  print_trace(x, ..., simplify = simplify)
 
   invisible(x)
+}
+
+print_trace <- function(cnd, ..., simplify = c("branch", "collapse", "none")) {
+  trace <- cnd$trace
+
+  if (!is_null(trace)) {
+    cat_line(bold("Backtrace:"))
+    cat_line(red(format(trace, ..., simplify = simplify)))
+  }
 }
 
 warnings_env <- env(empty_env())
