@@ -45,7 +45,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -71,7 +71,7 @@
 </li>
 <li>
   <a href="https://github.com/r-lib/lifecycle/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -85,8 +85,7 @@
 
       
 
-      </header><script src="lifecycle_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="lifecycle_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="lifecycle_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="lifecycle_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Usage of the lifecycle package</h1>
@@ -101,83 +100,69 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lifecycle.r-lib.org/">lifecycle</a></span><span class="op">)</span></code></pre></div>
-<p>Use lifecycle to document the status of your exported functions and arguments:</p>
-<ul>
-<li><p>Choose one of the 7 lifecycle stages a function or argument can be in. You can choose from 4 development stages (experimental, maturing, stable, and questioning) and 3 deprecation stages (soft-deprecated, deprecated, and defunct).</p></li>
-<li><p>If the function or argument is deprecated, make sure your users know about by calling <code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code>, <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code>, or <code><a href="../reference/deprecate_soft.html">deprecate_stop()</a></code>. These functions try to be informative without being too verbose, with increasing levels of verbosity as the deprecation stage advances.</p></li>
-<li><p>Include the relevant lifecycle badge in your documentation.</p></li>
-</ul>
-<div id="stages" class="section level3">
-<h3 class="hasAnchor">
-<a href="#stages" class="anchor"></a>Stages</h3>
-<p>The lifecycle stages for functions and arguments are summarised in the figure below. They’re designed to closely mirror the lifecycle stages for <a href="https://www.tidyverse.org/lifecycle/">packages</a>.</p>
+<p>Use lifecycle to document the status of your exported functions and arguments. It provides a standard way to describe lifecycle stage in the documentation, and tools to encourage users away from deprecated functions.</p>
+<div id="stages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#stages" class="anchor"></a>Stages</h2>
+<p>The lifecycle stages for functions<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> are summarised in the figure below.</p>
 <p><img src="figures/lifecycle.svg" width="75%"></p>
-<p>There are two development stages.</p>
-<ul>
-<li><p><img src="figures/lifecycle-experimental.svg" alt="Experimental" style="vertical-align:middle"> This is a new feature that is in the very early stage of development. It is exported so users can start to use it and report feedback, but its interface and/or behaviour is likely to change in the future. It is generally best to avoid depending on experimental features.</p></li>
-<li><p><img src="figures/lifecycle-maturing.svg" alt="Maturing" style="vertical-align:middle"> The interface and behaviour of a maturing feature has been roughed out, but finer details are likely to change. It still needs more feedback to find the optimal API.</p></li>
-</ul>
-<p>The probable end state of most functions is <em>stable</em>:</p>
-<ul>
-<li>
-<img src="figures/lifecycle-stable.svg" alt="Stable" style="vertical-align:middle"> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.</li>
-</ul>
-<p>Sometimes we are no longer certain that a feature follows or implements the right approach. In this case, we mark it as <em>questioning</em>. It can then either become <em>superseded</em> once we have implemented an alternative, or <em>deprecated</em>. The difference between superseded and deprecated is that a superseded feature is maintained indefinitely for backward compatibility. Alternatively, we may realise that a questioning feature is actually important, and move it back to stable. User feedback is usually important for taking these decisions and always welcome.</p>
-<ol style="list-style-type: decimal">
-<li><p><img src="figures/lifecycle-questioning.svg" alt="Questioning" style="vertical-align:middle"> The author is no longer convinced that the feature is the optimal approach. However, there are no recommended alternatives yet.</p></li>
-<li><p><img src="figures/lifecycle-superseded.svg" alt="Superseded" style="vertical-align:middle"> (Previously called retired) A superseded feature is no longer under active development, and a known better alternative is available. However, it is indefinitely kept in the package for backward compatibility. The author will only make the necessary changes to ensure that the function continues working. No new features will be added, and only critical bugs will be fixed.</p></li>
-</ol>
-<p>The deprecation lifecycle is divided into three stages in order to give time to users to switch to an alternative.</p>
-<ol style="list-style-type: decimal">
-<li><p><img src="figures/lifecycle-soft-deprecated.svg" alt="Soft deprecated" style="vertical-align:middle"> The author is no longer happy with a feature because they consider it sub-optimal compared to some other approach, or simply because they no longer have the time to maintain it. A soft-deprecated feature can still be used without hassle, but users should consider switching to an alternative approach.</p></li>
-<li><p><img src="figures/lifecycle-deprecated.svg" alt="Deprecated" style="vertical-align:middle"> The feature is likely to be discontinued in the next major release. Users should switch to an alternative approach as soon as possible.</p></li>
-<li><p><img src="figures/lifecycle-defunct.svg" alt="Defunct" style="vertical-align:middle"> The feature can no longer be used. A defunct function is still exported, and a defunct argument is still part of the signature. This way an informative error can be thrown.</p></li>
-</ol>
-<p>Finally, when a feature is no longer exposed or mentioned in the released version of the package, it is said to be <em>archived</em>.</p>
-</div>
-<div id="rd-badges" class="section level3">
+<p>The default development stage is <img src="figures/lifecycle-stable.svg" style="vertical-align:middle" alt="Stable">. A function is considered stable when the author is sufficiently happy with its interface and behaviour to share it with a large number of users. Stable features come with guarantees. If breaking changes are needed, they will occur gradually, through the deprecation process described below.</p>
+<p>The stability of exported functions can be further refined based on the version number of the package they are exported from. In &gt;=1.0.0 packages, the main functionality is considered “done” by the author. Breaking changes and deprecations are unlikely. In sub-1.0.0 packages, some parts of the package (internal backend, external UI, …) still need some work and changes are possible. Stable &gt;=1.0.0 packages are the safest to depend and rely on.</p>
+<p>Some packages and functions are published in an <img src="figures/lifecycle-experimental.svg" style="vertical-align:middle" alt="Experimental"> stage. Experimental features are made available so people can try them out and provide feedback, but the author makes no promises to avoid breaking changes. A deprecation process for breaking changes is not guaranteed (but may still happen if sufficiently many users depend on the feature).</p>
+<div id="end-of-life" class="section level3">
 <h3 class="hasAnchor">
-<a href="#rd-badges" class="anchor"></a>Badges</h3>
-<p>Make sure your users know what stage a feature is by adding badges in the help topics of your functions.</p>
-<p><img src="figures/example-badge.png" alt="badge" align="center"></p>
+<a href="#end-of-life" class="anchor"></a>End of life</h3>
+<p>There are two ways that a function might reach the end of its life: it might be superseded or deprecated.</p>
 <ul>
-<li><p>Call <code>usethis::use_lifecycle()</code> to import the badges in your package.</p></li>
+<li>A <img src="figures/lifecycle-superseded.svg" alt="Superseded"><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> function has a better alternative available, but the function itself is not going away. While a superseded function will not receive new features, it will be kept working for the foreseeable future so that existing code does not need to change. A superseded feature preserves all the guarantees of a stable feature, and is just as safe to use.</li>
+<li>A <img src="figures/lifecycle-deprecated.svg" style="vertical-align:middle" alt="Deprecated"> function has a better alternative available and will be removed in the near future. Deprecated functions should also produce a message describing the alternative, and whenever you encounter a deprecation message in your code, you should make fixing it a priority.</li>
+</ul>
+<p>Particularly important functions can have two additional stages in the deprecation cycle:</p>
+<ul>
+<li><p>Soft-deprecated comes before deprecated. It’s a gentler form of deprecated designed to prevent new uses of a function and encourage package developers to move to a new for. Soft deprecated allows a package to change its extension interface in a way that downstream dependencies can adapt to before users are forced to change.</p></li>
+<li><p>Defunct comes after deprecated. A defunct function is still exported, and a defunct argument is still part of the signature, but their usage will generate informative errors.</p></li>
+</ul>
+<p>Sometimes the author of function is no longer certain that a function is the optimal approach, but doesn’t yet know how to do it better. These functions can be marked as <img src="figures/lifecycle-questioning.svg" style="vertical-align:middle" alt="Questioning"> to give users a heads up that the author has doubts about the function.</p>
+</div>
+</div>
+<div id="rd-badges" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rd-badges" class="anchor"></a>Documentation</h2>
+<p>Experimental, questioning, superseded, and deprecated (including soft-deprecated and defunct functions) should be clearly labelled in the document with a badge:</p>
+<ul>
 <li>
-<p>Use the <code>lifecycle</code> Rd macro to insert a badge:</p>
-<pre><code>#' \lifecycle{experimental}
-#' \lifecycle{soft-deprecated}</code></pre>
+<p>Call <code>usethis::use_lifecycle()</code> to import the badges in your package. Then use <code><a href="../reference/badge.html">lifecycle::badge()</a></code> to insert a badge:</p>
+<pre><code>#' \ifelse{html}{\out{&lt;a href='https://www.tidyverse.org/lifecycle/#experimental'&gt;&lt;img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'&gt;&lt;/a&gt;}}{\strong{Experimental}}r lifecycle::badge("deprecated")</code></pre>
 <p>This badge renders as text in non-HTML documentation. To document the status of a whole function, a good place to include the badge is at the top of the <code>@description</code> block. To document an argument, you can put the badge in the argument description.</p>
 </li>
-<li><p>For functions in development, you typically don’t need to advertise the status if it is the same as the package as a whole. For instance, if your package is <a href="https://www.tidyverse.org/lifecycle/#maturing">maturing</a>, only signal functions in the experimental, stable, and questioning stages.</p></li>
+<li><p>You should also include a brief description of why the function is in that state.</p></li>
+<li><p>For superseded and deprecated functions, rewrite the examples showing how to translate from the old to new syntax.</p></li>
+<li><p>For deprecated functions, add <code>@keywords internal</code> and update <code>_pkgdown.yaml</code> (if you use pkgdown), so that they’re no longer listed in documentation indexes.</p></li>
 </ul>
 </div>
-<div id="verbosity-of-deprecation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#verbosity-of-deprecation" class="anchor"></a>Verbosity of deprecation</h3>
-<p>lifecycle offers three levels of verbosity corresponding to the three deprecation stages.</p>
+<div id="signals" class="section level2">
+<h2 class="hasAnchor">
+<a href="#signals" class="anchor"></a>Signals</h2>
+<p>Deprecated functions should clearly signal their deprecation status. There are three levels of verbosity:</p>
 <ul>
-<li>
-<p><strong>Soft deprecation</strong>: At this stage, call <code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> to start warning users about the deprecation in the least disruptive way.</p>
-<p>This function only warns (a) users who try the feature from the global workspace, and (b) developers who directly use the feature, when they run unit tests with testthat. No warning is issued outside of unit tests, or when the deprecated feature is called from another package than their own.</p>
-<p>When a warning does get issued, users only see it once every 8 hours rather than at each invokation.</p>
-</li>
-<li><p><strong>Deprecation</strong>: At this stage, call <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> to warn unconditionally about the deprecated feature. The warning is issued only once every 8 hours.</p></li>
-<li><p><strong>Defunct</strong>: The feature is discontinued. Call <code><a href="../reference/deprecate_soft.html">deprecate_stop()</a></code> to fail with an error.</p></li>
+<li><p><strong>Soft deprecation</strong>: Call <code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> to start warning users about the deprecation in the least disruptive way. This function only warns (a) users who try the feature from the global workspace (at most once every 8 hours), and (b) developers who directly use the feature (when running testthat tests). No warning is when the deprecated feature is called indirectly by another package.</p></li>
+<li><p><strong>Deprecation</strong>: Call <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> to warn unconditionally about the deprecated feature. The warning is issued only once every 8 hours.</p></li>
+<li><p><strong>Defunct</strong>: Call <code><a href="../reference/deprecate_soft.html">deprecate_stop()</a></code> to fail with an error.</p></li>
 </ul>
-</div>
-<div id="deprecating-functions" class="section level3">
+<p>The following sections describe the details when deprecating functions and arguments.</p>
+<div id="functions" class="section level3">
 <h3 class="hasAnchor">
-<a href="#deprecating-functions" class="anchor"></a>Deprecating functions</h3>
-<p>These functions take the version number starting from which the feature is considered deprecated (it should remain the same across all deprecation stages), and a feature descriptor:</p>
+<a href="#functions" class="anchor"></a>Functions</h3>
+<p>The first two arguments give the version where deprecation occurred<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> and a description of what is deprecated:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span><span class="op">)</span>
 <span class="co">#&gt; Warning: `foo()` was deprecated in mypkg 1.0.0.</span></code></pre></div>
-<p>You can optionally provide a replacement:</p>
+<p>Where possible, describe the replacement in the third argument:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo()"</span>, <span class="st">"new()"</span><span class="op">)</span>
 <span class="co">#&gt; Warning: `foo()` was deprecated in mypkg 1.0.0.</span>
 <span class="co">#&gt; Please use `new()` instead.</span></code></pre></div>
-<p>For the purpose of these examples we explicitly mentioned the namespace with <code>mypkg::</code>, however you can typically omit it because lifecycle infers the namespace from the calling environment. Specifying the namespace is mostly useful when the replacement is implemented in a different package.</p>
+<p>We explicitly mention the namespace in these examples, but you can typically omit the namespace because lifecycle will infer it from the calling environment. Specifying the namespace is mostly useful when the replacement is implemented in a different package.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># The new replacement</span>
 <span class="va">foobar_adder</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">foo</span>, <span class="va">bar</span><span class="op">)</span> <span class="op">{</span>
@@ -190,10 +175,10 @@
   <span class="fu">foobar_adder</span><span class="op">(</span><span class="va">foo</span>, <span class="va">bar</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="deprecating-arguments" class="section level3">
+<div id="arguments" class="section level3">
 <h3 class="hasAnchor">
-<a href="#deprecating-arguments" class="anchor"></a>Deprecating arguments</h3>
-<p>The syntax for deprecating argument is based on the syntax for deprecating functions:</p>
+<a href="#arguments" class="anchor"></a>Arguments</h3>
+<p>The syntax for deprecating arguments is similar:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"mypkg::foo(arg = )"</span><span class="op">)</span>
 <span class="co">#&gt; Warning: The `arg` argument of `foo()` is deprecated as of mypkg 1.0.0.</span>
@@ -222,17 +207,18 @@
   <span class="va">foo</span> <span class="op">+</span> <span class="va">bar</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="workflow" class="section level3">
+</div>
+<div id="workflow" class="section level2">
+<h2 class="hasAnchor">
+<a href="#workflow" class="anchor"></a>Workflow</h2>
+<div id="where-do-these-deprecation-warnings-come-from" class="section level3">
 <h3 class="hasAnchor">
-<a href="#workflow" class="anchor"></a>Workflow</h3>
-<div id="where-do-these-deprecation-warnings-come-from" class="section level4">
-<h4 class="hasAnchor">
-<a href="#where-do-these-deprecation-warnings-come-from" class="anchor"></a>Where do these deprecation warnings come from?</h4>
+<a href="#where-do-these-deprecation-warnings-come-from" class="anchor"></a>Where do these deprecation warnings come from?</h3>
 <p>Call <code><a href="../reference/last_warnings.html">lifecycle::last_warnings()</a></code> to see backtraces for all the deprecation warnings that were issued during the last top-level command.</p>
 </div>
-<div id="bumping-deprecation-stage" class="section level4">
-<h4 class="hasAnchor">
-<a href="#bumping-deprecation-stage" class="anchor"></a>Bumping deprecation stage</h4>
+<div id="bumping-deprecation-stage" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bumping-deprecation-stage" class="anchor"></a>Bumping deprecation stage</h3>
 <p>Some manual search and replace is needed to bump the status of deprecated features. We recommend starting with defunct features and work your way up:</p>
 <ol style="list-style-type: decimal">
 <li><p>Search for <code><a href="../reference/deprecate_soft.html">deprecate_stop()</a></code> and remove the feature from the package. The feature is now archived.</p></li>
@@ -242,9 +228,9 @@
 </ol>
 <p>Don’t forget to update the badges in the documentation topics.</p>
 </div>
-<div id="find-out-what-deprecated-features-you-rely-on" class="section level4">
-<h4 class="hasAnchor">
-<a href="#find-out-what-deprecated-features-you-rely-on" class="anchor"></a>Find out what deprecated features you rely on</h4>
+<div id="find-out-what-deprecated-features-you-rely-on" class="section level3">
+<h3 class="hasAnchor">
+<a href="#find-out-what-deprecated-features-you-rely-on" class="anchor"></a>Find out what deprecated features you rely on</h3>
 <p>Test whether your package depends on deprecated features directly or indirectly by setting the verbosity option in the <code>tests/testthat.R</code> file just before <code><a href="https://testthat.r-lib.org/reference/test_package.html">test_check()</a></code> is called:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://testthat.r-lib.org">testthat</a></span><span class="op">)</span>
@@ -264,9 +250,9 @@
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span></code></pre></div>
 <p>Forcing warnings can be useful in conjuction with <code><a href="../reference/last_warnings.html">last_warnings()</a></code>, which prints backtraces for all the deprecation warnings issued during the last top-level command.</p>
 </div>
-<div id="test-deprecated-features" class="section level4">
-<h4 class="hasAnchor">
-<a href="#test-deprecated-features" class="anchor"></a>Test deprecated features</h4>
+<div id="test-deprecated-features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#test-deprecated-features" class="anchor"></a>Test deprecated features</h3>
 <p>Test whether a deprecated feature still works by setting <code>lifecycle_verbosity</code> to <code>"quiet"</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"`baz` argument of `foobar_adder()` still works"</span>, <span class="op">{</span>
@@ -289,11 +275,21 @@
 <p>More control over verbosity can be exercised with the <code>lifecycle_verbosity</code> option. See <code><a href="../reference/verbosity.html">?verbosity</a></code>.</p>
 </div>
 </div>
+<div class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>They can also be applied to individual arguments, or combinations of argument values.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>This stage was previously called retired.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>If the function goes through multiple deprecation stages, this stays the same.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
