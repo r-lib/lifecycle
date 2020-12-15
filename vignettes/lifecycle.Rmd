@@ -18,117 +18,106 @@ knitr::opts_chunk$set(
 library(lifecycle)
 ```
 
-Use lifecycle to document the status of your exported functions and arguments:
+Use lifecycle to document the status of your exported functions and arguments.
+It provides a standard way to describe lifecycle stage in the documentation, and tools to encourage users away from deprecated functions.
 
--   Choose one of the 7 lifecycle stages a function or argument can be in.
-    You can choose from 4 development stages (experimental, maturing, stable, and questioning) and 3 deprecation stages (soft-deprecated, deprecated, and defunct).
+## Stages
 
--   If the function or argument is deprecated, make sure your users know about by calling `deprecate_soft()`, `deprecate_warn()`, or `deprecate_stop()`.
-    These functions try to be informative without being too verbose, with increasing levels of verbosity as the deprecation stage advances.
+The lifecycle stages for functions[^1] are summarised in the figure below.
 
--   Include the relevant lifecycle badge in your documentation.
-
-### Stages
-
-The lifecycle stages for functions and arguments are summarised in the figure below.
-They're designed to closely mirror the lifecycle stages for [packages](https://www.tidyverse.org/lifecycle/).
+[^1]: They can also be applied to individual arguments, or combinations of argument values.
 
 <img src="figures/lifecycle.svg" width="75%"/>
 
-There are two development stages.
+The default development stage is ![Stable](figures/lifecycle-stable.svg){style="vertical-align:middle"}.
+A function is considered stable when the author is sufficiently happy with its interface and behaviour to share it with a large number of users.
+Stable features come with guarantees.
+If breaking changes are needed, they will occur gradually, through the deprecation process described below.
 
--   <img src="figures/lifecycle-experimental.svg" alt="Experimental" style="vertical-align:middle"/> This is a new feature that is in the very early stage of development.
-    It is exported so users can start to use it and report feedback, but its interface and/or behaviour is likely to change in the future.
-    It is generally best to avoid depending on experimental features.
+The stability of exported functions can be further refined based on the version number of the package they are exported from.
+In \>=1.0.0 packages, the main functionality is considered "done" by the author.
+Breaking changes and deprecations are unlikely.
+In sub-1.0.0 packages, some parts of the package (internal backend, external UI, ...) still need some work and changes are possible.
+Stable \>=1.0.0 packages are the safest to depend and rely on.
 
--   <img src="figures/lifecycle-maturing.svg" alt="Maturing" style="vertical-align:middle"/> The interface and behaviour of a maturing feature has been roughed out, but finer details are likely to change.
-    It still needs more feedback to find the optimal API.
+Some packages and functions are published in an ![Experimental](figures/lifecycle-experimental.svg){style="vertical-align:middle"} stage.
+Experimental features are made available so people can try them out and provide feedback, but the author makes no promises to avoid breaking changes.
+A deprecation process for breaking changes is not guaranteed (but may still happen if sufficiently many users depend on the feature).
 
-The probable end state of most functions is *stable*:
+### End of life
 
--   <img src="figures/lifecycle-stable.svg" alt="Stable" style="vertical-align:middle"/> A feature is considered stable when the author is happy with its interface and behaviour. Major changes are unlikely, and breaking changes will occur gradually, through a deprecation process.
+There are two ways that a function might reach the end of its life: it might be superseded or deprecated.
 
-Sometimes we are no longer certain that a feature follows or implements the right approach.
-In this case, we mark it as *questioning*.
-It can then either become *superseded* once we have implemented an alternative, or *deprecated*.
-The difference between superseded and deprecated is that a superseded feature is maintained indefinitely for backward compatibility.
-Alternatively, we may realise that a questioning feature is actually important, and move it back to stable.
-User feedback is usually important for taking these decisions and always welcome.
+-   A ![Superseded](figures/lifecycle-superseded.svg)[^2] function has a better alternative available, but the function itself is not going away. While a superseded function will not receive new features, it will be kept working for the foreseeable future so that existing code does not need to change. A superseded feature preserves all the guarantees of a stable feature, and is just as safe to use.
+-   A ![Deprecated](figures/lifecycle-deprecated.svg){style="vertical-align:middle"} function has a better alternative available and will be removed in the near future. Deprecated functions should also produce a message describing the alternative, and whenever you encounter a deprecation message in your code, you should make fixing it a priority.
 
-1.  <img src="figures/lifecycle-questioning.svg" alt="Questioning" style="vertical-align:middle"/> The author is no longer convinced that the feature is the optimal approach.
-    However, there are no recommended alternatives yet.
+[^2]: This stage was previously called retired.
 
-2.  <img src="figures/lifecycle-superseded.svg" alt="Superseded" style="vertical-align:middle"/> (Previously called retired) A superseded feature is no longer under active development, and a known better alternative is available.
-    However, it is indefinitely kept in the package for backward compatibility.
-    The author will only make the necessary changes to ensure that the function continues working.
-    No new features will be added, and only critical bugs will be fixed.
+Particularly important functions can have two additional stages in the deprecation cycle:
 
-The deprecation lifecycle is divided into three stages in order to give time to users to switch to an alternative.
+-   Soft-deprecated comes before deprecated.
+    It's a gentler form of deprecated designed to prevent new uses of a function and encourage package developers to move to a new for.
+    Soft deprecated allows a package to change its extension interface in a way that downstream dependencies can adapt to before users are forced to change.
 
-1.  <img src="figures/lifecycle-soft-deprecated.svg" alt="Soft deprecated" style="vertical-align:middle"/> The author is no longer happy with a feature because they consider it sub-optimal compared to some other approach, or simply because they no longer have the time to maintain it.
-    A soft-deprecated feature can still be used without hassle, but users should consider switching to an alternative approach.
+-   Defunct comes after deprecated.
+    A defunct function is still exported, and a defunct argument is still part of the signature, but their usage will generate informative errors.
 
-2.  <img src="figures/lifecycle-deprecated.svg" alt="Deprecated" style="vertical-align:middle"/> The feature is likely to be discontinued in the next major release.
-    Users should switch to an alternative approach as soon as possible.
+Sometimes the author of function is no longer certain that a function is the optimal approach, but doesn't yet know how to do it better.
+These functions can be marked as ![Questioning](figures/lifecycle-questioning.svg){style="vertical-align:middle"} to give users a heads up that the author has doubts about the function.
 
-3.  <img src="figures/lifecycle-defunct.svg" alt="Defunct" style="vertical-align:middle"/> The feature can no longer be used.
-    A defunct function is still exported, and a defunct argument is still part of the signature.
-    This way an informative error can be thrown.
+## Documentation {#rd-badges}
 
-Finally, when a feature is no longer exposed or mentioned in the released version of the package, it is said to be *archived*.
-
-### Badges {#rd-badges}
-
-Make sure your users know what stage a feature is by adding badges in the help topics of your functions.
-
-<img src="figures/example-badge.png" alt="badge" align="center"/>
+Experimental, questioning, superseded, and deprecated (including soft-deprecated and defunct functions) should be clearly labelled in the document with a badge:
 
 -   Call `usethis::use_lifecycle()` to import the badges in your package.
+    Then use `lifecycle::badge()` to insert a badge:
 
--   Use the `lifecycle` Rd macro to insert a badge:
-
-        #' \lifecycle{experimental}
-        #' \lifecycle{soft-deprecated}
+        #' `r lifecycle::badge("experimental")
+        #' `r lifecycle::badge("deprecated")
 
     This badge renders as text in non-HTML documentation.
     To document the status of a whole function, a good place to include the badge is at the top of the `@description` block.
     To document an argument, you can put the badge in the argument description.
 
--   For functions in development, you typically don't need to advertise the status if it is the same as the package as a whole.
-    For instance, if your package is [maturing](https://www.tidyverse.org/lifecycle/#maturing), only signal functions in the experimental, stable, and questioning stages.
+-   You should also include a brief description of why the function is in that state.
 
-### Verbosity of deprecation
+-   For superseded and deprecated functions, rewrite the examples showing how to translate from the old to new syntax.
 
-lifecycle offers three levels of verbosity corresponding to the three deprecation stages.
+-   For deprecated functions, add `@keywords internal` and update `_pkgdown.yaml` (if you use pkgdown), so that they're no longer listed in documentation indexes.
 
--   **Soft deprecation**: At this stage, call `deprecate_soft()` to start warning users about the deprecation in the least disruptive way.
+## Signals
 
-    This function only warns (a) users who try the feature from the global workspace, and (b) developers who directly use the feature, when they run unit tests with testthat.
-    No warning is issued outside of unit tests, or when the deprecated feature is called from another package than their own.
+Deprecated functions should clearly signal their deprecation status.
+There are three levels of verbosity:
 
-    When a warning does get issued, users only see it once every 8 hours rather than at each invokation.
+-   **Soft deprecation**: Call `deprecate_soft()` to start warning users about the deprecation in the least disruptive way.
+    This function only warns (a) users who try the feature from the global workspace (at most once every 8 hours), and (b) developers who directly use the feature (when running testthat tests).
+    No warning is when the deprecated feature is called indirectly by another package.
 
--   **Deprecation**: At this stage, call `deprecate_warn()` to warn unconditionally about the deprecated feature.
+-   **Deprecation**: Call `deprecate_warn()` to warn unconditionally about the deprecated feature.
     The warning is issued only once every 8 hours.
 
--   **Defunct**: The feature is discontinued.
-    Call `deprecate_stop()` to fail with an error.
+-   **Defunct**: Call `deprecate_stop()` to fail with an error.
 
-### Deprecating functions
+The following sections describe the details when deprecating functions and arguments.
 
-These functions take the version number starting from which the feature is considered deprecated (it should remain the same across all deprecation stages), and a feature descriptor:
+### Functions
+
+The first two arguments give the version where deprecation occurred[^3] and a description of what is deprecated:
+
+[^3]: If the function goes through multiple deprecation stages, this stays the same.
 
 ```{r}
 deprecate_warn("1.0.0", "mypkg::foo()")
 ```
 
-You can optionally provide a replacement:
+Where possible, describe the replacement in the third argument:
 
 ```{r}
 deprecate_warn("1.0.0", "mypkg::foo()", "new()")
 ```
 
-For the purpose of these examples we explicitly mentioned the namespace with `mypkg::`, however you can typically omit it because lifecycle infers the namespace from the calling environment.
+We explicitly mention the namespace in these examples, but you can typically omit the namespace because lifecycle will infer it from the calling environment.
 Specifying the namespace is mostly useful when the replacement is implemented in a different package.
 
 ```{r}
@@ -144,9 +133,9 @@ foobaz_adder <- function(foo, bar) {
 }
 ```
 
-### Deprecating arguments
+### Arguments
 
-The syntax for deprecating argument is based on the syntax for deprecating functions:
+The syntax for deprecating arguments is similar:
 
 ```{r}
 deprecate_warn("1.0.0", "mypkg::foo(arg = )")
@@ -180,13 +169,13 @@ foobar_adder <- function(foo, bar, baz = deprecated()) {
 }
 ```
 
-### Workflow
+## Workflow
 
-#### Where do these deprecation warnings come from?
+### Where do these deprecation warnings come from?
 
 Call `lifecycle::last_warnings()` to see backtraces for all the deprecation warnings that were issued during the last top-level command.
 
-#### Bumping deprecation stage
+### Bumping deprecation stage
 
 Some manual search and replace is needed to bump the status of deprecated features.
 We recommend starting with defunct features and work your way up:
@@ -202,7 +191,7 @@ We recommend starting with defunct features and work your way up:
 
 Don't forget to update the badges in the documentation topics.
 
-#### Find out what deprecated features you rely on
+### Find out what deprecated features you rely on
 
 Test whether your package depends on deprecated features directly or indirectly by setting the verbosity option in the `tests/testthat.R` file just before `test_check()` is called:
 
@@ -230,7 +219,7 @@ options(lifecycle_verbosity = "error")
 
 Forcing warnings can be useful in conjuction with `last_warnings()`, which prints backtraces for all the deprecation warnings issued during the last top-level command.
 
-#### Test deprecated features
+### Test deprecated features
 
 Test whether a deprecated feature still works by setting `lifecycle_verbosity` to `"quiet"`:
 
