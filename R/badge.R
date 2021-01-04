@@ -31,7 +31,6 @@
 #' * `r lifecycle::badge("stable")` `lifecycle::badge("stable")`
 #' * `r lifecycle::badge("questioning")` `lifecycle::badge("questioning")`
 #' * `r lifecycle::badge("superseded")` `lifecycle::badge("superseded")`
-#' * `r lifecycle::badge("soft-deprecated")` `lifecycle::badge("soft-deprecated")`
 #' * `r lifecycle::badge("deprecated")` `lifecycle::badge("deprecated")`
 #' * `r lifecycle::badge("defunct")` `lifecycle::badge("defunct")`
 #'
@@ -40,7 +39,7 @@
 #'
 #' @param stage A lifecycle stage as a string, one of:
 #'   `"experimental"`, `"stable"`, `"questioning"`, `"superseded"`
-#'   `"soft-deprecated"`, `"deprecated"`, `"defunct"`.
+#'   `"deprecated"`, `"defunct"`.
 #' @return An `Rd` expression describing the lifecycle stage.
 #'
 #' @export

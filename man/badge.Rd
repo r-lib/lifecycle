@@ -9,7 +9,7 @@ badge(stage)
 \arguments{
 \item{stage}{A lifecycle stage as a string, one of:
 \code{"experimental"}, \code{"stable"}, \code{"questioning"}, \code{"superseded"}
-\code{"soft-deprecated"}, \code{"deprecated"}, \code{"defunct"}.}
+\code{"deprecated"}, \code{"defunct"}.}
 }
 \value{
 An \code{Rd} expression describing the lifecycle stage.
@@ -43,7 +43,6 @@ roxygen at build time so you don't need to add lifecycle to your
 \item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}} \code{lifecycle::badge("stable")}
 \item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a>}}{\strong{Questioning}} \code{lifecycle::badge("questioning")}
 \item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#superseded'><img src='figures/lifecycle-superseded.svg' alt='Superseded lifecycle'></a>}}{\strong{Superseded}} \code{lifecycle::badge("superseded")}
-\item \ifelse{html}{\figure{lifecycle-soft-deprecated.svg}{options: alt='Soft-deprecated lifecycle'}}{\strong{Soft-deprecated}} \code{lifecycle::badge("soft-deprecated")}
 \item \ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} \code{lifecycle::badge("deprecated")}
 \item \ifelse{html}{\figure{lifecycle-defunct.svg}{options: alt='Defunct lifecycle'}}{\strong{Defunct}} \code{lifecycle::badge("defunct")}
 }
