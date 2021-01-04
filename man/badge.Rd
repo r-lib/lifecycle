@@ -8,51 +8,47 @@ badge(stage)
 }
 \arguments{
 \item{stage}{A lifecycle stage as a string, one of:
-\code{"experimental"}, \code{"maturing"}, \code{"stable"}, \code{"questioning"},
-\code{"archived"}, \code{"soft-deprecated"}, \code{"deprecated"}, \code{"defunct"}.}
+\code{"experimental"}, \code{"stable"}, \code{"questioning"}, \code{"superseded"}
+\code{"soft-deprecated"}, \code{"deprecated"}, \code{"defunct"}.}
 }
 \value{
 An \code{Rd} expression describing the lifecycle stage.
 }
 \description{
-Call \code{usethis::use_lifecycle()} to import the badges in your
-package. Then use the \code{lifecycle} Rd macro to insert a lifecycle
-badges in your documentation, with the relevant lifecycle stage as
-argument:\preformatted{\\lifecycle\{experimental\}
-\\lifecycle\{soft-deprecated\}
+To include lifecycle badges in your documentation:
+\enumerate{
+\item Call \code{usethis::use_lifecycle()} to import the badges in your
+package. They are copied in the \verb{man/} folder.
+\item Call \code{lifecycle::badge()} inside R backticks to insert a
+lifecycle badge:\preformatted{`r lifecycle::badge("experimental")`
+`r lifecycle::badge("deprecated")`
+}
+
+If the deprecated feature is a function, a good place for this
+badge is at the top of the topic description. If it is an argument,
+you can put the badge in the argument description.
 }
 
 The badge is displayed as image in the HTML version of the
 documentation and as text otherwise.
 
-If the deprecated feature is a function, a good place for this
-badge is at the top of the topic description (if the deprecated
-function is documented with other functions, it might be a good
-idea to extract it in its own documentation topic to prevent
-confusion). If it is an argument, you can put the badge in the
-argument description.
-}
-\details{
-The \verb{lifecycle\{\}} macro is made available by adding this field to
-DESCRIPTION (this is done automatically by
-\code{usethis::use_lifecycle()}):\preformatted{RdMacros: lifecycle
-}
-
-The macro expands to this expression:\preformatted{\\Sexpr[results=rd, stage=render]\{lifecycle::badge("experimental")\}
-}
+\code{lifecycle::badge()} is ran by
+roxygen at build time so you don't need to add lifecycle to your
+\verb{Imports:} section just to include a badge.
 }
 \section{Badges}{
 
 \itemize{
-\item \verb{\lifecycle{experimental}}: \lifecycle{experimental}
-\item \verb{\lifecycle{maturing}}: \lifecycle{maturing}
-\item \verb{\lifecycle{stable}}: \lifecycle{stable}
-\item \verb{\lifecycle{questioning}}: \lifecycle{questioning}
-\item \verb{\lifecycle{superseded}}: \lifecycle{superseded}
-\item \verb{\lifecycle{archived}}: \lifecycle{archived}
-\item \verb{\lifecycle{soft-deprecated}}: \lifecycle{soft-deprecated}
-\item \verb{\lifecycle{deprecated}}: \lifecycle{deprecated}
-\item \verb{\lifecycle{defunct}}: \lifecycle{defunct}
+\item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}} \code{lifecycle::badge("experimental")}
+\item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}} \code{lifecycle::badge("stable")}
+\item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a>}}{\strong{Questioning}} \code{lifecycle::badge("questioning")}
+\item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#superseded'><img src='figures/lifecycle-superseded.svg' alt='Superseded lifecycle'></a>}}{\strong{Superseded}} \code{lifecycle::badge("superseded")}
+\item \ifelse{html}{\figure{lifecycle-soft-deprecated.svg}{options: alt='Soft-deprecated lifecycle'}}{\strong{Soft-deprecated}} \code{lifecycle::badge("soft-deprecated")}
+\item \ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} \code{lifecycle::badge("deprecated")}
+\item \ifelse{html}{\figure{lifecycle-defunct.svg}{options: alt='Defunct lifecycle'}}{\strong{Defunct}} \code{lifecycle::badge("defunct")}
 }
+
+The meaning of these badges is described in
+\code{vignette("lifecycle")}.
 }
 

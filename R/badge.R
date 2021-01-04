@@ -2,56 +2,45 @@
 #'
 #' @description
 #'
-#' Call `usethis::use_lifecycle()` to import the badges in your
-#' package. Then use the `lifecycle` Rd macro to insert a lifecycle
-#' badges in your documentation, with the relevant lifecycle stage as
-#' argument:
+#' To include lifecycle badges in your documentation:
 #'
-#' ```
-#' \lifecycle{experimental}
-#' \lifecycle{soft-deprecated}
-#' ```
+#' 1. Call `usethis::use_lifecycle()` to import the badges in your
+#'    package. They are copied in the `man/` folder.
+#'
+#' 2. Call `lifecycle::badge()` inside R backticks to insert a
+#'    lifecycle badge:
+#'
+#'     ```
+#'     `r lifecycle::badge("experimental")`
+#'     `r lifecycle::badge("deprecated")`
+#'     ```
+#'
+#'    If the deprecated feature is a function, a good place for this
+#'    badge is at the top of the topic description. If it is an argument,
+#'    you can put the badge in the argument description.
 #'
 #' The badge is displayed as image in the HTML version of the
 #' documentation and as text otherwise.
 #'
-#' If the deprecated feature is a function, a good place for this
-#' badge is at the top of the topic description (if the deprecated
-#' function is documented with other functions, it might be a good
-#' idea to extract it in its own documentation topic to prevent
-#' confusion). If it is an argument, you can put the badge in the
-#' argument description.
+#' `lifecycle::badge()` is ran by
+#' roxygen at build time so you don't need to add lifecycle to your
+#' `Imports:` section just to include a badge.
 #'
 #' @section Badges:
-#' * \verb{\lifecycle{experimental}}: \lifecycle{experimental}
-#' * \verb{\lifecycle{maturing}}: \lifecycle{maturing}
-#' * \verb{\lifecycle{stable}}: \lifecycle{stable}
-#' * \verb{\lifecycle{questioning}}: \lifecycle{questioning}
-#' * \verb{\lifecycle{superseded}}: \lifecycle{superseded}
-#' * \verb{\lifecycle{archived}}: \lifecycle{archived}
-#' * \verb{\lifecycle{soft-deprecated}}: \lifecycle{soft-deprecated}
-#' * \verb{\lifecycle{deprecated}}: \lifecycle{deprecated}
-#' * \verb{\lifecycle{defunct}}: \lifecycle{defunct}
+#' * `r lifecycle::badge("experimental")` `lifecycle::badge("experimental")`
+#' * `r lifecycle::badge("stable")` `lifecycle::badge("stable")`
+#' * `r lifecycle::badge("questioning")` `lifecycle::badge("questioning")`
+#' * `r lifecycle::badge("superseded")` `lifecycle::badge("superseded")`
+#' * `r lifecycle::badge("soft-deprecated")` `lifecycle::badge("soft-deprecated")`
+#' * `r lifecycle::badge("deprecated")` `lifecycle::badge("deprecated")`
+#' * `r lifecycle::badge("defunct")` `lifecycle::badge("defunct")`
 #'
-#' @details
-#'
-#' The `lifecycle{}` macro is made available by adding this field to
-#' DESCRIPTION (this is done automatically by
-#' `usethis::use_lifecycle()`):
-#'
-#' ```
-#' RdMacros: lifecycle
-#' ```
-#'
-#' The macro expands to this expression:
-#'
-#' ```
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
-#' ```
+#' The meaning of these badges is described in
+#' `vignette("lifecycle")`.
 #'
 #' @param stage A lifecycle stage as a string, one of:
-#'   `"experimental"`, `"maturing"`, `"stable"`, `"questioning"`,
-#'   `"archived"`, `"soft-deprecated"`, `"deprecated"`, `"defunct"`.
+#'   `"experimental"`, `"stable"`, `"questioning"`, `"superseded"`
+#'   `"soft-deprecated"`, `"deprecated"`, `"defunct"`.
 #' @return An `Rd` expression describing the lifecycle stage.
 #'
 #' @export
