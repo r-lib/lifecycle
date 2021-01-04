@@ -72,12 +72,16 @@ Experimental, questioning, superseded, and deprecated (including soft-deprecated
 -   Call `usethis::use_lifecycle()` to import the badges in your package.
     Then use `lifecycle::badge()` to insert a badge:
 
-        #' `r lifecycle::badge("experimental")
-        #' `r lifecycle::badge("deprecated")
+    ```{r, eval = FALSE}
+    #' `r lifecycle::badge("experimental")
+    #' `r lifecycle::badge("deprecated")
+    ```
 
     This badge renders as text in non-HTML documentation.
     To document the status of a whole function, a good place to include the badge is at the top of the `@description` block.
     To document an argument, you can put the badge in the argument description.
+    
+    `lifecycle::badge()` is only ran by roxygen, so this is a build-time dependency. You don't need to import lifecycle just to include badges in your documentation.
 
 -   You should also include a brief description of why the function is in that state.
 
