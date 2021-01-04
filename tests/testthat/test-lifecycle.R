@@ -1,20 +1,19 @@
 test_that("deprecate_soft() warns when called from global env", {
-  old <- Sys.getenv("TESTTHAT_PKG")
-  Sys.setenv("TESTTHAT_PKG" = "")
-  on.exit(Sys.setenv("TESTTHAT_PKG" = old))
+  local_options(lifecycle_verbosity = NULL)
 
-  fn <- function(id) deprecate_soft("1.0.0", "foo()", id = id)
+  fn <- function(id) {
+    deprecate_soft("1.0.0", "foo()", id = id)
+  }
+  expect_no_warning(fn("called from local env"))
+
   local_bindings(.env = global_env(), fn = fn)
-
-  locally(
-    expect_no_warning(fn("called from local env"))
+  env_bind_lazy(
+    current_env(),
+    do = fn("called from global env"),
+    .eval_env = global_env()
   )
 
-  with_options(lifecycle_verbosity = "default", {
-    with_env(global_env(), {
-      expect_warning(fn("called from global env"), "foo")
-    })
-  })
+  expect_warning(do, "foo", class = "lifecycle_warning_deprecated")
 })
 
 test_that("deprecate_soft() warns when called from package being tested", {
@@ -58,6 +57,8 @@ test_that("soft-deprecation warnings are issued when called from child of global
 })
 
 test_that("deprecation warnings are not displayed again", {
+  local_options(lifecycle_verbosity = NULL)
+
   wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-every-8-hours-note"))
   footer <- wrn$internal$footer
   expect_true(is_string(footer) && grepl("once every 8 hours", footer))
@@ -69,5 +70,6 @@ test_that("deprecation warnings are not displayed again", {
 })
 
 test_that("the topenv of the empty env is not the global env", {
+  local_options(lifecycle_verbosity = NULL)
   expect_silent(deprecate_soft("1.0.0", "foo()", env = empty_env(), id = "topenv of empty env"))
 })
