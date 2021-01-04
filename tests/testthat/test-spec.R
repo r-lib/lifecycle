@@ -1,13 +1,31 @@
 
 test_that("feature_spec() builds feature data", {
-  expect_identical(feature_spec("foo()"), spec_data(fn = "foo"))
-  expect_identical(feature_spec("pkg::foo()"), spec_data(fn = "foo", pkg = "pkg"))
+  expect_identical(
+    feature_spec("foo()"),
+    spec_data(fn = "foo")
+  )
+  expect_identical(
+    feature_spec("pkg::foo()"),
+    spec_data(fn = "foo", pkg = "pkg")
+  )
 
-  expect_identical(feature_spec("foo(bar = )"), spec_data(fn = "foo", arg = "bar"))
-  expect_identical(feature_spec("pkg::foo(bar = )"), spec_data(fn = "foo", arg = "bar", pkg = "pkg"))
+  expect_identical(
+    feature_spec("foo(bar = )"),
+    spec_data(fn = "foo", arg = "bar")
+  )
+  expect_identical(
+    feature_spec("pkg::foo(bar = )"),
+    spec_data(fn = "foo", arg = "bar", pkg = "pkg")
+  )
 
-  expect_identical(feature_spec("foo(bar = 'baz')"), spec_data(fn = "foo", arg = "bar", details = "baz"))
-  expect_identical(feature_spec("pkg::foo(bar = 'baz')"), spec_data(fn = "foo", arg = "bar", pkg = "pkg", details = "baz"))
+  expect_identical(
+    feature_spec("foo(bar = 'baz')"),
+    spec_data(fn = "foo", arg = "bar", details = "baz")
+  )
+  expect_identical(
+    feature_spec("pkg::foo(bar = 'baz')"),
+    spec_data(fn = "foo", arg = "bar", pkg = "pkg", details = "baz")
+  )
 
   verify_errors({
     expect_error(feature_spec("foo"), "")
