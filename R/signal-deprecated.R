@@ -93,7 +93,7 @@ deprecate_soft <- function(when,
 
   if (from_testthat(env)) {
     # Warn repeatedly in unit tests
-    scoped_options(lifecycle_verbosity = "warning")
+    local_options(lifecycle_verbosity = "warning")
 
     deprecate_warn(when, what, with = with, details = details, id = id)
     return(invisible(NULL))

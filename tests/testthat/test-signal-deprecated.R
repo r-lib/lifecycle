@@ -74,7 +74,7 @@ test_that("defunct errors inherit from lifecycle subclass", {
 })
 
 test_that("warning conditions are signaled only once if warnings are suppressed", {
-  scoped_options(lifecycle_verbosity = "warning")
+  local_options(lifecycle_verbosity = "warning")
 
   x <- 0L
   suppressWarnings(withCallingHandlers(

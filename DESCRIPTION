@@ -22,7 +22,7 @@ Depends:
     R (>= 3.2)
 Imports:
     glue,
-    rlang (>= 0.4.0)
+    rlang (>= 0.4.10)
 Suggests:
     covr,
     crayon,

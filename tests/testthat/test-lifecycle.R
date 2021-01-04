@@ -4,7 +4,7 @@ test_that("deprecate_soft() warns when called from global env", {
   on.exit(Sys.setenv("TESTTHAT_PKG" = old))
 
   fn <- function(id) deprecate_soft("1.0.0", "foo()", id = id)
-  scoped_bindings(.env = global_env(), fn = fn)
+  local_bindings(.env = global_env(), fn = fn)
 
   locally(
     expect_no_warning(fn("called from local env"))
@@ -34,7 +34,7 @@ test_that("deprecate_soft() warns when option is set", {
 })
 
 test_that("deprecate_warn() repeats warnings when option is set", {
-  scoped_options(lifecycle_verbosity = "warning")
+  local_options(lifecycle_verbosity = "warning")
 
   retired1 <- function() deprecate_soft("1.0.0", "foo()", id = "signal repeat")
   retired2 <- function() deprecate_warn("1.0.0", "foo()", id = "warn repeat")
@@ -47,7 +47,7 @@ test_that("deprecate_warn() repeats warnings when option is set", {
 })
 
 test_that("can promote lifecycle warnings to errors", {
-  scoped_options(lifecycle_verbosity = "error")
+  local_options(lifecycle_verbosity = "error")
   expect_lifecycle_defunct(deprecate_soft("1.0.0", "foo()"), "was deprecated")
   expect_lifecycle_defunct(deprecate_warn("1.0.0", "foo()"), "was deprecated")
 })
@@ -62,7 +62,7 @@ test_that("deprecation warnings are not displayed again", {
   footer <- wrn$internal$footer
   expect_true(is_string(footer) && grepl("once every 8 hours", footer))
 
-  scoped_options(lifecycle_verbosity = "warning")
+  local_options(lifecycle_verbosity = "warning")
 
   wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-every-8-hours-no-note"))
   expect_false(grepl("once every 8 hours", wrn$message))

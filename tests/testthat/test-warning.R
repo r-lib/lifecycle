@@ -4,7 +4,7 @@ test_that("deprecation warning is displayed with backtrace", {
 
   init_warnings()
 
-  scoped_options(
+  local_options(
     rlang_trace_top_env = current_env(),
     rlang_trace_format_srcrefs = FALSE,
     crayon.enabled = FALSE
