@@ -9,25 +9,38 @@ test_that("signallers require function call syntax for `what`", {
 })
 
 test_that("deprecation messages are constructed for functions", {
-  expect_known_output(file = test_path("output", "test-signal-message.txt"), {
-    cat_ruler("Inferred package name (here it is base b/c of testthat's eval env)")
-    cat_line(lifecycle_build_message("1.0.0", "foo()", signaller = "deprecate_stop"))
+  expect_snapshot({
+    # https://github.com/r-lib/rlang/issues/1087
+    NULL
 
-    cat_ruler("Overridden package name")
-    cat_line(lifecycle_build_message("1.0.0", "mypkg::foo()", signaller = "deprecate_stop"))
+    {
+      "Inferred package name (here it is base b/c of testthat's eval env)"
+      cat_line(lifecycle_build_message("1.0.0", "foo()", signaller = "deprecate_stop"))
+    }
 
-    cat_ruler("Replacement function")
-    cat_line(lifecycle_build_message("1.0.0", "foo()", "bar()", signaller = "deprecate_stop"))
+    {
+      "Overridden package name"
+      cat_line(lifecycle_build_message("1.0.0", "mypkg::foo()", signaller = "deprecate_stop"))
+    }
 
-    cat_ruler("Replacement function with overridden package names (1)")
-    cat_line(lifecycle_build_message("1.0.0", "foo::quux()", "foofy()", signaller = "deprecate_stop"))
+    {
+      "Replacement function"
+      cat_line(lifecycle_build_message("1.0.0", "foo()", "bar()", signaller = "deprecate_stop"))
+    }
 
-    cat_ruler("Replacement function with overridden package names (2)")
-    cat_line(lifecycle_build_message("1.0.0", "foo::quux()", "bar::foofy()", signaller = "deprecate_stop"))
+    {
+      "Replacement function with overridden package names (1)"
+      cat_line(lifecycle_build_message("1.0.0", "foo::quux()", "foofy()", signaller = "deprecate_stop"))
+    }
 
-    cat_ruler("Details")
-    details <- glue::glue(
-      "
+    {
+      "Replacement function with overridden package names (2)"
+      cat_line(lifecycle_build_message("1.0.0", "foo::quux()", "bar::foofy()", signaller = "deprecate_stop"))
+    }
+
+    {
+      details <- glue::glue(
+        "
 
         # Before:
         foo()
@@ -35,36 +48,51 @@ test_that("deprecation messages are constructed for functions", {
         # After:
         bar()
       "
-    )
-    cat_line(lifecycle_build_message("1.0.0", "foo()", "bar()", details = details, signaller = "deprecate_stop"))
+      )
+      cat_line(lifecycle_build_message("1.0.0", "foo()", "bar()", details = details, signaller = "deprecate_stop"))
+    }
   })
 })
 
 test_that("deprecation messages are constructed for arguments", {
-  expect_known_output(file = test_path("output", "test-signal-message-args.txt"), {
-    cat_ruler("Deprecated argument")
-    cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", signaller = "deprecate_stop"))
+  expect_snapshot({
+    # https://github.com/r-lib/rlang/issues/1087
+    NULL
 
-    cat_ruler("Deprecated argument with function replacement")
-    cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "bar()", signaller = "deprecate_stop"))
+    {
+      "Deprecated argument"
+      cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", signaller = "deprecate_stop"))
+    }
 
-    cat_ruler("Deprecated argument with argument replacement (same function)")
-    cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "foo(foofy = )", signaller = "deprecate_stop"))
+    {
+      "Deprecated argument with function replacement"
+      cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "bar()", signaller = "deprecate_stop"))
+    }
 
-    cat_ruler("Deprecated argument with argument replacement (different function)")
-    cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "bar(foofy = )", signaller = "deprecate_stop"))
+    {
+      "Deprecated argument with argument replacement (same function)"
+      cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "foo(foofy = )", signaller = "deprecate_stop"))
+    }
 
-    cat_ruler("Deprecated argument with argument replacement (different function, different package)")
-    cat_line(lifecycle_build_message("1.0.0", "aaa::foo(quux = )", "zzz::bar(foofy = )", signaller = "deprecate_stop"))
+    {
+      "Deprecated argument with argument replacement (different function)"
+      cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "bar(foofy = )", signaller = "deprecate_stop"))
+    }
 
-    cat_ruler("Deprecated argument with reason")
-    cat_line(lifecycle_build_message("1.0.0", "aaa::foo(quux = 'can\\'t be a baz')", signaller = "deprecate_stop"))
+    {
+      "Deprecated argument with argument replacement (different function, different package)"
+      cat_line(lifecycle_build_message("1.0.0", "aaa::foo(quux = )", "zzz::bar(foofy = )", signaller = "deprecate_stop"))
+    }
+
+    {
+      "Deprecated argument with reason"
+      cat_line(lifecycle_build_message("1.0.0", "aaa::foo(quux = 'can\\'t be a baz')", signaller = "deprecate_stop"))
+    }
   })
 })
 
 test_that("non-syntactic names are handled gracefully", {
-  expect_known_output(file = test_path("output", "test-signal-message-non-syntactic.txt"), {
-    cat_ruler("Non-syntactic function name and non-syntactic parameter name")
+  expect_snapshot({
     cat_line(lifecycle_build_message("1.0.0", "bar::`foo-fy`(`qu-ux` = )", signaller = "deprecate_stop"))
   })
 })

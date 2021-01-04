@@ -16,11 +16,9 @@ test_that("deprecation warning is displayed with backtrace", {
 
   expect_warning(f(), class = "lifecycle_warning_deprecated")
 
-  expect_known_output(file = test_path("output", "test-warning-backtrace.txt"), {
-    cat_ruler("default")
-    print(last_warning())
+  expect_snapshot({
+    last_warning()
 
-    cat_ruler("full")
     print(last_warning(), simplify = "none")
   })
 })
