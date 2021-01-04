@@ -1,4 +1,3 @@
-
 test_that("deprecation warning is displayed with backtrace", {
   skip_on_cran()
   skip_on_os("windows")

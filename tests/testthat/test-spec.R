@@ -1,4 +1,3 @@
-
 test_that("feature_spec() builds feature data", {
   expect_identical(
     feature_spec("foo()"),
