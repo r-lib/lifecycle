@@ -110,13 +110,26 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Use lifecycle to document the status of your exported functions and arguments:</p>
-<ul>
+<p>Consult the <a href="https://lifecycle.r-lib.org/articles/lifecycle.html">usage vignette</a> to learn about the workflow.</p>
+<div id="lifecycle-badges" class="section level3">
+<h3 class="hasAnchor">
+<a href="#lifecycle-badges" class="anchor"></a>Lifecycle badges</h3>
+<p>Use lifecycle to document the status of your exported functions and arguments.</p>
+<ol>
 <li><p>Choose one of the 7 lifecycle stages a function or argument can be in. You can choose from 4 development stages (experimental, maturing, stable, and questioning) and 3 deprecation stages (soft-deprecated, deprecated, and defunct).</p></li>
-<li><p>If the function or argument is deprecated, make sure your users know about by calling <code><a href="reference/deprecate_soft.html">deprecate_soft()</a></code>, <code><a href="reference/deprecate_soft.html">deprecate_warn()</a></code>, or <code><a href="reference/deprecate_soft.html">deprecate_stop()</a></code>. These functions try to be informative without being too verbose, with increasing levels of verbosity as the deprecation stage advances.</p></li>
-<li><p>Include the relevant lifecycle badge in your documentation.</p></li>
-</ul>
-<p>Consult the usage vignette to learn about the workflow: <code><a href="articles/lifecycle.html">vignette("lifecycle", package = "lifecycle")</a></code>.</p>
+<li>
+<p>Insert the relevant badge in your roxygen documentation by calling <code><a href="reference/badge.html">lifecycle::badge()</a></code> within R backticks:</p>
+<pre><code>`r lifecycle::badge("experimental")`
+`r lifecycle::badge("deprecated")`</code></pre>
+<p><code><a href="reference/badge.html">lifecycle::badge()</a></code> is ran by roxygen at build time so you don’t need to add lifecycle to your <code>Imports:</code> section just to include a badge.</p>
+</li>
+</ol>
+</div>
+<div id="deprecation-warnings" class="section level3">
+<h3 class="hasAnchor">
+<a href="#deprecation-warnings" class="anchor"></a>Deprecation warnings</h3>
+<p>If the function or argument is deprecated, make sure your users know about by calling <code><a href="reference/deprecate_soft.html">deprecate_soft()</a></code>, <code><a href="reference/deprecate_soft.html">deprecate_warn()</a></code>, or <code><a href="reference/deprecate_soft.html">deprecate_stop()</a></code>. These functions try to be informative without being too verbose, with increasing levels of verbosity as the deprecation stage advances.</p>
+</div>
 </div>
 </div>
   </div>

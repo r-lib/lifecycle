@@ -132,8 +132,11 @@
 <ul>
 <li>
 <p>Call <code>usethis::use_lifecycle()</code> to import the badges in your package. Then use <code><a href="../reference/badge.html">lifecycle::badge()</a></code> to insert a badge:</p>
-<pre><code>#' \ifelse{html}{\out{&lt;a href='https://www.tidyverse.org/lifecycle/#experimental'&gt;&lt;img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'&gt;&lt;/a&gt;}}{\strong{Experimental}}r lifecycle::badge("deprecated")</code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#' `r lifecycle::badge("experimental")</span>
+<span class="co">#' `r lifecycle::badge("deprecated")</span></code></pre></div>
 <p>This badge renders as text in non-HTML documentation. To document the status of a whole function, a good place to include the badge is at the top of the <code>@description</code> block. To document an argument, you can put the badge in the argument description.</p>
+<p><code><a href="../reference/badge.html">lifecycle::badge()</a></code> is only ran by roxygen, so this is a build-time dependency. You don’t need to import lifecycle just to include badges in your documentation.</p>
 </li>
 <li><p>You should also include a brief description of why the function is in that state.</p></li>
 <li><p>For superseded and deprecated functions, rewrite the examples showing how to translate from the old to new syntax.</p></li>
