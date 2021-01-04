@@ -22,12 +22,25 @@ remotes::install_github("r-lib/lifecycle")
 
 ## Usage
 
-Use lifecycle to document the status of your exported functions and arguments:
+Consult the [usage vignette](https://lifecycle.r-lib.org/articles/lifecycle.html) to learn about the workflow.
 
-* Choose one of the 7 lifecycle stages a function or argument can be in. You can choose from 4 development stages (experimental, maturing, stable, and questioning) and 3 deprecation stages (soft-deprecated, deprecated, and defunct).
 
-* If the function or argument is deprecated, make sure your users know about by calling `deprecate_soft()`, `deprecate_warn()`, or `deprecate_stop()`. These functions try to be informative without being too verbose, with increasing levels of verbosity as the deprecation stage advances.
+### Lifecycle badges
 
-* Include the relevant lifecycle badge in your documentation.
+Use lifecycle to document the status of your exported functions and arguments.
 
-Consult the usage vignette to learn about the workflow: `vignette("lifecycle", package = "lifecycle")`.
+1. Choose one of the 7 lifecycle stages a function or argument can be in. You can choose from 4 development stages (experimental, maturing, stable, and questioning) and 3 deprecation stages (soft-deprecated, deprecated, and defunct).
+
+2. Insert the relevant badge in your roxygen documentation by calling `lifecycle::badge()` within R backticks:
+
+    ```
+    `r lifecycle::badge("experimental")`
+    `r lifecycle::badge("deprecated")`
+    ```
+    
+   `lifecycle::badge()` is ran by roxygen at build time so you don't need to add lifecycle to your `Imports:` section just to include a badge.
+   
+
+### Deprecation warnings
+
+If the function or argument is deprecated, make sure your users know about by calling `deprecate_soft()`, `deprecate_warn()`, or `deprecate_stop()`. These functions try to be informative without being too verbose, with increasing levels of verbosity as the deprecation stage advances.
