@@ -50,8 +50,8 @@ spec_validate_what <- function(what, arg, signaller) {
 spec_validate_fn <- function(call) {
   fn <- node_car(call)
 
-  if (!is_symbol(fn)) {
-    abort("Internal error: `what` must refer to a function name.")
+  if (!is_symbol(fn) && !is_call(fn, "$")) {
+    abort("Internal error: `what` must be a function or method call.")
   }
 
   # Deparse so non-syntactic names are backticked
@@ -107,7 +107,7 @@ spec_validate_details <- function(call, signaller) {
     return(node_car(arg))
   }
 
-  fn <- as_string(node_car(call))
+  fn <- expr_deparse(node_car(call))
   abort(glue::glue(
       "
         Internal error: `what` must contain reason as a string in the LHS of `=`.
