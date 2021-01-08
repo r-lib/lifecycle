@@ -1,5 +1,5 @@
 ---
-title: "user"
+title: "Dealing with lifecycle warnings"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{user}
@@ -13,6 +13,8 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+
+The lifecycle package is used to advertise
 
 ```{r setup}
 library(lifecycle)
