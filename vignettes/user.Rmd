@@ -1,0 +1,51 @@
+---
+title: "user"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{user}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(lifecycle)
+```
+
+### Where do these deprecation warnings come from?
+
+Call `lifecycle::last_warnings()` to see backtraces for all the deprecation warnings that were issued during the last top-level command.
+
+### Find out what deprecated features you rely on
+
+Test whether your package depends on deprecated features directly or indirectly by setting the verbosity option in the `tests/testthat.R` file just before `test_check()` is called:
+
+```{r, eval = FALSE}
+library(testthat)
+library(mypackage)
+
+options(lifecycle_verbosity = "error")
+test_check("mypackage")
+```
+
+This forces all deprecated features to fail.
+You can also set the relevant options manually to force warnings or errors in your session:
+
+```{r, eval = FALSE}
+# Force silence
+options(lifecycle_verbosity = "quiet")
+
+# Force warnings
+options(lifecycle_verbosity = "warning")
+
+# Force errors
+options(lifecycle_verbosity = "error")
+```
+
+Forcing warnings can be useful in conjuction with `last_warnings()`, which prints backtraces for all the deprecation warnings issued during the last top-level command.
