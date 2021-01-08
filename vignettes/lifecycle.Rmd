@@ -12,50 +12,55 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+# Pretend we're in the lifecycle package
+options("lifecycle:::calling_package" = "lifecycle")
 ```
 
-Use lifecycle to document the status of your exported functions and arguments.
-It provides a standard way to describe lifecycle stage in the documentation, and tools to encourage users away from deprecated functions.
+lifecycle provides a standard way to document the lifecycle stage of functions are arguments, and tools to encourage users away from deprecated functions.
+In brief:
+
+1.  Insert badges in your roxygen2 documentation by calling `lifecycle::badge()`:
+
+    ```{r}
+    #' `r lifecycle::badge("experimental")`
+    ```
+
+2.  If a function or argument is deprecated, generate a user-friendly warning or error with `deprecate_soft()`, `deprecate_warn()`, or `deprecate_stop()`.
+
 Before you begin, make sure that you're familiar with the lifecycle stages, as described in `vignette("stages")`.
 
 ```{r setup}
 library(lifecycle)
 ```
 
-In brief:
-
-1.  Insert the relevant badge in your roxygen documentation by calling `lifecycle::badge()` within R backticks:
-
-        `r lifecycle::badge("experimental")`
-        `r lifecycle::badge("deprecated")`
-        `r lifecycle::badge("superseded")`
-
-2.  If a function or argument is deprecated, make sure your users know about by calling `deprecate_soft()`, `deprecate_warn()`, or `deprecate_stop()`.
-
-## Documentation bages {#rd-badges}
+## Documentation badges {#rd-badges}
 
 Experimental, questioning, superseded, and deprecated (including soft-deprecated and defunct functions) should be clearly labelled in the document with a badge:
 
--   Call `usethis::use_lifecycle()` to import the badges in your package.
-    Then use `lifecycle::badge()` to insert a badge:
+-   Call `usethis::use_lifecycle()` to embed the badge images in your package.
+    (You only need to do this once)
+
+-   Then use `lifecycle::badge()` to insert a badge:
 
     ```{r, eval = FALSE}
     #' `r lifecycle::badge("experimental")
     #' `r lifecycle::badge("deprecated")
+    #' `r lifecycle::badge("superseded")
     ```
 
-    This badge renders as text in non-HTML documentation.
-    To document the status of a whole function, a good place to include the badge is at the top of the `@description` block.
+    This will show an image in HTML documentation, and text elsewhere.
+
+-   To document the status of a whole function, a good place to include the badge is at the top of the `@description` block.
     To document an argument, you can put the badge in the argument description.
-
-    `lifecycle::badge()` is only ran by roxygen, so this is a build-time dependency.
-    You don't need to import lifecycle just to include badges in your documentation.
-
--   You should also include a brief description of why the function is in that state.
+    You should also include a brief description of why the function is in that state.
 
 -   For superseded and deprecated functions, rewrite the examples showing how to translate from the old to new syntax.
 
 -   For deprecated functions, add `@keywords internal` and update `_pkgdown.yaml` (if you use pkgdown), so that they're no longer listed in documentation indexes.
+
+`lifecycle::badge()` is only used by roxygen2, so this is a build-time dependency.
+If you don't use the deprecation functions below, you don't need to import or suggest the lifecycle package.
 
 ## Warnings and errors
 
@@ -71,7 +76,7 @@ There are three levels of verbosity:
 
 -   **Defunct**: Call `deprecate_stop()` to fail with an error.
 
-The following sections describe the details when deprecating functions and arguments.
+Most functions only need deprecation; you only need soft deprecation and or defunct for particularly important or widely used functions.
 
 ### Functions
 
@@ -80,17 +85,18 @@ The first two arguments give the version where deprecation occurred[^1] and a de
 [^1]: If the function goes through multiple deprecation stages, this stays the same.
 
 ```{r}
-deprecate_warn("1.0.0", "mypkg::foo()")
+deprecate_warn("1.0.0", "foo()")
 ```
 
 Where possible, describe the replacement in the third argument:
 
 ```{r}
-deprecate_warn("1.0.0", "mypkg::foo()", "new()")
+deprecate_warn("1.0.0", "foo()", "new()")
 ```
 
-We explicitly mention the namespace in these examples, but you can typically omit the namespace because lifecycle will infer it from the calling environment.
-Specifying the namespace is mostly useful when the replacement is implemented in a different package.
+(Note that the message includes the package name --- this is automatically discovered from the environment of the calling function).
+
+For example, if you renamed a function, you might write something like:
 
 ```{r}
 # The new replacement
@@ -110,20 +116,20 @@ foobaz_adder <- function(foo, bar) {
 The syntax for deprecating arguments is similar:
 
 ```{r}
-deprecate_warn("1.0.0", "mypkg::foo(arg = )")
+deprecate_warn("1.0.0", "foo(arg = )")
 
-deprecate_warn("1.0.0", "mypkg::foo(arg = )", "mypkg::foo(new = )")
+deprecate_warn("1.0.0", "foo(arg = )", "foo(new = )")
 ```
 
 An argument can be partially deprecated by disallowing certain input types:
 
 ```{r}
-deprecate_warn("1.0.0", "mypkg::foo(arg = 'must be a scalar integer')")
+deprecate_warn("1.0.0", "foo(arg = 'must be a scalar integer')")
 ```
 
-lifecycle also provides the `deprecated()` sentinel to use as default argument.
-This provides self-documentation for your users and makes it possible for external tools to determine which arguments are deprecated.
-Test whether the argument was supplied by the caller with `lifecycle::is_present()`:
+lifecycle also provides the `deprecated()` sentinel to use as a default argument.
+This makes the deprecation self-documenting and allows external tools to determine which arguments are deprecated.
+You can test whether or not the argument was supplied by using `lifecycle::is_present()`:
 
 ```{r}
 foobar_adder <- function(foo, bar, baz = deprecated()) {
@@ -141,12 +147,30 @@ foobar_adder <- function(foo, bar, baz = deprecated()) {
 }
 ```
 
+### Other
+
+If the behaviour your deprecating or suggested alternative doesn't fall into the forms shown above, you can use the `details` argument instead of `with`.
+This argument allows you to supply the message that will be shown to the user, giving you total freedom.
+For example, `usethis::use_pkg_travis()` was deprecated in favour of calling another function with a specific argument.
+Its code looks something like this:
+
+```{r}
+use_pkgdown_travis <- function() {
+  lifecycle::deprecate_warn(
+    when = "2.0.0",
+    what = "usethis::use_pkgdown_travis()",
+    details = 'We recommend `use_github_action("pkgdown")` for new pkgdown setups.'
+  )
+  ...
+}
+```
+
 ## Workflow
 
 ### Bumping deprecation stage
 
 Some manual search and replace is needed to bump the status of deprecated features.
-We recommend starting with defunct features and work your way up:
+We recommend starting with defunct features and working your way up:
 
 1.  Search for `deprecate_stop()` and remove the feature from the package.
     The feature is now archived.
@@ -161,33 +185,25 @@ Don't forget to update the badges in the documentation topics.
 
 ### Test deprecated features
 
-Test whether a deprecated feature still works by setting `lifecycle_verbosity` to `"quiet"`:
+To fully test a deprecated function you need to do two things:
 
-```{r, eval = FALSE}
-test_that("`baz` argument of `foobar_adder()` still works", {
-  withr::local_options(list(lifecycle_verbosity = "quiet"))
-  foobar_adder(1, baz = 2)
-})
-```
+-   Check that the deprecated behaviour still works.
 
-You can also set up verbosity for a whole testthat file within `setup()` and `teardown()` blocks:
+    ```{r, eval = FALSE}
+    test_that("`baz` argument of `foobar_adder()` still works", {
+      withr::local_options(lifecycle_verbosity = "quiet")
+      foobar_adder(1, baz = 2)
+    })
+    ```
 
-```{r, eval = FALSE}
-setup(options(lifecycle_verbosity = "quiet"))
-teardown(options(lifecycle_verbosity = NULL))
-```
+-   Check that the deprecated behaviour generates a deprecation warning.
 
-Test that a feature is correctly deprecated with `expect_deprecated()` or `expect_defunct()`:
+    ```{r, eval = FALSE}
+    test_that("`baz` argument of `foobar_adder()` is deprecated", {
+      expect_deprecated(foobar_adder(1, baz = 2))
+    })
 
-```{r, eval = FALSE}
-test_that("`baz` argument of `foobar_adder()` is deprecated", {
-  expect_deprecated(foobar_adder(1, baz = 2))
-})
-
-test_that("`foo()` is defunct", {
-  expect_defunct(foo())
-})
-```
-
-More control over verbosity can be exercised with the `lifecycle_verbosity` option.
-See `?verbosity`.
+    test_that("`foo()` is defunct", {
+      expect_defunct(foo())
+    })
+    ```
