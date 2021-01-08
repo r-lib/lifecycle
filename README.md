@@ -10,9 +10,13 @@ lifecycle provides a set of tools and conventions to manage the life cycle of yo
 
 ## Installation
 
-Install the development version of lifecycle from GitHub with:
+``` r
+# Install release version from CRAN
+install.packages("lifecycle")
 
-    remotes::install_github("r-lib/lifecycle")
+# Install development version from GitHub
+devtools::install_github("r-lib/lifecycle")
+```
 
 ## Usage
 
