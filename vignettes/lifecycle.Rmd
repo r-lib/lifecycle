@@ -60,7 +60,7 @@ Experimental, questioning, superseded, and deprecated (including soft-deprecated
 -   For deprecated functions, add `@keywords internal` and update `_pkgdown.yaml` (if you use pkgdown), so that they're no longer listed in documentation indexes.
 
 `lifecycle::badge()` is only used by roxygen2, so this is a build-time dependency.
-If you don't use the deprecation functions below, you don't need to import or suggest the lifecycle package.
+If you don't use the deprecation functions below, you don't need to import the lifecycle package.
 
 ## Warnings and errors
 

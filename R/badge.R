@@ -11,8 +11,8 @@
 #'    lifecycle badge:
 #'
 #'     ```
-#'     `r lifecycle::badge("experimental")`
-#'     `r lifecycle::badge("deprecated")`
+#'     #' `r lifecycle::badge("experimental")`
+#'     #' `r lifecycle::badge("deprecated")`
 #'     ```
 #'
 #'    If the deprecated feature is a function, a good place for this
@@ -22,24 +22,23 @@
 #' The badge is displayed as image in the HTML version of the
 #' documentation and as text otherwise.
 #'
-#' `lifecycle::badge()` is ran by
-#' roxygen at build time so you don't need to add lifecycle to your
-#' `Imports:` section just to include a badge.
+#' `lifecycle::badge()` is run by roxygen at build time so you don't need
+#' to add lifecycle to `Imports:` just to use the badges. However, it's still
+#' good practice to add to `Suggests:` so that it will be available to
+#' package developers.
 #'
 #' @section Badges:
 #' * `r lifecycle::badge("experimental")` `lifecycle::badge("experimental")`
 #' * `r lifecycle::badge("stable")` `lifecycle::badge("stable")`
-#' * `r lifecycle::badge("questioning")` `lifecycle::badge("questioning")`
 #' * `r lifecycle::badge("superseded")` `lifecycle::badge("superseded")`
 #' * `r lifecycle::badge("deprecated")` `lifecycle::badge("deprecated")`
-#' * `r lifecycle::badge("defunct")` `lifecycle::badge("defunct")`
 #'
-#' The meaning of these badges is described in
-#' `vignette("lifecycle")`.
+#' The meaning of these stages is described in
+#' `vignette("stages")`.
 #'
 #' @param stage A lifecycle stage as a string, one of:
-#'   `"experimental"`, `"stable"`, `"questioning"`, `"superseded"`
-#'   `"deprecated"`, `"defunct"`.
+#'   `"experimental"`, `"stable"`, `"questioning"`, `"superseded"`, or
+#'   `"deprecated"`.
 #' @return An `Rd` expression describing the lifecycle stage.
 #'
 #' @export
