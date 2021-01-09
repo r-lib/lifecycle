@@ -13,22 +13,26 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-# Pretend we're in the lifecycle package
-options("lifecycle:::calling_package" = "lifecycle")
+options(
+  # Pretend we're in the lifecycle package
+  "lifecycle:::calling_package" = "lifecycle",
+  # suppress last_warnings() message by default
+  "lifecycle_verbosity" = "warning"
+)
 ```
 
-lifecycle provides a standard way to document the lifecycle stage of functions are arguments, and tools to encourage users away from deprecated functions.
+lifecycle provides a standard way to document the lifecycle stages of functions and arguments, paired with tools to steer users away from deprecated functions.
 In brief:
 
-1.  Insert badges in your roxygen2 documentation by calling `lifecycle::badge()`:
+1.  Advertise lifecycle stages in roxygen2 documentation by using `lifecycle::badge()`:
 
     ```{r}
     #' `r lifecycle::badge("experimental")`
     ```
 
-2.  If a function or argument is deprecated, generate a user-friendly warning or error with `deprecate_soft()`, `deprecate_warn()`, or `deprecate_stop()`.
+2.  Generate a user-friendly warning or error with `deprecate_warn()` and friends for deprecated functions or arguments.
 
-Before you begin, make sure that you're familiar with the lifecycle stages, as described in `vignette("stages")`.
+Before we go in to the details, make sure that you're familiar with the lifecycle stages as described in `vignette("stages")`.
 
 ```{r setup}
 library(lifecycle)
@@ -36,39 +40,31 @@ library(lifecycle)
 
 ## Documentation badges {#rd-badges}
 
-Experimental, questioning, superseded, and deprecated (including soft-deprecated and defunct functions) should be clearly labelled in the document with a badge:
+lifecycle provides documentation badges to make it easy for users to see the lifecycle stage of functions.
+To use the badges, first call `usethis::use_lifecycle()` to embed the badge images in your package (you only need to do this once).
+Then use `lifecycle::badge()` to insert a badge:
 
--   Call `usethis::use_lifecycle()` to embed the badge images in your package.
-    (You only need to do this once)
+```{r, eval = FALSE}
+#' `r lifecycle::badge("experimental")
+#' `r lifecycle::badge("deprecated")
+#' `r lifecycle::badge("superseded")
+```
 
--   Then use `lifecycle::badge()` to insert a badge:
+To document the status of a whole function, a good place to include the badge is at the top of the `@description` block.
+To document the status of an argument, you can put the badge in the argument description.
+You should also include a brief description of why the function is in that state.
 
-    ```{r, eval = FALSE}
-    #' `r lifecycle::badge("experimental")
-    #' `r lifecycle::badge("deprecated")
-    #' `r lifecycle::badge("superseded")
-    ```
+For **superseded** and **deprecated** functions, rewrite the examples showing how to translate from the old to new syntax.
 
-    This will show an image in HTML documentation, and text elsewhere.
-
--   To document the status of a whole function, a good place to include the badge is at the top of the `@description` block.
-    To document an argument, you can put the badge in the argument description.
-    You should also include a brief description of why the function is in that state.
-
--   For superseded and deprecated functions, rewrite the examples showing how to translate from the old to new syntax.
-
--   For deprecated functions, add `@keywords internal` and update `_pkgdown.yaml` (if you use pkgdown), so that they're no longer listed in documentation indexes.
-
-`lifecycle::badge()` is only used by roxygen2, so this is a build-time dependency.
-If you don't use the deprecation functions below, you don't need to import the lifecycle package.
+For **deprecated** functions, add `@keywords internal` and update `_pkgdown.yaml` (if you use pkgdown), so that they're no longer listed in documentation indexes.
 
 ## Warnings and errors
 
-Deprecated functions should clearly signal their deprecation status.
-There are three levels of verbosity:
+As well as badges in the documentation, deprecated functions also need to advertise their status when run.
+lifecycle provides three functions to do this, corresponding to the three stages of deprecation:
 
 -   **Soft deprecation**: Call `deprecate_soft()` to start warning users about the deprecation in the least disruptive way.
-    This function only warns (a) users who try the feature from the global workspace (at most once every 8 hours), and (b) developers who directly use the feature (when running testthat tests).
+    This function only warns (a) users who try the feature from the global workspace and (b) developers who directly use the feature (when running testthat tests).
     No warning is when the deprecated feature is called indirectly by another package.
 
 -   **Deprecation**: Call `deprecate_warn()` to warn unconditionally about the deprecated feature.
@@ -76,11 +72,13 @@ There are three levels of verbosity:
 
 -   **Defunct**: Call `deprecate_stop()` to fail with an error.
 
-Most functions only need deprecation; you only need soft deprecation and or defunct for particularly important or widely used functions.
+Most functions will only need `deprecate_warn()`; only use `deprecate_soft()` and `deprecate_stop()` for particularly important or widely used functions.
+
+The following sections show how to use these functions when deprecating functions, arguments, or other more specialised situations.
 
 ### Functions
 
-The first two arguments give the version where deprecation occurred[^1] and a description of what is deprecated:
+The first two arguments of the `deprecate_` functions give the version where deprecation occurred[^1] and the name of the function being deprecated:
 
 [^1]: If the function goes through multiple deprecation stages, this stays the same.
 
@@ -88,54 +86,66 @@ The first two arguments give the version where deprecation occurred[^1] and a de
 deprecate_warn("1.0.0", "foo()")
 ```
 
-Where possible, describe the replacement in the third argument:
+Use the third argument to describe what to use instead:
 
 ```{r}
 deprecate_warn("1.0.0", "foo()", "new()")
 ```
 
-(Note that the message includes the package name --- this is automatically discovered from the environment of the calling function).
-
-For example, if you renamed a function, you might write something like:
+You can also point users to a function in another package:
 
 ```{r}
+deprecate_warn("1.0.0", "foo()", "pkg::new()")
+```
+
+(Note that the message includes the package name --- this is automatically discovered from the environment of the calling function so will not work unless the function is called from the package namespace.)
+
+When you deprecate a function, you'll usually add `deprecate_warn()` to the first line of the function, leaving the rest of the code untouched.
+The following example shows how that might look if you renamed a function:
+
+```{r, R.options = list(lifecycle_verbosity = "default")}
 # The new replacement
-foobar_adder <- function(foo, bar) {
+adder_new <- function(foo, bar) {
   foo + bar
 }
 
-# The old function still exported for compatibility
-foobaz_adder <- function(foo, bar) {
-  deprecate_warn("1.0.0", "foobaz_adder()", "foobar_adder()")
-  foobar_adder(foo, bar)
+# The deprecated function
+adder_old <- function(foo, bar) {
+  deprecate_warn("1.0.0", "adder_old()", "adder_new()")
+  adder_new(foo, bar)
 }
+
+adder_old(1, 1L)
+
+# Warning not shown to avoid overwhelming the user
+adder_old(1, 2)
 ```
 
 ### Arguments
 
-The syntax for deprecating arguments is similar:
+The syntax for deprecating arguments is similar, you just add the argument name followed by `=` to the second argument:
 
 ```{r}
 deprecate_warn("1.0.0", "foo(arg = )")
-
-deprecate_warn("1.0.0", "foo(arg = )", "foo(new = )")
 ```
 
-An argument can be partially deprecated by disallowing certain input types:
+You can suggest a different argument to the same function, a different function in the same package, or a different function in another package:
 
 ```{r}
-deprecate_warn("1.0.0", "foo(arg = 'must be a scalar integer')")
+deprecate_warn("1.0.0", "foo(arg = )", "foo(new = )")
+deprecate_warn("1.0.0", "foo(arg = )", "bar()")
+deprecate_warn("1.0.0", "foo(arg = )", "pkg::baz()")
 ```
 
 lifecycle also provides the `deprecated()` sentinel to use as a default argument.
-This makes the deprecation self-documenting and allows external tools to determine which arguments are deprecated.
+This makes the deprecation clearer from the documentation and allows external tools to determine which arguments are deprecated.
 You can test whether or not the argument was supplied by using `lifecycle::is_present()`:
 
 ```{r}
+#' @importFrom lifecycle deprecated
 foobar_adder <- function(foo, bar, baz = deprecated()) {
   # Check if user has supplied `baz` instead of `bar`
   if (lifecycle::is_present(baz)) {
-
     # Signal the deprecation to the user
     deprecate_warn("1.0.0", "foobar_adder(baz = )", "foobar_adder(bar = )")
 
@@ -147,12 +157,34 @@ foobar_adder <- function(foo, bar, baz = deprecated()) {
 }
 ```
 
+You can also deprecate only certain uses of an argument:
+
+```{r}
+deprecate_warn("1.0.0", "foo(y = 'must be a scalar integer')")
+```
+
+In practice, this might look something like:
+
+```{r}
+foo <- function(x, y) {
+  if (!is.integer(y) || length(y) != 1) {
+    deprecate_warn("1.0.0", "foo(y = 'must be a scalar integer')")
+    y <- as.integer(sum(y))
+  }
+  x + y
+}
+
+foo(1, 2L)
+foo(1, 1:5)
+```
+
 ### Other
 
-If the behaviour your deprecating or suggested alternative doesn't fall into the forms shown above, you can use the `details` argument instead of `with`.
+If the behaviour you're deprecating or suggested alternative doesn't fall into the forms shown above, you can use the `details` argument instead of `with`.
 This argument allows you to supply the message that will be shown to the user, giving you total freedom.
-For example, `usethis::use_pkg_travis()` was deprecated in favour of calling another function with a specific argument.
-Its code looks something like this:
+
+As as example, `usethis::use_pkg_travis()` was deprecated in favour of calling another function with a specific argument which is not currently supported via `with`.
+So its code looks something like this:
 
 ```{r}
 use_pkgdown_travis <- function() {

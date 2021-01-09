@@ -7,7 +7,7 @@
 badge(stage)
 }
 \arguments{
-\item{stage}{A lifecycle stage as a string, one of:
+\item{stage}{A lifecycle stage as a string. Must be one of
 \code{"experimental"}, \code{"stable"}, \code{"questioning"}, \code{"superseded"}, or
 \code{"deprecated"}.}
 }
@@ -22,6 +22,7 @@ package. They are copied in the \verb{man/} folder.
 \item Call \code{lifecycle::badge()} inside R backticks to insert a
 lifecycle badge:\preformatted{#' `r lifecycle::badge("experimental")`
 #' `r lifecycle::badge("deprecated")`
+#' `r lifecycle::badge("superseded")`
 }
 
 If the deprecated feature is a function, a good place for this

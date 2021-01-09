@@ -13,6 +13,7 @@
 #'     ```
 #'     #' `r lifecycle::badge("experimental")`
 #'     #' `r lifecycle::badge("deprecated")`
+#'     #' `r lifecycle::badge("superseded")`
 #'     ```
 #'
 #'    If the deprecated feature is a function, a good place for this
@@ -36,7 +37,7 @@
 #' The meaning of these stages is described in
 #' `vignette("stages")`.
 #'
-#' @param stage A lifecycle stage as a string, one of:
+#' @param stage A lifecycle stage as a string. Must be one of
 #'   `"experimental"`, `"stable"`, `"questioning"`, `"superseded"`, or
 #'   `"deprecated"`.
 #' @return An `Rd` expression describing the lifecycle stage.
