@@ -1,8 +1,8 @@
 ---
-title: "Using the lifecycle package"
+title: "Package development"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using the lifecycle package}
+  %\VignetteIndexEntry{Package development}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -350,4 +350,3 @@ add_two <- function(x, y) {
 add_two(1, 2)
 add_two(1, 1:5)
 ```
-
