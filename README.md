@@ -22,6 +22,6 @@ devtools::install_github("r-lib/lifecycle")
 
 -   Learn about the lifecycle stages in `vignette("stages")`.
 
--   Learn how to use lifecycle in your package in `vignette("lifecycle")`.
+-   Learn how to advertise lifecycle changes the functions you write in `vignette("lifecycle")`.
 
--   Learn how to handle lifecycle warnings in your analysis code in `vignette("user")`.
+-   Learn how to handle lifecycle changes in the functions you use in `vignette("user")`.
