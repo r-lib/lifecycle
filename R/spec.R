@@ -66,7 +66,11 @@ spec_validate_arg <- function(call, signaller) {
   }
 
   if (length(arg) != 1L) {
-    abort("Internal error: `what` can't refer to more than one argument.")
+    fn <- as_string(node_car(call))
+    n <- length(arg)
+    abort(glue::glue(
+      "Internal error: function in `what` ({fn}) must have 1 argument, not {n}."
+    ))
   }
 
   if (is_null(node_tag(arg))) {
