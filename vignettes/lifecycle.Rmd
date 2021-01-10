@@ -38,7 +38,7 @@ Before we go in to the details, make sure that you're familiar with the lifecycl
 library(lifecycle)
 ```
 
-## Documentation badges {#rd-badges}
+## Basics
 
 lifecycle provides documentation badges to make it easy for users to see the lifecycle stage of functions.
 To use the badges, first call `usethis::use_lifecycle()` to embed the badge images in your package (you only need to do this once).
@@ -49,16 +49,6 @@ Then use `lifecycle::badge()` to insert a badge:
 #' `r lifecycle::badge("deprecated")
 #' `r lifecycle::badge("superseded")
 ```
-
-To document the status of a whole function, a good place to include the badge is at the top of the `@description` block.
-To document the status of an argument, you can put the badge in the argument description.
-You should also include a brief description of why the function is in that state.
-
-For **superseded** and **deprecated** functions, rewrite the examples showing how to translate from the old to new syntax.
-
-For **deprecated** functions, add `@keywords internal` and update `_pkgdown.yaml` (if you use pkgdown), so that they're no longer listed in documentation indexes.
-
-## Warnings and errors
 
 As well as badges in the documentation, deprecated functions also need to advertise their status when run.
 lifecycle provides three functions to do this, corresponding to the three stages of deprecation:
@@ -72,170 +62,292 @@ lifecycle provides three functions to do this, corresponding to the three stages
 
 -   **Defunct**: Call `deprecate_stop()` to fail with an error.
 
-Most functions will only need `deprecate_warn()`; only use `deprecate_soft()` and `deprecate_stop()` for particularly important or widely used functions.
+These functions have three main arguments:
 
-The following sections show how to use these functions when deprecating functions, arguments, or other more specialised situations.
+-   The first argument, `when`, gives the version number when the deprecation occurred.
 
-### Functions
+-   The second argument, `what`, describes exactly what was deprecated.
 
-The first two arguments of the `deprecate_` functions give the version where deprecation occurred[^1] and the name of the function being deprecated:
+-   The third argument, `with`, provides the recommended alternative.
 
-[^1]: If the function goes through multiple deprecation stages, this stays the same.
-
-```{r}
-deprecate_warn("1.0.0", "foo()")
-```
-
-Use the third argument to describe what to use instead:
+We'll cover the details shortly, but here are a few sample uses:
 
 ```{r}
-deprecate_warn("1.0.0", "foo()", "new()")
-```
-
-You can also point users to a function in another package:
-
-```{r}
-deprecate_warn("1.0.0", "foo()", "pkg::new()")
+deprecate_warn("1.0.0", "old_fun()", "new_fun()")
+deprecate_warn("1.0.0", "fun()", "newPackage::fun()")
+deprecate_warn("1.0.0", "fun(old_arg = )", "fun(new_arg =)")
 ```
 
 (Note that the message includes the package name --- this is automatically discovered from the environment of the calling function so will not work unless the function is called from the package namespace.)
 
-When you deprecate a function, you'll usually add `deprecate_warn()` to the first line of the function, leaving the rest of the code untouched.
-The following example shows how that might look if you renamed a function:
+The following sections describe how to use lifecycle badges and functions together to handle a variety of common development tasks.
 
-```{r, R.options = list(lifecycle_verbosity = "default")}
-# The new replacement
-adder_new <- function(foo, bar) {
-  foo + bar
-}
+## Functions
 
-# The deprecated function
-adder_old <- function(foo, bar) {
-  deprecate_warn("1.0.0", "adder_old()", "adder_new()")
-  adder_new(foo, bar)
-}
+### Deprecating
 
-adder_old(1, 1L)
-
-# Warning not shown to avoid overwhelming the user
-adder_old(1, 2)
-```
-
-### Arguments
-
-The syntax for deprecating arguments is similar, you just add the argument name followed by `=` to the second argument:
+First, add a badge to the the `@description` block.
+Briefly describe why the deprecation occurred and what to use instead.
 
 ```{r}
-deprecate_warn("1.0.0", "foo(arg = )")
+#' Add two numbers
+#' 
+#' @description
+#' `r lifecycle::badge("deprecated")
+#' 
+#' This function was deprecated because we realised that it's
+#' a special case a [sum()] function.
 ```
 
-You can suggest a different argument to the same function, a different function in the same package, or a different function in another package:
+Next, update the examples to show how to convert from the old usage to the new usage:
 
 ```{r}
-deprecate_warn("1.0.0", "foo(arg = )", "foo(new = )")
-deprecate_warn("1.0.0", "foo(arg = )", "bar()")
-deprecate_warn("1.0.0", "foo(arg = )", "pkg::baz()")
+#' @examples 
+#' add_two(1, 2)
+#' # ->
+#' sum(1, 2)
 ```
 
-lifecycle also provides the `deprecated()` sentinel to use as a default argument.
-This makes the deprecation clearer from the documentation and allows external tools to determine which arguments are deprecated.
-You can test whether or not the argument was supplied by using `lifecycle::is_present()`:
+Finally, add `@keywords internal` to remove the function from the documentation index (so that new users won't come across it so easily).
+If you use pkgdown, also check that it's no longer listed in `_pkgdown.yml`.
+
+```{r}
+#' @keywords internal
+```
+
+In the body of the function, keep the existing implementation, but add a call to `deprecate_warn()` on the first line:
+
+```{r}
+add_two <- function(x, y) {
+  lifecycle::deprecate_warn("1.0.0", "add_two()", "base::sum()")
+  x + y
+}
+
+add_two(1, 2)
+```
+
+If the deprecation isn't a simple replacement, you can use the `details` argument to provide your own message to the user:
+
+```{r}
+add_two <- function(x, y) {
+  lifecycle::deprecate_warn(
+    "1.0.0", 
+    "add_two()", 
+    details = "This function is a special case of sum(); use it instead."
+  )
+  x + y
+}
+
+add_two(1, 2)
+```
+
+It's good practice to test that you've correctly implemented the deprecation.
+You want to both check that the deprecated function still works and it generates a useful warning.
+Using an expectation inside an `expect_snapshot()` is a convenient way to do this:
+
+```{r, eval = FALSE}
+test_that("add_two is deprecated", {
+  expect_snapshot({
+    x <- add_two(1, 1)
+    expect_equal(x, 2)
+  })
+})
+```
+
+You can learn more about snapshot testing in `vignette("snapshot", package = "testthat")`.
+
+Alternatively, if you have extensive existing tests for the deprecated function you can suppress the warning in those tests:
+
+```{r, eval = FALSE }
+test_that("add_two returns the sum of its inputs", {
+  withr::local_options(lifecycle_verbosity = "quiet")
+  expect_equal(add_two(1, 1), 2)
+})
+```
+
+And then add a separate test specifically for the deprecation.
+
+```{r, eval = FALSE}
+test_that("add_two is deprecated", {
+  expect_snapshot(add_two(1, 1))
+})
+```
+
+### Gradual deprecation
+
+For particularly important functions, you can choose to add two other stages to the deprecation process:
+
+-   `deprecated_soft()` can be used before `deprecated_warn()`.
+    It only generates a warning when called from the global environment or within tests (i.e. you won't see deprecation warnings from code that you didn't write).
+    It's a gentler form of deprecation useful if a package change its extension interface --- it encourages package authors to update their code without affecting the end user.
+
+-   `deprecated_stop()` comes after `deprecated_warn()` and generates an error instead of a warning.
+    The main benefit over simply removing the function is that the user is still told what the replacement is.
+
+If you use these stages you'll also need a process for bumping the deprecation stage for major and minor releases.
+We recommend something like this:
+
+1.  Search for `deprecate_stop()` and consider if you're ready to the remove the function completely.
+
+2.  Search for `deprecate_warn()` and replace with `deprecate_stop()`.
+    Remove the remaining body of the function and any tests.
+
+3.  Search for `deprecate_soft()` and replace with `deprecate_warn()`.
+
+### Renaming
+
+To rename a function without breaking existing code, move the implementation to the new function, then call that function from the old function, along with a deprecation message:
+
+```{r}
+#' Add two numbers
+#' 
+#' @description 
+#' `r lifecycle::badge(deprecated)`
+#' 
+#' `add_two()` was renamed to `number_add()` to create a more
+#' consistent API.
+#' @keywords internal
+#' @export
+add_two <- function(foo, bar) {
+  lifecycle::deprecate_warn("1.0.0", "adder_old()", "adder_new()")
+  number_add(foo, bar)
+}
+
+# documentation goes here...
+#' @export
+number_add <- function(x, y) {
+  x + y
+}
+```
+
+If you are renaming many functions as part of an API overhaul, it'll often make sense to document all the changes in one file, like <https://rvest.tidyverse.org/reference/rename.html>.
+
+### Superseding
+
+Superseding a function is simpler than deprecating it, since you don't need to steer users away from it with a warning.
+So all you need to do is add a superseded badge:
+
+```{r}
+#' Gather columns into key-value pairs
+#'
+#' @description
+#' `r lifecycle::badge("superseded")`
+```
+
+And then describe why the function was superseded, and what the recommended alternative is:
+
+```{r}
+#'
+#' Development on `gather()` is complete, and for new code we recommend
+#' switching to `pivot_longer()`, which is easier to use, more featureful,
+#' and still under active development.
+#' 
+#' In brief,
+#' `df %>% gather("key", "value", x, y, z)` is equivalent to
+#' `df %>% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")`.
+#' See more details in `vignette("pivot")`.
+```
+
+The rest of the documentation can stay the same.
+
+## Arguments
+
+### Deprecating, keeping existing default
+
+Take this example where we want to deprecate `na.rm` in favour of always making it `TRUE.`
+
+```{r}
+add_two <- function(x, y, na.rm = TRUE) {
+  sum(x, y, na.rm = na.rm)
+}
+```
+
+First, add a badge to the argument description:
+
+```{r}
+#' @param na.rm `r lifecycle::badge("deprecated")` `na.rm = FALSE` is no
+#'   longer supported; this function will always remove missing values
+```
+
+And add a deprecation warning if `na.rm` is FALSE.
+In this case, there's no replacement to the behaviour, so we instead use `details` to provide a custom message:
+
+```{r}
+add_two <- function(x, y, na.rm = TRUE) {
+  if (!isTRUE(na.rm)) {
+    lifecycle::deprecate_warn(
+      when = "1.0.0", 
+      what = "add_two(na.rm = )",
+      details = "Ability to remove missing values will be dropped in next release"
+    )
+  }
+  
+  sum(x, y, na.rm = na.rm)
+}
+
+add_two(1, NA, na.rm = TRUE)
+add_two(1, NA, na.rm = FALSE)
+```
+
+### Deprecating, with new default
+
+Alternatively, you can change the default value to `lifecycle::deprecated()` to make the deprecation status more obvious from the outside, and use `lifecycle::is_present()`[^1] to test whether or not the argument was provided.
+
+[^1]: Unlike `missing()`, this works for both direct and indirect calls.
 
 ```{r}
 #' @importFrom lifecycle deprecated
-foobar_adder <- function(foo, bar, baz = deprecated()) {
-  # Check if user has supplied `baz` instead of `bar`
-  if (lifecycle::is_present(baz)) {
-    # Signal the deprecation to the user
-    deprecate_warn("1.0.0", "foobar_adder(baz = )", "foobar_adder(bar = )")
-
-    # Deal with the deprecated argument for compatibility
-    bar <- baz
+add_two <- function(x, y, na.rm = deprecated()) {
+  if (lifecycle::is_present(na.rm)) {
+    lifecycle::deprecate_warn(
+      when = "1.0.0", 
+      what = "add_two(na.rm = )",
+      details = "Ability to remove missing values will be dropped in next release"
+    )
   }
-
-  foo + bar
+  
+  sum(x, y, na.rm = na.rm)
 }
 ```
 
-You can also deprecate only certain uses of an argument:
+The chief advantage of this technique is that users will get a warning regardless of what value of `na.rm` they use:
 
 ```{r}
-deprecate_warn("1.0.0", "foo(y = 'must be a scalar integer')")
+add_two(1, NA, na.rm = TRUE)
+add_two(1, NA, na.rm = FALSE)
 ```
 
-In practice, this might look something like:
+### Renaming
+
+If you realise you have made a mistake with the name of an argument.
+For example, you've realised that accidentally used `.` to separate a compound name, instead of `_`.
 
 ```{r}
-foo <- function(x, y) {
-  if (!is.integer(y) || length(y) != 1) {
-    deprecate_warn("1.0.0", "foo(y = 'must be a scalar integer')")
-    y <- as.integer(sum(y))
+add_two <- function(x, y, na_rm = TRUE, na.rm = deprecated()) {
+  if (lifecycle::is_present(na.rm)) {
+    lifecycle::deprecate_warn("1.0.0", "add_two(na.rm = )", "add_two(na_rm = )")
+    na_rm <- na.rm
+  }
+  
+  add_two(x, y, na.rm = na_rm)
+}
+```
+
+### Narrowing allowed values
+
+To narrow the set of allowed inputs, only call `deprecate_warn()` when the user supplies the previously supported value.
+Make sure you preserve the previous behaviour:
+
+```{r}
+add_two <- function(x, y) {
+  if (length(y) != 1) {
+    lifecycle::deprecate_warn("1.0.0", "foo(y = 'must be a scalar')")
+    y <- sum(y)
   }
   x + y
 }
 
-foo(1, 2L)
-foo(1, 1:5)
+add_two(1, 2)
+add_two(1, 1:5)
 ```
 
-### Other
-
-If the behaviour you're deprecating or suggested alternative doesn't fall into the forms shown above, you can use the `details` argument instead of `with`.
-This argument allows you to supply the message that will be shown to the user, giving you total freedom.
-
-As as example, `usethis::use_pkg_travis()` was deprecated in favour of calling another function with a specific argument which is not currently supported via `with`.
-So its code looks something like this:
-
-```{r}
-use_pkgdown_travis <- function() {
-  lifecycle::deprecate_warn(
-    when = "2.0.0",
-    what = "usethis::use_pkgdown_travis()",
-    details = 'We recommend `use_github_action("pkgdown")` for new pkgdown setups.'
-  )
-  ...
-}
-```
-
-## Workflow
-
-### Bumping deprecation stage
-
-Some manual search and replace is needed to bump the status of deprecated features.
-We recommend starting with defunct features and working your way up:
-
-1.  Search for `deprecate_stop()` and remove the feature from the package.
-    The feature is now archived.
-
-2.  Search for `deprecate_warn()` and replace with `deprecate_stop()`.
-
-3.  Search for `deprecate_soft()` and replace with `deprecate_warn()`.
-
-4.  Call `deprecate_soft()` from newly deprecated functions.
-
-Don't forget to update the badges in the documentation topics.
-
-### Test deprecated features
-
-To fully test a deprecated function you need to do two things:
-
--   Check that the deprecated behaviour still works.
-
-    ```{r, eval = FALSE}
-    test_that("`baz` argument of `foobar_adder()` still works", {
-      withr::local_options(lifecycle_verbosity = "quiet")
-      foobar_adder(1, baz = 2)
-    })
-    ```
-
--   Check that the deprecated behaviour generates a deprecation warning.
-
-    ```{r, eval = FALSE}
-    test_that("`baz` argument of `foobar_adder()` is deprecated", {
-      expect_deprecated(foobar_adder(1, baz = 2))
-    })
-
-    test_that("`foo()` is defunct", {
-      expect_defunct(foo())
-    })
-    ```
