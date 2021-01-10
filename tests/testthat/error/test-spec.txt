@@ -12,7 +12,7 @@ Error: Internal error: `what` must have function call syntax.
   signal_lifecycle("foo")
 
 > feature_spec("foo()()")
-Error: Internal error: `what` must refer to a function name.
+Error: Internal error: `what` must be a function or method call.
 
 > feature_spec("foo(arg = , arg = )")
 Error: Internal error: `what` can't refer to more than one argument.
