@@ -35,19 +35,6 @@
 ---
 
     Code
-      feature_spec("foo(arg)")
-    Error <rlang_error>
-      Internal error in lifecycle: `what` must refer to arguments in the LHS of `=`.
-      
-        # Good:
-        signal_lifecycle("foo(arg = )")
-      
-        # Bad:
-        signal_lifecycle("foo(arg)")
-
----
-
-    Code
       feature_spec("foo(arg = arg)")
     Error <rlang_error>
       Internal error in lifecycle: `what` must contain reason as a string on the RHS of `=`.
@@ -59,19 +46,6 @@
         signal_lifecycle("foo(arg = 42)")
 
 # feature_spec() works with methods
-
-    Code
-      feature_spec("A$foo(bar)")
-    Error <rlang_error>
-      Internal error in lifecycle: `what` must refer to arguments in the LHS of `=`.
-      
-        # Good:
-        signal_lifecycle("A$foo(arg = )")
-      
-        # Bad:
-        signal_lifecycle("A$foo(arg)")
-
----
 
     Code
       feature_spec("A$foo(bar = 1)")

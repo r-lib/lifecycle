@@ -72,28 +72,20 @@ spec_validate_arg <- function(call, signaller) {
   }
 
   if (is_null(node_tag(arg))) {
-    fn <- as_label(node_car(call))
-    lifecycle_abort(
-      "
-      `what` must refer to arguments in the LHS of `=`.
-
-        # Good:
-        {signaller}(\"{fn}(arg = )\")
-
-        # Bad:
-        {signaller}(\"{fn}(arg)\")
-
-      "
-    )
+    as_string(node_car(arg))
+  } else {
+    as_string(node_tag(arg))
   }
-
-  as_string(node_tag(arg))
 }
 
 spec_validate_details <- function(call, signaller) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
+    return(NULL)
+  }
+
+  if (is_null(node_tag(arg))) {
     return(NULL)
   }
 
