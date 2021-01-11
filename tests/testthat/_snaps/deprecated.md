@@ -1,135 +1,56 @@
-# deprecation messages are constructed for functions
+# what deprecation messages are readable
 
     Code
-      NULL
+      cat_line(lifecycle_message("1.0.0", "foo()"))
     Output
-      NULL
+      `foo()` was deprecated in base 1.0.0.
     Code
-      {
-        "Inferred package name (here it is base b/c of testthat's eval env)"
-        cat_line(lifecycle_build_message("1.0.0", "foo()", signaller = "deprecate_stop"))
-      }
+      cat_line(lifecycle_message("1.0.0", "foo()", signaller = "deprecate_stop"))
     Output
       `foo()` was deprecated in base 1.0.0 and is now defunct.
     Code
-      {
-        "Overridden package name"
-        cat_line(lifecycle_build_message("1.0.0", "mypkg::foo()", signaller = "deprecate_stop"))
-      }
+      cat_line(lifecycle_message("1.0.0", "foo(arg)"))
     Output
-      `foo()` was deprecated in mypkg 1.0.0 and is now defunct.
+      The `arg` argument of `foo()` is deprecated as of base 1.0.0.
     Code
-      {
-        "Replacement function"
-        cat_line(lifecycle_build_message("1.0.0", "foo()", "bar()", signaller = "deprecate_stop"))
-      }
+      cat_line(lifecycle_message("1.0.0", "foo(arg)", signaller = "deprecate_stop"))
     Output
-      `foo()` was deprecated in base 1.0.0 and is now defunct.
-      Please use `bar()` instead.
-    Code
-      {
-        "Replacement function with overridden package names (1)"
-        cat_line(lifecycle_build_message("1.0.0", "foo::quux()", "foofy()",
-          signaller = "deprecate_stop"))
-      }
-    Output
-      `quux()` was deprecated in foo 1.0.0 and is now defunct.
-      Please use `foofy()` instead.
-    Code
-      {
-        "Replacement function with overridden package names (2)"
-        cat_line(lifecycle_build_message("1.0.0", "foo::quux()", "bar::foofy()",
-          signaller = "deprecate_stop"))
-      }
-    Output
-      `quux()` was deprecated in foo 1.0.0 and is now defunct.
-      Please use `bar::foofy()` instead.
-    Code
-      {
-        details <- glue::glue(
-          "\n\n        # Before:\n        foo()\n\n        # After:\n        bar()\n      ")
-        cat_line(lifecycle_build_message("1.0.0", "foo()", "bar()", details = details,
-          signaller = "deprecate_stop"))
-      }
-    Output
-      `foo()` was deprecated in base 1.0.0 and is now defunct.
-      Please use `bar()` instead.
-      
-        # Before:
-        foo()
-      
-        # After:
-        bar()
+      The `arg` argument of `foo()` was deprecated in base 1.0.0 and is now defunct.
 
-# deprecation messages are constructed for arguments
+# replace deprecation messages are readable
 
     Code
-      NULL
+      cat_line(lifecycle_message("1.0.0", "foo()", "package::bar()"))
     Output
-      NULL
+      `foo()` was deprecated in base 1.0.0.
+      Please use `package::bar()` instead.
     Code
-      {
-        "Deprecated argument"
-        cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", signaller = "deprecate_stop"))
-      }
+      cat_line(lifecycle_message("1.0.0", "foo()", "bar()"))
     Output
-      The `quux` argument of `foo()` was deprecated in base 1.0.0 and is now defunct.
-    Code
-      {
-        "Deprecated argument with function replacement"
-        cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "bar()", signaller = "deprecate_stop"))
-      }
-    Output
-      The `quux` argument of `foo()` was deprecated in base 1.0.0 and is now defunct.
+      `foo()` was deprecated in base 1.0.0.
       Please use `bar()` instead.
     Code
-      {
-        "Deprecated argument with argument replacement (same function)"
-        cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "foo(foofy = )",
-          signaller = "deprecate_stop"))
-      }
+      cat_line(lifecycle_message("1.0.0", "foo(arg1)", "foo(arg2)"))
     Output
-      The `quux` argument of `foo()` was deprecated in base 1.0.0 and is now defunct.
-      Please use the `foofy` argument instead.
+      The `arg1` argument of `foo()` is deprecated as of base 1.0.0.
+      Please use the `arg2` argument instead.
     Code
-      {
-        "Deprecated argument with argument replacement (different function)"
-        cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "bar(foofy = )",
-          signaller = "deprecate_stop"))
-      }
+      cat_line(lifecycle_message("1.0.0", "foo(arg)", "bar(arg)"))
     Output
-      The `quux` argument of `foo()` was deprecated in base 1.0.0 and is now defunct.
-      Please use the `foofy` argument of `bar()` instead.
-    Code
-      {
-        "Deprecated argument with argument replacement (different function, different package)"
-        cat_line(lifecycle_build_message("1.0.0", "aaa::foo(quux = )",
-          "zzz::bar(foofy = )", signaller = "deprecate_stop"))
-      }
-    Output
-      The `quux` argument of `foo()` was deprecated in aaa 1.0.0 and is now defunct.
-      Please use the `foofy` argument of `zzz::bar()` instead.
-    Code
-      {
-        "Deprecated argument with reason"
-        cat_line(lifecycle_build_message("1.0.0",
-          "aaa::foo(quux = 'can\\'t be a baz')", signaller = "deprecate_stop"))
-      }
-    Output
-      The `quux` argument of `foo()` can't be a baz as of aaa 1.0.0.
+      The `arg` argument of `foo()` is deprecated as of base 1.0.0.
+      Please use the `arg` argument of `bar()` instead.
 
 # non-syntactic names are handled gracefully
 
     Code
-      cat_line(lifecycle_build_message("1.0.0", "bar::`foo-fy`(`qu-ux` = )",
-        signaller = "deprecate_stop"))
+      cat_line(lifecycle_message("1.0.0", "bar::`foo-fy`(`qu-ux` = )"))
     Output
-      The `qu-ux` argument of ``foo-fy`()` was deprecated in bar 1.0.0 and is now defunct.
+      The `qu-ux` argument of ``foo-fy`()` is deprecated as of bar 1.0.0.
 
 # can use bullets in details 
 
     Code
-      cat_line(lifecycle_build_message("1.0.0", "foo()", details = c("Unnamed", i = "Informative",
+      cat_line(lifecycle_message("1.0.0", "foo()", details = c("Unnamed", i = "Informative",
         x = "Error"), signaller = "deprecate_stop"))
     Output
       `foo()` was deprecated in base 1.0.0 and is now defunct.
@@ -140,14 +61,14 @@
 # checks input types
 
     Code
-      lifecycle_build_message(1)
+      lifecycle_message(1)
     Error <rlang_error>
       Internal error in lifecycle: `when` must be a string
 
 ---
 
     Code
-      lifecycle_build_message("1", details = 1)
+      lifecycle_message("1", details = 1)
     Error <rlang_error>
       Internal error in lifecycle: `details` must be a character vector
 

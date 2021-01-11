@@ -96,7 +96,7 @@ deprecate_soft <- function(when,
                            details = NULL,
                            id = NULL,
                            env = caller_env(2)) {
-  msg <- lifecycle_build_message(when, what, with, details, env, "deprecate_soft")
+  msg <- lifecycle_message(when, what, with, details, env, "deprecate_soft")
 
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
@@ -121,7 +121,7 @@ deprecate_warn <- function(when,
                            details = NULL,
                            id = NULL,
                            env = caller_env(2)) {
-  msg <- lifecycle_build_message(when, what, with, details, env, "deprecate_warn")
+  msg <- lifecycle_message(when, what, with, details, env, "deprecate_warn")
 
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
@@ -157,7 +157,7 @@ deprecate_stop <- function(when,
                            what,
                            with = NULL,
                            details = NULL) {
-  msg <- lifecycle_build_message(when, what, with, details, env, "deprecate_stop")
+  msg <- lifecycle_message(when, what, with, details, env, "deprecate_stop")
   deprecate_stop0(msg)
 }
 
@@ -199,12 +199,12 @@ deprecate_stop0 <- function(msg) {
 
 # Messages ----------------------------------------------------------------
 
-lifecycle_build_message <- function(when,
-                                    what,
-                                    with = NULL,
-                                    details = NULL,
-                                    env = caller_env(2),
-                                    signaller) {
+lifecycle_message <- function(when,
+                              what,
+                              with = NULL,
+                              details = NULL,
+                              env = caller_env(2),
+                              signaller = "signal_lifecycle") {
   if (!is_string(when)) {
     lifecycle_abort("`when` must be a string")
   }
@@ -218,42 +218,48 @@ lifecycle_build_message <- function(when,
   }
 
   what <- spec(what, env, signaller)
-  glue_what <- function(x) glue::glue_data(what, x)
-
-  if (is_null(what$arg)) {
-    if (signaller == "deprecate_stop") {
-      msg <- glue_what("`{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
-    } else {
-      msg <- glue_what("`{ fn }()` was deprecated in { pkg } { when }.")
-    }
-  } else {
-    if (signaller == "deprecate_stop" && what$reason == "is deprecated") {
-      msg <- glue_what("The `{ arg }` argument of `{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
-    } else {
-      msg <- glue_what("The `{ arg }` argument of `{ fn }()` { reason } as of { pkg } { when }.")
-    }
-  }
+  msg <- lifecycle_message_what(what, when)
 
   if (!is_null(with)) {
     with <- spec(with, NULL, signaller)
-    glue_with <- function(x) glue::glue_data(with, x)
-
-    if (!is_null(with$pkg) && what$pkg != with$pkg) {
-      with$fn <- glue_with("{ pkg }::{ fn }")
-    }
-
-    if (is_null(with$arg)) {
-      please <- glue_with("Please use `{ fn }()` instead.")
-    } else if (what$fn == with$fn) {
-      please <- glue_with("Please use the `{ arg }` argument instead.")
-    } else {
-      please <- glue_with("Please use the `{ arg }` argument of `{ fn }()` instead.")
-    }
-
-    msg <- paste0(msg, "\n", please)
+    msg <- paste0(msg, "\n", lifecycle_message_with(with, what))
   }
 
   paste_line(msg, details)
+}
+
+lifecycle_message_what <- function(what, when) {
+  glue_what <- function(x) glue::glue_data(what, x)
+
+  if (is_null(what$arg)) {
+    if (what$from == "deprecate_stop") {
+      glue_what("`{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
+    } else {
+      glue_what("`{ fn }()` was deprecated in { pkg } { when }.")
+    }
+  } else {
+    if (what$from == "deprecate_stop" && what$reason == "is deprecated") {
+      glue_what("The `{ arg }` argument of `{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
+    } else {
+      glue_what("The `{ arg }` argument of `{ fn }()` { reason } as of { pkg } { when }.")
+    }
+  }
+}
+
+lifecycle_message_with <- function(with, what) {
+  glue_with <- function(x) glue::glue_data(with, x)
+
+  if (!is_null(with$pkg) && what$pkg != with$pkg) {
+    with$fn <- glue_with("{ pkg }::{ fn }")
+  }
+
+  if (is_null(with$arg)) {
+    glue_with("Please use `{ fn }()` instead.")
+  } else if (what$fn == with$fn) {
+    glue_with("Please use the `{ arg }` argument instead.")
+  } else {
+    glue_with("Please use the `{ arg }` argument of `{ fn }()` instead.")
+  }
 }
 
 # Helpers -----------------------------------------------------------------

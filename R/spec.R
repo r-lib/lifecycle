@@ -15,7 +15,8 @@ spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
     fn = fn,
     arg = arg,
     pkg = pkg,
-    reason = reason
+    reason = reason,
+    from = signaller
   )
 }
 

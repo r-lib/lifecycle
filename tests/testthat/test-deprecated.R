@@ -38,98 +38,34 @@ test_that("warning conditions are signaled only once if warnings are suppressed"
 
 # messaging ---------------------------------------------------------------
 
-test_that("deprecation messages are constructed for functions", {
+test_that("what deprecation messages are readable", {
   expect_snapshot({
-    # https://github.com/r-lib/rlang/issues/1087
-    NULL
-
-    {
-      "Inferred package name (here it is base b/c of testthat's eval env)"
-      cat_line(lifecycle_build_message("1.0.0", "foo()", signaller = "deprecate_stop"))
-    }
-
-    {
-      "Overridden package name"
-      cat_line(lifecycle_build_message("1.0.0", "mypkg::foo()", signaller = "deprecate_stop"))
-    }
-
-    {
-      "Replacement function"
-      cat_line(lifecycle_build_message("1.0.0", "foo()", "bar()", signaller = "deprecate_stop"))
-    }
-
-    {
-      "Replacement function with overridden package names (1)"
-      cat_line(lifecycle_build_message("1.0.0", "foo::quux()", "foofy()", signaller = "deprecate_stop"))
-    }
-
-    {
-      "Replacement function with overridden package names (2)"
-      cat_line(lifecycle_build_message("1.0.0", "foo::quux()", "bar::foofy()", signaller = "deprecate_stop"))
-    }
-
-    {
-      details <- glue::glue(
-        "
-
-        # Before:
-        foo()
-
-        # After:
-        bar()
-      "
-      )
-      cat_line(lifecycle_build_message("1.0.0", "foo()", "bar()", details = details, signaller = "deprecate_stop"))
-    }
+    cat_line(lifecycle_message("1.0.0", "foo()"))
+    cat_line(lifecycle_message("1.0.0", "foo()", signaller = "deprecate_stop"))
+    cat_line(lifecycle_message("1.0.0", "foo(arg)"))
+    cat_line(lifecycle_message("1.0.0", "foo(arg)", signaller = "deprecate_stop"))
   })
 })
 
-test_that("deprecation messages are constructed for arguments", {
+test_that("replace deprecation messages are readable", {
   expect_snapshot({
-    # https://github.com/r-lib/rlang/issues/1087
-    NULL
+    cat_line(lifecycle_message("1.0.0", "foo()", "package::bar()"))
 
-    {
-      "Deprecated argument"
-      cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", signaller = "deprecate_stop"))
-    }
-
-    {
-      "Deprecated argument with function replacement"
-      cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "bar()", signaller = "deprecate_stop"))
-    }
-
-    {
-      "Deprecated argument with argument replacement (same function)"
-      cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "foo(foofy = )", signaller = "deprecate_stop"))
-    }
-
-    {
-      "Deprecated argument with argument replacement (different function)"
-      cat_line(lifecycle_build_message("1.0.0", "foo(quux = )", "bar(foofy = )", signaller = "deprecate_stop"))
-    }
-
-    {
-      "Deprecated argument with argument replacement (different function, different package)"
-      cat_line(lifecycle_build_message("1.0.0", "aaa::foo(quux = )", "zzz::bar(foofy = )", signaller = "deprecate_stop"))
-    }
-
-    {
-      "Deprecated argument with reason"
-      cat_line(lifecycle_build_message("1.0.0", "aaa::foo(quux = 'can\\'t be a baz')", signaller = "deprecate_stop"))
-    }
+    cat_line(lifecycle_message("1.0.0", "foo()", "bar()"))
+    cat_line(lifecycle_message("1.0.0", "foo(arg1)", "foo(arg2)"))
+    cat_line(lifecycle_message("1.0.0", "foo(arg)", "bar(arg)"))
   })
 })
 
 test_that("non-syntactic names are handled gracefully", {
   expect_snapshot({
-    cat_line(lifecycle_build_message("1.0.0", "bar::`foo-fy`(`qu-ux` = )", signaller = "deprecate_stop"))
+    cat_line(lifecycle_message("1.0.0", "bar::`foo-fy`(`qu-ux` = )"))
   })
 })
 
 test_that("can use bullets in details ", {
   expect_snapshot({
-    cat_line(lifecycle_build_message(
+    cat_line(lifecycle_message(
       "1.0.0", "foo()",
       details = c(
         "Unnamed",
@@ -142,8 +78,8 @@ test_that("can use bullets in details ", {
 })
 
 test_that("checks input types", {
-  expect_snapshot(lifecycle_build_message(1), error = TRUE)
-  expect_snapshot(lifecycle_build_message("1", details = 1), error = TRUE)
+  expect_snapshot(lifecycle_message(1), error = TRUE)
+  expect_snapshot(lifecycle_message("1", details = 1), error = TRUE)
 })
 
 # helpers -----------------------------------------------------------------
