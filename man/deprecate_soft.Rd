@@ -43,9 +43,10 @@ usually not needed as it will be inferred from the caller environment.}
 \item{with}{An optional string given a recommended replacement for the
 deprecated behaviour. This takes the same form as \code{what}.}
 
-\item{details}{The deprecation message is generated from \code{when},
-\code{what}, and \code{with}. You can additionally supply a string
-\code{details} to be appended to the message.}
+\item{details}{In most cases the deprecation message can be automatically
+generated from \code{with}. When it can't, use \code{details} to provide a
+hand-written message. \code{details} can either be a single string or a
+character vector, which will be converted to a bulleted list.}
 
 \item{id}{The id of the deprecation. A warning is issued only once
 for each \code{id}. Defaults to the generated message, but you should
@@ -103,9 +104,22 @@ deprecate_warn("1.0.0", "foo()", "bar()")
 # different package:
 deprecate_warn("1.0.0", "foo()", "otherpackage::bar()")
 
-# A deprecated function with an argument replacement:
-deprecate_warn("1.0.0", "foo()", "foo(bar = )")
+# A deprecated function with custom message:
+deprecate_warn(
+  when = "1.0.0",
+  "foo()",
+  details = "Please use `otherpackage::bar(foo = TRUE)` instead"
+)
 
+# A deprecated function with custom bulleted list:
+deprecate_warn(
+  when = "1.0.0",
+  "foo()",
+  details = c(
+    x = "This is dangerous",
+    i = "Did you mean `safe_foo()` instead?"
+  )
+)
 }
 \seealso{
 \code{\link[=lifecycle]{lifecycle()}}
