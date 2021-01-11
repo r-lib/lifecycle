@@ -23,16 +23,18 @@
 #' `lifecycle_warning_deprecated`. Deprecation errors have class
 #' `lifecycle_error_deprecated`.
 #'
-#' @param when The package version when function/argument was deprecated.
-#' @param what If the deprecated feature is a whole function, the
-#'   function name: `"foo()"`. If it's an argument that is being
-#'   deprecated, the function call should include the argument:
-#'   `"foo(arg = )"`.
+#' @param when A string giving the version when the behaviour was deprecated.
+#' @param what A string describing what is deprecated:
 #'
-#'   You can optionally supply the namespace: `"ns::foo()"`. If not
-#'   supplied, it is inferred from the caller environment.
-#' @param with An optional replacement for the deprecated feature.
-#'   This should be a string of the same form as `what`.
+#'   * Deprecate a whole function with `"foo()"`.
+#'   * Deprecate an argument with `"foo(arg)"`.
+#'   * Partially deprecate an argument with
+#'     `"foo(arg = 'must be a scalar integer')"`.
+#'
+#'   You can optionally supply the namespace: `"ns::foo()"`, but this is
+#'   usually not needed as it will be inferred from the caller environment.
+#' @param with An optional string given a recommended replacement for the
+#'   deprecated behaviour. This takes the same form as `what`.
 #' @param details The deprecation message is generated from `when`,
 #'   `what`, and `with`. You can additionally supply a string
 #'   `details` to be appended to the message.
