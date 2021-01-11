@@ -44,6 +44,9 @@ test_that("feature_spec() works with methods", {
     feature_spec("A$foo(bar = )"),
     spec_data(fn = "A$foo", arg = "bar")
   )
+
+  expect_snapshot(feature_spec("A$foo(bar)"), error = TRUE)
+  expect_snapshot(feature_spec("A$foo(bar = 1)"), error = TRUE)
 })
 
 test_that("spec.R produces correct error messages", {

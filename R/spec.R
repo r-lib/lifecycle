@@ -70,7 +70,7 @@ spec_validate_arg <- function(call, signaller) {
   }
 
   if (is_null(node_tag(arg))) {
-    fn <- as_string(node_car(call))
+    fn <- as_label(node_car(call))
     abort(glue::glue(
       "
         Internal error: `what` must refer to arguments in the LHS of `=`.
@@ -110,7 +110,7 @@ spec_validate_details <- function(call, signaller) {
   fn <- expr_deparse(node_car(call))
   abort(glue::glue(
       "
-        Internal error: `what` must contain reason as a string in the LHS of `=`.
+        Internal error: `what` must contain reason as a string on the RHS of `=`.
 
           # Good:
           {signaller}(\"{fn}(arg = 'must be a string')\")
