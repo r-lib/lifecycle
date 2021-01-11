@@ -1,15 +1,21 @@
 
-feature_spec <- function(spec, signaller = "signal_lifecycle") {
+feature_spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
   what <- spec_validate_what(spec, "spec", signaller)
   fn <- spec_validate_fn(what$call)
   arg <- spec_validate_arg(what$call, signaller)
-  details <- spec_validate_details(what$call, signaller)
+  reason <- spec_validate_details(what$call, signaller) %||% "is deprecated"
+
+  if (is_null(what$pkg) && !is.null(env)) {
+    pkg <- signal_validate_pkg(env, signaller = signaller)
+  } else {
+    pkg <- what$pkg
+  }
 
   list(
     fn = fn,
     arg = arg,
-    pkg = what$pkg,
-    details = details
+    pkg = pkg,
+    reason = reason
   )
 }
 
@@ -108,6 +114,32 @@ spec_validate_details <- function(call, signaller) {
       # Bad:
       {signaller}(\"{fn}(arg = 42)\")
 
+    "
+  )
+}
+
+signal_validate_pkg <- function(env, signaller) {
+  env <- topenv(env)
+
+  if (is_reference(env, global_env())) {
+    # Convenient for experimenting interactively
+    return("<NA>")
+  }
+
+  if(is_namespace(env)) {
+    return(ns_env_name(env))
+  }
+
+  lifecycle_abort(
+    "
+    Can't detect the package of the deprecated function.
+    Please mention the namespace:
+
+      # Good:
+      { signaller }(what = \"namespace::myfunction()\")
+
+      # Bad:
+      { signaller }(what = \"myfunction()\")
     "
   )
 }

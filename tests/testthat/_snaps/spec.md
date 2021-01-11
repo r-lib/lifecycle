@@ -45,6 +45,20 @@
         # Bad:
         signal_lifecycle("foo(arg = 42)")
 
+---
+
+    Code
+      feature_spec("foo()", env = e)
+    Error <rlang_error>
+      Internal error in lifecycle: Can't detect the package of the deprecated function.
+      Please mention the namespace:
+      
+        # Good:
+        signal_lifecycle(what = "namespace::myfunction()")
+      
+        # Bad:
+        signal_lifecycle(what = "myfunction()")
+
 # feature_spec() works with methods
 
     Code

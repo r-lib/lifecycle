@@ -141,7 +141,10 @@ test_that("can use bullets in details ", {
   })
 })
 
-
+test_that("checks input types", {
+  expect_snapshot(lifecycle_build_message(1), error = TRUE)
+  expect_snapshot(lifecycle_build_message("1", details = 1), error = TRUE)
+})
 
 # helpers -----------------------------------------------------------------
 

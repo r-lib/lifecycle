@@ -137,6 +137,20 @@
       i Informative
       x Error
 
+# checks input types
+
+    Code
+      lifecycle_build_message(1)
+    Error <rlang_error>
+      Internal error in lifecycle: `when` must be a string
+
+---
+
+    Code
+      lifecycle_build_message("1", details = 1)
+    Error <rlang_error>
+      Internal error in lifecycle: `details` must be a character vector
+
 # needs_warning works as expected
 
     Code

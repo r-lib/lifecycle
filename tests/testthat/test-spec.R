@@ -23,11 +23,11 @@ test_that("feature_spec() builds feature data", {
 
   expect_identical(
     feature_spec("foo(bar = 'baz')"),
-    spec_data(fn = "foo", arg = "bar", details = "baz")
+    spec_data(fn = "foo", arg = "bar", reason = "baz")
   )
   expect_identical(
     feature_spec("pkg::foo(bar = 'baz')"),
-    spec_data(fn = "foo", arg = "bar", pkg = "pkg", details = "baz")
+    spec_data(fn = "foo", arg = "bar", pkg = "pkg", reason = "baz")
   )
 })
 
@@ -37,6 +37,10 @@ test_that("feature_spec() gives useful errors", {
   expect_snapshot(feature_spec("foo()()"), error = TRUE)
   expect_snapshot(feature_spec("foo(arg = , arg = )"), error = TRUE)
   expect_snapshot(feature_spec("foo(arg = arg)"), error = TRUE)
+
+  e <- new_environment()
+  local_options(topLevelEnvironment = e)
+  expect_snapshot(feature_spec("foo()", env = e), error = TRUE)
 })
 
 test_that("feature_spec() works with methods", {
