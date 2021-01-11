@@ -26,9 +26,13 @@ In general, breaking changes reduce the set of code that works without error, ei
 Breaking changes also include changes to output type.
 If you imagine all the possible inputs to a function that return a result (and not an error), a breaking change makes the set smaller.
 
-Not all changes that cause your to stop working are breaking changes.
+Not all changes that cause your function to stop working are breaking changes.
 For example, you might have accidentally relied on a bug.
 When the bug is fixed, your code breaks, but this is not a breaking change.
+A good way of making your code more robust to this sort of behaviour change is to only use a function for its explicitly intended effects.
+For example, using `c()` to concatenate two vectors will not put your code at risk because it clearly is the intended usage of this function.
+On the other hand, using `c()` just for the side effect of removing attributes is probably not a good idea.
+If you use `c(factor("foo"))` to retrieve the underlying integers of the factor levels, your code is at risk of breaking if `c()` ever implements a factor method.
 
 Stable functions come with two promises related to breaking changes:
 
@@ -53,7 +57,7 @@ df <- tibble::as_data_frame(x = 1)
 #> Call `lifecycle::last_warnings()` to see where this warning was generated. 
 ```
 
-The deprecating warning tells you when the function was deprecated (in tibble 1.1.0 released in 2016), and what to use instead (`tibble()`).
+The deprecation warning tells you when the function was deprecated (in tibble 1.1.0 released in 2016), and what to use instead (`tibble()`).
 To avoid being too annoying, deprecation messages will only appear once per session, and you can find out exactly where they come from by calling `lifecycle::last_warning()`.
 `vignette("user")` provides more advice on handling deprecation warnings in your code.
 
@@ -61,11 +65,12 @@ Particularly important functions may go through two additional stages of depreca
 
 -   **Soft deprecated** comes before deprecated.
     It's a gentler form of deprecation designed to prevent new uses of a function and encourage package developers to move away from it.
-    Soft deprecated allows a package to change its interface to encourage package developers to update their code before users are forced to change.
+    Soft deprecated allows a package to change its interface to encourage package developers to update their code before their users are forced to change.
 
 -   **Defunct** comes after deprecated.
     In most cases, a deprecated function will eventually just be deleted.
     For very important functions, we'll instead make the function defunct, which means that function continues to exist but the deprecation warning turns into an error.
+    This is more user-friendly than just removing the function because users will get a clear error message explaining why their code no longer works and how they can fix it.
 
 ## Superseded
 

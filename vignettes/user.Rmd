@@ -39,9 +39,9 @@ df1 <- data_frame(x = 1, y = 2)
 df2 <- data_frame(a = "apple", b = "banana")
 ```
 
-You'll notice that the warning only appears the first time we call it --- lifecycle only notifies you every 8 hours to avoid driving you mad if you've used a deprecated function in many places.
+You'll notice that the warning only appears the first time we call it --- lifecycle only notifies you every 8 hours to avoid disrupting your work if you've used a deprecated function in many places.
 So how do you track down exactly where the warning came from?
-lifecycle provides too main tools.
+lifecycle provides two main tools.
 
 Firstly, if you're ready to spend some time tracking down deprecated functions, set the `lifecycle_verbosity` option.
 You set it to warning to make it warn every time:
@@ -64,6 +64,7 @@ lifecycle::last_warning()
 ```
 
 This provides a back trace that shows you the full sequence of calls that lead to the deprecated function.
+The plural variant `lifecycle::last_warnings()` shows backtraces for all the warnings that were signalled in the last command. If you're a package developer this is especially helpful in conjunction with `devtools::test()`.
 
 Alternatively, if you want to be really strict, you can turn all deprecation warnings into errors, forcing you to deal with them immediately:
 
