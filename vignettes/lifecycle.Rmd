@@ -58,7 +58,7 @@ The following sections describe how to use lifecycle badges and functions togeth
 
 ## Functions
 
-### Deprecating
+### Deprecate a function
 
 First, add a badge to the the `@description` block.
 Briefly describe why the deprecation occurred and what to use instead.
@@ -168,7 +168,7 @@ We recommend something like this:
 
 3.  Search for `deprecate_soft()` and replace with `deprecate_warn()`.
 
-### Renaming
+### Rename a function
 
 To rename a function without breaking existing code, move the implementation to the new function, then call the new function from the old function, along with a deprecation message:
 
@@ -196,7 +196,7 @@ number_add <- function(x, y) {
 
 If you are renaming many functions as part of an API overhaul, it'll often make sense to document all the changes in one file, like <https://rvest.tidyverse.org/reference/rename.html>.
 
-### Superseding
+### Supersede a function
 
 Superseding a function is simpler than deprecating it, since you don't need to steer users away from it with a warning.
 So all you need to do is add a superseded badge:
@@ -224,7 +224,7 @@ Then describe why the function was superseded, and what the recommended alternat
 
 The rest of the documentation can stay the same.
 
-### Experimental
+### Mark function as experimental
 
 To advertise that a function is experimental and the interface might change with deprecation, first add an experimental badge to the description:
 
@@ -245,7 +245,7 @@ lifecycle doesn't currently provide tools to help users avoid experimental funct
 
 ## Arguments
 
-### Deprecating, keeping existing default
+### Deprecate an argument, keeping the existing default
 
 Take this example where we want to deprecate `na.rm` in favour of always making it `TRUE.`
 
@@ -282,7 +282,7 @@ add_two(1, NA, na.rm = TRUE)
 add_two(1, NA, na.rm = FALSE)
 ```
 
-### Deprecating, with new default
+### Deprecating an argument, providing a new default
 
 Alternatively, you can change the default value to `lifecycle::deprecated()` to make the deprecation status more obvious from the outside, and use `lifecycle::is_present()`[^2] to test whether or not the argument was provided.
 
@@ -310,7 +310,7 @@ add_two(1, NA, na.rm = TRUE)
 add_two(1, NA, na.rm = FALSE)
 ```
 
-### Renaming
+### Renaming an argument
 
 You may want to rename an argument if you realise you have made a mistake with the name of an argument.
 For example, you've realised that an argument accidentally uses `.` to separate a compound name, instead of `_`.
@@ -327,7 +327,7 @@ add_two <- function(x, y, na_rm = TRUE, na.rm = deprecated()) {
 }
 ```
 
-### Narrowing allowed values
+### Reducing allowed inputs to an argument
 
 To narrow the set of allowed inputs, call `deprecate_warn()` only when the user supplies the previously supported inputs.
 Make sure you preserve the previous behaviour:
