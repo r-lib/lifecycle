@@ -1,5 +1,8 @@
 # lifecycle (development version)
 
+* When `details` is a character vector it is converted to a bulleted lists 
+  (#55).
+
 * You can now deprecate method calls of the form `class$method()` (#54).
 
 * Warnings printed manually now omit the advice footer (#68).

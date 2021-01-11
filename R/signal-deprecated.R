@@ -175,6 +175,9 @@ lifecycle_build_message <- function(when,
                                     details = chr(),
                                     signaller) {
   details <- details %||% chr()
+  if (length(details) > 1) {
+    details <- format_error_bullets(details)
+  }
 
   stopifnot(
     is_string(when),
