@@ -49,14 +49,3 @@ test_that("feature_spec() works with methods", {
   expect_snapshot(feature_spec("A$foo(bar)"), error = TRUE)
   expect_snapshot(feature_spec("A$foo(bar = 1)"), error = TRUE)
 })
-
-test_that("spec.R produces correct error messages", {
-  verify_output(test_path("error", "test-spec.txt"), {
-    "# feature_spec() builds feature data"
-    feature_spec("foo")
-    feature_spec("foo()()")
-    feature_spec("foo(arg = , arg = )")
-    feature_spec("foo(arg)")
-    feature_spec("foo(arg = arg)")
-  })
-})
