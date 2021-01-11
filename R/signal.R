@@ -22,14 +22,27 @@
 #'
 #' @keywords internal
 #' @export
-signal_experimental <- function(when, what) {
-  signal(
-    "",
-    "lifecycle_experimental",
-    when = when,
-    what = what
-  )
+signal_experimental <- function(what) {
+  verbosity <- lifecycle_verbosity()
+
+  msg <- glue::glue("{what} is experimental")
+
+  if (verbosity == "error") {
+    abort(msg, class = "lifecycle_error_experimental")
+  } else if (verbosity == "warning") {
+    wrn <- warning_cnd(
+      "lifecycle_warning_experimental",
+      message = msg,
+      trace = trace_back(bottom = caller_env())
+    )
+    push_warning(wrn)
+    warning(wrn)
+  } else {
+    signal(msg, class = "lifecycle_experimental", what = what)
+  }
 }
+
+
 #' @rdname signal_experimental
 #' @export
 signal_superseded <- function(when, what, with = NULL) {
