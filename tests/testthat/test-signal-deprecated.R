@@ -4,7 +4,7 @@ test_that("signallers require function call syntax for `what`", {
     expect_error(deprecate_stop("1.0.0", "foo()()"), "must be a function")
     expect_error(deprecate_stop("1.0.0", "foo(arg = , arg = )"), "more than one argument")
     expect_error(deprecate_stop("1.0.0", "foo(arg)"), "in the LHS")
-    expect_error(deprecate_stop("1.0.0", "foo(arg = arg)"), "in the LHS")
+    expect_error(deprecate_stop("1.0.0", "foo(arg = arg)"), "on the RHS")
   })
 })
 
