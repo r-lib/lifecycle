@@ -13,7 +13,7 @@ test_that("deprecate_soft() warns when called from global env", {
     .eval_env = global_env()
   )
 
-  expect_warning(do, "foo", class = "lifecycle_warning_deprecated")
+  expect_deprecated(do, "foo")
 })
 
 test_that("deprecate_soft() warns when called from package being tested", {

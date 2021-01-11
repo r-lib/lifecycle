@@ -6,24 +6,25 @@
       <deprecated>
       message: `trace()` was deprecated in lifecycle 1.0.0.
       Backtrace:
-       1. testthat::expect_warning(f(), class = "lifecycle_warning_deprecated")
-       7. lifecycle:::f()
-       8. lifecycle:::g()
-       9. lifecycle:::h()
+        1. lifecycle::expect_deprecated(f())
+        8. lifecycle:::f()
+        9. lifecycle:::g()
+       10. lifecycle:::h()
     Code
       print(last_warning(), simplify = "none")
     Output
       <deprecated>
       message: `trace()` was deprecated in lifecycle 1.0.0.
       Backtrace:
-          x
-       1. +-testthat::expect_warning(f(), class = "lifecycle_warning_deprecated")
-       2. | \-testthat:::expect_condition_matching(...)
-       3. |   \-testthat:::quasi_capture(...)
-       4. |     +-testthat:::.capture(...)
-       5. |     | \-base::withCallingHandlers(...)
-       6. |     \-rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
-       7. \-lifecycle:::f()
-       8.   \-lifecycle:::g()
-       9.     \-lifecycle:::h()
+           x
+        1. +-lifecycle::expect_deprecated(f())
+        2. | \-testthat::expect_warning(...)
+        3. |   \-testthat:::expect_condition_matching(...)
+        4. |     \-testthat:::quasi_capture(...)
+        5. |       +-testthat:::.capture(...)
+        6. |       | \-base::withCallingHandlers(...)
+        7. |       \-rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
+        8. \-lifecycle:::f()
+        9.   \-lifecycle:::g()
+       10.     \-lifecycle:::h()
 

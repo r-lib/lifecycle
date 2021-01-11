@@ -14,7 +14,7 @@ test_that("deprecation warning is displayed with backtrace", {
   g <- function() h()
   h <- function() deprecate_warn("1.0.0", "trace()")
 
-  expect_warning(f(), class = "lifecycle_warning_deprecated")
+  expect_deprecated(f())
 
   expect_snapshot({
     last_warning()
