@@ -126,7 +126,18 @@
     Output
       The `qu-ux` argument of ``foo-fy`()` was deprecated in bar 1.0.0 and is now defunct.
 
+# can use bullets in details 
+
+    Code
+      cat_line(lifecycle_build_message("1.0.0", "foo()", details = c("Unnamed", i = "Informative",
+        x = "Error"), signaller = "deprecate_stop"))
+    Output
+      `foo()` was deprecated in base 1.0.0 and is now defunct.
+      * Unnamed
+      i Informative
+      x Error
+
 # needs_warning works as expected
 
-    Internal error: Expected `POSIXct` value in `lifecycle::needs_warning()`.
+    Internal error in lifecycle: Expected `POSIXct` value in `needs_warning()`.
 

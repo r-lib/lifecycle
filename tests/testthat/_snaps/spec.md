@@ -3,14 +3,14 @@
     Code
       feature_spec(1)
     Error <rlang_error>
-      Internal error: `what` must be a string
+      Internal error in lifecycle: `what` must be a string
 
 ---
 
     Code
       feature_spec("foo")
     Error <rlang_error>
-      Internal error: `what` must have function call syntax.
+      Internal error in lifecycle: `what` must have function call syntax.
       
         # Good:
         signal_lifecycle("foo()")
@@ -23,34 +23,21 @@
     Code
       feature_spec("foo()()")
     Error <rlang_error>
-      Internal error: `what` must be a function or method call.
+      Internal error in lifecycle: `what` must be a function or method call.
 
 ---
 
     Code
       feature_spec("foo(arg = , arg = )")
     Error <rlang_error>
-      Internal error: Function in `what` (foo) must have 1 argument, not 2.
-
----
-
-    Code
-      feature_spec("foo(arg)")
-    Error <rlang_error>
-      Internal error: `what` must refer to arguments in the LHS of `=`.
-      
-        # Good:
-        signal_lifecycle("foo(arg = )")
-      
-        # Bad:
-        signal_lifecycle("foo(arg)")
+      Internal error in lifecycle: Function in `what` (foo) must have 1 argument, not 2.
 
 ---
 
     Code
       feature_spec("foo(arg = arg)")
     Error <rlang_error>
-      Internal error: `what` must contain reason as a string on the RHS of `=`.
+      Internal error in lifecycle: `what` must contain reason as a string on the RHS of `=`.
       
         # Good:
         signal_lifecycle("foo(arg = 'must be a string')")
@@ -61,22 +48,9 @@
 # feature_spec() works with methods
 
     Code
-      feature_spec("A$foo(bar)")
-    Error <rlang_error>
-      Internal error: `what` must refer to arguments in the LHS of `=`.
-      
-        # Good:
-        signal_lifecycle("A$foo(arg = )")
-      
-        # Bad:
-        signal_lifecycle("A$foo(arg)")
-
----
-
-    Code
       feature_spec("A$foo(bar = 1)")
     Error <rlang_error>
-      Internal error: `what` must contain reason as a string on the RHS of `=`.
+      Internal error in lifecycle: `what` must contain reason as a string on the RHS of `=`.
       
         # Good:
         signal_lifecycle("A$foo(arg = 'must be a string')")
