@@ -1,5 +1,7 @@
 # lifecycle (development version)
 
+* You can now deprecate an argument with `foo(arg)`, not `foo(arg =)` (#78).
+
 * You can now deprecate method calls of the form `class$method()` (#54).
 
 * Warnings printed manually now omit the advice footer (#68).
