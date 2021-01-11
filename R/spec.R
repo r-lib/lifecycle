@@ -1,30 +1,37 @@
 
-feature_spec <- function(spec, signaller = "signal_lifecycle") {
-  what <- spec_validate_what(spec, "spec", signaller)
-  fn <- spec_validate_fn(what$call)
-  arg <- spec_validate_arg(what$call, signaller)
-  details <- spec_validate_details(what$call, signaller)
+spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
+  what <- spec_what(spec, "spec", signaller)
+  fn <- spec_fn(what$call)
+  arg <- spec_arg(what$call, signaller)
+  reason <- spec_reason(what$call, signaller) %||% "is deprecated"
+
+  if (is_null(what$pkg) && !is.null(env)) {
+    pkg <- spec_package(env, signaller = signaller)
+  } else {
+    pkg <- what$pkg
+  }
 
   list(
     fn = fn,
     arg = arg,
-    pkg = what$pkg,
-    details = details
+    pkg = pkg,
+    reason = reason,
+    from = signaller
   )
 }
 
-spec_validate_what <- function(what, arg, signaller) {
+spec_what <- function(what, arg, signaller) {
+  if (!is_string(what)) {
+    lifecycle_abort("`what` must be a string")
+  }
+
   call <- parse_expr(what)
 
   if (!is_call(call)) {
-    if (is_symbol(what) || is_string(what)) {
-      what <- as_string(what)
-    } else {
-      what <- "myfunction"
-    }
-    abort(glue::glue(
+    what <- as_string(what)
+    lifecycle_abort(
       "
-      Internal error: `what` must have function call syntax.
+      `what` must have function call syntax.
 
         # Good:
         { signaller }(\"{what}()\")
@@ -33,7 +40,7 @@ spec_validate_what <- function(what, arg, signaller) {
         { signaller }(\"{what}\")
 
       "
-    ))
+    )
   }
 
   head <- node_car(call)
@@ -47,18 +54,18 @@ spec_validate_what <- function(what, arg, signaller) {
   list(pkg = pkg, call = call)
 }
 
-spec_validate_fn <- function(call) {
+spec_fn <- function(call) {
   fn <- node_car(call)
 
-  if (!is_symbol(fn)) {
-    abort("Internal error: `what` must refer to a function name.")
+  if (!is_symbol(fn) && !is_call(fn, "$")) {
+    lifecycle_abort("`what` must be a function or method call.")
   }
 
   # Deparse so non-syntactic names are backticked
   expr_deparse(fn)
 }
 
-spec_validate_arg <- function(call, signaller) {
+spec_arg <- function(call, signaller) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
@@ -66,37 +73,27 @@ spec_validate_arg <- function(call, signaller) {
   }
 
   if (length(arg) != 1L) {
-    abort("Internal error: `what` can't refer to more than one argument.")
+    fn <- as_label(node_car(call))
+    n <- length(arg)
+    lifecycle_abort("Function in `what` ({fn}) must have 1 argument, not {n}.")
   }
 
   if (is_null(node_tag(arg))) {
-    fn <- as_string(node_car(call))
-    abort(glue::glue(
-      "
-        Internal error: `what` must refer to arguments in the LHS of `=`.
-
-          # Good:
-          {signaller}(\"{fn}(arg = )\")
-
-          # Bad:
-          {signaller}(\"{fn}(arg)\")
-
-        "
-    ))
+    as_string(node_car(arg))
+  } else {
+    as_string(node_tag(arg))
   }
-
-  as_string(node_tag(arg))
 }
 
-spec_validate_details <- function(call, signaller) {
+spec_reason <- function(call, signaller) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
     return(NULL)
   }
 
-  if (length(arg) != 1L) {
-    abort("Internal error: `what` can't refer to more than one argument.")
+  if (is_null(node_tag(arg))) {
+    return(NULL)
   }
 
   if (is_missing(node_car(arg))) {
@@ -107,17 +104,43 @@ spec_validate_details <- function(call, signaller) {
     return(node_car(arg))
   }
 
-  fn <- as_string(node_car(call))
-  abort(glue::glue(
-      "
-        Internal error: `what` must contain reason as a string in the LHS of `=`.
+  fn <- expr_deparse(node_car(call))
+  lifecycle_abort(
+    "
+    `what` must contain reason as a string on the RHS of `=`.
 
-          # Good:
-          {signaller}(\"{fn}(arg = 'must be a string')\")
+      # Good:
+      {signaller}(\"{fn}(arg = 'must be a string')\")
 
-          # Bad:
-          {signaller}(\"{fn}(arg = 42)\")
+      # Bad:
+      {signaller}(\"{fn}(arg = 42)\")
 
-        "
-  ))
+    "
+  )
+}
+
+spec_package <- function(env, signaller) {
+  env <- topenv(env)
+
+  if (is_reference(env, global_env())) {
+    # Convenient for experimenting interactively
+    return("<NA>")
+  }
+
+  if(is_namespace(env)) {
+    return(ns_env_name(env))
+  }
+
+  lifecycle_abort(
+    "
+    Can't detect the package of the deprecated function.
+    Please mention the namespace:
+
+      # Good:
+      { signaller }(what = \"namespace::myfunction()\")
+
+      # Bad:
+      { signaller }(what = \"myfunction()\")
+    "
+  )
 }

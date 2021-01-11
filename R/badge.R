@@ -80,7 +80,7 @@ lifecycle_img <- function(stage, url) {
         stage_alt
       ),
 
-    abort(sprintf("Unknown lifecycle stage `%s`", stage))
+    abort(sprintf("Unknown lifecycle stage '%s'", stage))
 
   )
 }

@@ -1,5 +1,12 @@
 # lifecycle (development version)
 
+* A character vector `details` is now converted into a bulleted list (#55).
+
+* You can now deprecate an argument with `foo(arg)` instead of `foo(arg =)` (#78).
+  This syntax is similar in spirit to the formal arguments of function definitions.
+
+* You can now deprecate method calls of the form `class$method()` (#54).
+
 * Warnings printed manually now omit the advice footer (#68).
 
 

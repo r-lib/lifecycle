@@ -1,48 +1,57 @@
-
-test_that("feature_spec() builds feature data", {
+test_that("spec() builds feature data", {
   expect_identical(
-    feature_spec("foo()"),
+    spec("foo()"),
     spec_data(fn = "foo")
   )
   expect_identical(
-    feature_spec("pkg::foo()"),
+    spec("pkg::foo()"),
     spec_data(fn = "foo", pkg = "pkg")
   )
 
   expect_identical(
-    feature_spec("foo(bar = )"),
+    spec("foo(bar)"),
     spec_data(fn = "foo", arg = "bar")
   )
   expect_identical(
-    feature_spec("pkg::foo(bar = )"),
+    spec("foo(bar = )"),
+    spec_data(fn = "foo", arg = "bar")
+  )
+  expect_identical(
+    spec("pkg::foo(bar = )"),
     spec_data(fn = "foo", arg = "bar", pkg = "pkg")
   )
 
   expect_identical(
-    feature_spec("foo(bar = 'baz')"),
-    spec_data(fn = "foo", arg = "bar", details = "baz")
+    spec("foo(bar = 'baz')"),
+    spec_data(fn = "foo", arg = "bar", reason = "baz")
   )
   expect_identical(
-    feature_spec("pkg::foo(bar = 'baz')"),
-    spec_data(fn = "foo", arg = "bar", pkg = "pkg", details = "baz")
+    spec("pkg::foo(bar = 'baz')"),
+    spec_data(fn = "foo", arg = "bar", pkg = "pkg", reason = "baz")
   )
-
-  verify_errors({
-    expect_error(feature_spec("foo"), "")
-    expect_error(feature_spec("foo()()"), "")
-    expect_error(feature_spec("foo(arg = , arg = )"), "")
-    expect_error(feature_spec("foo(arg)"), "")
-    expect_error(feature_spec("foo(arg = arg)"), "")
-  })
 })
 
-test_that("spec.R produces correct error messages", {
-  verify_output(test_path("error", "test-spec.txt"), {
-    "# feature_spec() builds feature data"
-    feature_spec("foo")
-    feature_spec("foo()()")
-    feature_spec("foo(arg = , arg = )")
-    feature_spec("foo(arg)")
-    feature_spec("foo(arg = arg)")
-  })
+test_that("spec() gives useful errors", {
+  expect_snapshot(spec(1), error = TRUE)
+  expect_snapshot(spec("foo"), error = TRUE)
+  expect_snapshot(spec("foo()()"), error = TRUE)
+  expect_snapshot(spec("foo(arg = , arg = )"), error = TRUE)
+  expect_snapshot(spec("foo(arg = arg)"), error = TRUE)
+
+  e <- new_environment()
+  local_options(topLevelEnvironment = e)
+  expect_snapshot(spec("foo()", env = e), error = TRUE)
+})
+
+test_that("spec() works with methods", {
+  expect_identical(
+    spec("A$foo()"),
+    spec_data(fn = "A$foo")
+  )
+  expect_identical(
+    spec("A$foo(bar = )"),
+    spec_data(fn = "A$foo", arg = "bar")
+  )
+
+  expect_snapshot(spec("A$foo(bar = 1)"), error = TRUE)
 })
