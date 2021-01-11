@@ -19,7 +19,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.2)
+    R (>= 3.3)
 Imports:
     glue,
     rlang (>= 0.4.10)
