@@ -224,6 +224,25 @@ Then describe why the function was superseded, and what the recommended alternat
 
 The rest of the documentation can stay the same.
 
+### Experimental
+
+To advertise that a function is experimental and the interface might change with deprecation, first add an experimental badge to the description:
+
+```{r}
+#' @description
+#' `r lifecycle::badge("superseded")`
+```
+
+And then in the body of the function call `signal_experimental()`:
+
+```{r}
+order_pizza <- function(size, flavour) {
+  signal_experimental("0.1.0", "order_pizza()")
+}
+```
+
+lifecycle doesn't currently provide tools to help users avoid experimental functions, but it likely will in the future.
+
 ## Arguments
 
 ### Deprecating, keeping existing default
@@ -310,7 +329,7 @@ add_two <- function(x, y, na_rm = TRUE, na.rm = deprecated()) {
 
 ### Narrowing allowed values
 
-To narrow the set of allowed inputs, call `deprecate_warn()` only when the user supplies the previously supported value.
+To narrow the set of allowed inputs, call `deprecate_warn()` only when the user supplies the previously supported inputs.
 Make sure you preserve the previous behaviour:
 
 ```{r}
