@@ -16,11 +16,16 @@ cat_ruler <- function(title) {
   cat(paste0("\n\n", title, "\n", strrep("=", nchar(title)), "\n\n"))
 }
 
-spec_data <- function(fn = NULL, arg = NULL, pkg = NULL, details = NULL) {
+spec_data <- function(fn = NULL,
+                      arg = NULL,
+                      pkg = spec_package(caller_env()),
+                      reason = "is deprecated",
+                      from = "signal_lifecycle") {
   list(
     fn = fn,
     arg = arg,
     pkg = pkg,
-    details = details
+    reason = reason,
+    from = from
   )
 }

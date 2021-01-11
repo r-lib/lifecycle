@@ -1,19 +1,26 @@
 
-feature_spec <- function(spec, signaller = "signal_lifecycle") {
-  what <- spec_validate_what(spec, "spec", signaller)
-  fn <- spec_validate_fn(what$call)
-  arg <- spec_validate_arg(what$call, signaller)
-  details <- spec_validate_details(what$call, signaller)
+spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
+  what <- spec_what(spec, "spec", signaller)
+  fn <- spec_fn(what$call)
+  arg <- spec_arg(what$call, signaller)
+  reason <- spec_reason(what$call, signaller) %||% "is deprecated"
+
+  if (is_null(what$pkg) && !is.null(env)) {
+    pkg <- spec_package(env, signaller = signaller)
+  } else {
+    pkg <- what$pkg
+  }
 
   list(
     fn = fn,
     arg = arg,
-    pkg = what$pkg,
-    details = details
+    pkg = pkg,
+    reason = reason,
+    from = signaller
   )
 }
 
-spec_validate_what <- function(what, arg, signaller) {
+spec_what <- function(what, arg, signaller) {
   if (!is_string(what)) {
     lifecycle_abort("`what` must be a string")
   }
@@ -47,7 +54,7 @@ spec_validate_what <- function(what, arg, signaller) {
   list(pkg = pkg, call = call)
 }
 
-spec_validate_fn <- function(call) {
+spec_fn <- function(call) {
   fn <- node_car(call)
 
   if (!is_symbol(fn) && !is_call(fn, "$")) {
@@ -58,7 +65,7 @@ spec_validate_fn <- function(call) {
   expr_deparse(fn)
 }
 
-spec_validate_arg <- function(call, signaller) {
+spec_arg <- function(call, signaller) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
@@ -78,7 +85,7 @@ spec_validate_arg <- function(call, signaller) {
   }
 }
 
-spec_validate_details <- function(call, signaller) {
+spec_reason <- function(call, signaller) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
@@ -108,6 +115,32 @@ spec_validate_details <- function(call, signaller) {
       # Bad:
       {signaller}(\"{fn}(arg = 42)\")
 
+    "
+  )
+}
+
+spec_package <- function(env, signaller) {
+  env <- topenv(env)
+
+  if (is_reference(env, global_env())) {
+    # Convenient for experimenting interactively
+    return("<NA>")
+  }
+
+  if(is_namespace(env)) {
+    return(ns_env_name(env))
+  }
+
+  lifecycle_abort(
+    "
+    Can't detect the package of the deprecated function.
+    Please mention the namespace:
+
+      # Good:
+      { signaller }(what = \"namespace::myfunction()\")
+
+      # Bad:
+      { signaller }(what = \"myfunction()\")
     "
   )
 }

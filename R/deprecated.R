@@ -96,19 +96,21 @@ deprecate_soft <- function(when,
                            details = NULL,
                            id = NULL,
                            env = caller_env(2)) {
+  msg <- lifecycle_message(when, what, with, details, env, "deprecate_soft")
+
   verbosity <- lifecycle_verbosity()
-
   if (verbosity == "quiet") {
-    return(invisible(NULL))
+    NULL
+  } else if (verbosity %in% "warning" || env_inherits_global(env)) {
+    trace <- trace_back(bottom = caller_env())
+    deprecate_warn0(msg, trace)
+  } else if (verbosity == "error") {
+    deprecate_stop0(msg)
+  } else {
+    deprecate_soft0(msg)
   }
 
-  if (verbosity %in% c("warning", "error") || env_inherits_global(env)) {
-    deprecate_warn(when, what, with = with, details = details, id = id)
-    return(invisible(NULL))
-  }
-
-  msg <- lifecycle_build_message(when, what, with, details, "deprecate_soft")
-  signal(msg, "lifecycle_soft_deprecated")
+  invisible(NULL)
 }
 
 #' @rdname deprecate_soft
@@ -119,37 +121,54 @@ deprecate_warn <- function(when,
                            details = NULL,
                            id = NULL,
                            env = caller_env(2)) {
-  msg <- lifecycle_build_message(when, what, with, details, "deprecate_warn")
+  msg <- lifecycle_message(when, what, with, details, env, "deprecate_warn")
+
   verbosity <- lifecycle_verbosity()
-
-  id <- id %||% msg
-  stopifnot(is_string(id))
-
   if (verbosity == "quiet") {
-    return(invisible(NULL))
-  }
-
-  if (verbosity == "default" && !needs_warning(id)) {
-    return(invisible(NULL))
-  }
-
-  if (verbosity == "error") {
-    deprecate_stop(when, what, with = with, details = details)
-  }
-
-  if (verbosity == "default") {
-    # Prevent warning from being displayed again
-    env_poke(deprecation_env, id, Sys.time())
-
-    footer <- paste_line(
-      silver("This warning is displayed once every 8 hours."),
-      silver("Call `lifecycle::last_warnings()` to see where this warning was generated.")
-    )
+    NULL
+  } else if (verbosity == "warning") {
+    trace <- trace_back(bottom = caller_env())
+    deprecate_warn0(msg, trace)
+  } else if (verbosity == "error") {
+    deprecate_stop0(msg)
   } else {
-    footer <- NULL
+    id <- id %||% msg
+
+    if (needs_warning(id)) {
+      # Prevent warning from being displayed again
+      env_poke(deprecation_env, id, Sys.time())
+
+      footer <- paste_line(
+        silver("This warning is displayed once every 8 hours."),
+        silver("Call `lifecycle::last_warnings()` to see where this warning was generated.")
+      )
+
+      trace <- trace_back(bottom = caller_env())
+      deprecate_warn0(msg, trace, footer)
+    }
   }
 
-  trace <- trace_back(bottom = caller_env())
+  invisible(NULL)
+}
+
+#' @rdname deprecate_soft
+#' @export
+deprecate_stop <- function(when,
+                           what,
+                           with = NULL,
+                           details = NULL) {
+  msg <- lifecycle_message(when, what, with, details, env, "deprecate_stop")
+  deprecate_stop0(msg)
+}
+
+
+# Signals -----------------------------------------------------------------
+
+deprecate_soft0 <- function(msg) {
+  signal(msg, "lifecycle_soft_deprecated")
+}
+
+deprecate_warn0 <- function(msg, trace = NULL, footer = NULL) {
   wrn <- new_deprecated_warning(msg, trace, footer = footer)
 
   # Record muffled warnings if testthat is running because it
@@ -168,14 +187,7 @@ deprecate_warn <- function(when,
   })
 }
 
-#' @rdname deprecate_soft
-#' @export
-deprecate_stop <- function(when,
-                           what,
-                           with = NULL,
-                           details = NULL) {
-  msg <- lifecycle_build_message(when, what, with, details, "deprecate_stop")
-
+deprecate_stop0 <- function(msg) {
   stop(cnd(
     c("lifecycle_error_deprecated", "defunctError", "error", "condition"),
     old = NULL,
@@ -185,94 +197,69 @@ deprecate_stop <- function(when,
   ))
 }
 
-lifecycle_build_message <- function(when,
-                                    what,
-                                    with = NULL,
-                                    details = chr(),
-                                    signaller) {
+# Messages ----------------------------------------------------------------
+
+lifecycle_message <- function(when,
+                              what,
+                              with = NULL,
+                              details = NULL,
+                              env = caller_env(2),
+                              signaller = "signal_lifecycle") {
+  if (!is_string(when)) {
+    lifecycle_abort("`when` must be a string")
+  }
+
   details <- details %||% chr()
+  if (!is.character(details)) {
+    lifecycle_abort("`details` must be a character vector")
+  }
   if (length(details) > 1) {
     details <- format_error_bullets(details)
   }
 
-  stopifnot(
-    is_string(when),
-    is_null(with) || is_string(with),
-    is_character(details)
-  )
-
-  what <- spec_validate_what(what, "what", signaller)
-  fn <- spec_validate_fn(what$call)
-  arg <- spec_validate_arg(what$call, signaller)
-  reason <- signal_validate_reason(what$call, signaller)
-
-  if (is_null(what$pkg)) {
-    env <- topenv(caller_env(2))
-    pkg <- signal_validate_pkg(env)
-  } else {
-    pkg <- what$pkg
-  }
-
-  if (is_null(arg)) {
-    if (signaller == "deprecate_stop") {
-      msg <- glue::glue("`{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
-    } else {
-      msg <- glue::glue("`{ fn }()` was deprecated in { pkg } { when }.")
-    }
-  } else {
-    if (signaller == "deprecate_stop" && reason == "is deprecated") {
-      msg <- glue::glue("The `{ arg }` argument of `{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
-    } else {
-      msg <- glue::glue("The `{ arg }` argument of `{ fn }()` { reason } as of { pkg } { when }.")
-    }
-  }
+  what <- spec(what, env, signaller)
+  msg <- lifecycle_message_what(what, when)
 
   if (!is_null(with)) {
-    with <- spec_validate_what(with, "with", signaller)
-    with_fn <- spec_validate_fn(with$call)
-    with_arg <- spec_validate_arg(with$call, signaller)
-
-    with_pkg <- with$pkg %||% pkg
-    if (!is_null(with_pkg) && pkg != with_pkg) {
-      with_fn <- glue::glue("{ with_pkg }::{ with_fn }")
-    }
-
-    if (is_null(with_arg)) {
-      please <- glue::glue("Please use `{ with_fn }()` instead.")
-    } else if (fn == with_fn) {
-      please <- glue::glue("Please use the `{ with_arg }` argument instead.")
-    } else {
-      please <- glue::glue("Please use the `{ with_arg }` argument of `{ with_fn }()` instead.")
-    }
-
-    msg <- paste0(msg, "\n", please)
+    with <- spec(with, NULL, signaller)
+    msg <- paste0(msg, "\n", lifecycle_message_with(with, what))
   }
 
   paste_line(msg, details)
 }
 
-signal_validate_pkg <- function(env) {
-  if (is_reference(env, global_env())) {
-    # Convenient for experimenting interactively
-    return("<NA>")
+lifecycle_message_what <- function(what, when) {
+  glue_what <- function(x) glue::glue_data(what, x)
+
+  if (is_null(what$arg)) {
+    if (what$from == "deprecate_stop") {
+      glue_what("`{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
+    } else {
+      glue_what("`{ fn }()` was deprecated in { pkg } { when }.")
+    }
+  } else {
+    if (what$from == "deprecate_stop" && what$reason == "is deprecated") {
+      glue_what("The `{ arg }` argument of `{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
+    } else {
+      glue_what("The `{ arg }` argument of `{ fn }()` { reason } as of { pkg } { when }.")
+    }
+  }
+}
+
+lifecycle_message_with <- function(with, what) {
+  glue_with <- function(x) glue::glue_data(with, x)
+
+  if (!is_null(with$pkg) && what$pkg != with$pkg) {
+    with$fn <- glue_with("{ pkg }::{ fn }")
   }
 
-  if(is_namespace(env)) {
-    return(ns_env_name(env))
+  if (is_null(with$arg)) {
+    glue_with("Please use `{ fn }()` instead.")
+  } else if (what$fn == with$fn) {
+    glue_with("Please use the `{ arg }` argument instead.")
+  } else {
+    glue_with("Please use the `{ arg }` argument of `{ fn }()` instead.")
   }
-
-  lifecycle_abort(
-    "
-    Can't detect the package of the deprecated function.
-    Please mention the namespace:
-
-      # Good:
-      { signaller }(what = \"namespace::myfunction()\")
-
-      # Bad:
-      { signaller }(what = \"myfunction()\")
-    "
-  )
 }
 
 # Helpers -----------------------------------------------------------------
@@ -290,6 +277,10 @@ env_inherits_global <- function(env) {
 }
 
 needs_warning <- function(id) {
+  if (!is_string(id)) {
+    lifecycle_abort("`id` must be a string")
+  }
+
   last <- deprecation_env[[id]]
   if (is_null(last)) {
     return(TRUE)
@@ -301,14 +292,4 @@ needs_warning <- function(id) {
 
   # Warn every 8 hours
   (Sys.time() - last) > (8 * 60 * 60)
-}
-
-signal_validate_reason <- function(call, signaller) {
-  details <- spec_validate_details(call, signaller)
-
-  if (is_null(details)) {
-    "is deprecated"
-  } else {
-    details
-  }
 }
