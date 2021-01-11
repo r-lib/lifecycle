@@ -217,7 +217,7 @@ lifecycle_build_message <- function(when,
     details <- format_error_bullets(details)
   }
 
-  what <- feature_spec(what, env, signaller)
+  what <- spec(what, env, signaller)
   glue_what <- function(x) glue::glue_data(what, x)
 
   if (is_null(what$arg)) {
@@ -235,7 +235,7 @@ lifecycle_build_message <- function(when,
   }
 
   if (!is_null(with)) {
-    with <- feature_spec(with, NULL, signaller)
+    with <- spec(with, NULL, signaller)
     glue_with <- function(x) glue::glue_data(with, x)
 
     if (!is_null(with$pkg) && what$pkg != with$pkg) {

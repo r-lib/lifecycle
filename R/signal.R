@@ -58,12 +58,12 @@ lifecycle_cnd_data <- function(cnd) {
     lifecycle_abort("Unsupported class `{class}` in `lifecycle_cnd_data()`.")
   }
 
-  what <- feature_spec(cnd$what, signaller = signaller)
+  what <- spec(cnd$what, signaller = signaller)
 
   if (is_null(cnd$with)) {
     with <- NULL
   } else {
-    with <- feature_spec(cnd$with, signaller = signaller)
+    with <- spec(cnd$with, signaller = signaller)
   }
 
   list(

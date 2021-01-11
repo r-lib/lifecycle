@@ -1,12 +1,12 @@
 
-feature_spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
-  what <- spec_validate_what(spec, "spec", signaller)
-  fn <- spec_validate_fn(what$call)
-  arg <- spec_validate_arg(what$call, signaller)
-  reason <- spec_validate_details(what$call, signaller) %||% "is deprecated"
+spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
+  what <- spec_what(spec, "spec", signaller)
+  fn <- spec_fn(what$call)
+  arg <- spec_arg(what$call, signaller)
+  reason <- spec_reason(what$call, signaller) %||% "is deprecated"
 
   if (is_null(what$pkg) && !is.null(env)) {
-    pkg <- signal_validate_pkg(env, signaller = signaller)
+    pkg <- spec_package(env, signaller = signaller)
   } else {
     pkg <- what$pkg
   }
@@ -19,7 +19,7 @@ feature_spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle
   )
 }
 
-spec_validate_what <- function(what, arg, signaller) {
+spec_what <- function(what, arg, signaller) {
   if (!is_string(what)) {
     lifecycle_abort("`what` must be a string")
   }
@@ -53,7 +53,7 @@ spec_validate_what <- function(what, arg, signaller) {
   list(pkg = pkg, call = call)
 }
 
-spec_validate_fn <- function(call) {
+spec_fn <- function(call) {
   fn <- node_car(call)
 
   if (!is_symbol(fn) && !is_call(fn, "$")) {
@@ -64,7 +64,7 @@ spec_validate_fn <- function(call) {
   expr_deparse(fn)
 }
 
-spec_validate_arg <- function(call, signaller) {
+spec_arg <- function(call, signaller) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
@@ -84,7 +84,7 @@ spec_validate_arg <- function(call, signaller) {
   }
 }
 
-spec_validate_details <- function(call, signaller) {
+spec_reason <- function(call, signaller) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
@@ -118,7 +118,7 @@ spec_validate_details <- function(call, signaller) {
   )
 }
 
-signal_validate_pkg <- function(env, signaller) {
+spec_package <- function(env, signaller) {
   env <- topenv(env)
 
   if (is_reference(env, global_env())) {
