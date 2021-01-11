@@ -26,7 +26,6 @@ italic    <- function(x) if (has_crayon()) crayon::italic(x)    else x
 underline <- function(x) if (has_crayon()) crayon::underline(x) else x
 
 lifecycle_abort <- function(x, env = parent.frame()) {
-  x <- glue::trim(x)
-  x <- paste0("[lifecycle] ", x)
-  abort(glue::glue(x, .envir = env), class = "lifecycle_error")
+  x <- paste0("Internal error in lifecycle: ", glue::trim(x))
+  abort(glue::glue(x, .envir = env))
 }

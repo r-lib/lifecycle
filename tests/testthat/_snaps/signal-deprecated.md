@@ -128,5 +128,5 @@
 
 # needs_warning works as expected
 
-    [lifecycle] Expected `POSIXct` value in `needs_warning()`.
+    Internal error in lifecycle: Expected `POSIXct` value in `needs_warning()`.
 
