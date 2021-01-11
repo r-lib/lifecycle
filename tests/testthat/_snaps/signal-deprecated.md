@@ -126,3 +126,7 @@
     Output
       The `qu-ux` argument of ``foo-fy`()` was deprecated in bar 1.0.0 and is now defunct.
 
+# needs_warning works as expected
+
+    Internal error: Expected `POSIXct` value in `lifecycle::needs_warning()`.
+

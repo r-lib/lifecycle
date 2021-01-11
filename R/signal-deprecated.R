@@ -119,12 +119,11 @@ deprecate_warn <- function(when,
 
   if (verbosity == "error") {
     deprecate_stop(when, what, with = with, details = details)
-    stop("unreached")
   }
 
   if (verbosity == "default") {
     # Prevent warning from being displayed again
-    env_poke(deprecation_env, id, Sys.time());
+    env_poke(deprecation_env, id, Sys.time())
 
     footer <- paste_line(
       silver("This warning is displayed once every 8 hours."),
@@ -152,19 +151,6 @@ deprecate_warn <- function(when,
     warning(wrn)
   })
 }
-needs_warning <- function(id) {
-  last <- deprecation_env[[id]]
-  if (is_null(last)) {
-    return(TRUE)
-  }
-
-  if (!inherits(last, "POSIXct")) {
-    abort("Internal error: Expected `POSIXct` value in `lifecycle::needs_warning()`.")
-  }
-
-  # Warn every 8 hours
-  (Sys.time() - last) > (8 * 60 * 60)
-}
 
 #' @rdname deprecate_soft
 #' @export
@@ -181,23 +167,6 @@ deprecate_stop <- function(when,
     package = NULL,
     message = msg
   ))
-}
-
-env_inherits_global <- function(env) {
-  # `topenv(emptyenv())` returns the global env. Return `FALSE` in
-  # that case to allow passing the empty env when the
-  # soft-deprecation should not be promoted to deprecation based on
-  # the caller environment.
-  if (is_reference(env, empty_env())) {
-    return(FALSE)
-  }
-
-  is_reference(topenv(env), global_env())
-}
-
-lifecycle_validate_message <- function(msg) {
-  stopifnot(is_character(msg))
-  paste0(msg, collapse = "\n")
 }
 
 lifecycle_build_message <- function(when,
@@ -285,6 +254,34 @@ signal_validate_pkg <- function(env) {
       { signaller }(what = \"myfunction()\")
     "
   ))
+}
+
+# Helpers -----------------------------------------------------------------
+
+env_inherits_global <- function(env) {
+  # `topenv(emptyenv())` returns the global env. Return `FALSE` in
+  # that case to allow passing the empty env when the
+  # soft-deprecation should not be promoted to deprecation based on
+  # the caller environment.
+  if (is_reference(env, empty_env())) {
+    return(FALSE)
+  }
+
+  is_reference(topenv(env), global_env())
+}
+
+needs_warning <- function(id) {
+  last <- deprecation_env[[id]]
+  if (is_null(last)) {
+    return(TRUE)
+  }
+
+  if (!inherits(last, "POSIXct")) {
+    abort("Internal error: Expected `POSIXct` value in `lifecycle::needs_warning()`.")
+  }
+
+  # Warn every 8 hours
+  (Sys.time() - last) > (8 * 60 * 60)
 }
 
 signal_validate_reason <- function(call, signaller) {
