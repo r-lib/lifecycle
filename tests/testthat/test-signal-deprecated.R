@@ -103,13 +103,3 @@ test_that("warning conditions are signaled only once if warnings are suppressed"
   expect_identical(x, 1L)
 })
 
-test_that("signal-deprecated.R produces correct error messages", {
-  verify_output(test_path("error", "test-signal-deprecated.txt"), {
-    "# signallers require function call syntax for `what`"
-    deprecate_stop("1.0.0", "foo")
-    deprecate_stop("1.0.0", "foo()()")
-    deprecate_stop("1.0.0", "foo(arg = , arg = )")
-    deprecate_stop("1.0.0", "foo(arg)")
-    deprecate_stop("1.0.0", "foo(arg = arg)")
-  })
-})
