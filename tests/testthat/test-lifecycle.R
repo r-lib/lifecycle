@@ -73,3 +73,12 @@ test_that("the topenv of the empty env is not the global env", {
   local_options(lifecycle_verbosity = NULL)
   expect_silent(deprecate_soft("1.0.0", "foo()", env = empty_env(), id = "topenv of empty env"))
 })
+
+test_that("expect_deprecated() matches regexp", {
+  expect_deprecated(deprecate_soft("1.0", "fn()", details = "foo"), "foo")
+  expect_deprecated(deprecate_warn("1.0", "fn()", details = "foo.["), "foo.[", fixed = TRUE)
+
+  expect_deprecated(expect_failure(
+    expect_deprecated(deprecate_soft("1.0", "fn()"), "foo")
+  ))
+})

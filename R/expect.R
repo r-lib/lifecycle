@@ -18,6 +18,9 @@
 #'
 #' @param expr Expression that should produce a lifecycle warning or
 #'   error.
+#' @param regexp Optional regular expression matched against the
+#'   expected warning message.
+#' @inheritParams testthat::expect_warning
 #'
 #' @details
 #' `expect_deprecated()` sets the [lifecycle_verbosity][verbosity]
@@ -25,11 +28,18 @@
 #' otherwise only shown once every 8 hours.
 #'
 #' @export
-expect_deprecated <- function(expr) {
+expect_deprecated <- function(expr, regexp = NULL, ...) {
   local_options(lifecycle_verbosity = "warning")
+
+  if (!is_null(regexp) && is_na(regexp)) {
+    abort("`regexp` can't be `NA`.")
+  }
+
   testthat::expect_warning(
     {{ expr }},
-    class = "lifecycle_warning_deprecated"
+    regexp = regexp,
+    class = "lifecycle_warning_deprecated",
+    ...
   )
 }
 #' @rdname expect_deprecated

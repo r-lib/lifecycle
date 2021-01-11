@@ -5,13 +5,24 @@
 \alias{expect_defunct}
 \title{Does expression produce lifecycle warnings or errors?}
 \usage{
-expect_deprecated(expr)
+expect_deprecated(expr, regexp = NULL, ...)
 
 expect_defunct(expr)
 }
 \arguments{
 \item{expr}{Expression that should produce a lifecycle warning or
 error.}
+
+\item{regexp}{Optional regular expression matched against the
+expected warning message.}
+
+\item{...}{
+  Arguments passed on to \code{\link[testthat:expect_match]{expect_match}}
+  \describe{
+    \item{\code{perl}}{logical.  Should Perl-compatible regexps be used?}
+    \item{\code{fixed}}{logical.  If \code{TRUE}, \code{pattern} is a string to be
+    matched as is.  Overrides all conflicting arguments.}
+  }}
 }
 \description{
 These functions are equivalent to \code{\link[testthat:expect_error]{testthat::expect_warning()}} and
