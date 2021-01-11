@@ -1,5 +1,3 @@
-context("verbosity")
-
 test_that("verbosity option is validated", {
   opt <- with_options(lifecycle_verbosity = NULL, lifecycle_verbosity())
   expect_identical(opt, "default")
