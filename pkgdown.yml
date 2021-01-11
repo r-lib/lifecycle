@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   lifecycle: lifecycle.html
-last_built: 2021-01-11T20:04Z
+last_built: 2021-01-11T20:08Z
 urls:
   reference: https://lifecycle.r-lib.org/reference
   article: https://lifecycle.r-lib.org/articles
