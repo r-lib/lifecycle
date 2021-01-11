@@ -60,8 +60,10 @@ The following sections describe how to use lifecycle badges and functions togeth
 
 ### Deprecate a function
 
-First, add a badge to the the `@description` block.
+First, add a badge to the the `@description` block[^1].
 Briefly describe why the deprecation occurred and what to use instead.
+
+[^1]: We only use an explicit `@description` when the description will be multiple paragraphs, as in these examples.
 
 ```{r}
 #' Add two numbers
@@ -82,14 +84,16 @@ Next, update the examples to show how to convert from the old usage to the new u
 #' sum(1, 2)
 ```
 
-Finally, add `@keywords internal` to remove the function from the documentation index (so that new users won't come across it so easily).
+Then add `@keywords internal` to remove the function from the documentation index.
 If you use pkgdown, also check that it's no longer listed in `_pkgdown.yml`.
+These changes make reduce the chance of new users coming across a deprecated function, but don't prevent those who already know about it from referring to the docs.
 
 ```{r}
 #' @keywords internal
 ```
 
-Add a call to `deprecate_warn()` on the first line of the function:
+You're now done with the docs, and it's time to add a warning when the user calls your function.
+Do this by adding call to `deprecate_warn()` on the first line of the function:
 
 ```{r}
 add_two <- function(x, y) {
@@ -100,7 +104,13 @@ add_two <- function(x, y) {
 add_two(1, 2)
 ```
 
-If the deprecation isn't a simple replacement, use the `details` argument to provide your own message to the user:
+`deprecate_warn()` generates user friendly messages for two common deprecation alternatives:
+
+-   Function in same package: `lifecycle::deprecate_warn("1.0.0", "fun_old()", "fun_new()")`
+
+-   Function in another package: `lifecycle::deprecate_warn("1.0.0", "old()", "package::new()")`
+
+For other cases, use the `details` argument to provide your own message to the user:
 
 ```{r}
 add_two <- function(x, y) {
@@ -115,10 +125,10 @@ add_two <- function(x, y) {
 add_two(1, 2)
 ```
 
-It's good practice to test that you've correctly implemented the deprecation, testing that the deprecated function both still works and generates a useful warning.
-Using an expectation inside an `expect_snapshot()`[^1] is a convenient way to do this:
+It's good practice to test that you've correctly implemented the deprecation, testing that the deprecated function still works and that it generates a useful warning.
+Using an expectation inside an `expect_snapshot()`[^2] is a convenient way to do this:
 
-[^1]: You can learn more about snapshot testing in `vignette("snapshot", package = "testthat")`.
+[^2]: You can learn more about snapshot testing in `vignette("snapshot", package = "testthat")`.
 
 ```{r, eval = FALSE}
 test_that("add_two is deprecated", {
@@ -129,7 +139,7 @@ test_that("add_two is deprecated", {
 })
 ```
 
-If you have extensive existing tests for the deprecated function you can suppress the warning in those tests:
+If you have existing tests for the deprecated function you can suppress the warning in those tests with the `lifecycle_verbosity` option:
 
 ```{r, eval = FALSE }
 test_that("add_two returns the sum of its inputs", {
@@ -150,7 +160,7 @@ test_that("add_two is deprecated", {
 
 For particularly important functions, you can choose to add two other stages to the deprecation process:
 
--   `deprecated_soft()` can be used before `deprecated_warn()`.
+-   `deprecated_soft()` is used before `deprecated_warn()`.
     This function only warns (a) users who try the feature from the global environment and (b) developers who directly use the feature (when running testthat tests).
     There is no warning when the deprecated feature is called indirectly by another package.
     This is a gentler form of deprecation that's useful when a package changes its extension interface --- it encourages package authors to update their code without affecting the end user.
@@ -284,9 +294,9 @@ add_two(1, NA, na.rm = FALSE)
 
 ### Deprecating an argument, providing a new default
 
-Alternatively, you can change the default value to `lifecycle::deprecated()` to make the deprecation status more obvious from the outside, and use `lifecycle::is_present()`[^2] to test whether or not the argument was provided.
+Alternatively, you can change the default value to `lifecycle::deprecated()` to make the deprecation status more obvious from the outside, and use `lifecycle::is_present()`[^3] to test whether or not the argument was provided.
 
-[^2]: Unlike `missing()`, this works for both direct and indirect calls.
+[^3]: Unlike `missing()`, this works for both direct and indirect calls.
 
 ```{r}
 #' @importFrom lifecycle deprecated
