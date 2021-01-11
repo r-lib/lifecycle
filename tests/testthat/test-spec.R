@@ -25,14 +25,15 @@ test_that("feature_spec() builds feature data", {
     feature_spec("pkg::foo(bar = 'baz')"),
     spec_data(fn = "foo", arg = "bar", pkg = "pkg", details = "baz")
   )
+})
 
-  verify_errors({
-    expect_error(feature_spec("foo"), "")
-    expect_error(feature_spec("foo()()"), "")
-    expect_error(feature_spec("foo(arg = , arg = )"), "")
-    expect_error(feature_spec("foo(arg)"), "")
-    expect_error(feature_spec("foo(arg = arg)"), "")
-  })
+test_that("feature_spec() gives useful errors", {
+  expect_snapshot(feature_spec(1), error = TRUE)
+  expect_snapshot(feature_spec("foo"), error = TRUE)
+  expect_snapshot(feature_spec("foo()()"), error = TRUE)
+  expect_snapshot(feature_spec("foo(arg = , arg = )"), error = TRUE)
+  expect_snapshot(feature_spec("foo(arg)"), error = TRUE)
+  expect_snapshot(feature_spec("foo(arg = arg)"), error = TRUE)
 })
 
 test_that("feature_spec() works with methods", {

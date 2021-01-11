@@ -1,13 +1,3 @@
-test_that("signallers require function call syntax for `what`", {
-  verify_errors({
-    expect_error(deprecate_stop("1.0.0", "foo"), "must have function call syntax")
-    expect_error(deprecate_stop("1.0.0", "foo()()"), "must be a function")
-    expect_error(deprecate_stop("1.0.0", "foo(arg = , arg = )"), "must have 1 argument")
-    expect_error(deprecate_stop("1.0.0", "foo(arg)"), "in the LHS")
-    expect_error(deprecate_stop("1.0.0", "foo(arg = arg)"), "on the RHS")
-  })
-})
-
 test_that("deprecation messages are constructed for functions", {
   expect_snapshot({
     # https://github.com/r-lib/rlang/issues/1087

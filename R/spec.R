@@ -14,14 +14,14 @@ feature_spec <- function(spec, signaller = "signal_lifecycle") {
 }
 
 spec_validate_what <- function(what, arg, signaller) {
+  if (!is_string(what)) {
+    abort("Internal error: `what` must be a string")
+  }
+
   call <- parse_expr(what)
 
   if (!is_call(call)) {
-    if (is_symbol(what) || is_string(what)) {
-      what <- as_string(what)
-    } else {
-      what <- "myfunction"
-    }
+    what <- as_string(what)
     abort(glue::glue(
       "
       Internal error: `what` must have function call syntax.
@@ -97,10 +97,6 @@ spec_validate_details <- function(call, signaller) {
 
   if (is_null(arg)) {
     return(NULL)
-  }
-
-  if (length(arg) != 1L) {
-    abort("Internal error: `what` can't refer to more than one argument.")
   }
 
   if (is_missing(node_car(arg))) {

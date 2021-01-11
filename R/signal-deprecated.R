@@ -209,7 +209,6 @@ lifecycle_build_message <- function(when,
 
   stopifnot(
     is_string(when),
-    is_string(what),
     is_null(with) || is_string(with),
     is_character(details)
   )
