@@ -15,7 +15,7 @@ Error: Internal error: `what` must have function call syntax.
 Error: Internal error: `what` must be a function or method call.
 
 > deprecate_stop("1.0.0", "foo(arg = , arg = )")
-Error: Internal error: `what` can't refer to more than one argument.
+Error: Internal error: Function in `what` (foo) must have 1 argument, not 2.
 
 > deprecate_stop("1.0.0", "foo(arg)")
 Error: Internal error: `what` must refer to arguments in the LHS of `=`.
