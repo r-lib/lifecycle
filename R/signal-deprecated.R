@@ -96,7 +96,7 @@ deprecate_soft <- function(when,
                            details = NULL,
                            id = NULL,
                            env = caller_env(2)) {
-  msg <- lifecycle_build_message(when, what, with, details, "deprecate_soft")
+  msg <- lifecycle_build_message(when, what, with, details, env, "deprecate_soft")
 
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
@@ -121,7 +121,7 @@ deprecate_warn <- function(when,
                            details = NULL,
                            id = NULL,
                            env = caller_env(2)) {
-  msg <- lifecycle_build_message(when, what, with, details, "deprecate_warn")
+  msg <- lifecycle_build_message(when, what, with, details, env, "deprecate_warn")
 
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
@@ -157,7 +157,7 @@ deprecate_stop <- function(when,
                            what,
                            with = NULL,
                            details = NULL) {
-  msg <- lifecycle_build_message(when, what, with, details, "deprecate_stop")
+  msg <- lifecycle_build_message(when, what, with, details, env, "deprecate_stop")
   deprecate_stop0(msg)
 }
 
@@ -203,6 +203,7 @@ lifecycle_build_message <- function(when,
                                     what,
                                     with = NULL,
                                     details = chr(),
+                                    env = caller_env(2),
                                     signaller) {
   details <- details %||% chr()
   if (length(details) > 1) {
@@ -221,7 +222,7 @@ lifecycle_build_message <- function(when,
   reason <- signal_validate_reason(what$call, signaller)
 
   if (is_null(what$pkg)) {
-    env <- topenv(caller_env(2))
+    env <- topenv(env)
     pkg <- signal_validate_pkg(env)
   } else {
     pkg <- what$pkg
