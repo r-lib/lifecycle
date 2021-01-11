@@ -199,21 +199,24 @@ behaviour.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>when</th>
-      <td><p>The package version when function/argument was deprecated.</p></td>
+      <td><p>A string giving the version when the behaviour was deprecated.</p></td>
     </tr>
     <tr>
       <th>what</th>
-      <td><p>If the deprecated feature is a whole function, the
-function name: <code>"foo()"</code>. If it's an argument that is being
-deprecated, the function call should include the argument:
-<code>"foo(arg = )"</code>.</p>
-<p>You can optionally supply the namespace: <code>"ns::foo()"</code>. If not
-supplied, it is inferred from the caller environment.</p></td>
+      <td><p>A string describing what is deprecated:</p><ul>
+<li><p>Deprecate a whole function with <code>"foo()"</code>.</p></li>
+<li><p>Deprecate an argument with <code>"foo(arg)"</code>.</p></li>
+<li><p>Partially deprecate an argument with
+<code>"foo(arg = 'must be a scalar integer')"</code>.</p></li>
+</ul>
+
+<p>You can optionally supply the namespace: <code>"ns::foo()"</code>, but this is
+usually not needed as it will be inferred from the caller environment.</p></td>
     </tr>
     <tr>
       <th>with</th>
-      <td><p>An optional replacement for the deprecated feature.
-This should be a string of the same form as <code>what</code>.</p></td>
+      <td><p>An optional string given a recommended replacement for the
+deprecated behaviour. This takes the same form as <code>what</code>.</p></td>
     </tr>
     <tr>
       <th>details</th>
