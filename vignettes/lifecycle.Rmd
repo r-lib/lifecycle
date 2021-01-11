@@ -55,7 +55,7 @@ lifecycle provides three functions to do this, corresponding to the three stages
 
 -   **Soft deprecation**: Call `deprecate_soft()` to start warning users about the deprecation in the least disruptive way.
     This function only warns (a) users who try the feature from the global workspace and (b) developers who directly use the feature (when running testthat tests).
-    No warning is when the deprecated feature is called indirectly by another package.
+    There is no warning when the deprecated feature is called indirectly by another package.
 
 -   **Deprecation**: Call `deprecate_warn()` to warn unconditionally about the deprecated feature.
     The warning is issued only once every 8 hours.
@@ -278,7 +278,7 @@ add_two <- function(x, y, na.rm = TRUE) {
     lifecycle::deprecate_warn(
       when = "1.0.0", 
       what = "add_two(na.rm = )",
-      details = "Ability to remove missing values will be dropped in next release"
+      details = "Ability to remove missing values will be dropped in next release."
     )
   }
   
@@ -320,7 +320,7 @@ add_two(1, NA, na.rm = FALSE)
 ### Renaming
 
 If you realise you have made a mistake with the name of an argument.
-For example, you've realised that accidentally used `.` to separate a compound name, instead of `_`.
+For example, you've realised that an argument accidentally uses `.` to separate a compound name, instead of `_`.
 
 ```{r}
 add_two <- function(x, y, na_rm = TRUE, na.rm = deprecated()) {
