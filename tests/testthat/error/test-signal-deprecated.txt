@@ -27,7 +27,7 @@ Error: Internal error: `what` must refer to arguments in the LHS of `=`.
   deprecate_stop("foo(arg)")
 
 > deprecate_stop("1.0.0", "foo(arg = arg)")
-Error: Internal error: `what` must contain reason as a string in the LHS of `=`.
+Error: Internal error: `what` must contain reason as a string on the RHS of `=`.
 
   # Good:
   deprecate_stop("foo(arg = 'must be a string')")
