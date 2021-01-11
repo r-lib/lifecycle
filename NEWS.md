@@ -1,5 +1,7 @@
 # lifecycle (development version)
 
+* A character vector `details` is now converted into a bulleted list (#55).
+
 * You can now deprecate an argument with `foo(arg)` instead of `foo(arg =)` (#78).
   This syntax is similar in spirit to the formal arguments of function definitions.
 

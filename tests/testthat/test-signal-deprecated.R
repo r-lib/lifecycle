@@ -127,6 +127,21 @@ test_that("non-syntactic names are handled gracefully", {
   })
 })
 
+test_that("can use bullets in details ", {
+  expect_snapshot({
+    cat_line(lifecycle_build_message(
+      "1.0.0", "foo()",
+      details = c(
+        "Unnamed",
+        i = "Informative",
+        x = "Error"
+      ),
+      signaller = "deprecate_stop"
+    ))
+  })
+})
+
+
 
 # helpers -----------------------------------------------------------------
 

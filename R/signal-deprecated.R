@@ -35,9 +35,10 @@
 #'   usually not needed as it will be inferred from the caller environment.
 #' @param with An optional string given a recommended replacement for the
 #'   deprecated behaviour. This takes the same form as `what`.
-#' @param details The deprecation message is generated from `when`,
-#'   `what`, and `with`. You can additionally supply a string
-#'   `details` to be appended to the message.
+#' @param details In most cases the deprecation message can be automatically
+#'   generated from `with`. When it can't, use `details` to provide a
+#'   hand-written message. `details` can either be a single string or a
+#'   character vector, which will be converted to a bulleted list.
 #' @param id The id of the deprecation. A warning is issued only once
 #'   for each `id`. Defaults to the generated message, but you should
 #'   give a unique ID when the message in `details` is built
@@ -72,9 +73,22 @@
 #' # different package:
 #' deprecate_warn("1.0.0", "foo()", "otherpackage::bar()")
 #'
-#' # A deprecated function with an argument replacement:
-#' deprecate_warn("1.0.0", "foo()", "foo(bar = )")
+#' # A deprecated function with custom message:
+#' deprecate_warn(
+#'   when = "1.0.0",
+#'   "foo()",
+#'   details = "Please use `otherpackage::bar(foo = TRUE)` instead"
+#' )
 #'
+#' # A deprecated function with custom bulleted list:
+#' deprecate_warn(
+#'   when = "1.0.0",
+#'   "foo()",
+#'   details = c(
+#'     x = "This is dangerous",
+#'     i = "Did you mean `safe_foo()` instead?"
+#'   )
+#' )
 #' @export
 deprecate_soft <- function(when,
                            what,
@@ -177,6 +191,9 @@ lifecycle_build_message <- function(when,
                                     details = chr(),
                                     signaller) {
   details <- details %||% chr()
+  if (length(details) > 1) {
+    details <- format_error_bullets(details)
+  }
 
   stopifnot(
     is_string(when),
