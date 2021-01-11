@@ -124,7 +124,7 @@ spec_package <- function(env, signaller) {
 
   if (is_reference(env, global_env())) {
     # Convenient for experimenting interactively
-    return("<NA>")
+    return(getOption("lifecycle:::calling_package", "<NA>"))
   }
 
   if(is_namespace(env)) {
