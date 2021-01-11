@@ -100,3 +100,4 @@ If you're using a non-CRAN package you should plan for an active relationship: w
 
 Sometimes the author of function is no longer certain that a function is the optimal approach, but doesn't yet know how to do it better.
 These functions can be marked as ![questioning](figures/lifecycle-questioning.svg){style="vertical-align:middle"} to give users a heads up that the author has doubts about the function.
+Because knowing that a function is questioning is not very actionable, we no longer use or recommend this stage.
