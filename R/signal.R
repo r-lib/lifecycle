@@ -55,9 +55,7 @@ lifecycle_cnd_data <- function(cnd) {
     signaller <- "signal_superseded"
   } else {
     class <- paste(class(cnd), collapse = "/")
-    abort(glue::glue(
-      "Internal error: Unsupported class `{class}` in `lifecycle_cnd_data()`."
-    ))
+    lifecycle_abort("Unsupported class `{class}` in `lifecycle_cnd_data()`.")
   }
 
   what <- feature_spec(cnd$what, signaller = signaller)

@@ -24,3 +24,9 @@ silver    <- function(x) if (has_crayon()) crayon::silver(x)    else x
 bold      <- function(x) if (has_crayon()) crayon::bold(x)      else x
 italic    <- function(x) if (has_crayon()) crayon::italic(x)    else x
 underline <- function(x) if (has_crayon()) crayon::underline(x) else x
+
+lifecycle_abort <- function(x, env = parent.frame()) {
+  x <- glue::trim(x)
+  x <- paste0("[lifecycle] ", x)
+  abort(glue::glue(x, .envir = env), class = "lifecycle_error")
+}

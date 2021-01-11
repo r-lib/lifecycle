@@ -15,16 +15,16 @@ feature_spec <- function(spec, signaller = "signal_lifecycle") {
 
 spec_validate_what <- function(what, arg, signaller) {
   if (!is_string(what)) {
-    abort("Internal error: `what` must be a string")
+    lifecycle_abort("`what` must be a string")
   }
 
   call <- parse_expr(what)
 
   if (!is_call(call)) {
     what <- as_string(what)
-    abort(glue::glue(
+    lifecycle_abort(
       "
-      Internal error: `what` must have function call syntax.
+      `what` must have function call syntax.
 
         # Good:
         { signaller }(\"{what}()\")
@@ -33,7 +33,7 @@ spec_validate_what <- function(what, arg, signaller) {
         { signaller }(\"{what}\")
 
       "
-    ))
+    )
   }
 
   head <- node_car(call)
@@ -51,7 +51,7 @@ spec_validate_fn <- function(call) {
   fn <- node_car(call)
 
   if (!is_symbol(fn) && !is_call(fn, "$")) {
-    abort("Internal error: `what` must be a function or method call.")
+    lifecycle_abort("`what` must be a function or method call.")
   }
 
   # Deparse so non-syntactic names are backticked
@@ -68,25 +68,23 @@ spec_validate_arg <- function(call, signaller) {
   if (length(arg) != 1L) {
     fn <- as_label(node_car(call))
     n <- length(arg)
-    abort(glue::glue(
-      "Internal error: Function in `what` ({fn}) must have 1 argument, not {n}."
-    ))
+    lifecycle_abort("Function in `what` ({fn}) must have 1 argument, not {n}.")
   }
 
   if (is_null(node_tag(arg))) {
     fn <- as_label(node_car(call))
-    abort(glue::glue(
+    lifecycle_abort(
       "
-        Internal error: `what` must refer to arguments in the LHS of `=`.
+      `what` must refer to arguments in the LHS of `=`.
 
-          # Good:
-          {signaller}(\"{fn}(arg = )\")
+        # Good:
+        {signaller}(\"{fn}(arg = )\")
 
-          # Bad:
-          {signaller}(\"{fn}(arg)\")
+        # Bad:
+        {signaller}(\"{fn}(arg)\")
 
-        "
-    ))
+      "
+    )
   }
 
   as_string(node_tag(arg))
@@ -108,16 +106,16 @@ spec_validate_details <- function(call, signaller) {
   }
 
   fn <- expr_deparse(node_car(call))
-  abort(glue::glue(
-      "
-        Internal error: `what` must contain reason as a string on the RHS of `=`.
+  lifecycle_abort(
+    "
+    `what` must contain reason as a string on the RHS of `=`.
 
-          # Good:
-          {signaller}(\"{fn}(arg = 'must be a string')\")
+      # Good:
+      {signaller}(\"{fn}(arg = 'must be a string')\")
 
-          # Bad:
-          {signaller}(\"{fn}(arg = 42)\")
+      # Bad:
+      {signaller}(\"{fn}(arg = 42)\")
 
-        "
-  ))
+    "
+  )
 }

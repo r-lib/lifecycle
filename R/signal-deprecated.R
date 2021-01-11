@@ -242,9 +242,9 @@ signal_validate_pkg <- function(env) {
     return(ns_env_name(env))
   }
 
-  abort(glue::glue(
+  lifecycle_abort(
     "
-    Internal error: Can't detect the package of the deprecated function.
+    Can't detect the package of the deprecated function.
     Please mention the namespace:
 
       # Good:
@@ -253,7 +253,7 @@ signal_validate_pkg <- function(env) {
       # Bad:
       { signaller }(what = \"myfunction()\")
     "
-  ))
+  )
 }
 
 # Helpers -----------------------------------------------------------------
@@ -277,7 +277,7 @@ needs_warning <- function(id) {
   }
 
   if (!inherits(last, "POSIXct")) {
-    abort("Internal error: Expected `POSIXct` value in `lifecycle::needs_warning()`.")
+    lifecycle_abort("Expected `POSIXct` value in `needs_warning()`.")
   }
 
   # Warn every 8 hours
