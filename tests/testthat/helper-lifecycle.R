@@ -16,8 +16,6 @@ cat_ruler <- function(title) {
   cat(paste0("\n\n", title, "\n", strrep("=", nchar(title)), "\n\n"))
 }
 
-verify_errors <- function(expr) expr
-
 spec_data <- function(fn = NULL, arg = NULL, pkg = NULL, details = NULL) {
   list(
     fn = fn,

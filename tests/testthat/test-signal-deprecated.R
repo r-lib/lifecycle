@@ -1,12 +1,42 @@
-test_that("signallers require function call syntax for `what`", {
-  verify_errors({
-    expect_error(deprecate_stop("1.0.0", "foo"), "must have function call syntax")
-    expect_error(deprecate_stop("1.0.0", "foo()()"), "must be a function")
-    expect_error(deprecate_stop("1.0.0", "foo(arg = , arg = )"), "must have 1 argument")
-    expect_error(deprecate_stop("1.0.0", "foo(arg)"), "in the LHS")
-    expect_error(deprecate_stop("1.0.0", "foo(arg = arg)"), "on the RHS")
-  })
+# lifecycle verbosity -----------------------------------------------------
+
+test_that("deprecation functions generate expected signals", {
+  local_options(lifecycle_verbosity = "warning")
+
+  expect_deprecated(deprecate_soft("1.0.0", "foo()"))
+  expect_deprecated(deprecate_warn("1.0.0", "foo()"))
+  expect_defunct(deprecate_stop("1.0.0", "foo()"))
 })
+
+test_that("quiet suppresses _soft and _warn", {
+  local_options(lifecycle_verbosity = "quiet")
+
+  expect_warning(deprecate_soft("1.0.0", "foo()"), NA)
+  expect_warning(deprecate_warn("1.0.0", "foo()"), NA)
+  expect_defunct(deprecate_stop("1.0.0", "foo()"))
+})
+
+test_that("error coverts _soft and _warn to errors", {
+  local_options(lifecycle_verbosity = "error")
+
+  expect_defunct(deprecate_soft("1.0.0", "foo()"))
+  expect_defunct(deprecate_warn("1.0.0", "foo()"))
+  expect_defunct(deprecate_stop("1.0.0", "foo()"))
+})
+
+test_that("warning conditions are signaled only once if warnings are suppressed", {
+  local_options(lifecycle_verbosity = "warning")
+
+  x <- 0L
+  suppressWarnings(withCallingHandlers(
+    warning = function(...) x <<- x + 1L,
+    deprecate_warn("1.0.0", "foo()")
+  ))
+
+  expect_identical(x, 1L)
+})
+
+# messaging ---------------------------------------------------------------
 
 test_that("deprecation messages are constructed for functions", {
   expect_snapshot({
@@ -97,29 +127,27 @@ test_that("non-syntactic names are handled gracefully", {
   })
 })
 
-test_that("defunct errors inherit from lifecycle subclass", {
-  expect_error(deprecate_stop("1.0.0", "foo()"), class = "lifecycle_error_deprecated")
+
+# helpers -----------------------------------------------------------------
+
+test_that("env_inherits_global works for simple cases", {
+  expect_false(env_inherits_global(empty_env()))
+
+  env <- new_environment(parent = global_env())
+  expect_true(env_inherits_global(env))
 })
 
-test_that("warning conditions are signaled only once if warnings are suppressed", {
-  local_options(lifecycle_verbosity = "warning")
+test_that("needs_warning works as expected", {
+  on.exit(env_unbind(deprecation_env, "test"))
 
-  x <- 0L
-  suppressWarnings(withCallingHandlers(
-    warning = function(...) x <<- x + 1L,
-    deprecate_warn("1.0.0", "foo()")
-  ))
+  expect_true(needs_warning("test"))
 
-  expect_identical(x, 1L)
-})
+  env_poke(deprecation_env, "test", Sys.time())
+  expect_false(needs_warning("test"))
 
-test_that("signal-deprecated.R produces correct error messages", {
-  verify_output(test_path("error", "test-signal-deprecated.txt"), {
-    "# signallers require function call syntax for `what`"
-    deprecate_stop("1.0.0", "foo")
-    deprecate_stop("1.0.0", "foo()()")
-    deprecate_stop("1.0.0", "foo(arg = , arg = )")
-    deprecate_stop("1.0.0", "foo(arg)")
-    deprecate_stop("1.0.0", "foo(arg = arg)")
-  })
+  env_poke(deprecation_env, "test", Sys.time() - 9 * 60 * 60)
+  expect_false(needs_warning("test"))
+
+  env_poke(deprecation_env, "test", "x")
+  expect_snapshot_error(needs_warning("test"))
 })
