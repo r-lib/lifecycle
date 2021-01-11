@@ -315,7 +315,7 @@ env_inherits_global <- function(env) {
 
 needs_warning <- function(id) {
   if (!is_string(id)) {
-    abort("Internal error: `id` must be a string")
+    lifecycle_abort("`id` must be a string")
   }
 
   last <- deprecation_env[[id]]

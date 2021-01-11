@@ -139,5 +139,12 @@
 
 # needs_warning works as expected
 
+    Code
+      needs_warning(1)
+    Error <rlang_error>
+      Internal error in lifecycle: `id` must be a string
+
+---
+
     Internal error in lifecycle: Expected `POSIXct` value in `needs_warning()`.
 

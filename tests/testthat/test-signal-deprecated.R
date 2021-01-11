@@ -155,6 +155,7 @@ test_that("env_inherits_global works for simple cases", {
 test_that("needs_warning works as expected", {
   on.exit(env_unbind(deprecation_env, "test"))
 
+  expect_snapshot(needs_warning(1), error = TRUE)
   expect_true(needs_warning("test"))
 
   env_poke(deprecation_env, "test", Sys.time())
