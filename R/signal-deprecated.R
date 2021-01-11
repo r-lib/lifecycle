@@ -91,28 +91,8 @@ deprecate_soft <- function(when,
     return(invisible(NULL))
   }
 
-  if (from_testthat(env)) {
-    # Warn repeatedly in unit tests
-    scoped_options(lifecycle_verbosity = "warning")
-
-    deprecate_warn(when, what, with = with, details = details, id = id)
-    return(invisible(NULL))
-  }
-
   msg <- lifecycle_build_message(when, what, with, details, "deprecate_soft")
   signal(msg, "lifecycle_soft_deprecated")
-}
-
-# TRUE if we are in unit tests and the package being tested is the
-# same as the package that called
-from_testthat <- function(env) {
-  tested_package <- Sys.getenv("TESTTHAT_PKG")
-
-  # Test for environment names rather than reference/contents because
-  # testthat clones the namespace
-  nzchar(tested_package) &&
-    identical(Sys.getenv("NOT_CRAN"), "true") &&
-    env_name(topenv(env)) == env_name(ns_env(tested_package))
 }
 
 #' @rdname deprecate_soft
@@ -133,7 +113,7 @@ deprecate_warn <- function(when,
     return(invisible(NULL))
   }
 
-  if (verbosity == "default" && !needs_warning(id) && !from_testthat(env)) {
+  if (verbosity == "default" && !needs_warning(id)) {
     return(invisible(NULL))
   }
 

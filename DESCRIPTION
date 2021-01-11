@@ -22,15 +22,16 @@ Depends:
     R (>= 3.2)
 Imports:
     glue,
-    rlang (>= 0.4.0)
+    rlang (>= 0.4.10)
 Suggests:
     covr,
     crayon,
     knitr,
     rmarkdown,
-    testthat (>= 2.1.0)
+    testthat (>= 3.0.1)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 URL: https://lifecycle.r-lib.org/, https://github.com/r-lib/lifecycle
 BugReports: https://github.com/r-lib/lifecycle/issues
 VignetteBuilder: knitr
+Config/testthat/edition: 3
