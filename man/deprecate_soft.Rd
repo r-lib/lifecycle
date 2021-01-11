@@ -31,10 +31,10 @@ deprecate_stop(when, what, with = NULL, details = NULL)
 
 \item{what}{A string describing what is deprecated:
 \itemize{
-\item Deprecate a whole function with \code{"foo()"}.
-\item Deprecate an argument with \code{"foo(arg)"}.
+\item Deprecate a whole function with \code{foo()}.
+\item Deprecate an argument with \code{foo(arg)}.
 \item Partially deprecate an argument with
-\code{"foo(arg = 'must be a scalar integer')"}.
+\code{foo(arg = 'must be a scalar integer')}.
 }
 
 You can optionally supply the namespace: \code{"ns::foo()"}, but this is
@@ -89,32 +89,32 @@ Deprecation warnings have class
 }
 \examples{
 # A deprecated function `foo`:
-deprecate_warn("1.0.0", "foo()")
+deprecate_warn("1.0.0", foo())
 
 # A deprecated argument `arg`:
-deprecate_warn("1.0.0", "foo(arg = )")
+deprecate_warn("1.0.0", foo(arg))
 
 # A partially deprecated argument `arg`:
-deprecate_warn("1.0.0", "foo(arg = 'must be a scalar integer')")
+deprecate_warn("1.0.0", foo(arg = 'must be a scalar integer'))
 
 # A deprecated function with a function replacement:
-deprecate_warn("1.0.0", "foo()", "bar()")
+deprecate_warn("1.0.0", foo(), bar())
 
 # A deprecated function with a function replacement from a
 # different package:
-deprecate_warn("1.0.0", "foo()", "otherpackage::bar()")
+deprecate_warn("1.0.0", foo(), "otherpackage::bar()")
 
 # A deprecated function with custom message:
 deprecate_warn(
   when = "1.0.0",
-  "foo()",
+  what = foo(),
   details = "Please use `otherpackage::bar(foo = TRUE)` instead"
 )
 
 # A deprecated function with custom bulleted list:
 deprecate_warn(
   when = "1.0.0",
-  "foo()",
+  what = foo(),
   details = c(
     x = "This is dangerous",
     i = "Did you mean `safe_foo()` instead?"
