@@ -4,35 +4,35 @@ test_that("default deprecations behave as expected", {
   on.exit(env_unbind(deprecation_env, "test"))
   local_options(lifecycle_verbosity = "default")
 
-  expect_condition(deprecate_soft("1.0.0", "foo()"), class = "lifecycle_soft_deprecated")
-  expect_warning(deprecate_warn("1.0.0", "foo()", id = "test"), class = "lifecycle_warning_deprecated")
-  expect_warning(deprecate_warn("1.0.0", "foo()", id = "test"), NA)
-  expect_defunct(deprecate_stop("1.0.0", "foo()"))
+  expect_condition(deprecate_soft("1.0.0", foo()), class = "lifecycle_soft_deprecated")
+  expect_warning(deprecate_warn("1.0.0", foo(), id = "test"), class = "lifecycle_warning_deprecated")
+  expect_warning(deprecate_warn("1.0.0", foo(), id = "test"), NA)
+  expect_defunct(deprecate_stop("1.0.0", foo()))
 })
 
 test_that("quiet suppresses _soft and _warn", {
   local_options(lifecycle_verbosity = "quiet")
 
-  expect_warning(deprecate_soft("1.0.0", "foo()"), NA)
-  expect_warning(deprecate_warn("1.0.0", "foo()"), NA)
-  expect_defunct(deprecate_stop("1.0.0", "foo()"))
+  expect_warning(deprecate_soft("1.0.0", foo()), NA)
+  expect_warning(deprecate_warn("1.0.0", foo()), NA)
+  expect_defunct(deprecate_stop("1.0.0", foo()))
 })
 
 test_that("warning always warns in _soft and _warn", {
 
   local_options(lifecycle_verbosity = "warning")
 
-  expect_deprecated(deprecate_soft("1.0.0", "foo()"))
-  expect_deprecated(deprecate_warn("1.0.0", "foo()"))
-  expect_defunct(deprecate_stop("1.0.0", "foo()"))
+  expect_deprecated(deprecate_soft("1.0.0", foo()))
+  expect_deprecated(deprecate_warn("1.0.0", foo()))
+  expect_defunct(deprecate_stop("1.0.0", foo()))
 })
 
 test_that("error coverts _soft and _warn to errors", {
   local_options(lifecycle_verbosity = "error")
 
-  expect_defunct(deprecate_soft("1.0.0", "foo()"))
-  expect_defunct(deprecate_warn("1.0.0", "foo()"))
-  expect_defunct(deprecate_stop("1.0.0", "foo()"))
+  expect_defunct(deprecate_soft("1.0.0", foo()))
+  expect_defunct(deprecate_warn("1.0.0", foo()))
+  expect_defunct(deprecate_stop("1.0.0", foo()))
 })
 
 test_that("warning conditions are signaled only once if warnings are suppressed", {
@@ -41,10 +41,17 @@ test_that("warning conditions are signaled only once if warnings are suppressed"
   x <- 0L
   suppressWarnings(withCallingHandlers(
     warning = function(...) x <<- x + 1L,
-    deprecate_warn("1.0.0", "foo()")
+    deprecate_warn("1.0.0", foo())
   ))
 
   expect_identical(x, 1L)
+})
+
+test_that("can use quoted or unquoted what/with", {
+  cnd1 <- catch_cnd(deprecate_warn("1.0.0", foo()))
+  cnd2 <- catch_cnd(deprecate_warn("1.0.0", "foo()"))
+
+  expect_equal(cnd1, cnd2)
 })
 
 # messaging ---------------------------------------------------------------
