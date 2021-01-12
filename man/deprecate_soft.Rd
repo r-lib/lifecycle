@@ -68,25 +68,26 @@ In that case, you need to forward the calling environment.}
 }
 \description{
 These functions provide three levels of verbosity for deprecated
-functions.
+functions. Learn how to use them in \code{vignette("communicate")}.
 \itemize{
 \item \code{deprecate_soft()} warns only if the deprecated function is
-called from the global environment (so the user can change their
-script) or from the package currently being tested (so the
-package developer can fix the package). Use for soft-deprecated
-functions.
-\item \code{deprecate_warn()} warns unconditionally. Use for deprecated functions.
-\item \code{deprecate_stop()} fails unconditionally. Use for defunct functions.
+called from the global environment or from the package currently
+being tested.
+\item \code{deprecate_warn()} warns unconditionally.
+\item \code{deprecate_stop()} fails unconditionally.
 }
 
 Warnings are only issued once every 8 hours to avoid overwhelming
-the user. See the \link[=verbosity]{verbosity option} to control this
-behaviour.
-
-Deprecation warnings have class
-\code{lifecycle_warning_deprecated}. Deprecation errors have class
-\code{lifecycle_error_deprecated}.
+the user. Control with See the \code{\link[=verbosity]{options(lifecycle_verbosity)}}.
 }
+\section{Conditions}{
+
+\itemize{
+\item Deprecation warnings have class \code{lifecycle_warning_deprecated}.
+\item Deprecation errors have class \code{lifecycle_error_deprecated}.
+}
+}
+
 \examples{
 # A deprecated function `foo`:
 deprecate_warn("1.0.0", foo())

@@ -8,6 +8,12 @@
 
 lifecycle provides a set of tools and conventions to manage the life cycle of your exported functions.
 
+-   Read `vignette("stages")` to learn what it means for a function to be experimental, stable, deprecated, or superseded.
+
+-   Read `vignette("manage")` to learn how to manage lifecycle changes in functions that you use.
+
+-   Read `vignette("communicate")` to learn how to communicate lifecycle changes in the functions you write.
+
 ## Installation
 
 ``` r
@@ -17,11 +23,3 @@ install.packages("lifecycle")
 # Install development version from GitHub
 devtools::install_github("r-lib/lifecycle")
 ```
-
-## Usage
-
--   Learn about the lifecycle stages in `vignette("stages")`.
-
--   Learn how to advertise lifecycle changes the functions you write in `vignette("lifecycle")`.
-
--   Learn how to handle lifecycle changes in the functions you use in `vignette("user")`.

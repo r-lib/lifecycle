@@ -1,8 +1,8 @@
 ---
-title: "Scripts"
+title: "Manage lifecycle changes in functions you use"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Scripts}
+  %\VignetteIndexEntry{Manage lifecycle changes in functions you use}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

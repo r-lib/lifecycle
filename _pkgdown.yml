@@ -4,13 +4,10 @@ template:
   params:
     ganalytics: UA-115082821-1
 
-navbar:
-  structure:
-    left:  [home, reference]
-    right: [articles, news, github]
-  components:
-    news:
-      text: News
-      menu:
-      - text: "Changelog"
-        href: news/index.html
+articles:
+- title: All articles
+  navbar: ~
+  contents:
+  - stages
+  - manage
+  - communicate

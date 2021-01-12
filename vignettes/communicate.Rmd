@@ -1,8 +1,8 @@
 ---
-title: "Package development"
+title: "Communicate lifecycle changes in your functions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Package development}
+  %\VignetteIndexEntry{Communicate lifecycle changes in your functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
