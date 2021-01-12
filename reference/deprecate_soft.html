@@ -204,10 +204,10 @@ behaviour.</p>
     <tr>
       <th>what</th>
       <td><p>A string describing what is deprecated:</p><ul>
-<li><p>Deprecate a whole function with <code>"foo()"</code>.</p></li>
-<li><p>Deprecate an argument with <code>"foo(arg)"</code>.</p></li>
+<li><p>Deprecate a whole function with <code>foo()</code>.</p></li>
+<li><p>Deprecate an argument with <code>foo(arg)</code>.</p></li>
 <li><p>Partially deprecate an argument with
-<code>"foo(arg = 'must be a scalar integer')"</code>.</p></li>
+<code>foo(arg = 'must be a scalar integer')</code>.</p></li>
 </ul>
 
 <p>You can optionally supply the namespace: <code>"ns::foo()"</code>, but this is
@@ -254,27 +254,27 @@ In that case, you need to forward the calling environment.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># A deprecated function `foo`:</span>
-<span class='fu'>deprecate_warn</span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='st'>"foo()"</span><span class='op'>)</span>
+<span class='fu'>deprecate_warn</span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='fu'>foo</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` was deprecated in base 1.0.0.</span></div><div class='input'>
 <span class='co'># A deprecated argument `arg`:</span>
-<span class='fu'>deprecate_warn</span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='st'>"foo(arg = )"</span><span class='op'>)</span>
+<span class='fu'>deprecate_warn</span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='fu'>foo</span><span class='op'>(</span><span class='va'>arg</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: The `arg` argument of `foo()` is deprecated as of base 1.0.0.</span></div><div class='input'>
 <span class='co'># A partially deprecated argument `arg`:</span>
-<span class='fu'>deprecate_warn</span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='st'>"foo(arg = 'must be a scalar integer')"</span><span class='op'>)</span>
+<span class='fu'>deprecate_warn</span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='fu'>foo</span><span class='op'>(</span>arg <span class='op'>=</span> <span class='st'>'must be a scalar integer'</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: The `arg` argument of `foo()` must be a scalar integer as of base 1.0.0.</span></div><div class='input'>
 <span class='co'># A deprecated function with a function replacement:</span>
-<span class='fu'>deprecate_warn</span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='st'>"foo()"</span>, <span class='st'>"bar()"</span><span class='op'>)</span>
+<span class='fu'>deprecate_warn</span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='fu'>foo</span><span class='op'>(</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/grDevices/plotmath.html'>bar</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` was deprecated in base 1.0.0.</span>
 #&gt; <span class='warning'>Please use `bar()` instead.</span></div><div class='input'>
 <span class='co'># A deprecated function with a function replacement from a</span>
 <span class='co'># different package:</span>
-<span class='fu'>deprecate_warn</span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='st'>"foo()"</span>, <span class='st'>"otherpackage::bar()"</span><span class='op'>)</span>
+<span class='fu'>deprecate_warn</span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='fu'>foo</span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"otherpackage::bar()"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` was deprecated in base 1.0.0.</span>
 #&gt; <span class='warning'>Please use `otherpackage::bar()` instead.</span></div><div class='input'>
 <span class='co'># A deprecated function with custom message:</span>
 <span class='fu'>deprecate_warn</span><span class='op'>(</span>
   when <span class='op'>=</span> <span class='st'>"1.0.0"</span>,
-  <span class='st'>"foo()"</span>,
+  what <span class='op'>=</span> <span class='fu'>foo</span><span class='op'>(</span><span class='op'>)</span>,
   details <span class='op'>=</span> <span class='st'>"Please use `otherpackage::bar(foo = TRUE)` instead"</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: `foo()` was deprecated in base 1.0.0.</span>
@@ -282,7 +282,7 @@ In that case, you need to forward the calling environment.</p></td>
 <span class='co'># A deprecated function with custom bulleted list:</span>
 <span class='fu'>deprecate_warn</span><span class='op'>(</span>
   when <span class='op'>=</span> <span class='st'>"1.0.0"</span>,
-  <span class='st'>"foo()"</span>,
+  what <span class='op'>=</span> <span class='fu'>foo</span><span class='op'>(</span><span class='op'>)</span>,
   details <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
     x <span class='op'>=</span> <span class='st'>"This is dangerous"</span>,
     i <span class='op'>=</span> <span class='st'>"Did you mean `safe_foo()` instead?"</span>
