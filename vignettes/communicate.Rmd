@@ -48,7 +48,7 @@ We'll cover the details shortly, but here are a few sample uses:
 
 ```{r}
 lifecycle::deprecate_warn("1.0.0", old_fun(), new_fun())
-lifecycle::deprecate_warn("1.0.0", fun(), teststhat::fun())
+lifecycle::deprecate_warn("1.0.0", fun(), testthat::fun())
 lifecycle::deprecate_warn("1.0.0", fun(old_arg), fun(new_arg))
 ```
 

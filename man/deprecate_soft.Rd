@@ -78,7 +78,7 @@ being tested.
 }
 
 Warnings are only issued once every 8 hours to avoid overwhelming
-the user. Control with See the \code{\link[=verbosity]{options(lifecycle_verbosity)}}.
+the user. Control with \code{\link[=verbosity]{options(lifecycle_verbosity)}}.
 }
 \section{Conditions}{
 
