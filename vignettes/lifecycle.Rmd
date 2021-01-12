@@ -243,15 +243,8 @@ To advertise that a function is experimental and the interface might change with
 #' `r lifecycle::badge("superseded")`
 ```
 
-And then in the body of the function call `signal_experimental()`:
-
-```{r}
-order_pizza <- function(size, flavour) {
-  signal_experimental("0.1.0", "order_pizza()")
-}
-```
-
-lifecycle doesn't currently provide tools to help users avoid experimental functions, but it likely will in the future.
+We don't currently provide automated signals for experimental functions because it's not clear how they would work, or if the effort to use them consistently would be worth the payoff.
+See discussion in <https://github.com/r-lib/lifecycle/issues/44>.
 
 ## Arguments
 
