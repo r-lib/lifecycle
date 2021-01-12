@@ -3,7 +3,7 @@
     Code
       spec(1)
     Error <rlang_error>
-      Internal error in lifecycle: `what` must be a string
+      Internal error in lifecycle: `what` must be a string or call.
 
 ---
 
