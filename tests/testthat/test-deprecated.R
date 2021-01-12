@@ -5,7 +5,7 @@ test_that("default deprecations behave as expected", {
   local_options(lifecycle_verbosity = "default")
 
   expect_condition(deprecate_soft("1.0.0", foo()), class = "lifecycle_soft_deprecated")
-  expect_warning(deprecate_warn("1.0.0", "foo()", id = "test"), class = "lifecycle_warning_deprecated")
+  expect_warning(deprecate_warn("1.0.0", foo(), id = "test"), class = "lifecycle_warning_deprecated")
   expect_warning(deprecate_warn("1.0.0", foo(), id = "test"), NA)
   expect_defunct(deprecate_stop("1.0.0", foo()))
 })

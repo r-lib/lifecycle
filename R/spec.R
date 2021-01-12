@@ -26,7 +26,7 @@ spec_what <- function(what, arg, signaller) {
   } else if (is_string(what)) {
     call <- parse_expr(what)
   } else {
-    lifecycle_abort("`what` must be a string or call")
+    lifecycle_abort("`what` must be a string or call.")
   }
 
   if (!is_call(call)) {
