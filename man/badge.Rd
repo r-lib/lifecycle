@@ -17,8 +17,8 @@ An \code{Rd} expression describing the lifecycle stage.
 \description{
 To include lifecycle badges in your documentation:
 \enumerate{
-\item Call \code{usethis::use_lifecycle()} to import the badges in your
-package. They are copied in the \verb{man/} folder.
+\item Call \code{usethis::use_lifecycle()} to copy the badge images into the
+\verb{man/} folder of your package.
 \item Call \code{lifecycle::badge()} inside R backticks to insert a
 lifecycle badge:\preformatted{#' `r lifecycle::badge("experimental")`
 #' `r lifecycle::badge("deprecated")`
@@ -30,7 +30,7 @@ badge is at the top of the topic description. If it is an argument,
 you can put the badge in the argument description.
 }
 
-The badge is displayed as image in the HTML version of the
+The badge is displayed as an image in the HTML version of the
 documentation and as text otherwise.
 
 \code{lifecycle::badge()} is run by roxygen at build time so you don't need
