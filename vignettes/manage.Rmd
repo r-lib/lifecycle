@@ -23,7 +23,7 @@ For example, lets imagine your code uses `tibble::data_frame()`, which was depre
 
 ```{r}
 data_frame <- function(...) {
-  lifecycle::deprecate_warn("1.1.0", data_frame(), tibble())
+  lifecycle::deprecate_warn("1.1.0", "data_frame()", "tibble()")
   tibble::tibble(...)
 }
 ```
@@ -32,8 +32,6 @@ That means if you use `data_frame()` in your own code you'll get a warning:
 
 ```{r}
 df1 <- data_frame(x = 1, y = 2)
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
 df2 <- data_frame(a = "apple", b = "banana")
 ```
 
