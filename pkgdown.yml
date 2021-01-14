@@ -2,8 +2,10 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  lifecycle: lifecycle.html
-last_built: 2021-01-12T13:18Z
+  communicate: communicate.html
+  manage: manage.html
+  stages: stages.html
+last_built: 2021-01-14T23:14Z
 urls:
   reference: https://lifecycle.r-lib.org/reference
   article: https://lifecycle.r-lib.org/articles

@@ -14,13 +14,8 @@
 <script src="pkgdown.js"></script><meta property="og:title" content="Manage the Life Cycle of your Package Functions">
 <meta property="og:description" content="Manage the life cycle of your exported functions with
     shared conventions, documentation badges, and non-invasive
-    deprecation warnings. The lifecycle package defines four
-    development stages (experimental, stable, questioning, and
-    superseded) and three deprecation stages (soft-deprecated,
-    deprecated, and defunct). It makes it easy to insert badges
-    corresponding to these stages in your documentation. Usage of
-    deprecated functions are signalled with increasing levels of
-    non-invasive verbosity.">
+    deprecation warnings. lifecycle provides tools for badging your
+    documentation and emitting user-friendly warnings in deprecated functions.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -60,23 +55,29 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="articles/lifecycle.html">Get started</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
+    Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="news/index.html">Changelog</a>
+      <a href="articles/stages.html">Lifecycle stages</a>
+    </li>
+    <li>
+      <a href="articles/manage.html">Manage lifecycle changes in functions you use</a>
+    </li>
+    <li>
+      <a href="articles/communicate.html">Communicate lifecycle changes in your functions</a>
     </li>
   </ul>
 </li>
+<li>
+  <a href="news/index.html">Changelog</a>
+</li>
+      </ul>
+<ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/r-lib/lifecycle/">
     <span class="fab fa-github fa-lg"></span>
@@ -100,36 +101,22 @@
 <a href="#lifecycle" class="anchor"></a>lifecycle</h1></div>
 <!-- badges: start -->
 
+<!-- badges: end -->
 <p>lifecycle provides a set of tools and conventions to manage the life cycle of your exported functions.</p>
+<ul>
+<li><p>Read <code><a href="articles/stages.html">vignette("stages")</a></code> to learn what it means for a function to be experimental, stable, deprecated, or superseded.</p></li>
+<li><p>Read <code><a href="articles/manage.html">vignette("manage")</a></code> to learn how to manage lifecycle changes in functions that you use.</p></li>
+<li><p>Read <code><a href="articles/communicate.html">vignette("communicate")</a></code> to learn how to communicate lifecycle changes in the functions you write.</p></li>
+</ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>Install the development version of lifecycle from GitHub with:</p>
-<pre><code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("r-lib/lifecycle")</a></code></pre>
-</div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
-<p>Consult the <a href="https://lifecycle.r-lib.org/articles/lifecycle.html">usage vignette</a> to learn about the workflow.</p>
-<div id="lifecycle-badges" class="section level3">
-<h3 class="hasAnchor">
-<a href="#lifecycle-badges" class="anchor"></a>Lifecycle badges</h3>
-<p>Use lifecycle to document the status of your exported functions and arguments.</p>
-<ol>
-<li><p>Choose one of the 7 lifecycle stages a function or argument can be in. You can choose from 4 development stages (experimental, maturing, stable, and questioning) and 3 deprecation stages (soft-deprecated, deprecated, and defunct).</p></li>
-<li>
-<p>Insert the relevant badge in your roxygen documentation by calling <code><a href="reference/badge.html">lifecycle::badge()</a></code> within R backticks:</p>
-<pre><code>`r lifecycle::badge("experimental")`
-`r lifecycle::badge("deprecated")`</code></pre>
-<p><code><a href="reference/badge.html">lifecycle::badge()</a></code> is ran by roxygen at build time so you don’t need to add lifecycle to your <code>Imports:</code> section just to include a badge.</p>
-</li>
-</ol>
-</div>
-<div id="deprecation-warnings" class="section level3">
-<h3 class="hasAnchor">
-<a href="#deprecation-warnings" class="anchor"></a>Deprecation warnings</h3>
-<p>If the function or argument is deprecated, make sure your users know about by calling <code><a href="reference/deprecate_soft.html">deprecate_soft()</a></code>, <code><a href="reference/deprecate_soft.html">deprecate_warn()</a></code>, or <code><a href="reference/deprecate_soft.html">deprecate_stop()</a></code>. These functions try to be informative without being too verbose, with increasing levels of verbosity as the deprecation stage advances.</p>
-</div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install release version from CRAN</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"lifecycle"</span><span class="op">)</span>
+
+<span class="co"># Install development version from GitHub</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"r-lib/lifecycle"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>

@@ -41,22 +41,16 @@
 
 <meta property="og:title" content="Deprecate functions and arguments — deprecate_soft" />
 <meta property="og:description" content="These functions provide three levels of verbosity for deprecated
-functions.
+functions. Learn how to use them in vignette(&quot;communicate&quot;).
 deprecate_soft() warns only if the deprecated function is
-called from the global environment (so the user can change their
-script) or from the package currently being tested (so the
-package developer can fix the package). Use for soft-deprecated
-functions.
-deprecate_warn() warns unconditionally. Use for deprecated functions.
-deprecate_stop() fails unconditionally. Use for defunct functions.
+called from the global environment or from the package currently
+being tested.
+deprecate_warn() warns unconditionally.
+deprecate_stop() fails unconditionally.
 
 
 Warnings are only issued once every 8 hours to avoid overwhelming
-the user. See the verbosity option to control this
-behaviour.
-Deprecation warnings have class
-lifecycle_warning_deprecated. Deprecation errors have class
-lifecycle_error_deprecated." />
+the user. Control with options(lifecycle_verbosity)." />
 
 
 
@@ -113,24 +107,30 @@ lifecycle_error_deprecated." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../articles/lifecycle.html">Get started</a>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    News
+    Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../news/index.html">Changelog</a>
+      <a href="../articles/stages.html">Lifecycle stages</a>
+    </li>
+    <li>
+      <a href="../articles/manage.html">Manage lifecycle changes in functions you use</a>
+    </li>
+    <li>
+      <a href="../articles/communicate.html">Communicate lifecycle changes in your functions</a>
     </li>
   </ul>
 </li>
 <li>
+  <a href="../news/index.html">Changelog</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
   <a href="https://github.com/r-lib/lifecycle/">
     <span class="fab fa-github fa-lg"></span>
      
@@ -156,22 +156,16 @@ lifecycle_error_deprecated." />
 
     <div class="ref-description">
     <p>These functions provide three levels of verbosity for deprecated
-functions.</p><ul>
+functions. Learn how to use them in <code><a href='../articles/communicate.html'>vignette("communicate")</a></code>.</p><ul>
 <li><p><code>deprecate_soft()</code> warns only if the deprecated function is
-called from the global environment (so the user can change their
-script) or from the package currently being tested (so the
-package developer can fix the package). Use for soft-deprecated
-functions.</p></li>
-<li><p><code>deprecate_warn()</code> warns unconditionally. Use for deprecated functions.</p></li>
-<li><p><code>deprecate_stop()</code> fails unconditionally. Use for defunct functions.</p></li>
+called from the global environment or from the package currently
+being tested.</p></li>
+<li><p><code>deprecate_warn()</code> warns unconditionally.</p></li>
+<li><p><code>deprecate_stop()</code> fails unconditionally.</p></li>
 </ul>
 
 <p>Warnings are only issued once every 8 hours to avoid overwhelming
-the user. See the <a href='verbosity.html'>verbosity option</a> to control this
-behaviour.</p>
-<p>Deprecation warnings have class
-<code>lifecycle_warning_deprecated</code>. Deprecation errors have class
-<code>lifecycle_error_deprecated</code>.</p>
+the user. Control with <code><a href='verbosity.html'>options(lifecycle_verbosity)</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>deprecate_soft</span><span class='op'>(</span>
@@ -248,6 +242,15 @@ In that case, you need to forward the calling environment.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>NULL</code>, invisibly.</p>
+    <h2 class="hasAnchor" id="conditions"><a class="anchor" href="#conditions"></a>Conditions</h2>
+
+    
+
+<ul>
+<li><p>Deprecation warnings have class <code>lifecycle_warning_deprecated</code>.</p></li>
+<li><p>Deprecation errors have class <code>lifecycle_error_deprecated</code>.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='lifecycle-package.html'>lifecycle()</a></code></p></div>

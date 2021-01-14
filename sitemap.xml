@@ -28,6 +28,12 @@
     <loc>https://lifecycle.r-lib.org/reference/verbosity.html</loc>
   </url>
   <url>
-    <loc>https://lifecycle.r-lib.org/articles/lifecycle.html</loc>
+    <loc>https://lifecycle.r-lib.org/articles/communicate.html</loc>
+  </url>
+  <url>
+    <loc>https://lifecycle.r-lib.org/articles/manage.html</loc>
+  </url>
+  <url>
+    <loc>https://lifecycle.r-lib.org/articles/stages.html</loc>
   </url>
 </urlset>
