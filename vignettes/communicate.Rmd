@@ -47,9 +47,9 @@ lifecycle provides `deprecate_warn()` which takes three main arguments:
 We'll cover the details shortly, but here are a few sample uses:
 
 ```{r}
-lifecycle::deprecate_warn("1.0.0", "old_fun()", "new_fun()")
-lifecycle::deprecate_warn("1.0.0", "fun()", "testthat::fun()")
-#lifecycle::deprecate_warn("1.0.0", "fun(old_arg = )", "fun(new_arg)")
+lifecycle::deprecate_warn("1.0.0", old_fun(), new_fun())
+lifecycle::deprecate_warn("1.0.0", fun(), testthat::fun())
+lifecycle::deprecate_warn("1.0.0", fun(old_arg), fun(new_arg))
 ```
 
 (Note that the message includes the package name --- this is automatically discovered from the environment of the calling function so will not work unless the function is called from the package namespace.)
