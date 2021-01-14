@@ -30,9 +30,9 @@ lifecycle badges make it easy for users to see the lifecycle stage when reading 
 To use the badges, first call `usethis::use_lifecycle()` to embed the badge images in your package (you only need to do this once), then use `lifecycle::badge()` to insert a badge:
 
 ```{r, eval = FALSE}
-#' `r lifecycle::badge("experimental")
-#' `r lifecycle::badge("deprecated")
-#' `r lifecycle::badge("superseded")
+#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("deprecated")`
+#' `r lifecycle::badge("superseded")`
 ```
 
 Deprecated functions also need to advertise their status when run.
