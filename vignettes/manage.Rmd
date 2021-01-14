@@ -32,8 +32,6 @@ That means if you use `data_frame()` in your own code you'll get a warning:
 
 ```{r}
 df1 <- data_frame(x = 1, y = 2)
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
 df2 <- data_frame(a = "apple", b = "banana")
 ```
 
@@ -58,7 +56,7 @@ Each warning comes with a back trace that shows you the full sequence of calls t
 Alternatively, if you're ready to spend some time tracking down all your uses of deprecated functions, you can use the `lifecycle_verbosity` option to make deprecated functions warn every time:
 
 ```{r}
-options("lifecycle_verbosity" = "warning")
+options(lifecycle_verbosity = "warning")
 df1 <- data_frame(x = 1, y = 2)
 df2 <- data_frame(a = "apple", b = "banana")
 ```

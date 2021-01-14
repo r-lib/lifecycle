@@ -11,7 +11,7 @@ This vignette describes the four primary stages of the tidyverse lifecycle: stab
 
 ![A diagram showing the transitions between the four main stages: experimental can become stable and stable can become deprecated or superseded.](figures/lifecycle.svg){width="75%"}
 
-The lifecycle stages can apply to packages, functions, function arguments, and even specific values of a functions.
+The lifecycle stages can apply to packages, functions, function arguments, and even specific values of a function argument.
 However, you'll mostly see them used to label individual functions, so that's the language we use below.
 
 ## Stable
@@ -57,9 +57,9 @@ df <- tibble::as_data_frame(x = 1)
 #> Call `lifecycle::last_warnings()` to see where this warning was generated. 
 ```
 
-The deprecation warning tells you when the function was deprecated (in tibble 1.1.0 released in 2016), and what to use instead (`tibble()`).
+The deprecation warning tells you when the function was deprecated (in tibble 1.1.0, released in 2016), and what to use instead (`tibble()`).
 To avoid being too annoying, deprecation messages will only appear once per session, and you can find out exactly where they come from by calling `lifecycle::last_warning()`.
-`vignette("user")` provides more advice on handling deprecation warnings in your code.
+`vignette("manage")` provides more advice on handling deprecation warnings in your code.
 
 Particularly important functions may go through two additional stages of deprecation:
 
@@ -98,6 +98,6 @@ If you're using a non-CRAN package you should plan for an active relationship: w
 
 ## Questioning
 
-Sometimes the author of function is no longer certain that a function is the optimal approach, but doesn't yet know how to do it better.
+Sometimes the author of a function is no longer certain that a function is the optimal approach, but doesn't yet know how to do it better.
 These functions can be marked as ![questioning](figures/lifecycle-questioning.svg){style="vertical-align:middle"} to give users a heads up that the author has doubts about the function.
 Because knowing that a function is questioning is not very actionable, we no longer use or recommend this stage.

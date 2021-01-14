@@ -4,8 +4,8 @@
 #'
 #' To include lifecycle badges in your documentation:
 #'
-#' 1. Call `usethis::use_lifecycle()` to import the badges in your
-#'    package. They are copied in the `man/` folder.
+#' 1. Call `usethis::use_lifecycle()` to copy the badge images into the
+#'    `man/` folder of your package.
 #'
 #' 2. Call `lifecycle::badge()` inside R backticks to insert a
 #'    lifecycle badge:
@@ -20,7 +20,7 @@
 #'    badge is at the top of the topic description. If it is an argument,
 #'    you can put the badge in the argument description.
 #'
-#' The badge is displayed as image in the HTML version of the
+#' The badge is displayed as an image in the HTML version of the
 #' documentation and as text otherwise.
 #'
 #' `lifecycle::badge()` is run by roxygen at build time so you don't need

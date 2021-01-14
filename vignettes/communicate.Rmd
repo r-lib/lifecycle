@@ -30,9 +30,9 @@ lifecycle badges make it easy for users to see the lifecycle stage when reading 
 To use the badges, first call `usethis::use_lifecycle()` to embed the badge images in your package (you only need to do this once), then use `lifecycle::badge()` to insert a badge:
 
 ```{r, eval = FALSE}
-#' `r lifecycle::badge("experimental")
-#' `r lifecycle::badge("deprecated")
-#' `r lifecycle::badge("superseded")
+#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("deprecated")`
+#' `r lifecycle::badge("superseded")`
 ```
 
 Deprecated functions also need to advertise their status when run.
@@ -72,7 +72,7 @@ Briefly describe why the deprecation occurred and what to use instead.
 #' `r lifecycle::badge("deprecated")
 #' 
 #' This function was deprecated because we realised that it's
-#' a special case a [sum()] function.
+#' a special case of the [sum()] function.
 ```
 
 Next, update the examples to show how to convert from the old usage to the new usage:
@@ -86,7 +86,7 @@ Next, update the examples to show how to convert from the old usage to the new u
 
 Then add `@keywords internal` to remove the function from the documentation index.
 If you use pkgdown, also check that it's no longer listed in `_pkgdown.yml`.
-These changes make reduce the chance of new users coming across a deprecated function, but don't prevent those who already know about it from referring to the docs.
+These changes reduce the chance of new users coming across a deprecated function, but don't prevent those who already know about it from referring to the docs.
 
 ```{r}
 #' @keywords internal
@@ -126,7 +126,7 @@ add_two(1, 2)
 ```
 
 It's good practice to test that you've correctly implemented the deprecation, testing that the deprecated function still works and that it generates a useful warning.
-Using an expectation inside an `expect_snapshot()`[^2] is a convenient way to do this:
+Using an expectation inside `testthat::expect_snapshot()`[^2] is a convenient way to do this:
 
 [^2]: You can learn more about snapshot testing in `vignette("snapshot", package = "testthat")`.
 
@@ -192,7 +192,7 @@ To rename a function without breaking existing code, move the implementation to 
 #' @keywords internal
 #' @export
 add_two <- function(foo, bar) {
-  lifecycle::deprecate_warn("1.0.0", adder_old(), adder_new())
+  lifecycle::deprecate_warn("1.0.0", add_two(), number_add())
   number_add(foo, bar)
 }
 
@@ -239,7 +239,7 @@ To advertise that a function is experimental and the interface might change in t
 
 ```{r}
 #' @description
-#' `r lifecycle::badge("superseded")`
+#' `r lifecycle::badge("experimental")`
 ```
 
 We don't currently provide automated signals for experimental functions because it's not clear how they would work, or if the effort to use them consistently would be worth the payoff.
@@ -273,7 +273,7 @@ add_two <- function(x, y, na.rm = TRUE) {
     lifecycle::deprecate_warn(
       when = "1.0.0", 
       what = add_two(na.rm),
-      details = "Ability to remove missing values will be dropped in next release."
+      details = "Ability to retain missing values will be dropped in next release."
     )
   }
   
@@ -296,7 +296,7 @@ add_two <- function(x, y, na.rm = deprecated()) {
     lifecycle::deprecate_warn(
       when = "1.0.0", 
       what = add_two(na.rm),
-      details = "Ability to remove missing values will be dropped in next release"
+      details = "Ability to retain missing values will be dropped in next release."
     )
   }
   
