@@ -274,7 +274,7 @@ add_two <- function(x, y, na.rm = TRUE) {
     lifecycle::deprecate_warn(
       when = "1.0.0", 
       what = add_two(na.rm),
-      details = "Ability to remove missing values will be dropped in next release."
+      details = "Ability to retain missing values will be dropped in next release."
     )
   }
   
@@ -298,7 +298,7 @@ add_two <- function(x, y, na.rm = deprecated()) {
     lifecycle::deprecate_warn(
       when = "1.0.0", 
       what = add_two(na.rm),
-      details = "Ability to remove missing values will be dropped in next release"
+      details = "Ability to retain missing values will be dropped in next release."
     )
   }
   
