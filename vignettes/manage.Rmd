@@ -47,7 +47,7 @@ That'll give you a list of all the deprecation warnings that have happened recen
 lifecycle::last_warnings()
 #> [[1]]
 #> <deprecated>
-#> message: `data_frame()` was deprecated in <NA> 1.1.0.
+#> message: `data_frame()` was deprecated in tibble 1.1.0.
 #> Please use `tibble()` instead.
 #> Backtrace:
 #>  1. global::data_frame(x = 1)

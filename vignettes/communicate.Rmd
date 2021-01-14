@@ -106,9 +106,9 @@ add_two(1, 2)
 
 `deprecate_warn()` generates user friendly messages for two common deprecation alternatives:
 
--   Function in same package: `lifecycle::deprecate_warn("1.0.0", "fun_old()", "fun_new()")`
+-   Function in same package: `lifecycle::deprecate_warn("1.0.0", fun_old(), fun_new())`
 
--   Function in another package: `lifecycle::deprecate_warn("1.0.0", "old()", "package::new()")`
+-   Function in another package: `lifecycle::deprecate_warn("1.0.0", old(), package::new())`
 
 For other cases, use the `details` argument to provide your own message to the user:
 
@@ -162,8 +162,7 @@ For particularly important functions, you can choose to add two other stages to 
 
 -   `deprecated_soft()` is used before `deprecated_warn()`.
     This function only warns (a) users who try the feature from the global environment and (b) developers who directly use the feature (when running testthat tests).
-    There is no warning when the deprecated feature is called indirectly by another package.
-    This is a gentler form of deprecation that's useful when a package changes its extension interface --- it encourages package authors to update their code without affecting the end user.
+    There is no warning when the deprecated feature is called indirectly by another package --- the goal is to ensure that warn only the person who has the power to stop using the deprecated feature.
 
 -   `deprecated_stop()` comes after `deprecated_warn()` and generates an error instead of a warning.
     The main benefit over simply removing the function is that the user is informed about the replacement.
@@ -236,7 +235,7 @@ The rest of the documentation can stay the same.
 
 ### Mark function as experimental
 
-To advertise that a function is experimental and the interface might change with deprecation, first add an experimental badge to the description:
+To advertise that a function is experimental and the interface might change in the future, first add an experimental badge to the description:
 
 ```{r}
 #' @description
@@ -287,9 +286,8 @@ add_two(1, NA, na.rm = FALSE)
 
 ### Deprecating an argument, providing a new default
 
-Alternatively, you can change the default value to `lifecycle::deprecated()` to make the deprecation status more obvious from the outside, and use `lifecycle::is_present()`[^3] to test whether or not the argument was provided.
-
-[^3]: Unlike `missing()`, this works for both direct and indirect calls.
+Alternatively, you can change the default value to `lifecycle::deprecated()` to make the deprecation status more obvious from the outside, and use `lifecycle::is_present()` to test whether or not the argument was provided.
+Unlike `missing()`, this works for both direct and indirect calls.
 
 ```{r}
 #' @importFrom lifecycle deprecated
