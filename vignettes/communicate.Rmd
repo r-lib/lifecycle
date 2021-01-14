@@ -193,7 +193,7 @@ To rename a function without breaking existing code, move the implementation to 
 #' @keywords internal
 #' @export
 add_two <- function(foo, bar) {
-  lifecycle::deprecate_warn("1.0.0", adder_old(), adder_new())
+  lifecycle::deprecate_warn("1.0.0", add_two(), number_add())
   number_add(foo, bar)
 }
 
