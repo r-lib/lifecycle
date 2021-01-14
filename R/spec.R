@@ -132,7 +132,7 @@ spec_package <- function(env, signaller) {
   env <- topenv(env)
   if (is_reference(env, global_env())) {
     # Convenient for experimenting interactively
-    return(NA)
+    return("<NA>")
   }
 
   if(is_namespace(env)) {
