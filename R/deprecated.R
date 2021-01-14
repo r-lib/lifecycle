@@ -1,27 +1,23 @@
 #' Deprecate functions and arguments
 #'
 #' @description
-#'
 #' These functions provide three levels of verbosity for deprecated
-#' functions.
+#' functions. Learn how to use them in `vignette("communicate")`.
 #'
 #' * `deprecate_soft()` warns only if the deprecated function is
-#'   called from the global environment (so the user can change their
-#'   script) or from the package currently being tested (so the
-#'   package developer can fix the package). Use for soft-deprecated
-#'   functions.
+#'   called from the global environment or from the package currently
+#'   being tested.
 #'
-#' * `deprecate_warn()` warns unconditionally. Use for deprecated functions.
+#' * `deprecate_warn()` warns unconditionally.
 #'
-#' * `deprecate_stop()` fails unconditionally. Use for defunct functions.
+#' * `deprecate_stop()` fails unconditionally.
 #'
 #' Warnings are only issued once every 8 hours to avoid overwhelming
-#' the user. See the [verbosity option][verbosity] to control this
-#' behaviour.
+#' the user. Control with [`options(lifecycle_verbosity)`][verbosity].
 #'
-#' Deprecation warnings have class
-#' `lifecycle_warning_deprecated`. Deprecation errors have class
-#' `lifecycle_error_deprecated`.
+#' @section Conditions:
+#' * Deprecation warnings have class `lifecycle_warning_deprecated`.
+#' * Deprecation errors have class `lifecycle_error_deprecated`.
 #'
 #' @param when A string giving the version when the behaviour was deprecated.
 #' @param what A string describing what is deprecated:

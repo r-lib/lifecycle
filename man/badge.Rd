@@ -7,9 +7,9 @@
 badge(stage)
 }
 \arguments{
-\item{stage}{A lifecycle stage as a string, one of:
-\code{"experimental"}, \code{"stable"}, \code{"questioning"}, \code{"superseded"}
-\code{"deprecated"}, \code{"defunct"}.}
+\item{stage}{A lifecycle stage as a string. Must be one of
+\code{"experimental"}, \code{"stable"}, \code{"questioning"}, \code{"superseded"}, or
+\code{"deprecated"}.}
 }
 \value{
 An \code{Rd} expression describing the lifecycle stage.
@@ -17,11 +17,12 @@ An \code{Rd} expression describing the lifecycle stage.
 \description{
 To include lifecycle badges in your documentation:
 \enumerate{
-\item Call \code{usethis::use_lifecycle()} to import the badges in your
-package. They are copied in the \verb{man/} folder.
+\item Call \code{usethis::use_lifecycle()} to copy the badge images into the
+\verb{man/} folder of your package.
 \item Call \code{lifecycle::badge()} inside R backticks to insert a
-lifecycle badge:\preformatted{`r lifecycle::badge("experimental")`
-`r lifecycle::badge("deprecated")`
+lifecycle badge:\preformatted{#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("deprecated")`
+#' `r lifecycle::badge("superseded")`
 }
 
 If the deprecated feature is a function, a good place for this
@@ -29,25 +30,24 @@ badge is at the top of the topic description. If it is an argument,
 you can put the badge in the argument description.
 }
 
-The badge is displayed as image in the HTML version of the
+The badge is displayed as an image in the HTML version of the
 documentation and as text otherwise.
 
-\code{lifecycle::badge()} is ran by
-roxygen at build time so you don't need to add lifecycle to your
-\verb{Imports:} section just to include a badge.
+\code{lifecycle::badge()} is run by roxygen at build time so you don't need
+to add lifecycle to \verb{Imports:} just to use the badges. However, it's still
+good practice to add to \verb{Suggests:} so that it will be available to
+package developers.
 }
 \section{Badges}{
 
 \itemize{
 \item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}} \code{lifecycle::badge("experimental")}
 \item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}} \code{lifecycle::badge("stable")}
-\item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a>}}{\strong{Questioning}} \code{lifecycle::badge("questioning")}
 \item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#superseded'><img src='figures/lifecycle-superseded.svg' alt='Superseded lifecycle'></a>}}{\strong{Superseded}} \code{lifecycle::badge("superseded")}
 \item \ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} \code{lifecycle::badge("deprecated")}
-\item \ifelse{html}{\figure{lifecycle-defunct.svg}{options: alt='Defunct lifecycle'}}{\strong{Defunct}} \code{lifecycle::badge("defunct")}
 }
 
-The meaning of these badges is described in
-\code{vignette("lifecycle")}.
+The meaning of these stages is described in
+\code{vignette("stages")}.
 }
 
