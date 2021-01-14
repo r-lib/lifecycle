@@ -72,7 +72,7 @@ Briefly describe why the deprecation occurred and what to use instead.
 #' `r lifecycle::badge("deprecated")
 #' 
 #' This function was deprecated because we realised that it's
-#' a special case a [sum()] function.
+#' a special case of the [sum()] function.
 ```
 
 Next, update the examples to show how to convert from the old usage to the new usage:
@@ -86,7 +86,7 @@ Next, update the examples to show how to convert from the old usage to the new u
 
 Then add `@keywords internal` to remove the function from the documentation index.
 If you use pkgdown, also check that it's no longer listed in `_pkgdown.yml`.
-These changes make reduce the chance of new users coming across a deprecated function, but don't prevent those who already know about it from referring to the docs.
+These changes reduce the chance of new users coming across a deprecated function, but don't prevent those who already know about it from referring to the docs.
 
 ```{r}
 #' @keywords internal
@@ -126,7 +126,7 @@ add_two(1, 2)
 ```
 
 It's good practice to test that you've correctly implemented the deprecation, testing that the deprecated function still works and that it generates a useful warning.
-Using an expectation inside an `expect_snapshot()`[^2] is a convenient way to do this:
+Using an expectation inside `testthat::expect_snapshot()`[^2] is a convenient way to do this:
 
 [^2]: You can learn more about snapshot testing in `vignette("snapshot", package = "testthat")`.
 
