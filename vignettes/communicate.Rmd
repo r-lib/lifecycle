@@ -240,7 +240,7 @@ To advertise that a function is experimental and the interface might change with
 
 ```{r}
 #' @description
-#' `r lifecycle::badge("superseded")`
+#' `r lifecycle::badge("experimental")`
 ```
 
 We don't currently provide automated signals for experimental functions because it's not clear how they would work, or if the effort to use them consistently would be worth the payoff.
