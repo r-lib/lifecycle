@@ -40,14 +40,8 @@
 #'   give a unique ID when the message in `details` is built
 #'   programmatically and depends on inputs, or when you'd like to
 #'   deprecate multiple functions but warn only once for all of them.
-#' @param env The environment in which the deprecated function
-#'   was called. A warning is issued if called from the global
-#'   environment. If testthat is running, a warning is also called if
-#'   the deprecated function was called from the package being tested.
-#'
-#'   This typically doesn't need to be specified, unless you call
-#'   `deprecate_soft()` or `deprecate_warn()` from an internal helper.
-#'   In that case, you need to forward the calling environment.
+#' @param env Calling environment, used to detect which package to display
+#'   in the message. For expert use only.
 #' @return `NULL`, invisibly.
 #'
 #' @seealso [lifecycle()]
@@ -118,7 +112,7 @@ deprecate_warn <- function(when,
                            with = NULL,
                            details = NULL,
                            id = NULL,
-                           env = caller_env(2)) {
+                           env = caller_env(1)) {
   what <- substitute(what)
   with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_warn")
@@ -240,9 +234,10 @@ lifecycle_message_what <- function(what, when) {
       glue_what("`{ fn }()` was deprecated in { pkg } { when }.")
     }
   } else {
-    if (what$from == "deprecate_stop" && what$reason == "is deprecated") {
+    if (what$from == "deprecate_stop" && is.null(what$reason)) {
       glue_what("The `{ arg }` argument of `{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
     } else {
+      what$reason <- what$reason %||% "is deprecated"
       glue_what("The `{ arg }` argument of `{ fn }()` { reason } as of { pkg } { when }.")
     }
   }

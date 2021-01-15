@@ -1,24 +1,26 @@
-test_that("signal_experimental() and signal_superseded() work", {
-  expect_condition(signal_experimental("1.0.0", "foo"), class = "lifecycle_experimental")
-  expect_condition(signal_superseded("1.0.0", "foo"), class = "lifecycle_superseded")
+test_that("signal stage captures desired data", {
+  f <- function() {
+    signal_stage("experimental", "pkg::foo(bar = 'baz')")
+  }
+
+  cnd <- expect_condition(f(), class = "lifecycle_stage")
+  expect_equal(cnd$stage, "experimental")
+  expect_equal(cnd$package, "pkg")
+  expect_equal(cnd$'function', "foo")
+  expect_equal(cnd$argument, "bar")
+  expect_equal(cnd$reason, "baz")
 })
 
-test_that("lifecycle_cnd_data() extracts data", {
-  cnd <- catch_cnd(signal_experimental("1.0.0", "foo(arg = )"))
-  expect_identical(lifecycle_cnd_data(cnd), list(
-    when = "1.0.0",
-    what = spec("lifecycle::foo(arg =)", , "signal_experimental"),
-    with = NULL,
-    lifecycle = "experimental"
-  ))
+test_that("signal generates user friendly message", {
+  expect_snapshot({
+    (expect_condition(signal_stage("experimental", "foo()")))
+    (expect_condition(signal_stage("superseded", "foo(bar)")))
+  })
+})
 
-  cnd <- catch_cnd(signal_superseded("0.0.1", "foo(arg = 'details')", "pkg::bar()"))
-  expect_identical(lifecycle_cnd_data(cnd), list(
-    when = "0.0.1",
-    what = spec("lifecycle::foo(arg = 'details')", , "signal_superseded"),
-    with = spec("pkg::bar()", , "signal_superseded"),
-    lifecycle = "superseded"
-  ))
-
-  expect_error(lifecycle_cnd_data(error_cnd("foo")), "Unsupported class")
+test_that("signal_experimental() and signal_superseded() are deprecated", {
+  expect_snapshot({
+    signal_experimental("1.0.0", "foo(arg = )")
+    signal_superseded("1.0.0", "foo(arg = )")
+  })
 })

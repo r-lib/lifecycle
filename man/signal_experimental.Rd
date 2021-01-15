@@ -3,37 +3,14 @@
 \name{signal_experimental}
 \alias{signal_experimental}
 \alias{signal_superseded}
-\alias{lifecycle_cnd_data}
-\title{Signal experimental or superseded features}
+\title{Deprecated funtions for signalling experimental and lifecycle stages}
 \usage{
 signal_experimental(when, what)
 
 signal_superseded(when, what, with = NULL)
-
-lifecycle_cnd_data(cnd)
-}
-\arguments{
-\item{when}{The version at which the feature was assigned a
-lifecycle stage.}
-
-\item{what, with}{Feature specifications for the feature and
-optionally its replacement. See \code{\link[=deprecate_soft]{deprecate_soft()}} for details.}
-
-\item{cnd}{A condition object thrown by \code{signal_experimental()} or
-\code{signal_superseded()}.}
 }
 \description{
-\lifecycle{experimental}
-
-These functions signal simple conditions with \code{\link[rlang:abort]{rlang::signal()}}
-(see also \code{\link[base:conditions]{base::signalCondition()}}). They don't have any effect
-unless a condition handler is installed for conditions of class
-\code{lifecycle_experimental} or \code{lifecycle_superseded}.
-}
-\details{
-In order to be fast, \code{signal_experimental()} and
-\code{signal_superseded()} do not validate their arguments. Instead, you
-need to catch the condition object and pass it to
-\code{lifecycle_cnd_data()} to get structured data.
+\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}
+Please use \code{\link[=signal_stage]{signal_stage()}} instead
 }
 \keyword{internal}

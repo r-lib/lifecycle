@@ -1,5 +1,9 @@
 # lifecycle (development version)
 
+* New `signal_stage()` for signalling that a function is experimental or
+  superseded. These signals are not currently hooked up to any behaviour,
+  but we'll add tools in a future release (#44).
+
 * The `what` and `with` arguments no longer need to be quoted with `""`.
 
 * A character vector `details` is now converted into a bulleted list (#55).

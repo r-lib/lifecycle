@@ -1,75 +1,58 @@
-#' Signal experimental or superseded features
+#' Signal other life cycle changes
+#'
+#' `signal_stage()` allows you to signal life cycle stages other than
+#' deprecation (for which you should use [deprecate_warn()] and friends).
+#' There is no behaviour associated with this signal, but in the future
+#' we will provide tools to log and report on usage of experimental and
+#' superseded functions.
+#'
+#' @param stage Life cycle stage, either "experimental" or "superseded".
+#' @param what String describing what feature the stage applies too, using
+#'   the same syntax as [deprecate_warn()].
+#' @inheritParams deprecate_warn
+#' @export
+#' @examples
+#' foofy <- function(x, y, z) {
+#'   signal_stage("experimental", foofy())
+#'   x + y / z
+#' }
+#' foofy(1, 2, 3)
+signal_stage <- function(stage, what, env = caller_env(2)) {
+  what <- substitute(what)
+  stage <- arg_match(stage, c("experimental", "superseded"))
+  what <- spec(what, env = env)
+
+  if (is.null(what$arg)) {
+    msg <- glue::glue_data(what, "{fn}() is {stage}")
+  } else {
+    msg <- glue::glue_data(what, "{fn}(arg) is {stage}")
+  }
+
+  signal(msg, "lifecycle_stage",
+    stage = stage,
+    package = what$pkg,
+    'function' = what$fn,
+    argument = what$arg,
+    reason = what$reason
+  )
+}
+
+#' Deprecated funtions for signalling experimental and lifecycle stages
 #'
 #' @description
-#'
-#' \lifecycle{experimental}
-#'
-#' These functions signal simple conditions with [rlang::signal()]
-#' (see also [base::signalCondition()]). They don't have any effect
-#' unless a condition handler is installed for conditions of class
-#' `lifecycle_experimental` or `lifecycle_superseded`.
-#'
-#' @param when The version at which the feature was assigned a
-#'   lifecycle stage.
-#' @param what,with Feature specifications for the feature and
-#'   optionally its replacement. See [deprecate_soft()] for details.
-#'
-#' @details
-#' In order to be fast, `signal_experimental()` and
-#' `signal_superseded()` do not validate their arguments. Instead, you
-#' need to catch the condition object and pass it to
-#' `lifecycle_cnd_data()` to get structured data.
-#'
+#' `r badge("deprecated")`
+#' Please use [signal_stage()] instead
 #' @keywords internal
 #' @export
 signal_experimental <- function(when, what) {
-  signal(
-    "",
-    "lifecycle_experimental",
-    when = when,
-    what = what
-  )
+  env <- caller_env()
+  deprecate_soft("1.0.0", signal_stage(stage = ))
+  eval(substitute(signal_stage("experimental", what)), envir = env)
 }
 #' @rdname signal_experimental
 #' @export
 signal_superseded <- function(when, what, with = NULL) {
-  signal(
-    "",
-    "lifecycle_superseded",
-    when = when,
-    what = what,
-    with = with
-  )
-}
-
-#' @rdname signal_experimental
-#' @param cnd A condition object thrown by `signal_experimental()` or
-#'   `signal_superseded()`.
-#' @export
-lifecycle_cnd_data <- function(cnd) {
-  if (inherits(cnd, "lifecycle_experimental")) {
-    lifecycle <- "experimental"
-    signaller <- "signal_experimental"
-  } else if (inherits(cnd, "lifecycle_superseded")) {
-    lifecycle <- "superseded"
-    signaller <- "signal_superseded"
-  } else {
-    class <- paste(class(cnd), collapse = "/")
-    lifecycle_abort("Unsupported class `{class}` in `lifecycle_cnd_data()`.")
-  }
-
-  what <- spec(cnd$what, signaller = signaller)
-
-  if (is_null(cnd$with)) {
-    with <- NULL
-  } else {
-    with <- spec(cnd$with, signaller = signaller)
-  }
-
-  list(
-    when = cnd$when,
-    what = what,
-    with = with,
-    lifecycle = lifecycle
-  )
+  env <- caller_env()
+  deprecate_soft("1.0.0", signal_stage(stage = ))
+  eval(substitute(signal_stage("superseded", what)), envir = env)
 }

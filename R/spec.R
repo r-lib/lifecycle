@@ -3,7 +3,7 @@ spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
   what <- spec_what(spec, "spec", signaller)
   fn <- spec_fn(what$call)
   arg <- spec_arg(what$call, signaller)
-  reason <- spec_reason(what$call, signaller) %||% "is deprecated"
+  reason <- spec_reason(what$call, signaller)
 
   if (is_null(what$pkg) && !is.null(env)) {
     pkg <- spec_package(env, signaller = signaller)
@@ -122,17 +122,10 @@ spec_reason <- function(call, signaller) {
 }
 
 spec_package <- function(env, signaller) {
-
-  # Hack for vignettes
-  default <- getOption("lifecycle:::calling_package", NULL)
-  if (!is.null(default)) {
-    return(default)
-  }
-
   env <- topenv(env)
   if (is_reference(env, global_env())) {
     # Convenient for experimenting interactively
-    return("<NA>")
+    return(getOption("lifecycle:::calling_package", "<NA>"))
   }
 
   if(is_namespace(env)) {
