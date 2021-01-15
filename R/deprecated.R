@@ -85,7 +85,7 @@ deprecate_soft <- function(when,
                            with = NULL,
                            details = NULL,
                            id = NULL,
-                           env = caller_env(2)) {
+                           env = caller_env(1)) {
   what <- substitute(what)
   with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_soft")
@@ -150,7 +150,8 @@ deprecate_warn <- function(when,
 deprecate_stop <- function(when,
                            what,
                            with = NULL,
-                           details = NULL) {
+                           details = NULL,
+                           env = caller_env(1)) {
   what <- substitute(what)
   with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_stop")

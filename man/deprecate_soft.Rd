@@ -12,7 +12,7 @@ deprecate_soft(
   with = NULL,
   details = NULL,
   id = NULL,
-  env = caller_env(2)
+  env = caller_env(1)
 )
 
 deprecate_warn(
@@ -24,7 +24,7 @@ deprecate_warn(
   env = caller_env(1)
 )
 
-deprecate_stop(when, what, with = NULL, details = NULL)
+deprecate_stop(when, what, with = NULL, details = NULL, env = caller_env(1))
 }
 \arguments{
 \item{when}{A string giving the version when the behaviour was deprecated.}
