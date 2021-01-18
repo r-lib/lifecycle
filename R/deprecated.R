@@ -91,7 +91,7 @@ deprecate_soft <- function(when,
                            with = NULL,
                            details = NULL,
                            id = NULL,
-                           env = caller_env(2)) {
+                           env = caller_env()) {
   what <- substitute(what)
   with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_soft")
@@ -99,8 +99,8 @@ deprecate_soft <- function(when,
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
     NULL
-  } else if (verbosity %in% "warning" || env_inherits_global(env)) {
-    trace <- trace_back(bottom = caller_env())
+  } else if (verbosity %in% "warning" || env_inherits_global(caller_env(2))) {
+    trace <- trace_back(bottom = env)
     deprecate_warn0(msg, trace)
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
@@ -118,7 +118,7 @@ deprecate_warn <- function(when,
                            with = NULL,
                            details = NULL,
                            id = NULL,
-                           env = caller_env(2)) {
+                           env = caller_env()) {
   what <- substitute(what)
   with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_warn")
@@ -127,7 +127,7 @@ deprecate_warn <- function(when,
   if (verbosity == "quiet") {
     NULL
   } else if (verbosity == "warning") {
-    trace <- trace_back(bottom = caller_env())
+    trace <- trace_back(bottom = env)
     deprecate_warn0(msg, trace)
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
@@ -143,7 +143,7 @@ deprecate_warn <- function(when,
         silver("Call `lifecycle::last_warnings()` to see where this warning was generated.")
       )
 
-      trace <- trace_back(bottom = caller_env())
+      trace <- trace_back(bottom = env)
       deprecate_warn0(msg, trace, footer)
     }
   }
@@ -294,4 +294,11 @@ needs_warning <- function(id) {
 
   # Warn every 8 hours
   (Sys.time() - last) > (8 * 60 * 60)
+}
+
+softly_softly <- function() {
+  softly()
+}
+softly <- function() {
+  deprecate_soft("1.0.0", softly_softly())
 }

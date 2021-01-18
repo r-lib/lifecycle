@@ -35,6 +35,20 @@ test_that("error coverts _soft and _warn to errors", {
   expect_defunct(deprecate_stop("1.0.0", foo()))
 })
 
+test_that("soft deprecation not shown if you can't do anything about it", {
+  local_options(lifecycle_verbosity = "default")
+
+  expect_s3_class(catch_cnd(evalq(softly(), globalenv())), "lifecycle_warning_deprecated")
+  expect_s3_class(catch_cnd(evalq(softly_softly(), globalenv())), "lifecycle_soft_deprecated")
+})
+
+test_that("soft deprecation not shown if you can't do anything about it", {
+  local_options(lifecycle_verbosity = "default")
+
+  cnd <- catch_cnd(softly())
+  expect_match(conditionMessage(cnd), "lifecycle")
+})
+
 test_that("warning conditions are signaled only once if warnings are suppressed", {
   local_options(lifecycle_verbosity = "warning")
 
