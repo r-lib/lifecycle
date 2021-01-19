@@ -12,7 +12,8 @@ deprecate_soft(
   with = NULL,
   details = NULL,
   id = NULL,
-  env = caller_env(2)
+  env = caller_env(),
+  user_env = caller_env(2)
 )
 
 deprecate_warn(
@@ -21,7 +22,7 @@ deprecate_warn(
   with = NULL,
   details = NULL,
   id = NULL,
-  env = caller_env(2)
+  env = caller_env()
 )
 
 deprecate_stop(when, what, with = NULL, details = NULL)
@@ -54,14 +55,14 @@ give a unique ID when the message in \code{details} is built
 programmatically and depends on inputs, or when you'd like to
 deprecate multiple functions but warn only once for all of them.}
 
-\item{env}{The environment in which the deprecated function
-was called. A warning is issued if called from the global
-environment. If testthat is running, a warning is also called if
-the deprecated function was called from the package being tested.
+\item{env, user_env}{Pair of environments that define where the \verb{deprecate_*}
+was called (used to determine the package name) and where the function
+called the deprecating function was called (used to determine if
+\code{deprecate_soft()}) should message.
 
-This typically doesn't need to be specified, unless you call
-\code{deprecate_soft()} or \code{deprecate_warn()} from an internal helper.
-In that case, you need to forward the calling environment.}
+These are only needed if you're calling \verb{deprecate_*()} from an internal
+helper, in which case you should forward \code{env = caller_env()} and
+\code{user_env = caller_env(2)}.}
 }
 \value{
 \code{NULL}, invisibly.
