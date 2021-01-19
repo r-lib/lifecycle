@@ -296,10 +296,3 @@ needs_warning <- function(id) {
   # Warn every 8 hours
   (Sys.time() - last) > (8 * 60 * 60)
 }
-
-softly_softly <- function() {
-  softly()
-}
-softly <- function() {
-  deprecate_soft("1.0.0", softly_softly())
-}
