@@ -40,10 +40,10 @@
 #'   give a unique ID when the message in `details` is built
 #'   programmatically and depends on inputs, or when you'd like to
 #'   deprecate multiple functions but warn only once for all of them.
-#' @param env,user_env Pair of environments that define where the `deprecate_*`
+#' @param env,user_env Pair of environments that define where `deprecate_*()`
 #'   was called (used to determine the package name) and where the function
 #'   called the deprecating function was called (used to determine if
-#'   `deprecate_soft()`) should message.
+#'   `deprecate_soft()` should message).
 #'
 #'   These are only needed if you're calling `deprecate_*()` from an internal
 #'   helper, in which case you should forward `env = caller_env()` and
