@@ -35,6 +35,32 @@ test_that("error coverts _soft and _warn to errors", {
   expect_defunct(deprecate_stop("1.0.0", foo()))
 })
 
+test_that("soft deprecation uses correct calling envs", {
+  local_options(lifecycle_verbosity = "default")
+
+  # Simulate package functions available from global environment
+  env <- new_environment(parent = ns_env("lifecycle"))
+  local(envir = env, {
+    softly <- function() {
+      deprecate_soft("1.0.0", softly())
+    }
+    softly_softly <- function() {
+      softly()
+    }
+  })
+  local_bindings(!!!as.list(env), .env = global_env())
+
+  # Calling package function directly should warning
+  cnd <- catch_cnd(evalq(softly(), global_env()))
+  expect_s3_class(cnd, class = "lifecycle_warning_deprecated")
+  expect_match(conditionMessage(cnd), "lifecycle")
+
+  # Calling package function indirectly from global env shouldn't
+  cnd <- catch_cnd(evalq(softly_softly(), global_env()))
+  expect_s3_class(cnd, class = "lifecycle_soft_deprecated")
+  expect_match(conditionMessage(cnd), "lifecycle")
+})
+
 test_that("warning conditions are signaled only once if warnings are suppressed", {
   local_options(lifecycle_verbosity = "warning")
 
