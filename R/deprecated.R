@@ -157,13 +157,13 @@ deprecate_warn <- function(when,
 deprecate_stop <- function(when,
                            what,
                            with = NULL,
-                           details = NULL) {
+                           details = NULL,
+                           env = caller_env()) {
   what <- substitute(what)
   with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_stop")
   deprecate_stop0(msg)
 }
-
 
 # Signals -----------------------------------------------------------------
 
