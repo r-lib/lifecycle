@@ -101,7 +101,7 @@ deprecate_soft <- function(when,
   if (verbosity == "quiet") {
     NULL
   } else if (verbosity %in% "warning" || env_inherits_global(user_env)) {
-    trace <- trace_back(bottom = env)
+    trace <- trace_back(bottom = caller_env())
     deprecate_warn0(msg, trace)
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
@@ -128,7 +128,7 @@ deprecate_warn <- function(when,
   if (verbosity == "quiet") {
     NULL
   } else if (verbosity == "warning") {
-    trace <- trace_back(bottom = env)
+    trace <- trace_back(bottom = caller_env())
     deprecate_warn0(msg, trace)
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
@@ -144,7 +144,7 @@ deprecate_warn <- function(when,
         silver("Call `lifecycle::last_warnings()` to see where this warning was generated.")
       )
 
-      trace <- trace_back(bottom = env)
+      trace <- trace_back(bottom = caller_env())
       deprecate_warn0(msg, trace, footer)
     }
   }
