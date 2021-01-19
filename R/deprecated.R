@@ -40,14 +40,14 @@
 #'   give a unique ID when the message in `details` is built
 #'   programmatically and depends on inputs, or when you'd like to
 #'   deprecate multiple functions but warn only once for all of them.
-#' @param env The environment in which the deprecated function
-#'   was called. A warning is issued if called from the global
-#'   environment. If testthat is running, a warning is also called if
-#'   the deprecated function was called from the package being tested.
+#' @param env,user_env Pair of environments that define where `deprecate_*()`
+#'   was called (used to determine the package name) and where the function
+#'   called the deprecating function was called (used to determine if
+#'   `deprecate_soft()` should message).
 #'
-#'   This typically doesn't need to be specified, unless you call
-#'   `deprecate_soft()` or `deprecate_warn()` from an internal helper.
-#'   In that case, you need to forward the calling environment.
+#'   These are only needed if you're calling `deprecate_*()` from an internal
+#'   helper, in which case you should forward `env = caller_env()` and
+#'   `user_env = caller_env(2)`.
 #' @return `NULL`, invisibly.
 #'
 #' @seealso [lifecycle()]
@@ -91,7 +91,8 @@ deprecate_soft <- function(when,
                            with = NULL,
                            details = NULL,
                            id = NULL,
-                           env = caller_env(2)) {
+                           env = caller_env(),
+                           user_env = caller_env(2)) {
   what <- substitute(what)
   with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_soft")
@@ -99,7 +100,7 @@ deprecate_soft <- function(when,
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
     NULL
-  } else if (verbosity %in% "warning" || env_inherits_global(env)) {
+  } else if (verbosity %in% "warning" || env_inherits_global(user_env)) {
     trace <- trace_back(bottom = caller_env())
     deprecate_warn0(msg, trace)
   } else if (verbosity == "error") {
@@ -118,7 +119,7 @@ deprecate_warn <- function(when,
                            with = NULL,
                            details = NULL,
                            id = NULL,
-                           env = caller_env(2)) {
+                           env = caller_env()) {
   what <- substitute(what)
   with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_warn")
@@ -156,13 +157,13 @@ deprecate_warn <- function(when,
 deprecate_stop <- function(when,
                            what,
                            with = NULL,
-                           details = NULL) {
+                           details = NULL,
+                           env = caller_env()) {
   what <- substitute(what)
   with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_stop")
   deprecate_stop0(msg)
 }
-
 
 # Signals -----------------------------------------------------------------
 
