@@ -51,12 +51,12 @@ test_that("soft deprecation uses correct calling envs", {
   local_bindings(!!!as.list(env), .env = global_env())
 
   # Calling package function directly should warning
-  cnd <- catch_cnd(evalq(softly(), global_env()))
+  cnd <- catch_cnd(evalq(softly(), global_env()), "warning")
   expect_s3_class(cnd, class = "lifecycle_warning_deprecated")
   expect_match(conditionMessage(cnd), "lifecycle")
 
   # Calling package function indirectly from global env shouldn't
-  cnd <- catch_cnd(evalq(softly_softly(), global_env()))
+  cnd <- catch_cnd(evalq(softly_softly(), global_env()), "lifecycle_soft_deprecated")
   expect_s3_class(cnd, class = "lifecycle_soft_deprecated")
   expect_match(conditionMessage(cnd), "lifecycle")
 })
