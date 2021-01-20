@@ -21,12 +21,10 @@ spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
 }
 
 spec_what <- function(what, arg, signaller) {
-  if (is_call(what)) {
-    call <- what
-  } else if (is_string(what)) {
+  if (is_string(what)) {
     call <- parse_expr(what)
   } else {
-    lifecycle_abort("`what` must be a string or call.")
+    lifecycle_abort("`what` must be a string.")
   }
 
   if (!is_call(call)) {

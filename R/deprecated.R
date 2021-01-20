@@ -22,14 +22,14 @@
 #' @param when A string giving the version when the behaviour was deprecated.
 #' @param what A string describing what is deprecated:
 #'
-#'   * Deprecate a whole function with `foo()`.
-#'   * Deprecate an argument with `foo(arg)`.
+#'   * Deprecate a whole function with `"foo()"`.
+#'   * Deprecate an argument with `"foo(arg)"`.
 #'   * Partially deprecate an argument with
-#'     `foo(arg = 'must be a scalar integer')`.
+#'     `"foo(arg = 'must be a scalar integer')"`.
 #'
 #'   You can optionally supply the namespace: `"ns::foo()"`, but this is
 #'   usually not needed as it will be inferred from the caller environment.
-#' @param with An optional string given a recommended replacement for the
+#' @param with An optional string giving a recommended replacement for the
 #'   deprecated behaviour. This takes the same form as `what`.
 #' @param details In most cases the deprecation message can be automatically
 #'   generated from `with`. When it can't, use `details` to provide a
@@ -54,32 +54,32 @@
 #'
 #' @examples
 #' # A deprecated function `foo`:
-#' deprecate_warn("1.0.0", foo())
+#' deprecate_warn("1.0.0", "foo()")
 #'
 #' # A deprecated argument `arg`:
-#' deprecate_warn("1.0.0", foo(arg))
+#' deprecate_warn("1.0.0", "foo(arg)")
 #'
 #' # A partially deprecated argument `arg`:
-#' deprecate_warn("1.0.0", foo(arg = 'must be a scalar integer'))
+#' deprecate_warn("1.0.0", "foo(arg = 'must be a scalar integer')")
 #'
 #' # A deprecated function with a function replacement:
-#' deprecate_warn("1.0.0", foo(), bar())
+#' deprecate_warn("1.0.0", "foo()", "bar()")
 #'
 #' # A deprecated function with a function replacement from a
 #' # different package:
-#' deprecate_warn("1.0.0", foo(), "otherpackage::bar()")
+#' deprecate_warn("1.0.0", "foo()", "otherpackage::bar()")
 #'
 #' # A deprecated function with custom message:
 #' deprecate_warn(
 #'   when = "1.0.0",
-#'   what = foo(),
+#'   what = "foo()",
 #'   details = "Please use `otherpackage::bar(foo = TRUE)` instead"
 #' )
 #'
 #' # A deprecated function with custom bulleted list:
 #' deprecate_warn(
 #'   when = "1.0.0",
-#'   what = foo(),
+#'   what = "foo()",
 #'   details = c(
 #'     x = "This is dangerous",
 #'     i = "Did you mean `safe_foo()` instead?"
@@ -93,8 +93,6 @@ deprecate_soft <- function(when,
                            id = NULL,
                            env = caller_env(),
                            user_env = caller_env(2)) {
-  what <- substitute(what)
-  with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_soft")
 
   verbosity <- lifecycle_verbosity()
@@ -120,8 +118,6 @@ deprecate_warn <- function(when,
                            details = NULL,
                            id = NULL,
                            env = caller_env()) {
-  what <- substitute(what)
-  with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_warn")
 
   verbosity <- lifecycle_verbosity()
@@ -159,8 +155,6 @@ deprecate_stop <- function(when,
                            with = NULL,
                            details = NULL,
                            env = caller_env()) {
-  what <- substitute(what)
-  with <- substitute(with)
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_stop")
   deprecate_stop0(msg)
 }

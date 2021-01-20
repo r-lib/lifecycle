@@ -47,9 +47,9 @@ lifecycle provides `deprecate_warn()` which takes three main arguments:
 We'll cover the details shortly, but here are a few sample uses:
 
 ```{r}
-lifecycle::deprecate_warn("1.0.0", old_fun(), new_fun())
-lifecycle::deprecate_warn("1.0.0", fun(), testthat::fun())
-lifecycle::deprecate_warn("1.0.0", fun(old_arg), fun(new_arg))
+lifecycle::deprecate_warn("1.0.0", "old_fun()", "new_fun()")
+lifecycle::deprecate_warn("1.0.0", "fun()", "testthat::fun()")
+lifecycle::deprecate_warn("1.0.0", "fun(old_arg)", "fun(new_arg)")
 ```
 
 (Note that the message includes the package name --- this is automatically discovered from the environment of the calling function so will not work unless the function is called from the package namespace.)
@@ -97,7 +97,7 @@ Do this by adding call to `deprecate_warn()` on the first line of the function:
 
 ```{r}
 add_two <- function(x, y) {
-  lifecycle::deprecate_warn("1.0.0", add_two(), base::sum())
+  lifecycle::deprecate_warn("1.0.0", "add_two()", "base::sum()")
   x + y
 }
 
@@ -106,9 +106,9 @@ add_two(1, 2)
 
 `deprecate_warn()` generates user friendly messages for two common deprecation alternatives:
 
--   Function in same package: `lifecycle::deprecate_warn("1.0.0", fun_old(), fun_new())`
+-   Function in same package: `lifecycle::deprecate_warn("1.0.0", "fun_old()", "fun_new()")`
 
--   Function in another package: `lifecycle::deprecate_warn("1.0.0", old(), package::new())`
+-   Function in another package: `lifecycle::deprecate_warn("1.0.0", "old()", "package::new()")`
 
 For other cases, use the `details` argument to provide your own message to the user:
 
@@ -116,7 +116,7 @@ For other cases, use the `details` argument to provide your own message to the u
 add_two <- function(x, y) {
   lifecycle::deprecate_warn(
     "1.0.0", 
-    add_two(), 
+    "add_two()", 
     details = "This function is a special case of sum(); use it instead."
   )
   x + y
@@ -192,7 +192,7 @@ To rename a function without breaking existing code, move the implementation to 
 #' @keywords internal
 #' @export
 add_two <- function(foo, bar) {
-  lifecycle::deprecate_warn("1.0.0", add_two(), number_add())
+  lifecycle::deprecate_warn("1.0.0", "add_two()", "number_add()")
   number_add(foo, bar)
 }
 
@@ -289,7 +289,7 @@ add_two <- function(x, y, na.rm = TRUE) {
   if (!isTRUE(na.rm)) {
     lifecycle::deprecate_warn(
       when = "1.0.0", 
-      what = add_two(na.rm),
+      what = "add_two(na.rm)",
       details = "Ability to retain missing values will be dropped in next release."
     )
   }
@@ -312,7 +312,7 @@ add_two <- function(x, y, na.rm = deprecated()) {
   if (lifecycle::is_present(na.rm)) {
     lifecycle::deprecate_warn(
       when = "1.0.0", 
-      what = add_two(na.rm),
+      what = "add_two(na.rm)",
       details = "Ability to retain missing values will be dropped in next release."
     )
   }
@@ -337,7 +337,7 @@ You'll need to temporarily permit both arguments, generating a deprecation warni
 ```{r}
 add_two <- function(x, y, na_rm = TRUE, na.rm = deprecated()) {
   if (lifecycle::is_present(na.rm)) {
-    lifecycle::deprecate_warn("1.0.0", add_two(na.rm), add_two(na_rm))
+    lifecycle::deprecate_warn("1.0.0", "add_two(na.rm)", "add_two(na_rm)")
     na_rm <- na.rm
   }
   
@@ -353,7 +353,7 @@ Make sure you preserve the previous behaviour:
 ```{r}
 add_two <- function(x, y) {
   if (length(y) != 1) {
-    lifecycle::deprecate_warn("1.0.0", foo(y = "must be a scalar"))
+    lifecycle::deprecate_warn("1.0.0", "foo(y = 'must be a scalar')")
     y <- sum(y)
   }
   x + y

@@ -4,8 +4,6 @@
   superseded. These signals are not currently hooked up to any behaviour,
   but we'll add tools in a future release (#44).
 
-* The `what` and `with` arguments no longer need to be quoted with `""`.
-
 * A character vector `details` is now converted into a bulleted list (#55).
 
 * You can now deprecate an argument with `foo(arg)` instead of `foo(arg =)` (#78).
