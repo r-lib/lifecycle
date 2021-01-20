@@ -17,8 +17,7 @@
 #'   x + y / z
 #' }
 #' foofy(1, 2, 3)
-signal_stage <- function(stage, what, env = caller_env(2)) {
-  what <- substitute(what)
+signal_stage <- function(stage, what, env = caller_env()) {
   stage <- arg_match(stage, c("experimental", "superseded"))
   what <- spec(what, env = env)
 
@@ -44,15 +43,13 @@ signal_stage <- function(stage, what, env = caller_env(2)) {
 #' Please use [signal_stage()] instead
 #' @keywords internal
 #' @export
-signal_experimental <- function(when, what) {
-  env <- caller_env()
-  deprecate_soft("1.0.0", signal_stage(stage = ))
-  eval(substitute(signal_stage("experimental", what)), envir = env)
+signal_experimental <- function(when, what, env = caller_env()) {
+  deprecate_soft("1.0.0", "signal_experimental()", "signal_stage(stage = )")
+  signal_stage("experimental", what, env = env)
 }
 #' @rdname signal_experimental
 #' @export
-signal_superseded <- function(when, what, with = NULL) {
-  env <- caller_env()
-  deprecate_soft("1.0.0", signal_stage(stage = ))
-  eval(substitute(signal_stage("superseded", what)), envir = env)
+signal_superseded <- function(when, what, with = NULL, env = caller_env()) {
+  deprecate_soft("1.0.0", "signal_superseded()", "signal_stage(stage = )")
+  signal_stage("superseded", what, env = env)
 }
