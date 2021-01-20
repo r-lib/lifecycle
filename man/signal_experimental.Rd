@@ -5,9 +5,9 @@
 \alias{signal_superseded}
 \title{Deprecated funtions for signalling experimental and lifecycle stages}
 \usage{
-signal_experimental(when, what)
+signal_experimental(when, what, env = caller_env())
 
-signal_superseded(when, what, with = NULL)
+signal_superseded(when, what, with = NULL, env = caller_env())
 }
 \description{
 \ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}}

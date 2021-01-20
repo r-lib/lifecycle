@@ -2,9 +2,9 @@
 % Please edit documentation in R/signal.R
 \name{signal_stage}
 \alias{signal_stage}
-\title{Signal other life cycle changes}
+\title{Signal other experimental or superseded features}
 \usage{
-signal_stage(stage, what, env = caller_env(2))
+signal_stage(stage, what, env = caller_env())
 }
 \arguments{
 \item{stage}{Life cycle stage, either "experimental" or "superseded".}
@@ -22,6 +22,8 @@ helper, in which case you should forward \code{env = caller_env()} and
 \code{user_env = caller_env(2)}.}
 }
 \description{
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+
 \code{signal_stage()} allows you to signal life cycle stages other than
 deprecation (for which you should use \code{\link[=deprecate_warn]{deprecate_warn()}} and friends).
 There is no behaviour associated with this signal, but in the future
@@ -30,7 +32,7 @@ superseded functions.
 }
 \examples{
 foofy <- function(x, y, z) {
-  signal_stage("experimental", foofy())
+  signal_stage("experimental", "foofy()")
   x + y / z
 }
 foofy(1, 2, 3)

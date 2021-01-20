@@ -235,7 +235,7 @@ lifecycle_message_what <- function(what, when) {
       glue_what("`{ fn }()` was deprecated in { pkg } { when }.")
     }
   } else {
-    if (what$from == "deprecate_stop" && is.null(what$reason)) {
+    if (what$from == "deprecate_stop" && is_null(what$reason)) {
       glue_what("The `{ arg }` argument of `{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
     } else {
       what$reason <- what$reason %||% "is deprecated"

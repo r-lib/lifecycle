@@ -1,4 +1,7 @@
-#' Signal other life cycle changes
+#' Signal other experimental or superseded features
+#'
+#' @description
+#' `r badge("experimental")`
 #'
 #' `signal_stage()` allows you to signal life cycle stages other than
 #' deprecation (for which you should use [deprecate_warn()] and friends).
@@ -13,7 +16,7 @@
 #' @export
 #' @examples
 #' foofy <- function(x, y, z) {
-#'   signal_stage("experimental", foofy())
+#'   signal_stage("experimental", "foofy()")
 #'   x + y / z
 #' }
 #' foofy(1, 2, 3)
@@ -21,7 +24,7 @@ signal_stage <- function(stage, what, env = caller_env()) {
   stage <- arg_match(stage, c("experimental", "superseded"))
   what <- spec(what, env = env)
 
-  if (is.null(what$arg)) {
+  if (is_null(what$arg)) {
     msg <- glue::glue_data(what, "{fn}() is {stage}")
   } else {
     msg <- glue::glue_data(what, "{fn}(arg) is {stage}")
@@ -30,7 +33,7 @@ signal_stage <- function(stage, what, env = caller_env()) {
   signal(msg, "lifecycle_stage",
     stage = stage,
     package = what$pkg,
-    'function' = what$fn,
+    function_nm = what$fn,
     argument = what$arg,
     reason = what$reason
   )

@@ -233,7 +233,7 @@ Then describe why the function was superseded, and what the recommended alternat
 
 The rest of the documentation can stay the same.
 
-In the body of the function add a call to `signal_stage()`:
+If you're willing to live on the bleeding edge of lifecycle, add a call to the experimental `signal_stage()`:
 
 ```{r}
 gather <- function(data, key = "key", value = "value", ...) {
@@ -252,7 +252,9 @@ To advertise that a function is experimental and the interface might change in t
 #' `r lifecycle::badge("experimental")`
 ```
 
-And add a call to `signal_stage()` in the body:
+If the function is very experimental, you might want to add `@keywords internal` too.
+
+If you're willing to try an experimental lifecycle feature, add a call to `signal_stage()` in the body:
 
 ```{r}
 cool_function <- function() {
