@@ -120,17 +120,10 @@ spec_reason <- function(call, signaller) {
 }
 
 spec_package <- function(env, signaller) {
-
-  # Hack for vignettes
-  default <- getOption("lifecycle:::calling_package", NULL)
-  if (!is.null(default)) {
-    return(default)
-  }
-
   env <- topenv(env)
   if (is_reference(env, global_env())) {
     # Convenient for experimenting interactively
-    return("<NA>")
+    return(getOption("lifecycle:::calling_package", "<NA>"))
   }
 
   if(is_namespace(env)) {
