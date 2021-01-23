@@ -1,5 +1,12 @@
 # lifecycle (development version)
 
+* Experimental `signal_stage()` can be used to signal that a function is 
+  experimental or superseded. These signals are not currently hooked up to any 
+  behaviour, but we'll add tools in a future release (#44).
+
+* `lifecycle_cnd_data()` has been removed; as far as I can tell it wasn't
+  used by anyone.
+
 * A character vector `details` is now converted into a bulleted list (#55).
 
 * You can now deprecate an argument with `foo(arg)` instead of `foo(arg =)` (#78).

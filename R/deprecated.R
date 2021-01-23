@@ -94,6 +94,7 @@ deprecate_soft <- function(when,
                            env = caller_env(),
                            user_env = caller_env(2)) {
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_soft")
+  signal_stage("deprecated", what)
 
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
@@ -119,6 +120,7 @@ deprecate_warn <- function(when,
                            id = NULL,
                            env = caller_env()) {
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_warn")
+  signal_stage("deprecated", what)
 
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
@@ -156,6 +158,7 @@ deprecate_stop <- function(when,
                            details = NULL,
                            env = caller_env()) {
   msg <- lifecycle_message(when, what, with, details, env, "deprecate_stop")
+  signal_stage("deprecated", what)
   deprecate_stop0(msg)
 }
 
@@ -235,9 +238,10 @@ lifecycle_message_what <- function(what, when) {
       glue_what("`{ fn }()` was deprecated in { pkg } { when }.")
     }
   } else {
-    if (what$from == "deprecate_stop" && what$reason == "is deprecated") {
+    if (what$from == "deprecate_stop" && is_null(what$reason)) {
       glue_what("The `{ arg }` argument of `{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
     } else {
+      what$reason <- what$reason %||% "is deprecated"
       glue_what("The `{ arg }` argument of `{ fn }()` { reason } as of { pkg } { when }.")
     }
   }

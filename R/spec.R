@@ -3,7 +3,7 @@ spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
   what <- spec_what(spec, "spec", signaller)
   fn <- spec_fn(what$call)
   arg <- spec_arg(what$call, signaller)
-  reason <- spec_reason(what$call, signaller) %||% "is deprecated"
+  reason <- spec_reason(what$call, signaller)
 
   if (is_null(what$pkg) && !is.null(env)) {
     pkg <- spec_package(env, signaller = signaller)

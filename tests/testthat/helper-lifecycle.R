@@ -19,7 +19,7 @@ cat_ruler <- function(title) {
 spec_data <- function(fn = NULL,
                       arg = NULL,
                       pkg = spec_package(caller_env()),
-                      reason = "is deprecated",
+                      reason = NULL,
                       from = "signal_lifecycle") {
   list(
     fn = fn,
