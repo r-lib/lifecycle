@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Signal experimental or superseded features — signal_experimental • lifecycle</title>
+<title>Deprecated funtions for signalling experimental and lifecycle stages — signal_experimental • lifecycle</title>
 
 
 <!-- jquery -->
@@ -39,12 +39,9 @@
 
 
 
-<meta property="og:title" content="Signal experimental or superseded features — signal_experimental" />
+<meta property="og:title" content="Deprecated funtions for signalling experimental and lifecycle stages — signal_experimental" />
 <meta property="og:description" content="
-These functions signal simple conditions with rlang::signal()
-(see also base::signalCondition()). They don't have any effect
-unless a condition handler is installed for conditions of class
-lifecycle_experimental or lifecycle_superseded." />
+Please use signal_stage() instead" />
 
 
 
@@ -143,51 +140,21 @@ lifecycle_experimental or lifecycle_superseded." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Signal experimental or superseded features</h1>
+    <h1>Deprecated funtions for signalling experimental and lifecycle stages</h1>
     <small class="dont-index">Source: <a href='https://github.com/r-lib/lifecycle/blob/master/R/signal.R'><code>R/signal.R</code></a></small>
     <div class="hidden name"><code>signal_experimental.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p>These functions signal simple conditions with <code><a href='https://rlang.r-lib.org/reference/abort.html'>rlang::signal()</a></code>
-(see also <code><a href='https://rdrr.io/r/base/conditions.html'>base::signalCondition()</a></code>). They don't have any effect
-unless a condition handler is installed for conditions of class
-<code>lifecycle_experimental</code> or <code>lifecycle_superseded</code>.</p>
+    <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
+Please use <code><a href='signal_stage.html'>signal_stage()</a></code> instead</p>
     </div>
 
-    <pre class="usage"><span class='fu'>signal_experimental</span><span class='op'>(</span><span class='va'>when</span>, <span class='va'>what</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>signal_experimental</span><span class='op'>(</span><span class='va'>when</span>, <span class='va'>what</span>, env <span class='op'>=</span> <span class='fu'>caller_env</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>signal_superseded</span><span class='op'>(</span><span class='va'>when</span>, <span class='va'>what</span>, with <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+<span class='fu'>signal_superseded</span><span class='op'>(</span><span class='va'>when</span>, <span class='va'>what</span>, with <span class='op'>=</span> <span class='cn'>NULL</span>, env <span class='op'>=</span> <span class='fu'>caller_env</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
-<span class='fu'>lifecycle_cnd_data</span><span class='op'>(</span><span class='va'>cnd</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>when</th>
-      <td><p>The version at which the feature was assigned a
-lifecycle stage.</p></td>
-    </tr>
-    <tr>
-      <th>what, with</th>
-      <td><p>Feature specifications for the feature and
-optionally its replacement. See <code><a href='deprecate_soft.html'>deprecate_soft()</a></code> for details.</p></td>
-    </tr>
-    <tr>
-      <th>cnd</th>
-      <td><p>A condition object thrown by <code>signal_experimental()</code> or
-<code>signal_superseded()</code>.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>In order to be fast, <code>signal_experimental()</code> and
-<code>signal_superseded()</code> do not validate their arguments. Instead, you
-need to catch the condition object and pass it to
-<code>lifecycle_cnd_data()</code> to get structured data.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

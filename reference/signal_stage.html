@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • lifecycle</title>
+<title>Signal other experimental or superseded features — signal_stage • lifecycle</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,13 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Signal other experimental or superseded features — signal_stage" />
+<meta property="og:description" content="
+signal_stage() allows you to signal life cycle stages other than
+deprecation (for which you should use deprecate_warn() and friends).
+There is no behaviour associated with this signal, but in the future
+we will provide tools to log and report on usage of experimental and
+superseded functions." />
 
 
 
@@ -68,7 +74,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -138,67 +144,60 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/r-lib/lifecycle/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Signal other experimental or superseded features</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/lifecycle/blob/master/R/signal.R'><code>R/signal.R</code></a></small>
+    <div class="hidden name"><code>signal_stage.Rd</code></div>
     </div>
 
-    <div id="lifecycle-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#lifecycle-development-version" class="anchor"></a>lifecycle (development version)<small> Unreleased </small>
-</h1>
-<ul>
-<li><p>Experimental <code><a href="../reference/signal_stage.html">signal_stage()</a></code> can be used to signal that a function is experimental or superseded. These signals are not currently hooked up to any behaviour, but we’ll add tools in a future release (<a href='https://github.com/r-lib/lifecycle/issues/44'>#44</a>).</p></li>
-<li><p><code>lifecycle_cnd_data()</code> has been removed; as far as I can tell it wasn’t used by anyone.</p></li>
-<li><p>A character vector <code>details</code> is now converted into a bulleted list (<a href='https://github.com/r-lib/lifecycle/issues/55'>#55</a>).</p></li>
-<li><p>You can now deprecate an argument with <code>foo(arg)</code> instead of <code>foo(arg =)</code> (<a href='https://github.com/r-lib/lifecycle/issues/78'>#78</a>). This syntax is similar in spirit to the formal arguments of function definitions.</p></li>
-<li><p>You can now deprecate method calls of the form <code>class$method()</code> (<a href='https://github.com/r-lib/lifecycle/issues/54'>#54</a>).</p></li>
-<li><p>Warnings printed manually now omit the advice footer (<a href='https://github.com/r-lib/lifecycle/issues/68'>#68</a>).</p></li>
-</ul>
-</div>
-    <div id="lifecycle-020" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.0">
-<a href="#lifecycle-020" class="anchor"></a>lifecycle 0.2.0<small> 2020-03-06 </small>
-</h1>
-<ul>
-<li><p>Lifecycle warnings are now displayed once every 8 hours.</p></li>
-<li><p>Added experimental <code><a href="../reference/signal_experimental.html">signal_experimental()</a></code> and <code><a href="../reference/signal_experimental.html">signal_superseded()</a></code> functions.</p></li>
-<li><p>Added the “superseded” lifecycle stage to the documentation.</p></li>
-<li><p><code><a href="../reference/deprecate_soft.html">deprecate_stop()</a></code> now mentions that function is defunct (<a href='https://github.com/r-lib/lifecycle/issues/28'>#28</a>).</p></li>
-<li><p>New <code><a href="../reference/expect_deprecated.html">expect_deprecated()</a></code> and <code><a href="../reference/expect_deprecated.html">expect_defunct()</a></code> functions for testting lifecycle warnings and errors. <code><a href="../reference/expect_deprecated.html">expect_deprecated()</a></code> automatically sets the <code>lifecycle_verbosity</code> option to <code>"warning"</code> to enforce warnings at each invokation rather than once per session.</p></li>
-<li><p>New syntax <code>"foo(arg = 'can\\'t be a baz')"</code> to describe that specific inputs for an argument are deprecated (<a href='https://github.com/r-lib/lifecycle/issues/30'>#30</a>, <a href='https://github.com/krlmlr'>@krlmlr</a>).</p></li>
-<li><p>New <code><a href="../reference/deprecated.html">is_present()</a></code> function to test whether the caller has supplied a <code><a href="../reference/deprecated.html">deprecated()</a></code> function.</p></li>
-</ul>
-</div>
-    <div id="lifecycle-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#lifecycle-010" class="anchor"></a>lifecycle 0.1.0<small> 2019-08-01 </small>
-</h1>
-<ul>
-<li><p>Deprecated functions under the control of the developer now warn repeatedly in unit tests.</p></li>
-<li><p>Deprecation warnings now record a backtrace. Call <code><a href="../reference/last_warnings.html">lifecycle::last_warnings()</a></code> and <code><a href="../reference/last_warnings.html">lifecycle::last_warning()</a></code> to print the warnings that occurred during the last command, along with their backtraces.</p></li>
-<li>
-<p>The naming scheme of signaller functions has been simplified:</p>
-<ul>
-<li>
-<code>signal_soft_deprecated()</code> is now <code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code>.</li>
-<li>
-<code>warn_deprecated()</code> is now <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code>.</li>
-<li>
-<code>stop_defunct()</code> is now <code><a href="../reference/deprecate_soft.html">deprecate_stop()</a></code>.</li>
-</ul>
-</li>
-<li><p>The signaller functions now take a version and two descriptors for the deprecated feature and its replacement (the latter is optional). The deprecation message is built from these components. You can pass a <code>details</code> argument to append additional information to the generated deprecation message.</p></li>
-<li><p>Helpers from rlang’s <code>compat-lifecycle.R</code> drop-in file are now exported in this package.</p></li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
+<p><code>signal_stage()</code> allows you to signal life cycle stages other than
+deprecation (for which you should use <code><a href='deprecate_soft.html'>deprecate_warn()</a></code> and friends).
+There is no behaviour associated with this signal, but in the future
+we will provide tools to log and report on usage of experimental and
+superseded functions.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>signal_stage</span><span class='op'>(</span><span class='va'>stage</span>, <span class='va'>what</span>, env <span class='op'>=</span> <span class='fu'>caller_env</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>stage</th>
+      <td><p>Life cycle stage, either "experimental" or "superseded".</p></td>
+    </tr>
+    <tr>
+      <th>what</th>
+      <td><p>String describing what feature the stage applies too, using
+the same syntax as <code><a href='deprecate_soft.html'>deprecate_warn()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>env</th>
+      <td><p>Pair of environments that define where <code>deprecate_*()</code>
+was called (used to determine the package name) and where the function
+called the deprecating function was called (used to determine if
+<code><a href='deprecate_soft.html'>deprecate_soft()</a></code> should message).</p>
+<p>These are only needed if you're calling <code>deprecate_*()</code> from an internal
+helper, in which case you should forward <code>env = caller_env()</code> and
+<code>user_env = caller_env(2)</code>.</p></td>
+    </tr>
+    </table>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>foofy</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'>signal_stage</span><span class='op'>(</span><span class='st'>"experimental"</span>, <span class='st'>"foofy()"</span><span class='op'>)</span>
+  <span class='va'>x</span> <span class='op'>+</span> <span class='va'>y</span> <span class='op'>/</span> <span class='va'>z</span>
+<span class='op'>}</span>
+<span class='fu'>foofy</span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.666667</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
