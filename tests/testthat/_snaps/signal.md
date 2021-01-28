@@ -13,12 +13,6 @@
 
     Code
       signal_experimental("1.0.0", "foo(arg = )")
-    Warning <lifecycle_warning_deprecated>
-      `signal_experimental()` was deprecated in lifecycle 1.0.0.
-      Please use the `stage` argument of `signal_stage()` instead.
     Code
       signal_superseded("1.0.0", "foo(arg = )")
-    Warning <lifecycle_warning_deprecated>
-      `signal_superseded()` was deprecated in lifecycle 1.0.0.
-      Please use the `stage` argument of `signal_stage()` instead.
 
