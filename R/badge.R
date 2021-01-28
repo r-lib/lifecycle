@@ -44,7 +44,7 @@
 #'
 #' @export
 badge <- function(stage) {
-  url <- paste0("https://www.tidyverse.org/lifecycle/#", stage)
+  url <- paste0("https://lifecycle.r-lib.org/articles/stages.html#", stage)
   img <- lifecycle_img(stage, url)
 
   sprintf("\\ifelse{html}{%s}{\\strong{%s}}", img, upcase1(stage))
