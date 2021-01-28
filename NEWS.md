@@ -1,20 +1,30 @@
 # lifecycle (development version)
 
+* New vignettes: 
+  * `vignette("stages")` describes the lifecycle stages 
+  * `vignette("manage")` teaches you how to manage lifecycle changes in 
+     functions you _use_.
+  * `vignette("communicate")` shows how to use lifecycle in functions that
+     you _write_.
+
+* In `deprecate_soft()`, `deprecate_warn()`, and `deprecate_stop()`:
+  
+  * You can deprecate an argument with `foo(arg)` instead of `foo(arg =)` (#78). 
+    This syntax is similar in spirit to the formal arguments  of function 
+    definitions. 
+    
+  * You can deprecate R6 methods by using `class$method()` (#54).
+  
+  * A character vector `details` is now converted into a bulleted list (#55).
+
+  * Manually printed warnings now omit the advice footer (#68).
+
 * Experimental `signal_stage()` can be used to signal that a function is 
   experimental or superseded. These signals are not currently hooked up to any 
   behaviour, but we'll add tools in a future release (#44).
 
 * `lifecycle_cnd_data()` has been removed; as far as I can tell it wasn't
   used by anyone.
-
-* A character vector `details` is now converted into a bulleted list (#55).
-
-* You can now deprecate an argument with `foo(arg)` instead of `foo(arg =)` (#78).
-  This syntax is similar in spirit to the formal arguments of function definitions.
-
-* You can now deprecate method calls of the form `class$method()` (#54).
-
-* Warnings printed manually now omit the advice footer (#68).
 
 
 # lifecycle 0.2.0
