@@ -41,9 +41,9 @@ package developers.
 \section{Badges}{
 
 \itemize{
-\item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}} \code{lifecycle::badge("experimental")}
-\item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}} \code{lifecycle::badge("stable")}
-\item \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#superseded'><img src='figures/lifecycle-superseded.svg' alt='Superseded lifecycle'></a>}}{\strong{Superseded}} \code{lifecycle::badge("superseded")}
+\item \ifelse{html}{\out{<a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}} \code{lifecycle::badge("experimental")}
+\item \ifelse{html}{\out{<a href='https://lifecycle.r-lib.org/articles/stages.html#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}} \code{lifecycle::badge("stable")}
+\item \ifelse{html}{\out{<a href='https://lifecycle.r-lib.org/articles/stages.html#superseded'><img src='figures/lifecycle-superseded.svg' alt='Superseded lifecycle'></a>}}{\strong{Superseded}} \code{lifecycle::badge("superseded")}
 \item \ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} \code{lifecycle::badge("deprecated")}
 }
 
