@@ -6,10 +6,9 @@ Authors@R:
       person(given = "Lionel", family = "Henry", role = c("aut", "cre"), email = "lionel@rstudio.com"),
       person(given = "RStudio", role = "cph")
     )
-Description: Manage the life cycle of your exported functions with
-    shared conventions, documentation badges, and non-invasive
-    deprecation warnings. 'lifecycle' provides tools for badging your
-    documentation and emitting user-friendly warnings in deprecated functions.
+Description: Manage the lifecycle of your exported functions with
+    shared conventions, documentation badges, and user-friendly
+    deprecation warnings.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
