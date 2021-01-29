@@ -6,10 +6,9 @@
 \alias{lifecycle-package}
 \title{lifecycle: Manage the Life Cycle of your Package Functions}
 \description{
-Manage the life cycle of your exported functions with
-    shared conventions, documentation badges, and non-invasive
-    deprecation warnings. 'lifecycle' provides tools for badging your
-    documentation and emitting user-friendly warnings in deprecated functions.
+Manage the lifecycle of your exported functions with
+    shared conventions, documentation badges, and user-friendly
+    deprecation warnings.
 }
 \seealso{
 Useful links:
