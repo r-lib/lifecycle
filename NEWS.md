@@ -16,6 +16,9 @@
   * You can deprecate R6 methods by using `class$method()` (#54).
   
   * A character vector `details` is now converted into a bulleted list (#55).
+  
+  * Messages for non-prefix functions (like "`x<-`()" and "`%>%`()")
+    look a little nicer (#95).
 
   * Manually printed warnings now omit the advice footer (#68).
 

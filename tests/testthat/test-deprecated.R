@@ -94,9 +94,11 @@ test_that("replace deprecation messages are readable", {
   })
 })
 
-test_that("non-syntactic names are handled gracefully", {
+test_that("unusual names are handled gracefully", {
   expect_snapshot({
-    cat_line(lifecycle_message("1.0.0", "bar::`foo-fy`(`qu-ux` = )"))
+    cat_line(lifecycle_message("1.0.0", "`foo-fy`(`qu-ux` = )"))
+    cat_line(lifecycle_message("1.0.0", "`foo<-`()"))
+    cat_line(lifecycle_message("1.0.0", "`+`()"))
   })
 })
 

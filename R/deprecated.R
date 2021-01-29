@@ -231,19 +231,29 @@ lifecycle_message <- function(when,
 lifecycle_message_what <- function(what, when) {
   glue_what <- function(x) glue::glue_data(what, x)
 
+  what$fn <- fun_label(what$fn)
+
   if (is_null(what$arg)) {
     if (what$from == "deprecate_stop") {
-      glue_what("`{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
+      glue_what("{ fn } was deprecated in { pkg } { when } and is now defunct.")
     } else {
-      glue_what("`{ fn }()` was deprecated in { pkg } { when }.")
+      glue_what("{ fn } was deprecated in { pkg } { when }.")
     }
   } else {
     if (what$from == "deprecate_stop" && is_null(what$reason)) {
-      glue_what("The `{ arg }` argument of `{ fn }()` was deprecated in { pkg } { when } and is now defunct.")
+      glue_what("The `{ arg }` argument of { fn } was deprecated in { pkg } { when } and is now defunct.")
     } else {
       what$reason <- what$reason %||% "is deprecated"
-      glue_what("The `{ arg }` argument of `{ fn }()` { reason } as of { pkg } { when }.")
+      glue_what("The `{ arg }` argument of { fn } { reason } as of { pkg } { when }.")
     }
+  }
+}
+
+fun_label <- function(fn) {
+  if (grepl("^`", fn)) {
+    fn
+  } else {
+    paste0("`", fn , "()`")
   }
 }
 

@@ -40,12 +40,20 @@
       The `arg` argument of `foo()` is deprecated as of base 1.0.0.
       Please use the `arg` argument of `bar()` instead.
 
-# non-syntactic names are handled gracefully
+# unusual names are handled gracefully
 
     Code
-      cat_line(lifecycle_message("1.0.0", "bar::`foo-fy`(`qu-ux` = )"))
+      cat_line(lifecycle_message("1.0.0", "`foo-fy`(`qu-ux` = )"))
     Output
-      The `qu-ux` argument of ``foo-fy`()` is deprecated as of bar 1.0.0.
+      The `qu-ux` argument of `foo-fy` is deprecated as of base 1.0.0.
+    Code
+      cat_line(lifecycle_message("1.0.0", "`foo<-`()"))
+    Output
+      `foo<-` was deprecated in base 1.0.0.
+    Code
+      cat_line(lifecycle_message("1.0.0", "`+`()"))
+    Output
+      `+` was deprecated in base 1.0.0.
 
 # can use bullets in details 
 
