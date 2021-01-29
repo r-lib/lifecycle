@@ -7,8 +7,26 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 note
 
-## Reverse dependencies checks
+## revdepcheck results
 
-We ran full revdep checks and found no issues.
+We checked 95 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 2 new problems
+ * We failed to check 0 packages
+
+Issues with CRAN packages are summarised below.
+
+### New problems
+(This reports the first line of each new failure)
+
+* mcmcr
+  checking tests ... ERROR
+  Does not affect operation of package; 
+  fix submitted to author on 2021-01-29 
+
+* tidygate
+  checking tests ... ERROR
+  Does not affect operation of package; 
+  fix submitted to author on 2021-01-29 
