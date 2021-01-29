@@ -31,3 +31,7 @@ lifecycle_abort <- function(x, env = parent.frame()) {
   x <- paste0("Internal error in lifecycle: ", glue::trim(x))
   abort(glue::glue(x, .envir = env))
 }
+
+`%<~~%` <- function(lhs, rhs, env = caller_env()) {
+  env_bind_lazy(env, !!substitute(lhs) := !!substitute(rhs), .eval_env = env)
+}

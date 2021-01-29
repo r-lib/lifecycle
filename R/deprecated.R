@@ -93,7 +93,7 @@ deprecate_soft <- function(when,
                            id = NULL,
                            env = caller_env(),
                            user_env = caller_env(2)) {
-  msg <- lifecycle_message(when, what, with, details, env, "deprecate_soft")
+  msg %<~~% lifecycle_message(when, what, with, details, env, "deprecate_soft")
   signal_stage("deprecated", what)
 
   verbosity <- lifecycle_verbosity()
@@ -119,7 +119,7 @@ deprecate_warn <- function(when,
                            details = NULL,
                            id = NULL,
                            env = caller_env()) {
-  msg <- lifecycle_message(when, what, with, details, env, "deprecate_warn")
+  msg %<~~% lifecycle_message(when, what, with, details, env, "deprecate_warn")
   signal_stage("deprecated", what)
 
   verbosity <- lifecycle_verbosity()
@@ -157,7 +157,7 @@ deprecate_stop <- function(when,
                            with = NULL,
                            details = NULL,
                            env = caller_env()) {
-  msg <- lifecycle_message(when, what, with, details, env, "deprecate_stop")
+  msg %<~~% lifecycle_message(when, what, with, details, env, "deprecate_stop")
   signal_stage("deprecated", what)
   deprecate_stop0(msg)
 }
