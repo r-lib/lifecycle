@@ -6,6 +6,11 @@ Authors@R:
              family = "Henry",
              role = c("aut", "cre"),
              email = "lionel@rstudio.com"),
+      person(given = "Hadley",
+             family = "Wickham",
+             role = "aut",
+             email = "hadley@rstudio.com",
+             comment = c(ORCID = "0000-0003-4757-117X")),
       person(given = "RStudio",
              role = "cph"))
 Description: Manage the lifecycle of your exported functions
