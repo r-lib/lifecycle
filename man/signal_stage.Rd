@@ -22,7 +22,7 @@ helper, in which case you should forward \code{env = caller_env()} and
 \code{user_env = caller_env(2)}.}
 }
 \description{
-\ifelse{html}{\out{<a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \code{signal_stage()} allows you to signal life cycle stages other than
 deprecation (for which you should use \code{\link[=deprecate_warn]{deprecate_warn()}} and friends).
