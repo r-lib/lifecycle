@@ -1,39 +1,32 @@
-# furrr
+# EpiNow2
 
 <details>
 
-* Version: 0.2.1
-* GitHub: https://github.com/DavisVaughan/furrr
-* Source code: https://github.com/cran/furrr
-* Date/Publication: 2020-10-21 18:00:06 UTC
-* Number of recursive dependencies: 67
+* Version: 1.3.2
+* GitHub: https://github.com/epiforecasts/EpiNow2
+* Source code: https://github.com/cran/EpiNow2
+* Date/Publication: 2020-12-14 09:00:15 UTC
+* Number of recursive dependencies: 150
 
-Run `cloud_details(, "furrr")` for more info
+Run `cloud_details(, "EpiNow2")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking tests ... ERROR
+*   checking installed package size ... NOTE
     ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > library(testthat)
-      > library(furrr)
-      Loading required package: future
-      > 
-      > test_check("furrr")
-      ══ Skipped tests ═══════════════════════════════════════════════════════════════
-      ● Until HenrikBengtsson/future.apply#10 is fixed (1)
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure (test-deprecation.R:2:3): can use deprecated `future_options()` ─────
-      `regexp` was not found in deprecation warning message.
-      
-      [ FAIL 1 | WARN 0 | SKIP 1 | PASS 811 ]
-      Error: Test failures
-      Execution halted
+      installed size is 265.8Mb
+      sub-directories of 1Mb or more:
+        libs  264.1Mb
+    ```
+
+## Newly fixed
+
+*   checking whether package ‘EpiNow2’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/EpiNow2/old/EpiNow2.Rcheck/00install.out’ for details.
     ```
 
 # mcmcr
@@ -57,8 +50,8 @@ Run `cloud_details(, "mcmcr")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-        3.     └─lifecycle:::lifecycle_message(...)
-        4.       └─lifecycle:::spec(what, env, signaller)
+        3.     └─lifecycle::signal_stage("deprecated", what)
+        4.       └─lifecycle:::spec(what, env = env)
         5.         └─lifecycle:::spec_what(spec, "spec", signaller)
         6.           └─rlang::parse_expr(what)
         7.             └─rlang::parse_exprs(x)
