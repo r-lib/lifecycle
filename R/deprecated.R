@@ -93,6 +93,7 @@ deprecate_soft <- function(when,
                            id = NULL,
                            env = caller_env(),
                            user_env = caller_env(2)) {
+  msg <- NULL # trick R CMD check
   msg %<~~% lifecycle_message(when, what, with, details, env, "deprecate_soft")
   signal_stage("deprecated", what)
 
@@ -119,6 +120,7 @@ deprecate_warn <- function(when,
                            details = NULL,
                            id = NULL,
                            env = caller_env()) {
+  msg <- NULL # trick R CMD check
   msg %<~~% lifecycle_message(when, what, with, details, env, "deprecate_warn")
   signal_stage("deprecated", what)
 
@@ -157,6 +159,7 @@ deprecate_stop <- function(when,
                            with = NULL,
                            details = NULL,
                            env = caller_env()) {
+  msg <- NULL # trick R CMD check
   msg %<~~% lifecycle_message(when, what, with, details, env, "deprecate_stop")
   signal_stage("deprecated", what)
   deprecate_stop0(msg)
