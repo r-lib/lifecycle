@@ -8,6 +8,8 @@
 
 lifecycle provides a set of tools and conventions to manage the life cycle of your exported functions.
 
+-   For a general motivation and introduction to the key concepts, watch Hadley's rstudio::global(2021) keynote ["Maintaining the house that the tidyverse built"](https://rstudio.com/resources/rstudioglobal-2021/maintaining-the-house-the-tidyverse-built/).
+
 -   Read `vignette("stages")` to learn what it means for a function to be experimental, stable, deprecated, or superseded.
 
 -   Read `vignette("manage")` to learn how to manage lifecycle changes in functions that you use.
