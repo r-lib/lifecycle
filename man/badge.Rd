@@ -8,8 +8,10 @@ badge(stage)
 }
 \arguments{
 \item{stage}{A lifecycle stage as a string. Must be one of
-\code{"experimental"}, \code{"stable"}, \code{"questioning"}, \code{"superseded"}, or
-\code{"deprecated"}.}
+\code{"experimental"}, \code{"stable"}, \code{"superseded"}, or \code{"deprecated"}.
+
+Superseded stages \code{"questioning"}, \code{"maturing"}, \code{"soft-deprecated"},
+and "\code{defunct}" are supported for backwards compatibility.}
 }
 \value{
 An \code{Rd} expression describing the lifecycle stage.

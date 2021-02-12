@@ -17,5 +17,5 @@
     Code
       cat(badge("unknown"))
     Error <rlang_error>
-      `stage` must be one of "experimental", "stable", "questioning", "superseded", or "deprecated".
+      `stage` must be one of "experimental", "stable", "superseded", or "deprecated".
 

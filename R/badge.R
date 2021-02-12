@@ -38,16 +38,21 @@
 #' `vignette("stages")`.
 #'
 #' @param stage A lifecycle stage as a string. Must be one of
-#'   `"experimental"`, `"stable"`, `"questioning"`, `"superseded"`, or
-#'   `"deprecated"`.
+#'   `"experimental"`, `"stable"`, `"superseded"`, or `"deprecated"`.
+#'
+#'   Superseded stages `"questioning"`, `"maturing"`, `"soft-deprecated"`,
+#'   and "`defunct`" are supported for backwards compatibility.
 #' @return An `Rd` expression describing the lifecycle stage.
 #'
 #' @export
 badge <- function(stage) {
 
-  stage <- arg_match0(stage,
-    c("experimental", "stable", "questioning", "superseded", "deprecated")
-  )
+  old <- c("maturing", "questioning", "soft-deprecated", "defunct")
+  if (!stage %in% old) {
+    stage <- arg_match0(stage,
+      c("experimental", "stable", "superseded", "deprecated")
+    )
+  }
 
   url <- paste0("https://lifecycle.r-lib.org/articles/stages.html#", stage)
   html <- sprintf(
