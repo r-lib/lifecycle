@@ -96,8 +96,17 @@ In general, you can assume any package with version number less than 1.0.0 is at
 The most experimental packages only exist on GitHub.
 If you're using a non-CRAN package you should plan for an active relationship: when the package changes, you need to be prepared to update your code.
 
-## Questioning
+## Superseded stages
+
+We no longer use these stages, but we document them here because we have used them in the past.
+
+### Questioning
 
 Sometimes the author of a function is no longer certain that a function is the optimal approach, but doesn't yet know how to do it better.
 These functions can be marked as ![questioning](figures/lifecycle-questioning.svg){style="vertical-align:middle"} to give users a heads up that the author has doubts about the function.
 Because knowing that a function is questioning is not very actionable, we no longer use or recommend this stage.
+
+### Maturing
+
+Previously we used as ![maturing](figures/lifecycle-maturing.svg){style="vertical-align:middle"} for functions that lay somewhere between experimental and stable.
+We stopped using this stage because, like questioning, it's not clear what actionable information this stage delivers.
