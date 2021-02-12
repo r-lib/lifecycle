@@ -1,6 +1,6 @@
 Package: lifecycle
 Title: Manage the Life Cycle of your Package Functions
-Version: 0.2.0.9000
+Version: 1.0.0
 Authors@R: 
     c(person(given = "Lionel",
              family = "Henry",
