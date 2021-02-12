@@ -11,7 +11,7 @@ badge(stage)
 \code{"experimental"}, \code{"stable"}, \code{"superseded"}, or \code{"deprecated"}.
 
 Superseded stages \code{"questioning"}, \code{"maturing"}, \code{"soft-deprecated"},
-and "\code{defunct}" are supported for backwards compatibility.}
+"\code{defunct}", and \code{"retired"} are supported for backwards compatibility.}
 }
 \value{
 An \code{Rd} expression describing the lifecycle stage.
