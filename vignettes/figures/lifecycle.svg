@@ -3,6 +3,7 @@
 <style>
   text {
     fill: white;
+    font-family: "Helvetica Neue";
   }
 </style>
 <defs>
