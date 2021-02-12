@@ -151,10 +151,20 @@
 <p>Some functions are released in an <img src="figures/lifecycle-experimental.svg" style="vertical-align:middle" alt="experimental"> stage. Experimental functions are made available so people can try them out and provide feedback, but come with no promises for long term stability. In particular, the author reserves the right to make breaking changes without a deprecation cycle. That said, there is some interaction between popularity and stability. Breaking an popular function, even if clearly labelled as experimental, is likely to cause widespread pain so we’ll generally try to avoid it.</p>
 <p>In general, you can assume any package with version number less than 1.0.0 is at least somewhat experimental, and it may have major changes in its future. The most experimental packages only exist on GitHub. If you’re using a non-CRAN package you should plan for an active relationship: when the package changes, you need to be prepared to update your code.</p>
 </div>
-<div id="questioning" class="section level2">
+<div id="superseded-stages" class="section level2">
 <h2 class="hasAnchor">
-<a href="#questioning" class="anchor"></a>Questioning</h2>
+<a href="#superseded-stages" class="anchor"></a>Superseded stages</h2>
+<p>We no longer use these stages, but we document them here because we have used them in the past.</p>
+<div id="questioning" class="section level3">
+<h3 class="hasAnchor">
+<a href="#questioning" class="anchor"></a>Questioning</h3>
 <p>Sometimes the author of a function is no longer certain that a function is the optimal approach, but doesn’t yet know how to do it better. These functions can be marked as <img src="figures/lifecycle-questioning.svg" style="vertical-align:middle" alt="questioning"> to give users a heads up that the author has doubts about the function. Because knowing that a function is questioning is not very actionable, we no longer use or recommend this stage.</p>
+</div>
+<div id="maturing" class="section level3">
+<h3 class="hasAnchor">
+<a href="#maturing" class="anchor"></a>Maturing</h3>
+<p>Previously we used as <img src="figures/lifecycle-maturing.svg" style="vertical-align:middle" alt="maturing"> for functions that lay somewhere between experimental and stable. We stopped using this stage because, like questioning, it’s not clear what actionable information this stage delivers.</p>
+</div>
 </div>
 <div class="footnotes">
 <hr>
