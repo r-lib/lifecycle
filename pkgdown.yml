@@ -5,7 +5,7 @@ articles:
   communicate: communicate.html
   manage: manage.html
   stages: stages.html
-last_built: 2021-02-06T16:00Z
+last_built: 2021-02-12T14:16Z
 urls:
   reference: https://lifecycle.r-lib.org/reference
   article: https://lifecycle.r-lib.org/articles
