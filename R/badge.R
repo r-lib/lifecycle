@@ -47,10 +47,10 @@
 #' @export
 badge <- function(stage) {
 
-  old <- c("maturing", "questioning", "soft-deprecated", "defunct")
+  old <- c("maturing", "questioning", "soft-deprecated", "defunct", "retired")
   if (!stage %in% old) {
     stage <- arg_match0(stage,
-      c("experimental", "stable", "superseded", "deprecated", "retired")
+      c("experimental", "stable", "superseded", "deprecated")
     )
   }
 
