@@ -9,10 +9,3 @@
     Output
       <lifecycle_stage: foo(arg) is superseded>
 
-# signal_experimental() and signal_superseded() are deprecated
-
-    Code
-      signal_experimental("1.0.0", "foo(arg = )")
-    Code
-      signal_superseded("1.0.0", "foo(arg = )")
-

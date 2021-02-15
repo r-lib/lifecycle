@@ -17,10 +17,3 @@ test_that("signal generates user friendly message", {
     (expect_condition(signal_stage("superseded", "foo(bar)")))
   })
 })
-
-test_that("signal_experimental() and signal_superseded() are deprecated", {
-  expect_snapshot({
-    signal_experimental("1.0.0", "foo(arg = )")
-    signal_superseded("1.0.0", "foo(arg = )")
-  })
-})
