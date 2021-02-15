@@ -214,6 +214,9 @@ errors.</p>
 #&gt; 
 #&gt; ── </span><span style='color: #FFAF00;font-weight: bold;'>Failure</span><span style='font-weight: bold;'> (&lt;text&gt;:12:5): mytool is deprecated</span><span> ─────────────────────────────────
 #&gt; `mytool()` did not throw an error.
+#&gt; </span><span style='font-weight: bold;'>Backtrace:</span><span>
+#&gt; </span><span style='color: #555555;'> 1. </span><span>rlang::with_options(...)
+#&gt; </span><span style='color: #555555;'> 2. </span><span>testthat::expect_error(mytool(), class = "defunctError")
 #&gt; 
 #&gt; </span><span style='color: #00BB00;'>Test passed</span><span> 🥇</div><div class='input'>
 </div></span></pre>
