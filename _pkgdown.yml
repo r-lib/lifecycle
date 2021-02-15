@@ -11,3 +11,8 @@ articles:
   - stages
   - manage
   - communicate
+
+news:
+ releases:
+ - text: "lifecycle 1.0.0"
+   href: https://www.tidyverse.org/blog/2021/02/lifecycle-1-0-0/
