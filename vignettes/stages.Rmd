@@ -96,7 +96,7 @@ In general, you can assume any package with version number less than 1.0.0 is at
 The most experimental packages only exist on GitHub.
 If you're using a non-CRAN package you should plan for an active relationship: when the package changes, you need to be prepared to update your code.
 
-## Superseded stages
+## Obsolete stages
 
 We no longer use these stages, but we document them here because we have used them in the past.
 
