@@ -26,12 +26,12 @@ db_function <- function(db) {
 }
 
 #' @param package The name of an installed package.
-#' @param which The lifecycle statuses to return for installed packages.
+#' @param which The lifecycle statuses to retrieve.
 #'   Include `NA` if you want to include functions without a specified lifecycle
 #'   status in the results.
 #' @export
 #' @rdname lint_lifecycle
-pkg_function_lifecycle <- function(package, which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
+pkg_lifecycle_statuses <- function(package, which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
   check_installed("vctrs")
   which <- match.arg(which, several.ok = TRUE)
   stopifnot(is_string(package))
@@ -85,7 +85,7 @@ get_usage_function_names <- function(x) {
 #'   `path` for usages of those functions.
 #' - `lint_tidyverse_lifecycle` is a convenience function to call `lint_lifecycle`
 #'   for all the packages in the tidyverse.
-#' - `pkg_function_lifecycle` returns a data frame of functions with lifecycle
+#' - `pkg_lifecycle_statuses` returns a data frame of functions with lifecycle
 #'   annotations for an installed package.
 #'
 #' @param path The directory path to the files you want to search.
@@ -97,7 +97,7 @@ lint_lifecycle <- function(package, path = ".", pattern = "[.][Rr](md)?", which 
 
   check_installed(c("lintr", "vctrs"))
 
-  life_cycles <- vctrs::vec_rbind(!!!lapply(package, pkg_function_lifecycle, which = which))
+  life_cycles <- vctrs::vec_rbind(!!!lapply(package, pkg_lifecycle_statuses, which = which))
 
   msgs <- sprintf("`%s::%s` is %s", life_cycles$package, life_cycles$fun, life_cycles$lifecycle)
 
