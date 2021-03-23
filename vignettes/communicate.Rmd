@@ -69,7 +69,7 @@ Briefly describe why the deprecation occurred and what to use instead.
 #' Add two numbers
 #' 
 #' @description
-#' `r lifecycle::badge("deprecated")
+#' `r lifecycle::badge("deprecated")`
 #' 
 #' This function was deprecated because we realised that it's
 #' a special case of the [sum()] function.
@@ -160,11 +160,11 @@ test_that("add_two is deprecated", {
 
 For particularly important functions, you can choose to add two other stages to the deprecation process:
 
--   `deprecated_soft()` is used before `deprecated_warn()`.
+-   `deprecate_soft()` is used before `deprecate_warn()`.
     This function only warns (a) users who try the feature from the global environment and (b) developers who directly use the feature (when running testthat tests).
     There is no warning when the deprecated feature is called indirectly by another package --- the goal is to ensure that warn only the person who has the power to stop using the deprecated feature.
 
--   `deprecated_stop()` comes after `deprecated_warn()` and generates an error instead of a warning.
+-   `deprecate_stop()` comes after `deprecate_warn()` and generates an error instead of a warning.
     The main benefit over simply removing the function is that the user is informed about the replacement.
 
 If you use these stages you'll also need a process for bumping the deprecation stage for major and minor releases.
