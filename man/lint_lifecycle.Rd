@@ -13,7 +13,7 @@ pkg_lifecycle_statuses(
 )
 
 lint_lifecycle(
-  package,
+  packages,
   path = ".",
   pattern = "[.][Rr](md)?",
   which = c("superseded", "deprecated", "questioning", "defunct", "experimental",
@@ -33,6 +33,8 @@ lint_tidyverse_lifecycle(
 \item{which}{The lifecycle statuses to retrieve.
 Include \code{NA} if you want to include functions without a specified lifecycle
 status in the results.}
+
+\item{packages}{One or more installed packages to query for lifecycle statuses.}
 
 \item{path}{The directory path to the files you want to search.}
 

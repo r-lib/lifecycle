@@ -88,16 +88,17 @@ get_usage_function_names <- function(x) {
 #' - `pkg_lifecycle_statuses` returns a data frame of functions with lifecycle
 #'   annotations for an installed package.
 #'
+#' @param packages One or more installed packages to query for lifecycle statuses.
 #' @param path The directory path to the files you want to search.
 #' @param pattern Any files matching this pattern will be searched. The default
 #'   searches any files ending in `.R` or `.Rmd`.
 #' @export
-lint_lifecycle <- function(package, path = ".", pattern = "[.][Rr](md)?", which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
+lint_lifecycle <- function(packages, path = ".", pattern = "[.][Rr](md)?", which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
   which <- match.arg(which, several.ok = TRUE)
 
   check_installed(c("lintr", "vctrs"))
 
-  life_cycles <- vctrs::vec_rbind(!!!lapply(package, pkg_lifecycle_statuses, which = which))
+  life_cycles <- vctrs::vec_rbind(!!!lapply(packages, pkg_lifecycle_statuses, which = which))
 
   msgs <- sprintf("`%s::%s` is %s", life_cycles$package, life_cycles$fun, life_cycles$lifecycle)
 
@@ -139,5 +140,5 @@ lint_tidyverse_lifecycle <- function(path = ".", pattern = "[.][Rr](md)?", which
 
   check_installed(c("lintr", "vctrs", "tidyverse"))
 
-  lint_lifecycle(package = tidyverse::tidyverse_packages(), path = path, which = which)
+  lint_lifecycle(packages = tidyverse::tidyverse_packages(), path = path, which = which)
 }
