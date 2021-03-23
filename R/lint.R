@@ -25,16 +25,16 @@ db_function <- function(db) {
   lapply(usage, get_usage_function_names)
 }
 
-#' @param package The name of installed packages.
+#' @param package The name of an installed package.
 #' @param which The lifecycle statuses to return for installed packages.
 #'   Include `NA` if you want to include functions without a specified lifecycle
 #'   status in the results.
 #' @export
 #' @rdname lint_lifecycle
 pkg_function_lifecycle <- function(package, which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
-  rlang::check_installed("vctrs")
+  check_installed("vctrs")
   which <- match.arg(which, several.ok = TRUE)
-  stopifnot(is.character(package) && length(package) == 1)
+  stopifnot(is_string(package))
 
   db <- tools::Rd_db(package)
   lc <- db_lifecycle(db)
@@ -83,7 +83,7 @@ get_usage_function_names <- function(x) {
 #' - `lint_lifecycle` dynamically queries the package documentation for packages
 #'   in `packages` for lifecycle annotations and then searches the directory in
 #'   `path` for usages of those functions.
-#' - `lint_tidyverse_lifecycle` is a convince function to call `lint_lifecycle`
+#' - `lint_tidyverse_lifecycle` is a convenience function to call `lint_lifecycle`
 #'   for all the packages in the tidyverse.
 #' - `pkg_function_lifecycle` returns a data frame of functions with lifecycle
 #'   annotations for an installed package.
@@ -95,7 +95,7 @@ get_usage_function_names <- function(x) {
 lint_lifecycle <- function(package, path = ".", pattern = "[.][Rr](md)?", which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
   which <- match.arg(which, several.ok = TRUE)
 
-  rlang::check_installed(c("lintr", "vctrs"))
+  check_installed(c("lintr", "vctrs"))
 
   life_cycles <- vctrs::vec_rbind(!!!lapply(package, pkg_function_lifecycle, which = which))
 
@@ -137,7 +137,7 @@ lint_lifecycle <- function(package, path = ".", pattern = "[.][Rr](md)?", which 
 lint_tidyverse_lifecycle <- function(path = ".", pattern = "[.][Rr](md)?", which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
   which <- match.arg(which, several.ok = TRUE)
 
-  rlang::check_installed(c("lintr", "vctrs", "tidyverse"))
+  check_installed(c("lintr", "vctrs", "tidyverse"))
 
   lint_lifecycle(package = tidyverse::tidyverse_packages(), path = path, which = which)
 }
