@@ -39,9 +39,6 @@
 #'
 #' @param stage A lifecycle stage as a string. Must be one of
 #'   `"experimental"`, `"stable"`, `"superseded"`, or `"deprecated"`.
-#'
-#'   Superseded stages `"questioning"`, `"maturing"`, `"soft-deprecated"`,
-#'   "`defunct`", and `"retired"` are supported for backwards compatibility.
 #' @return An `Rd` expression describing the lifecycle stage.
 #'
 #' @export
