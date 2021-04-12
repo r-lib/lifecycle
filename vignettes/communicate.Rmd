@@ -128,7 +128,7 @@ add_two(1, 2)
 It's good practice to test that you've correctly implemented the deprecation, testing that the deprecated function still works and that it generates a useful warning.
 Using an expectation inside `testthat::expect_snapshot()`[^2] is a convenient way to do this:
 
-[^2]: You can learn more about snapshot testing in `vignette("snapshot", package = "testthat")`.
+[^2]: You can learn more about snapshot testing in `vignette("snapshotting", package = "testthat")`.
 
 ```{r, eval = FALSE}
 test_that("add_two is deprecated", {
