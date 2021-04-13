@@ -28,10 +28,14 @@ Imports:
 Suggests:
     covr,
     crayon,
+    lintr,
+    tidyverse,
     knitr,
     rmarkdown,
     testthat (>= 3.0.1),
-    tibble
+    tools,
+    tibble,
+    vctrs
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
