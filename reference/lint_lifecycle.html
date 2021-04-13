@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • lifecycle</title>
+<title>Lint usages of functions that have a non-stable life cycle. — pkg_lifecycle_statuses • lifecycle</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,18 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Lint usages of functions that have a non-stable life cycle. — pkg_lifecycle_statuses" />
+<meta property="og:description" content="
+
+lint_lifecycle dynamically queries the package documentation for packages
+in packages for lifecycle annotations and then searches the directory in
+path for usages of those functions.
+lint_tidyverse_lifecycle is a convenience function to call lint_lifecycle
+for all the packages in the tidyverse.
+pkg_lifecycle_statuses returns a data frame of functions with lifecycle
+annotations for an installed package.
+
+" />
 
 
 
@@ -68,7 +79,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -150,84 +161,78 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Lint usages of functions that have a non-stable life cycle.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/lifecycle/blob/master/R/lint.R'><code>R/lint.R</code></a></small>
+    <div class="hidden name"><code>lint_lifecycle.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+<ul>
+<li><p><code>lint_lifecycle</code> dynamically queries the package documentation for packages
+in <code>packages</code> for lifecycle annotations and then searches the directory in
+<code>path</code> for usages of those functions.</p></li>
+<li><p><code>lint_tidyverse_lifecycle</code> is a convenience function to call <code>lint_lifecycle</code>
+for all the packages in the tidyverse.</p></li>
+<li><p><code>pkg_lifecycle_statuses</code> returns a data frame of functions with lifecycle
+annotations for an installed package.</p></li>
+</ul>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    </div>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="badge.html">badge()</a></code> </p>
-        </td>
-        <td><p>Embed a lifecycle badge in documentation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="deprecate_soft.html">deprecate_soft()</a></code> <code><a href="deprecate_soft.html">deprecate_warn()</a></code> <code><a href="deprecate_soft.html">deprecate_stop()</a></code> </p>
-        </td>
-        <td><p>Deprecate functions and arguments</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="deprecated.html">deprecated()</a></code> <code><a href="deprecated.html">is_present()</a></code> </p>
-        </td>
-        <td><p>Mark an argument as deprecated</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="expect_deprecated.html">expect_deprecated()</a></code> <code><a href="expect_deprecated.html">expect_defunct()</a></code> </p>
-        </td>
-        <td><p>Does expression produce lifecycle warnings or errors?</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="last_warnings.html">last_warnings()</a></code> <code><a href="last_warnings.html">last_warning()</a></code> </p>
-        </td>
-        <td><p>Display last deprecation warnings</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lint_lifecycle.html">pkg_lifecycle_statuses()</a></code> <code><a href="lint_lifecycle.html">lint_lifecycle()</a></code> <code><a href="lint_lifecycle.html">lint_tidyverse_lifecycle()</a></code> </p>
-        </td>
-        <td><p>Lint usages of functions that have a non-stable life cycle.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="signal_stage.html">signal_stage()</a></code> </p>
-        </td>
-        <td><p>Signal other experimental or superseded features</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="verbosity.html">verbosity</a></code> </p>
-        </td>
-        <td><p>Control the verbosity of deprecation signals</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>pkg_lifecycle_statuses</span><span class='op'>(</span>
+  <span class='va'>package</span>,
+  which <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"superseded"</span>, <span class='st'>"deprecated"</span>, <span class='st'>"questioning"</span>, <span class='st'>"defunct"</span>, <span class='st'>"experimental"</span>,
+    <span class='st'>"soft-deprecated"</span>, <span class='st'>"retired"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='fu'>lint_lifecycle</span><span class='op'>(</span>
+  <span class='va'>packages</span>,
+  path <span class='op'>=</span> <span class='st'>"."</span>,
+  pattern <span class='op'>=</span> <span class='st'>"[.][Rr](md)?"</span>,
+  which <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"superseded"</span>, <span class='st'>"deprecated"</span>, <span class='st'>"questioning"</span>, <span class='st'>"defunct"</span>, <span class='st'>"experimental"</span>,
+    <span class='st'>"soft-deprecated"</span>, <span class='st'>"retired"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='fu'>lint_tidyverse_lifecycle</span><span class='op'>(</span>
+  path <span class='op'>=</span> <span class='st'>"."</span>,
+  pattern <span class='op'>=</span> <span class='st'>"[.][Rr](md)?"</span>,
+  which <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"superseded"</span>, <span class='st'>"deprecated"</span>, <span class='st'>"questioning"</span>, <span class='st'>"defunct"</span>, <span class='st'>"experimental"</span>,
+    <span class='st'>"soft-deprecated"</span>, <span class='st'>"retired"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>package</th>
+      <td><p>The name of an installed package.</p></td>
+    </tr>
+    <tr>
+      <th>which</th>
+      <td><p>The lifecycle statuses to retrieve.
+Include <code>NA</code> if you want to include functions without a specified lifecycle
+status in the results.</p></td>
+    </tr>
+    <tr>
+      <th>packages</th>
+      <td><p>One or more installed packages to query for lifecycle statuses.</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>The directory path to the files you want to search.</p></td>
+    </tr>
+    <tr>
+      <th>pattern</th>
+      <td><p>Any files matching this pattern will be searched. The default
+searches any files ending in <code>.R</code> or <code>.Rmd</code>.</p></td>
+    </tr>
     </table>
-  </div>
 
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
