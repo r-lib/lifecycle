@@ -185,7 +185,7 @@ To rename a function without breaking existing code, move the implementation to 
 #' Add two numbers
 #' 
 #' @description 
-#' `r lifecycle::badge(deprecated)`
+#' `r lifecycle::badge("deprecated")`
 #' 
 #' `add_two()` was renamed to `number_add()` to create a more
 #' consistent API.
