@@ -1,5 +1,12 @@
 # lifecycle (development version)
 
+* `last_warnings()` is now imported from rlang if possible. This means
+  that if you have a version of rlang >= 1.0.0, you'll need to call
+  `rlang::global_entrace()` (e.g. in your RProfile) to enable
+  `last_warnings()`. This will now display all warnings rather than
+  just lifecycle ones.
+
+
 # lifecycle 1.0.0
 
 * New vignettes: 

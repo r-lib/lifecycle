@@ -55,6 +55,11 @@ last_warning <- function() {
   }
 }
 
+on_load({
+  last_warnings <- replace_from("rlang", "last_warnings")
+  last_warning <- replace_from("rlang", "last_warning")
+})
+
 
 new_deprecated_warning <- function(msg, trace, ...) {
   warning_cnd(

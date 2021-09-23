@@ -18,20 +18,5 @@ test_that("deprecation warning is displayed with backtrace", {
 
   expect_snapshot({
     last_warning()
-
-    print(last_warning(), simplify = "none")
   })
-})
-
-test_that("deprecation warnings are not recorded unless they are handled", {
-  init_warnings()
-
-  f <- function() list(g(), catch_cnd(h()))
-  g <- function() deprecate_warn("1.0.0", "recorded()")
-  h <- function() deprecate_warn("1.0.0", "not_recorded()")
-  expect_warning(f())
-
-  wrns <- last_warnings()
-  expect_length(wrns, 1)
-  expect_match(wrns[[1]]$message, "`recorded()`", fixed = TRUE)
 })
