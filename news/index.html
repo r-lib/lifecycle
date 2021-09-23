@@ -160,6 +160,10 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#lifecycle-development-version" class="anchor"></a>lifecycle (development version)<small> Unreleased </small>
 </h1>
+<ul>
+<li>
+<code><a href="../reference/last_warnings.html">last_warnings()</a></code> is now imported from rlang if possible. This means that if you have a version of rlang &gt;= 1.0.0, you’ll need to call <code>rlang::global_entrace()</code> (e.g. in your RProfile) to enable <code><a href="../reference/last_warnings.html">last_warnings()</a></code>. This will now display all warnings rather than just lifecycle ones.</li>
+</ul>
 </div>
     <div id="lifecycle-100" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.0">
