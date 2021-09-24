@@ -1,11 +1,5 @@
 # lifecycle (development version)
 
-* `last_warnings()` is now imported from rlang if possible. This means
-  that if you have a version of rlang >= 1.0.0, you'll need to call
-  `rlang::global_entrace()` (e.g. in your RProfile) to enable
-  `last_warnings()`. This will now display all warnings rather than
-  just lifecycle ones.
-
 
 # lifecycle 1.0.0
 
@@ -68,7 +62,7 @@
   repeatedly in unit tests.
 
 * Deprecation warnings now record a backtrace. Call
-  `lifecycle::last_warnings()` and `lifecycle::last_warning()` to
+  `lifecycle::last_lifecycle_warnings()` and `lifecycle::last_warning()` to
   print the warnings that occurred during the last command, along with
   their backtraces.
 

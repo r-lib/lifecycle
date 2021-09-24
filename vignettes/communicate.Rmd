@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 options(
   # Pretend we're in the lifecycle package
   "lifecycle:::calling_package" = "lifecycle",
-  # suppress last_warnings() message by default
+  # suppress last_lifecycle_warnings() message by default
   "lifecycle_verbosity" = "warning"
 )
 ```

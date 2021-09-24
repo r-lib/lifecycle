@@ -5,19 +5,19 @@
 #' Call these helpers to see the last deprecation warnings along with
 #' their backtrace:
 #'
-#' * `last_warnings()` returns a list of all warnings that occurred
+#' * `last_lifecycle_warnings()` returns a list of all warnings that occurred
 #'   during the last top-level R command.
 #'
 #' * `last_warning()` returns only the last.
 #'
 #' If you call these in the console, these warnings are printed with a
-#' backtrace. Use `print(last_warnings(), simplify = level)` to
+#' backtrace. Use `print(last_lifecycle_warnings(), simplify = level)` to
 #' control the verbosity of the backtrace. The `simplify` argument
 #' supports one of `"branch"` (the default), `"collapse"`, and
 #' `"none"` (in increasing order of verbosity).
 #'
 #' @examples
-#' # These examples are not run because `last_warnings()` does not
+#' # These examples are not run because `last_lifecycle_warnings()` does not
 #' # work well within knitr and pkgdown
 #' \dontrun{
 #'
@@ -28,7 +28,7 @@
 #' f()
 #'
 #' # Print all the warnings that occurred during the last command:
-#' last_warnings()
+#' last_lifecycle_warnings()
 #'
 #' # Print only the last one:
 #' last_warning()
@@ -36,14 +36,14 @@
 #'
 #' # By default, the backtraces are printed in their simplified form.
 #' # Use `simplify` to control the verbosity:
-#' print(last_warnings(), simplify = "none")
+#' print(last_lifecycle_warnings(), simplify = "none")
 #'
 #' }
 #' @export
-last_warnings <- function() {
+last_lifecycle_warnings <- function() {
   warnings_env$warnings
 }
-#' @rdname last_warnings
+#' @rdname last_lifecycle_warnings
 #' @export
 last_warning <- function() {
   n <- length(warnings_env$warnings)
@@ -56,7 +56,7 @@ last_warning <- function() {
 }
 
 on_load({
-  last_warnings <- replace_from("rlang", "last_warnings")
+  last_lifecycle_warnings <- replace_from("rlang", "last_lifecycle_warnings")
   last_warning <- replace_from("rlang", "last_warning")
 })
 

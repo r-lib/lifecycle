@@ -141,7 +141,7 @@ deprecate_warn <- function(when,
 
       footer <- paste_line(
         silver("This warning is displayed once every 8 hours."),
-        silver("Call `lifecycle::last_warnings()` to see where this warning was generated.")
+        silver("Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.")
       )
 
       trace <- trace_back(bottom = caller_env())
