@@ -33,17 +33,15 @@
 #'   # Forcing the verbosity level is useful for unit testing. You can
 #'   # force errors to test that the function is indeed deprecated:
 #'   test_that("mytool is deprecated", {
-#'     rlang::with_options(lifecycle_verbosity = "error", {
-#'       expect_error(mytool(), class = "defunctError")
-#'     })
+#'     rlang::local_options(lifecycle_verbosity = "error")
+#'     expect_error(mytool(), class = "defunctError")
 #'   })
 #'
 #'   # Or you can enforce silence to safely test that the function
 #'   # still works:
 #'   test_that("mytool still works", {
-#'     rlang::with_options(lifecycle_verbosity = "quiet", {
-#'       expect_equal(mytool(), 100)
-#'     })
+#'     rlang::local_options(lifecycle_verbosity = "quiet")
+#'     expect_equal(mytool(), 100)
 #'   })
 #' }
 #'

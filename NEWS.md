@@ -1,5 +1,8 @@
 # lifecycle (development version)
 
+* `deprecate_soft()` now follows the verbosity option when called from
+  the global environment (#113).
+
 
 # lifecycle 1.0.0
 
