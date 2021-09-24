@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • lifecycle</title>
+<title>Display last deprecation warnings — last_lifecycle_warnings • lifecycle</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,14 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Display last deprecation warnings — last_lifecycle_warnings" />
+<meta property="og:description" content="last_lifecycle_warnings() returns a list of all warnings that
+occurred during the last top-level R command, along with a
+backtrace.
+Use print(last_lifecycle_warnings(), simplify = level) to control
+the verbosity of the backtrace. The simplify argument supports
+one of &quot;branch&quot; (the default), &quot;collapse&quot;, and &quot;none&quot; (in
+increasing order of verbosity)." />
 
 
 
@@ -68,7 +75,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -150,84 +157,49 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Display last deprecation warnings</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-lib/lifecycle/blob/master/R/warning.R'><code>R/warning.R</code></a></small>
+    <div class="hidden name"><code>last_lifecycle_warnings.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p><code>last_lifecycle_warnings()</code> returns a list of all warnings that
+occurred during the last top-level R command, along with a
+backtrace.</p>
+<p>Use <code><a href='https://rdrr.io/r/base/print.html'>print(last_lifecycle_warnings(), simplify = level)</a></code> to control
+the verbosity of the backtrace. The <code>simplify</code> argument supports
+one of <code>"branch"</code> (the default), <code>"collapse"</code>, and <code>"none"</code> (in
+increasing order of verbosity).</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>last_lifecycle_warnings</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="badge.html">badge()</a></code> </p>
-        </td>
-        <td><p>Embed a lifecycle badge in documentation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="deprecate_soft.html">deprecate_soft()</a></code> <code><a href="deprecate_soft.html">deprecate_warn()</a></code> <code><a href="deprecate_soft.html">deprecate_stop()</a></code> </p>
-        </td>
-        <td><p>Deprecate functions and arguments</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="deprecated.html">deprecated()</a></code> <code><a href="deprecated.html">is_present()</a></code> </p>
-        </td>
-        <td><p>Mark an argument as deprecated</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="expect_deprecated.html">expect_deprecated()</a></code> <code><a href="expect_deprecated.html">expect_defunct()</a></code> </p>
-        </td>
-        <td><p>Does expression produce lifecycle warnings or errors?</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="last_lifecycle_warnings.html">last_lifecycle_warnings()</a></code> </p>
-        </td>
-        <td><p>Display last deprecation warnings</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lint_lifecycle.html">pkg_lifecycle_statuses()</a></code> <code><a href="lint_lifecycle.html">lint_lifecycle()</a></code> <code><a href="lint_lifecycle.html">lint_tidyverse_lifecycle()</a></code> </p>
-        </td>
-        <td><p>Lint usages of functions that have a non-stable life cycle.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="signal_stage.html">signal_stage()</a></code> </p>
-        </td>
-        <td><p>Signal other experimental or superseded features</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="verbosity.html">verbosity</a></code> </p>
-        </td>
-        <td><p>Control the verbosity of deprecation signals</p></td>
-      </tr>
-    </tbody>
-    </table>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># These examples are not run because `last_lifecycle_warnings()` does not</span>
+<span class='co'># work well within knitr and pkgdown</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/invisible.html'>invisible</a></span><span class='op'>(</span><span class='fu'>g</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'>h</span><span class='op'>(</span><span class='op'>)</span>, <span class='fu'>i</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>h</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='fu'><a href='deprecate_soft.html'>deprecate_warn</a></span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='st'>"this()"</span><span class='op'>)</span>
+<span class='va'>i</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='fu'><a href='deprecate_soft.html'>deprecate_warn</a></span><span class='op'>(</span><span class='st'>"1.0.0"</span>, <span class='st'>"that()"</span><span class='op'>)</span>
+<span class='fu'>f</span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='co'># Print all the warnings that occurred during the last command:</span>
+<span class='fu'>last_lifecycle_warnings</span><span class='op'>(</span><span class='op'>)</span>
+
+
+<span class='co'># By default, the backtraces are printed in their simplified form.</span>
+<span class='co'># Use `simplify` to control the verbosity:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>last_lifecycle_warnings</span><span class='op'>(</span><span class='op'>)</span>, simplify <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+
+<span class='op'>}</span>
+</div></pre>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

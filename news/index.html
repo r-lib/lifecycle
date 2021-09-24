@@ -162,7 +162,7 @@
 </h1>
 <ul>
 <li>
-<code><a href="../reference/last_warnings.html">last_warnings()</a></code> is now imported from rlang if possible. This means that if you have a version of rlang &gt;= 1.0.0, you’ll need to call <code>rlang::global_entrace()</code> (e.g. in your RProfile) to enable <code><a href="../reference/last_warnings.html">last_warnings()</a></code>. This will now display all warnings rather than just lifecycle ones.</li>
+<code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> now follows the verbosity option when called from the global environment (<a href='https://github.com/r-lib/lifecycle/issues/113'>#113</a>).</li>
 </ul>
 </div>
     <div id="lifecycle-100" class="section level1">
@@ -215,7 +215,7 @@
 </h1>
 <ul>
 <li><p>Deprecated functions under the control of the developer now warn repeatedly in unit tests.</p></li>
-<li><p>Deprecation warnings now record a backtrace. Call <code><a href="../reference/last_warnings.html">lifecycle::last_warnings()</a></code> and <code><a href="../reference/last_warnings.html">lifecycle::last_warning()</a></code> to print the warnings that occurred during the last command, along with their backtraces.</p></li>
+<li><p>Deprecation warnings now record a backtrace. Call <code><a href="../reference/last_lifecycle_warnings.html">lifecycle::last_lifecycle_warnings()</a></code> and <code>lifecycle::last_warning()</code> to print the warnings that occurred during the last command, along with their backtraces.</p></li>
 <li>
 <p>The naming scheme of signaller functions has been simplified:</p>
 <ul>

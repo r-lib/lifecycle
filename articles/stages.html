@@ -145,8 +145,8 @@
 <span class="co">#&gt; `data_frame()` is deprecated as of tibble 1.1.0.</span>
 <span class="co">#&gt; Please use `tibble()` instead.</span>
 <span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated. </span></code></pre></div>
-<p>The deprecation warning tells you when the function was deprecated (in tibble 1.1.0, released in 2016), and what to use instead (<code>tibble()</code>). To avoid being too annoying, deprecation messages will only appear once per session, and you can find out exactly where they come from by calling <code><a href="../reference/last_warnings.html">lifecycle::last_warning()</a></code>. <code><a href="../articles/manage.html">vignette("manage")</a></code> provides more advice on handling deprecation warnings in your code.</p>
+<span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated. </span></code></pre></div>
+<p>The deprecation warning tells you when the function was deprecated (in tibble 1.1.0, released in 2016), and what to use instead (<code>tibble()</code>). To avoid being too annoying, deprecation messages will only appear once per session, and you can find out exactly where they come from by calling <code><a href="../reference/last_lifecycle_warnings.html">lifecycle::last_lifecycle_warnings()</a></code>. <code><a href="../articles/manage.html">vignette("manage")</a></code> provides more advice on handling deprecation warnings in your code.</p>
 <p>Particularly important functions may go through two additional stages of deprecation:</p>
 <ul>
 <li><p><strong>Soft deprecated</strong> comes before deprecated. It’s a gentler form of deprecation designed to prevent new uses of a function and encourage package developers to move away from it. Soft deprecated allows a package to change its interface to encourage package developers to update their code before their users are forced to change.</p></li>
