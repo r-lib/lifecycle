@@ -17,6 +17,6 @@ test_that("deprecation warning is displayed with backtrace", {
   expect_deprecated(f())
 
   expect_snapshot({
-    last_warning()
+    last_lifecycle_warnings()
   })
 })

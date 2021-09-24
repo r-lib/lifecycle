@@ -63,7 +63,7 @@ df1 <- data_frame(x = 1, y = 2)
 df2 <- data_frame(a = "apple", b = "banana")
 ```
 
-Then use `lifecycle::last_warning()` or `lifecycle::last_lifecycle_warnings()` to track down the source.
+Then use `lifecycle::last_lifecycle_warnings()` to track down the source.
 
 Alternatively, if you want to be really strict, you can turn all deprecation warnings into errors, forcing you to deal with them immediately:
 

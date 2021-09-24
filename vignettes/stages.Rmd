@@ -58,7 +58,7 @@ df <- tibble::data_frame(x = 1)
 ```
 
 The deprecation warning tells you when the function was deprecated (in tibble 1.1.0, released in 2016), and what to use instead (`tibble()`).
-To avoid being too annoying, deprecation messages will only appear once per session, and you can find out exactly where they come from by calling `lifecycle::last_warning()`.
+To avoid being too annoying, deprecation messages will only appear once per session, and you can find out exactly where they come from by calling `lifecycle::last_lifecycle_warnings()`.
 `vignette("manage")` provides more advice on handling deprecation warnings in your code.
 
 Particularly important functions may go through two additional stages of deprecation:

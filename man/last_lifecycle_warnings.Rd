@@ -2,27 +2,19 @@
 % Please edit documentation in R/warning.R
 \name{last_lifecycle_warnings}
 \alias{last_lifecycle_warnings}
-\alias{last_warning}
 \title{Display last deprecation warnings}
 \usage{
 last_lifecycle_warnings()
-
-last_warning()
 }
 \description{
-Call these helpers to see the last deprecation warnings along with
-their backtrace:
-\itemize{
-\item \code{last_lifecycle_warnings()} returns a list of all warnings that occurred
-during the last top-level R command.
-\item \code{last_warning()} returns only the last.
-}
+\code{last_lifecycle_warnings()} returns a list of all warnings that
+occurred during the last top-level R command, along with a
+backtrace.
 
-If you call these in the console, these warnings are printed with a
-backtrace. Use \code{print(last_lifecycle_warnings(), simplify = level)} to
-control the verbosity of the backtrace. The \code{simplify} argument
-supports one of \code{"branch"} (the default), \code{"collapse"}, and
-\code{"none"} (in increasing order of verbosity).
+Use \code{print(last_lifecycle_warnings(), simplify = level)} to control
+the verbosity of the backtrace. The \code{simplify} argument supports
+one of \code{"branch"} (the default), \code{"collapse"}, and \code{"none"} (in
+increasing order of verbosity).
 }
 \examples{
 # These examples are not run because `last_lifecycle_warnings()` does not
@@ -37,9 +29,6 @@ f()
 
 # Print all the warnings that occurred during the last command:
 last_lifecycle_warnings()
-
-# Print only the last one:
-last_warning()
 
 
 # By default, the backtraces are printed in their simplified form.
