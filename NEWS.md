@@ -2,7 +2,11 @@
 
 * `deprecate_soft()` now follows the verbosity option when called from
   the global environment (#113).
-
+  
+* `last_warnings()` has been renamed to `last_lifecycle_warnings()`
+  and `last_warning()` has been removed. This is for compatibility
+  with the future `rlang::last_warnings()` function to be released in
+  the next rlang version.
 
 # lifecycle 1.0.0
 
