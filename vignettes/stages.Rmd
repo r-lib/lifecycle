@@ -90,7 +90,7 @@ Some functions are released in an ![experimental](figures/lifecycle-experimental
 Experimental functions are made available so people can try them out and provide feedback, but come with no promises for long term stability.
 In particular, the author reserves the right to make breaking changes without a deprecation cycle.
 That said, there is some interaction between popularity and stability.
-Breaking an popular function, even if clearly labelled as experimental, is likely to cause widespread pain so we'll generally try to avoid it.
+Breaking a popular function, even if clearly labelled as experimental, is likely to cause widespread pain so we'll generally try to avoid it.
 
 In general, you can assume any package with version number less than 1.0.0 is at least somewhat experimental, and it may have major changes in its future.
 The most experimental packages only exist on GitHub.
