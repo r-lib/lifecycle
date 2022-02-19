@@ -27,6 +27,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,18 +41,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">lifecycle</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -81,10 +77,11 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Releases</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/lifecycle-1-0-0/">lifecycle 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/lifecycle-1-0-0/" class="external-link">lifecycle 1.0.0</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="news/index.html">Changelog</a>
     </li>
   </ul>
@@ -92,7 +89,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/r-lib/lifecycle/">
+  <a href="https://github.com/r-lib/lifecycle/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -109,25 +106,25 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="lifecycle" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#lifecycle" class="anchor"></a>lifecycle</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="lifecycle">lifecycle<a class="anchor" aria-label="anchor" href="#lifecycle"></a>
+</h1></div>
 <!-- badges: start -->
 
 <!-- badges: end -->
 <p>lifecycle provides a set of tools and conventions to manage the life cycle of your exported functions.</p>
 <ul>
-<li><p>For a general motivation and introduction to the key concepts, watch Hadley’s rstudio::global(2021) keynote <a href="https://www.rstudio.com/resources/rstudioglobal-2021/maintaining-the-house-the-tidyverse-built/">“Maintaining the house that the tidyverse built”</a>.</p></li>
+<li><p>For a general motivation and introduction to the key concepts, watch Hadley’s rstudio::global(2021) keynote <a href="https://www.rstudio.com/resources/rstudioglobal-2021/maintaining-the-house-the-tidyverse-built/" class="external-link">“Maintaining the house that the tidyverse built”</a>.</p></li>
 <li><p>Read <code><a href="articles/stages.html">vignette("stages")</a></code> to learn what it means for a function to be experimental, stable, deprecated, or superseded.</p></li>
 <li><p>Read <code><a href="articles/manage.html">vignette("manage")</a></code> to learn how to manage lifecycle changes in functions that you use.</p></li>
 <li><p>Read <code><a href="articles/communicate.html">vignette("communicate")</a></code> to learn how to communicate lifecycle changes in the functions you write.</p></li>
 </ul>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Install release version from CRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"lifecycle"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"lifecycle"</span><span class="op">)</span>
 
 <span class="co"># Install development version from GitHub</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"r-lib/lifecycle"</span><span class="op">)</span></code></pre></div>
@@ -137,52 +134,61 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=lifecycle">https://​cloud.r-project.org/​package=lifecycle</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/r-lib/lifecycle/">https://​github.com/​r-lib/​lifecycle/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/r-lib/lifecycle/issues">https://​github.com/​r-lib/​lifecycle/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Lionel Henry <br><small class="roles"> Author, maintainer </small>  </li>
-<li>
-<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="https://cloud.r-project.org/package=lifecycle" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/r-lib/lifecycle/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/r-lib/lifecycle/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/r-lib/lifecycle/actions"><img src="https://github.com/r-lib/lifecycle/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/r-lib/lifecycle?branch=master"><img src="https://codecov.io/gh/r-lib/lifecycle/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://CRAN.R-project.org/package=lifecycle"><img src="https://www.r-pkg.org/badges/version/lifecycle" alt="CRAN status"></a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+</ul>
+</div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing lifecycle</a></li>
+</ul>
+</div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Lionel Henry <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Hadley Wickham <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/r-lib/lifecycle/actions" class="external-link"><img src="https://github.com/r-lib/lifecycle/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/r-lib/lifecycle?branch=master" class="external-link"><img src="https://codecov.io/gh/r-lib/lifecycle/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://CRAN.R-project.org/package=lifecycle" class="external-link"><img src="https://www.r-pkg.org/badges/version/lifecycle" alt="CRAN status"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Lionel Henry, <a href="http://hadley.nz">Hadley Wickham</a>.</p>
+  <p></p>
+<p>Developed by Lionel Henry, Hadley Wickham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -190,6 +196,8 @@
 
   
 
+
+  
 
   </body>
 </html>

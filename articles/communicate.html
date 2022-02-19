@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,18 +39,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lifecycle</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -79,10 +75,11 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Releases</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/lifecycle-1-0-0/">lifecycle 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/lifecycle-1-0-0/" class="external-link">lifecycle 1.0.0</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
@@ -90,7 +87,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/r-lib/lifecycle/">
+  <a href="https://github.com/r-lib/lifecycle/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -111,7 +108,7 @@
       <h1 data-toc-skip>Communicate lifecycle changes in your functions</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/lifecycle/blob/master/vignettes/communicate.Rmd"><code>vignettes/communicate.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/lifecycle/blob/HEAD/vignettes/communicate.Rmd" class="external-link"><code>vignettes/communicate.Rmd</code></a></small>
       <div class="hidden name"><code>communicate.Rmd</code></div>
 
     </div>
@@ -119,9 +116,9 @@
     
     
 <p>lifecycle provides a standard way to document the lifecycle stages of functions and arguments, paired with tools to steer users away from deprecated functions. Before we go in to the details, make sure that you’re familiar with the lifecycle stages as described in <code><a href="../articles/stages.html">vignette("stages")</a></code>.</p>
-<div id="basics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#basics" class="anchor"></a>Basics</h2>
+<div class="section level2">
+<h2 id="basics">Basics<a class="anchor" aria-label="anchor" href="#basics"></a>
+</h2>
 <p>lifecycle badges make it easy for users to see the lifecycle stage when reading the documentation. To use the badges, first call <code>usethis::use_lifecycle()</code> to embed the badge images in your package (you only need to do this once), then use <code><a href="../reference/badge.html">lifecycle::badge()</a></code> to insert a badge:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' `r lifecycle::badge("experimental")`</span>
@@ -147,12 +144,12 @@
 <p>(Note that the message includes the package name — this is automatically discovered from the environment of the calling function so will not work unless the function is called from the package namespace.)</p>
 <p>The following sections describe how to use lifecycle badges and functions together to handle a variety of common development tasks.</p>
 </div>
-<div id="functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#functions" class="anchor"></a>Functions</h2>
-<div id="deprecate-a-function" class="section level3">
-<h3 class="hasAnchor">
-<a href="#deprecate-a-function" class="anchor"></a>Deprecate a function</h3>
+<div class="section level2">
+<h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
+</h2>
+<div class="section level3">
+<h3 id="deprecate-a-function">Deprecate a function<a class="anchor" aria-label="anchor" href="#deprecate-a-function"></a>
+</h3>
 <p>First, add a badge to the the <code>@description</code> block<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Briefly describe why the deprecation occurred and what to use instead.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' Add two numbers</span>
@@ -184,8 +181,8 @@
 <span class="co">#&gt; [1] 3</span></code></pre></div>
 <p><code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> generates user friendly messages for two common deprecation alternatives:</p>
 <ul>
-<li><p>Function in same package: <code><a href="../reference/deprecate_soft.html">lifecycle::deprecate_warn("1.0.0", "fun_old()", "fun_new()")</a></code></p></li>
-<li><p>Function in another package: <code><a href="../reference/deprecate_soft.html">lifecycle::deprecate_warn("1.0.0", "old()", "package::new()")</a></code></p></li>
+<li><p>Function in same package: <code>lifecycle::deprecate_warn("1.0.0", "fun_old()", "fun_new()")</code></p></li>
+<li><p>Function in another package: <code>lifecycle::deprecate_warn("1.0.0", "old()", "package::new()")</code></p></li>
 </ul>
 <p>For other cases, use the <code>details</code> argument to provide your own message to the user:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -202,29 +199,29 @@
 <span class="co">#&gt; Warning: `add_two()` was deprecated in lifecycle 1.0.0.</span>
 <span class="co">#&gt; This function is a special case of sum(); use it instead.</span>
 <span class="co">#&gt; [1] 3</span></code></pre></div>
-<p>It’s good practice to test that you’ve correctly implemented the deprecation, testing that the deprecated function still works and that it generates a useful warning. Using an expectation inside <code><a href="https://testthat.r-lib.org/reference/expect_snapshot.html">testthat::expect_snapshot()</a></code><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> is a convenient way to do this:</p>
+<p>It’s good practice to test that you’ve correctly implemented the deprecation, testing that the deprecated function still works and that it generates a useful warning. Using an expectation inside <code><a href="https://testthat.r-lib.org/reference/expect_snapshot.html" class="external-link">testthat::expect_snapshot()</a></code><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> is a convenient way to do this:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"add_two is deprecated"</span>, <span class="op">{</span>
-  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_snapshot.html">expect_snapshot</a></span><span class="op">(</span><span class="op">{</span>
+<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">test_that</a></span><span class="op">(</span><span class="st">"add_two is deprecated"</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_snapshot.html" class="external-link">expect_snapshot</a></span><span class="op">(</span><span class="op">{</span>
     <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
-    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span>
+    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html" class="external-link">expect_equal</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span>
   <span class="op">}</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>If you have existing tests for the deprecated function you can suppress the warning in those tests with the <code>lifecycle_verbosity</code> option:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"add_two returns the sum of its inputs"</span>, <span class="op">{</span>
-  <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html">local_options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"quiet"</span><span class="op">)</span>
-  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">test_that</a></span><span class="op">(</span><span class="st">"add_two returns the sum of its inputs"</span>, <span class="op">{</span>
+  <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html" class="external-link">local_options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"quiet"</span><span class="op">)</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html" class="external-link">expect_equal</a></span><span class="op">(</span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>And then add a separate test specifically for the deprecation.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"add_two is deprecated"</span>, <span class="op">{</span>
-  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_snapshot.html">expect_snapshot</a></span><span class="op">(</span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">test_that</a></span><span class="op">(</span><span class="st">"add_two is deprecated"</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_snapshot.html" class="external-link">expect_snapshot</a></span><span class="op">(</span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="gradual-deprecation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#gradual-deprecation" class="anchor"></a>Gradual deprecation</h3>
+<div class="section level3">
+<h3 id="gradual-deprecation">Gradual deprecation<a class="anchor" aria-label="anchor" href="#gradual-deprecation"></a>
+</h3>
 <p>For particularly important functions, you can choose to add two other stages to the deprecation process:</p>
 <ul>
 <li><p><code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> is used before <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code>. This function only warns (a) users who try the feature from the global environment and (b) developers who directly use the feature (when running testthat tests). There is no warning when the deprecated feature is called indirectly by another package — the goal is to ensure that warn only the person who has the power to stop using the deprecated feature.</p></li>
@@ -237,9 +234,9 @@
 <li><p>Search for <code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> and replace with <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code>.</p></li>
 </ol>
 </div>
-<div id="rename-a-function" class="section level3">
-<h3 class="hasAnchor">
-<a href="#rename-a-function" class="anchor"></a>Rename a function</h3>
+<div class="section level3">
+<h3 id="rename-a-function">Rename a function<a class="anchor" aria-label="anchor" href="#rename-a-function"></a>
+</h3>
 <p>To rename a function without breaking existing code, move the implementation to the new function, then call the new function from the old function, along with a deprecation message:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' Add two numbers</span>
@@ -261,11 +258,11 @@
 <span class="va">number_add</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
 <span class="op">}</span></code></pre></div>
-<p>If you are renaming many functions as part of an API overhaul, it’ll often make sense to document all the changes in one file, like <a href="https://rvest.tidyverse.org/reference/rename.html" class="uri">https://rvest.tidyverse.org/reference/rename.html</a>.</p>
+<p>If you are renaming many functions as part of an API overhaul, it’ll often make sense to document all the changes in one file, like <a href="https://rvest.tidyverse.org/reference/rename.html" class="external-link uri">https://rvest.tidyverse.org/reference/rename.html</a>.</p>
 </div>
-<div id="supersede-a-function" class="section level3">
-<h3 class="hasAnchor">
-<a href="#supersede-a-function" class="anchor"></a>Supersede a function</h3>
+<div class="section level3">
+<h3 id="supersede-a-function">Supersede a function<a class="anchor" aria-label="anchor" href="#supersede-a-function"></a>
+</h3>
 <p>Superseding a function is simpler than deprecating it, since you don’t need to steer users away from it with a warning. So all you need to do is add a superseded badge:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' Gather columns into key-value pairs</span>
@@ -291,9 +288,9 @@
 <span class="op">}</span></code></pre></div>
 <p>This signal isn’t currently hooked up to any behaviour, but we plan to provide logging and analysis tools in a future release.</p>
 </div>
-<div id="mark-function-as-experimental" class="section level3">
-<h3 class="hasAnchor">
-<a href="#mark-function-as-experimental" class="anchor"></a>Mark function as experimental</h3>
+<div class="section level3">
+<h3 id="mark-function-as-experimental">Mark function as experimental<a class="anchor" aria-label="anchor" href="#mark-function-as-experimental"></a>
+</h3>
 <p>To advertise that a function is experimental and the interface might change in the future, first add an experimental badge to the description:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' @description</span>
@@ -307,16 +304,16 @@
 <p>This signal isn’t currently hooked up to any behaviour, but we plan to provide logging and analysis tools in a future release.</p>
 </div>
 </div>
-<div id="arguments" class="section level2">
-<h2 class="hasAnchor">
-<a href="#arguments" class="anchor"></a>Arguments</h2>
-<div id="deprecate-an-argument-keeping-the-existing-default" class="section level3">
-<h3 class="hasAnchor">
-<a href="#deprecate-an-argument-keeping-the-existing-default" class="anchor"></a>Deprecate an argument, keeping the existing default</h3>
+<div class="section level2">
+<h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a>
+</h2>
+<div class="section level3">
+<h3 id="deprecate-an-argument-keeping-the-existing-default">Deprecate an argument, keeping the existing default<a class="anchor" aria-label="anchor" href="#deprecate-an-argument-keeping-the-existing-default"></a>
+</h3>
 <p>Take this example where we want to deprecate <code>na.rm</code> in favour of always making it <code>TRUE.</code></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>First, add a badge to the argument description:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -325,7 +322,7 @@
 <p>And add a deprecation warning if <code>na.rm</code> is FALSE. In this case, there’s no replacement to the behaviour, so we instead use <code>details</code> to provide a custom message:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span>
       when <span class="op">=</span> <span class="st">"1.0.0"</span>, 
       what <span class="op">=</span> <span class="st">"add_two(na.rm)"</span>,
@@ -333,7 +330,7 @@
     <span class="op">)</span>
   <span class="op">}</span>
   
-  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -343,10 +340,10 @@
 <span class="co">#&gt; Ability to retain missing values will be dropped in next release.</span>
 <span class="co">#&gt; [1] NA</span></code></pre></div>
 </div>
-<div id="deprecating-an-argument-providing-a-new-default" class="section level3">
-<h3 class="hasAnchor">
-<a href="#deprecating-an-argument-providing-a-new-default" class="anchor"></a>Deprecating an argument, providing a new default</h3>
-<p>Alternatively, you can change the default value to <code><a href="../reference/deprecated.html">lifecycle::deprecated()</a></code> to make the deprecation status more obvious from the outside, and use <code><a href="../reference/deprecated.html">lifecycle::is_present()</a></code> to test whether or not the argument was provided. Unlike <code><a href="https://rdrr.io/r/base/missing.html">missing()</a></code>, this works for both direct and indirect calls.</p>
+<div class="section level3">
+<h3 id="deprecating-an-argument-providing-a-new-default">Deprecating an argument, providing a new default<a class="anchor" aria-label="anchor" href="#deprecating-an-argument-providing-a-new-default"></a>
+</h3>
+<p>Alternatively, you can change the default value to <code><a href="../reference/deprecated.html">lifecycle::deprecated()</a></code> to make the deprecation status more obvious from the outside, and use <code><a href="../reference/deprecated.html">lifecycle::is_present()</a></code> to test whether or not the argument was provided. Unlike <code><a href="https://rdrr.io/r/base/missing.html" class="external-link">missing()</a></code>, this works for both direct and indirect calls.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#' @importFrom lifecycle deprecated</span>
 <span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="fu"><a href="../reference/deprecated.html">deprecated</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -358,7 +355,7 @@
     <span class="op">)</span>
   <span class="op">}</span>
   
-  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>The chief advantage of this technique is that users will get a warning regardless of what value of <code>na.rm</code> they use:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
@@ -371,9 +368,9 @@
 <span class="co">#&gt; Ability to retain missing values will be dropped in next release.</span>
 <span class="co">#&gt; [1] NA</span></code></pre></div>
 </div>
-<div id="renaming-an-argument" class="section level3">
-<h3 class="hasAnchor">
-<a href="#renaming-an-argument" class="anchor"></a>Renaming an argument</h3>
+<div class="section level3">
+<h3 id="renaming-an-argument">Renaming an argument<a class="anchor" aria-label="anchor" href="#renaming-an-argument"></a>
+</h3>
 <p>You may want to rename an argument if you realise you have made a mistake with the name of an argument. For example, you’ve realised that an argument accidentally uses <code>.</code> to separate a compound name, instead of <code>_</code>. You’ll need to temporarily permit both arguments, generating a deprecation warning when the user supplies the old argument:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na_rm</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="fu"><a href="../reference/deprecated.html">deprecated</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -385,15 +382,15 @@
   <span class="fu">add_two</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na_rm</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="reducing-allowed-inputs-to-an-argument" class="section level3">
-<h3 class="hasAnchor">
-<a href="#reducing-allowed-inputs-to-an-argument" class="anchor"></a>Reducing allowed inputs to an argument</h3>
+<div class="section level3">
+<h3 id="reducing-allowed-inputs-to-an-argument">Reducing allowed inputs to an argument<a class="anchor" aria-label="anchor" href="#reducing-allowed-inputs-to-an-argument"></a>
+</h3>
 <p>To narrow the set of allowed inputs, call <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> only when the user supplies the previously supported inputs. Make sure you preserve the previous behaviour:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo(y = 'must be a scalar')"</span><span class="op">)</span>
-    <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+    <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
   <span class="op">}</span>
   <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
 <span class="op">}</span>
@@ -409,7 +406,7 @@
 <hr>
 <ol>
 <li id="fn1"><p>We only use an explicit <code>@description</code> when the description will be multiple paragraphs, as in these examples.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>You can learn more about snapshot testing in <code><a href="https://testthat.r-lib.org/articles/snapshotting.html">vignette("snapshotting", package = "testthat")</a></code>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>You can learn more about snapshot testing in <code><a href="https://testthat.r-lib.org/articles/snapshotting.html" class="external-link">vignette("snapshotting", package = "testthat")</a></code>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -425,11 +422,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Lionel Henry, <a href="http://hadley.nz">Hadley Wickham</a>.</p>
+  <p></p>
+<p>Developed by Lionel Henry, Hadley Wickham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -437,6 +436,8 @@
 
   
 
+
+  
 
   </body>
 </html>

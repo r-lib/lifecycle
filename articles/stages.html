@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,18 +39,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lifecycle</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -79,10 +75,11 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Releases</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/lifecycle-1-0-0/">lifecycle 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/lifecycle-1-0-0/" class="external-link">lifecycle 1.0.0</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
@@ -90,7 +87,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/r-lib/lifecycle/">
+  <a href="https://github.com/r-lib/lifecycle/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -111,7 +108,7 @@
       <h1 data-toc-skip>Lifecycle stages</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/lifecycle/blob/master/vignettes/stages.Rmd"><code>vignettes/stages.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/lifecycle/blob/HEAD/vignettes/stages.Rmd" class="external-link"><code>vignettes/stages.Rmd</code></a></small>
       <div class="hidden name"><code>stages.Rmd</code></div>
 
     </div>
@@ -123,24 +120,24 @@
 <img src="figures/lifecycle.svg" style="width:75.0%" alt=""><p class="caption">A diagram showing the transitions between the four main stages: experimental can become stable and stable can become deprecated or superseded.</p>
 </div>
 <p>The lifecycle stages can apply to packages, functions, function arguments, and even specific values of a function argument. However, you’ll mostly see them used to label individual functions, so that’s the language we use below.</p>
-<div id="stable" class="section level2">
-<h2 class="hasAnchor">
-<a href="#stable" class="anchor"></a>Stable</h2>
+<div class="section level2">
+<h2 id="stable">Stable<a class="anchor" aria-label="anchor" href="#stable"></a>
+</h2>
 <p>The default development stage is <img src="figures/lifecycle-stable.svg" style="vertical-align:middle" alt="stable">. A function is considered stable when the author is happy with its interface, doesn’t see major issues, and is happy to share it with the world. Because this stage is the default, functions will only be given a stable badge if there’s some specific need to draw attention to their status.</p>
 <p>Stability is defined in terms of breaking changes. A <strong>breaking change</strong> is a change that breaks code that uses the function as expected. In general, breaking changes reduce the set of code that works without error, either by removing a function, removing a function argument, or decreasing the set of valid inputs. Breaking changes also include changes to output type. If you imagine all the possible inputs to a function that return a result (and not an error), a breaking change makes the set smaller.</p>
-<p>Not all changes that cause your function to stop working are breaking changes. For example, you might have accidentally relied on a bug. When the bug is fixed, your code breaks, but this is not a breaking change. A good way of making your code more robust to this sort of behaviour change is to only use a function for its explicitly intended effects. For example, using <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> to concatenate two vectors will not put your code at risk because it clearly is the intended usage of this function. On the other hand, using <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> just for the side effect of removing attributes is probably not a good idea. If you use <code><a href="https://rdrr.io/r/base/c.html">c(factor("foo"))</a></code> to retrieve the underlying integers of the factor levels, your code is at risk of breaking if <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> ever implements a factor method.</p>
+<p>Not all changes that cause your function to stop working are breaking changes. For example, you might have accidentally relied on a bug. When the bug is fixed, your code breaks, but this is not a breaking change. A good way of making your code more robust to this sort of behaviour change is to only use a function for its explicitly intended effects. For example, using <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> to concatenate two vectors will not put your code at risk because it clearly is the intended usage of this function. On the other hand, using <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> just for the side effect of removing attributes is probably not a good idea. If you use <code>c(factor("foo"))</code> to retrieve the underlying integers of the factor levels, your code is at risk of breaking if <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> ever implements a factor method.</p>
 <p>Stable functions come with two promises related to breaking changes:</p>
 <ul>
 <li><p>Breaking changes will be avoided where possible. We’ll only make breaking changes if we consider the long term benefit of the change to be greater than short term pain of changing existing code.</p></li>
 <li><p>If a breaking change is needed, it will occur gradually, through the deprecation process described next. This gives you plenty of time to adjust your code before it starts generating errors.</p></li>
 </ul>
 </div>
-<div id="deprecated" class="section level2">
-<h2 class="hasAnchor">
-<a href="#deprecated" class="anchor"></a>Deprecated</h2>
-<p>A <img src="figures/lifecycle-deprecated.svg" style="vertical-align:middle" alt="Deprecated"> function has a better alternative available and is scheduled for removal. When you call a deprecated function, you get a warning telling you what to use instead. For example, take <code><a href="https://tibble.tidyverse.org/reference/deprecated.html">tibble::as_data_frame()</a></code>:</p>
+<div class="section level2">
+<h2 id="deprecated">Deprecated<a class="anchor" aria-label="anchor" href="#deprecated"></a>
+</h2>
+<p>A <img src="figures/lifecycle-deprecated.svg" style="vertical-align:middle" alt="Deprecated"> function has a better alternative available and is scheduled for removal. When you call a deprecated function, you get a warning telling you what to use instead. For example, take <code><a href="https://tibble.tidyverse.org/reference/deprecated.html" class="external-link">tibble::as_data_frame()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/deprecated.html">data_frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/deprecated.html" class="external-link">data_frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; Warning message:</span>
 <span class="co">#&gt; `data_frame()` is deprecated as of tibble 1.1.0.</span>
 <span class="co">#&gt; Please use `tibble()` instead.</span>
@@ -153,30 +150,30 @@
 <li><p><strong>Defunct</strong> comes after deprecated. In most cases, a deprecated function will eventually just be deleted. For very important functions, we’ll instead make the function defunct, which means that function continues to exist but the deprecation warning turns into an error. This is more user-friendly than just removing the function because users will get a clear error message explaining why their code no longer works and how they can fix it.</p></li>
 </ul>
 </div>
-<div id="superseded" class="section level2">
-<h2 class="hasAnchor">
-<a href="#superseded" class="anchor"></a>Superseded</h2>
+<div class="section level2">
+<h2 id="superseded">Superseded<a class="anchor" aria-label="anchor" href="#superseded"></a>
+</h2>
 <p>A softer alternative to deprecation is superseded. A <img src="figures/lifecycle-superseded.svg" alt="superseded"><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> function has a known better alternative, but the function itself is not going away . A superseded function will not emit a warning (since there’s no risk if you keep using it), but the documentation will tell you what we recommend instead .</p>
 <p>Superseded functions will not receive new features, but will receive any critical bug fixes needed to keep it working. In some ways a superseded function is actually safer than a stable function because it’s guaranteed never to change (for better or for worse).</p>
 </div>
-<div id="experimental" class="section level2">
-<h2 class="hasAnchor">
-<a href="#experimental" class="anchor"></a>Experimental</h2>
-<p>Some functions are released in an <img src="figures/lifecycle-experimental.svg" style="vertical-align:middle" alt="experimental"> stage. Experimental functions are made available so people can try them out and provide feedback, but come with no promises for long term stability. In particular, the author reserves the right to make breaking changes without a deprecation cycle. That said, there is some interaction between popularity and stability. Breaking an popular function, even if clearly labelled as experimental, is likely to cause widespread pain so we’ll generally try to avoid it.</p>
+<div class="section level2">
+<h2 id="experimental">Experimental<a class="anchor" aria-label="anchor" href="#experimental"></a>
+</h2>
+<p>Some functions are released in an <img src="figures/lifecycle-experimental.svg" style="vertical-align:middle" alt="experimental"> stage. Experimental functions are made available so people can try them out and provide feedback, but come with no promises for long term stability. In particular, the author reserves the right to make breaking changes without a deprecation cycle. That said, there is some interaction between popularity and stability. Breaking a popular function, even if clearly labelled as experimental, is likely to cause widespread pain so we’ll generally try to avoid it.</p>
 <p>In general, you can assume any package with version number less than 1.0.0 is at least somewhat experimental, and it may have major changes in its future. The most experimental packages only exist on GitHub. If you’re using a non-CRAN package you should plan for an active relationship: when the package changes, you need to be prepared to update your code.</p>
 </div>
-<div id="superseded-stages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#superseded-stages" class="anchor"></a>Superseded stages</h2>
+<div class="section level2">
+<h2 id="superseded-stages">Superseded stages<a class="anchor" aria-label="anchor" href="#superseded-stages"></a>
+</h2>
 <p>We no longer use these stages, but we document them here because we have used them in the past.</p>
-<div id="questioning" class="section level3">
-<h3 class="hasAnchor">
-<a href="#questioning" class="anchor"></a>Questioning</h3>
+<div class="section level3">
+<h3 id="questioning">Questioning<a class="anchor" aria-label="anchor" href="#questioning"></a>
+</h3>
 <p>Sometimes the author of a function is no longer certain that a function is the optimal approach, but doesn’t yet know how to do it better. These functions can be marked as <img src="figures/lifecycle-questioning.svg" style="vertical-align:middle" alt="questioning"> to give users a heads up that the author has doubts about the function. Because knowing that a function is questioning is not very actionable, we no longer use or recommend this stage.</p>
 </div>
-<div id="maturing" class="section level3">
-<h3 class="hasAnchor">
-<a href="#maturing" class="anchor"></a>Maturing</h3>
+<div class="section level3">
+<h3 id="maturing">Maturing<a class="anchor" aria-label="anchor" href="#maturing"></a>
+</h3>
 <p>Previously we used as <img src="figures/lifecycle-maturing.svg" style="vertical-align:middle" alt="maturing"> for functions that lay somewhere between experimental and stable. We stopped using this stage because, like questioning, it’s not clear what actionable information this stage delivers.</p>
 </div>
 </div>
@@ -199,11 +196,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Lionel Henry, <a href="http://hadley.nz">Hadley Wickham</a>.</p>
+  <p></p>
+<p>Developed by Lionel Henry, Hadley Wickham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -211,6 +210,8 @@
 
   
 
+
+  
 
   </body>
 </html>

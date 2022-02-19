@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,18 +39,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lifecycle</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -79,10 +75,11 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Releases</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/lifecycle-1-0-0/">lifecycle 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/lifecycle-1-0-0/" class="external-link">lifecycle 1.0.0</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../news/index.html">Changelog</a>
     </li>
   </ul>
@@ -90,7 +87,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/r-lib/lifecycle/">
+  <a href="https://github.com/r-lib/lifecycle/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -111,7 +108,7 @@
       <h1 data-toc-skip>Manage lifecycle changes in functions you use</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/lifecycle/blob/master/vignettes/manage.Rmd"><code>vignettes/manage.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/lifecycle/blob/HEAD/vignettes/manage.Rmd" class="external-link"><code>vignettes/manage.Rmd</code></a></small>
       <div class="hidden name"><code>manage.Rmd</code></div>
 
     </div>
@@ -119,19 +116,19 @@
     
     
 <p>The lifecycle package uses warnings to tell you about deprecated functions. Deprecated functions will be removed in a future release, so it’s good practice to eliminate the warnings as soon as you see them.</p>
-<p>For example, lets imagine your code uses <code><a href="https://tibble.tidyverse.org/reference/deprecated.html">tibble::data_frame()</a></code>, which was deprecated in favour of <code>tibble()</code> in version 1.1.0. <code>data_frame()</code> now looks something like this:</p>
+<p>For example, lets imagine your code uses <code><a href="https://tibble.tidyverse.org/reference/deprecated.html" class="external-link">tibble::data_frame()</a></code>, which was deprecated in favour of <code>tibble()</code> in version 1.1.0. <code>data_frame()</code> now looks something like this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_frame</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.1.0"</span>, <span class="st">"data_frame()"</span>, <span class="st">"tibble()"</span><span class="op">)</span>
-  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
+  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>That means if you use <code>data_frame()</code> in your own code you’ll get a warning:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0.</span>
 <span class="co">#&gt; Please use `tibble()` instead.</span>
-<span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span>
+<span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
+<span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span class="co">#&gt; This warning is displayed once every 8 hours.</span>
 <span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span>
 <span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>a <span class="op">=</span> <span class="st">"apple"</span>, b <span class="op">=</span> <span class="st">"banana"</span><span class="op">)</span></code></pre></div>
@@ -148,7 +145,7 @@
 <p>Each warning comes with a back trace that shows you the full sequence of calls that lead to the deprecated function.</p>
 <p>Alternatively, if you’re ready to spend some time tracking down all your uses of deprecated functions, you can use the <code>lifecycle_verbosity</code> option to make deprecated functions warn every time:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span>
 <span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0.</span>
 <span class="co">#&gt; Please use `tibble()` instead.</span>
@@ -158,7 +155,7 @@
 <p>Then use <code><a href="../reference/last_lifecycle_warnings.html">lifecycle::last_lifecycle_warnings()</a></code> to track down the source.</p>
 <p>Alternatively, if you want to be really strict, you can turn all deprecation warnings into errors, forcing you to deal with them immediately:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span><span class="st">"lifecycle_verbosity"</span> <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"lifecycle_verbosity"</span> <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span>
 <span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; Error: `data_frame()` was deprecated in tibble 1.1.0.</span>
 <span class="co">#&gt; Please use `tibble()` instead.</span></code></pre></div>
@@ -173,11 +170,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Lionel Henry, <a href="http://hadley.nz">Hadley Wickham</a>.</p>
+  <p></p>
+<p>Developed by Lionel Henry, Hadley Wickham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -185,6 +184,8 @@
 
   
 
+
+  
 
   </body>
 </html>
