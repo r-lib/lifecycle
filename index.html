@@ -12,9 +12,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Manage the Life Cycle of your Package Functions">
-<meta property="og:description" content="Manage the life cycle of your exported functions
-    with shared conventions, documentation badges, and user-friendly
-    deprecation warnings.">
+<meta property="og:description" content="Manage the life cycle of your exported functions with shared
+    conventions, documentation badges, and user-friendly deprecation
+    warnings.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -111,7 +111,6 @@
 </h1></div>
 <!-- badges: start -->
 
-<!-- badges: end -->
 <p>lifecycle provides a set of tools and conventions to manage the life cycle of your exported functions.</p>
 <ul>
 <li><p>For a general motivation and introduction to the key concepts, watch Hadley’s rstudio::global(2021) keynote <a href="https://www.rstudio.com/resources/rstudioglobal-2021/maintaining-the-house-the-tidyverse-built/" class="external-link">“Maintaining the house that the tidyverse built”</a>.</p></li>
@@ -128,6 +127,11 @@
 
 <span class="co"># Install development version from GitHub</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"r-lib/lifecycle"</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the lifecycle project is released with a <a href="https://lifecycle.r-lib.org/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </div>
@@ -150,6 +154,12 @@
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
@@ -163,17 +173,14 @@
 <ul class="list-unstyled">
 <li>Lionel Henry <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Hadley Wickham <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">More about authors...</a></li>
+<li>RStudio <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
 </div>
 
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/r-lib/lifecycle/actions" class="external-link"><img src="https://github.com/r-lib/lifecycle/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/r-lib/lifecycle?branch=master" class="external-link"><img src="https://codecov.io/gh/r-lib/lifecycle/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://CRAN.R-project.org/package=lifecycle" class="external-link"><img src="https://www.r-pkg.org/badges/version/lifecycle" alt="CRAN status"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
+<li><a href="https://github.com/r-lib/lifecycle/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/r-lib/lifecycle/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 
@@ -183,7 +190,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Lionel Henry, Hadley Wickham.</p>
+<p>Developed by Lionel Henry, Hadley Wickham, RStudio.</p>
 </div>
 
 <div class="pkgdown">
