@@ -62,7 +62,7 @@
         x = "Error"), signaller = "deprecate_stop"))
     Output
       `foo()` was deprecated in base 1.0.0 and is now defunct.
-      * Unnamed
+      Unnamed
       i Informative
       x Error
 
@@ -70,22 +70,25 @@
 
     Code
       lifecycle_message(1)
-    Error <rlang_error>
-      Internal error in lifecycle: `when` must be a string
+    Condition
+      Error in `lifecycle_abort()`:
+      ! Internal error in lifecycle: `when` must be a string
 
 ---
 
     Code
       lifecycle_message("1", details = 1)
-    Error <rlang_error>
-      Internal error in lifecycle: `details` must be a character vector
+    Condition
+      Error in `lifecycle_abort()`:
+      ! Internal error in lifecycle: `details` must be a character vector
 
 # needs_warning works as expected
 
     Code
       needs_warning(1)
-    Error <rlang_error>
-      Internal error in lifecycle: `id` must be a string
+    Condition
+      Error in `lifecycle_abort()`:
+      ! Internal error in lifecycle: `id` must be a string
 
 ---
 
