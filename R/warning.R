@@ -29,7 +29,6 @@
 #' # By default, the backtraces are printed in their simplified form.
 #' # Use `simplify` to control the verbosity:
 #' print(last_lifecycle_warnings(), simplify = "none")
-#'
 #' }
 #' @export
 last_lifecycle_warnings <- function() {

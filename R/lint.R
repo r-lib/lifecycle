@@ -1,12 +1,16 @@
 # Retrieve the lifecycle status defined in each Rd file
 db_lifecycle <- function(db) {
-  lifecycle_patterns <- paste0("(?:",
-    paste(collapse = "|",
-      c("lifecycle::badge\\([\\\\]\"",
+  lifecycle_patterns <- paste0(
+    "(?:",
+    paste(
+      collapse = "|",
+      c(
+        "lifecycle::badge\\([\\\\]\"",
         "rlang:::lifecycle\\([\\\\]\"",
         "list\\(\"lifecycle-",
         "https://www.tidyverse.org/lifecycle/#"
-      )),
+      )
+    ),
     ")([\\w-]+)"
   )
 

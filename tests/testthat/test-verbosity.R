@@ -21,4 +21,3 @@ test_that("verbosity option has precedence over user env (#113)", {
     class = "defunctError"
   )
 })
-

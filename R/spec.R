@@ -100,7 +100,7 @@ spec_reason <- function(call, signaller) {
     return(NULL)
   }
 
-  if (is_string(node_car(arg)))  {
+  if (is_string(node_car(arg))) {
     return(node_car(arg))
   }
 
@@ -126,7 +126,7 @@ spec_package <- function(env, signaller) {
     return(getOption("lifecycle:::calling_package", "<NA>"))
   }
 
-  if(is_namespace(env)) {
+  if (is_namespace(env)) {
     return(ns_env_name(env))
   }
 

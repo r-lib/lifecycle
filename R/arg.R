@@ -33,7 +33,6 @@
 #'
 #' foobar_adder(1, 2)
 #' foobar_adder(1, baz = 2)
-#'
 #' @export
 deprecated <- function() {
   missing_arg()

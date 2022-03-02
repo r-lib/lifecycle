@@ -19,7 +19,6 @@ test_that("quiet suppresses _soft and _warn", {
 })
 
 test_that("warning always warns in _soft and _warn", {
-
   local_options(lifecycle_verbosity = "warning")
 
   expect_deprecated(deprecate_soft("1.0.0", "foo()"))

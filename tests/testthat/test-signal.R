@@ -6,7 +6,7 @@ test_that("signal stage captures desired data", {
   cnd <- expect_condition(f(), class = "lifecycle_stage")
   expect_equal(cnd$stage, "experimental")
   expect_equal(cnd$package, "pkg")
-  expect_equal(cnd$'function', "foo")
+  expect_equal(cnd$"function", "foo")
   expect_equal(cnd$argument, "bar")
   expect_equal(cnd$reason, "baz")
 })

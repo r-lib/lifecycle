@@ -44,7 +44,6 @@
 #'     expect_equal(mytool(), 100)
 #'   })
 #' }
-#'
 #' @name verbosity
 NULL
 

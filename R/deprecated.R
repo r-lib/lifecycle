@@ -257,7 +257,7 @@ fun_label <- function(fn) {
   if (grepl("^`", fn)) {
     fn
   } else {
-    paste0("`", fn , "()`")
+    paste0("`", fn, "()`")
   }
 }
 
