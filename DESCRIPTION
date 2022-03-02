@@ -5,7 +5,7 @@ Authors@R: c(
     person("Lionel", "Henry", , "lionel@rstudio.com", role = c("aut", "cre")),
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut",
            comment = c(ORCID = "0000-0003-4757-117X")),
-    person("RStudio", role = "cph")
+    person("RStudio", role = c("cph", "fnd"))
   )
 Description: Manage the life cycle of your exported functions with shared
     conventions, documentation badges, and user-friendly deprecation
