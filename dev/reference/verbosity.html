@@ -120,22 +120,19 @@ errors.</p>
 <span class="r-in">  <span class="co"># Forcing the verbosity level is useful for unit testing. You can</span></span>
 <span class="r-in">  <span class="co"># force errors to test that the function is indeed deprecated:</span></span>
 <span class="r-in">  <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">test_that</a></span><span class="op">(</span><span class="st">"mytool is deprecated"</span>, <span class="op">{</span></span>
-<span class="r-in">    <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/local_options.html" class="external-link">with_options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"error"</span>, <span class="op">{</span></span>
-<span class="r-in">      <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html" class="external-link">expect_error</a></span><span class="op">(</span><span class="fu">mytool</span><span class="op">(</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"defunctError"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="op">}</span><span class="op">)</span></span>
+<span class="r-in">    <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/local_options.html" class="external-link">local_options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span></span>
+<span class="r-in">    <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html" class="external-link">expect_error</a></span><span class="op">(</span><span class="fu">mytool</span><span class="op">(</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"defunctError"</span><span class="op">)</span></span>
 <span class="r-in">  <span class="op">}</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in">  <span class="co"># Or you can enforce silence to safely test that the function</span></span>
 <span class="r-in">  <span class="co"># still works:</span></span>
 <span class="r-in">  <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">test_that</a></span><span class="op">(</span><span class="st">"mytool still works"</span>, <span class="op">{</span></span>
-<span class="r-in">    <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/local_options.html" class="external-link">with_options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"quiet"</span>, <span class="op">{</span></span>
-<span class="r-in">      <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html" class="external-link">expect_equal</a></span><span class="op">(</span><span class="fu">mytool</span><span class="op">(</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in">    <span class="op">}</span><span class="op">)</span></span>
+<span class="r-in">    <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/local_options.html" class="external-link">local_options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"quiet"</span><span class="op">)</span></span>
+<span class="r-in">    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html" class="external-link">expect_equal</a></span><span class="op">(</span><span class="fu">mytool</span><span class="op">(</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span></span>
 <span class="r-in">  <span class="op">}</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">Test passed</span> 🥇</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">Test passed</span> 🥇</span>
-<span class="r-in"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">Test passed</span> 🎉</span>
 </code></pre></div>
     </div>
   </main></div>
