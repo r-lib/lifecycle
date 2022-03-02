@@ -24,3 +24,8 @@ install.packages("lifecycle")
 # Install development version from GitHub
 devtools::install_github("r-lib/lifecycle")
 ```
+
+
+## Code of Conduct
+
+Please note that the lifecycle project is released with a [Contributor Code of Conduct](https://lifecycle.r-lib.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
