@@ -6,9 +6,7 @@
 \alias{lifecycle-package}
 \title{lifecycle: Manage the Life Cycle of your Package Functions}
 \description{
-Manage the life cycle of your exported functions
-    with shared conventions, documentation badges, and user-friendly
-    deprecation warnings.
+Manage the life cycle of your exported functions with shared conventions, documentation badges, and user-friendly deprecation warnings.
 }
 \seealso{
 Useful links:
@@ -29,7 +27,7 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item RStudio [copyright holder]
+  \item RStudio [copyright holder, funder]
 }
 
 }

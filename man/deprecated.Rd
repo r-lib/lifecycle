@@ -47,5 +47,4 @@ foobar_adder <- function(foo, bar, baz = deprecated()) {
 
 foobar_adder(1, 2)
 foobar_adder(1, baz = 2)
-
 }
