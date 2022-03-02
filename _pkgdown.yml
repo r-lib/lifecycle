@@ -1,16 +1,12 @@
 url: https://lifecycle.r-lib.org
 
 template:
-  params:
-    ganalytics: UA-115082821-1
+  package: tidytemplate
+  bootstrap: 5
 
-articles:
-- title: All articles
-  navbar: ~
-  contents:
-  - stages
-  - manage
-  - communicate
+  includes:
+    in_header: |
+      <script defer data-domain="lifecycle.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>  
 
 news:
  releases:
