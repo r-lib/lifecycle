@@ -70,6 +70,8 @@ print_trace <- function(cnd, ..., simplify = c("branch", "collapse", "none")) {
   trace <- cnd$trace
 
   if (!is_null(trace)) {
+    simplify <- arg_match(simplify)
+
     cat_line(bold("Backtrace:"))
     cat_line(red(format(trace, ..., simplify = simplify)))
   }
