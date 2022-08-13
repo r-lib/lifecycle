@@ -31,11 +31,13 @@ warnings or errors.
 
 To test whether a deprecated feature still works without causing a
 deprecation warning, set the \code{lifecycle_verbosity} option to
-\code{"quiet"}.\preformatted{test_that("feature still works", \{
+\code{"quiet"}.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{test_that("feature still works", \{
   withr::local_options(lifecycle_verbosity = "quiet")
   expect_true(my_deprecated_function())
 \})
-}
+}\if{html}{\out{</div>}}
 }
 \details{
 \code{expect_deprecated()} sets the \link[=verbosity]{lifecycle_verbosity}
