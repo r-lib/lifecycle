@@ -84,7 +84,7 @@ init_warnings <- function() {
 init_warnings()
 
 push_warning <- function(wrn) {
-  current <- sexp_address(sys.frame(1))
+  current <- obj_address(sys.frame(1))
 
   if (identical(warnings_env$last_top_frame, current)) {
     warnings_env$warnings <- c(warnings_env$warnings, list(wrn))
