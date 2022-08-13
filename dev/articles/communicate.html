@@ -8,9 +8,9 @@
 <meta name="description" content="lifecycle">
 <title>Communicate lifecycle changes in your functions • lifecycle</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet">
-<link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Communicate lifecycle changes in your functions">
@@ -81,7 +81,7 @@
 
 
 <div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Communicate lifecycle changes in your functions</h1>
             
       
@@ -97,9 +97,9 @@
 </h2>
 <p>lifecycle badges make it easy for users to see the lifecycle stage when reading the documentation. To use the badges, first call <code>usethis::use_lifecycle()</code> to embed the badge images in your package (you only need to do this once), then use <code><a href="../reference/badge.html">lifecycle::badge()</a></code> to insert a badge:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#' `r lifecycle::badge("experimental")`</span>
-<span class="co">#' `r lifecycle::badge("deprecated")`</span>
-<span class="co">#' `r lifecycle::badge("superseded")`</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#' `r lifecycle::badge("experimental")`</span></span>
+<span><span class="co">#' `r lifecycle::badge("deprecated")`</span></span>
+<span><span class="co">#' `r lifecycle::badge("superseded")`</span></span></code></pre></div>
 <p>Deprecated functions also need to advertise their status when run. lifecycle provides <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> which takes three main arguments:</p>
 <ul>
 <li><p>The first argument, <code>when</code>, gives the version number when the deprecation occurred.</p></li>
@@ -108,15 +108,15 @@
 </ul>
 <p>We’ll cover the details shortly, but here are a few sample uses:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"old_fun()"</span>, <span class="st">"new_fun()"</span><span class="op">)</span>
-<span class="co">#&gt; Warning: `old_fun()` was deprecated in lifecycle 1.0.0.</span>
-<span class="co">#&gt; Please use `new_fun()` instead.</span>
-<span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"fun()"</span>, <span class="st">"testthat::fun()"</span><span class="op">)</span>
-<span class="co">#&gt; Warning: `fun()` was deprecated in lifecycle 1.0.0.</span>
-<span class="co">#&gt; Please use `testthat::fun()` instead.</span>
-<span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"fun(old_arg)"</span>, <span class="st">"fun(new_arg)"</span><span class="op">)</span>
-<span class="co">#&gt; Warning: The `old_arg` argument of `fun()` is deprecated as of lifecycle 1.0.0.</span>
-<span class="co">#&gt; Please use the `new_arg` argument instead.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"old_fun()"</span>, <span class="st">"new_fun()"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: `old_fun()` was deprecated in lifecycle 1.0.0.</span></span>
+<span><span class="co">#&gt; Please use `new_fun()` instead.</span></span>
+<span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"fun()"</span>, <span class="st">"testthat::fun()"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: `fun()` was deprecated in lifecycle 1.0.0.</span></span>
+<span><span class="co">#&gt; Please use `testthat::fun()` instead.</span></span>
+<span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"fun(old_arg)"</span>, <span class="st">"fun(new_arg)"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The `old_arg` argument of `fun()` is deprecated as of lifecycle 1.0.0.</span></span>
+<span><span class="co">#&gt; Please use the `new_arg` argument instead.</span></span></code></pre></div>
 <p>(Note that the message includes the package name — this is automatically discovered from the environment of the calling function so will not work unless the function is called from the package namespace.)</p>
 <p>The following sections describe how to use lifecycle badges and functions together to handle a variety of common development tasks.</p>
 </div>
@@ -128,33 +128,33 @@
 </h3>
 <p>First, add a badge to the the <code>@description</code> block<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;We only use an explicit &lt;code&gt;@description&lt;/code&gt; when the description will be multiple paragraphs, as in these examples.&lt;/p&gt;"><sup>1</sup></a>. Briefly describe why the deprecation occurred and what to use instead.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#' Add two numbers</span>
-<span class="co">#' </span>
-<span class="co">#' @description</span>
-<span class="co">#' `r lifecycle::badge("deprecated")`</span>
-<span class="co">#' </span>
-<span class="co">#' This function was deprecated because we realised that it's</span>
-<span class="co">#' a special case of the [sum()] function.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#' Add two numbers</span></span>
+<span><span class="co">#' </span></span>
+<span><span class="co">#' @description</span></span>
+<span><span class="co">#' `r lifecycle::badge("deprecated")`</span></span>
+<span><span class="co">#' </span></span>
+<span><span class="co">#' This function was deprecated because we realised that it's</span></span>
+<span><span class="co">#' a special case of the [sum()] function.</span></span></code></pre></div>
 <p>Next, update the examples to show how to convert from the old usage to the new usage:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#' @examples </span>
-<span class="co">#' add_two(1, 2)</span>
-<span class="co">#' # -&gt;</span>
-<span class="co">#' sum(1, 2)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#' @examples </span></span>
+<span><span class="co">#' add_two(1, 2)</span></span>
+<span><span class="co">#' # -&gt;</span></span>
+<span><span class="co">#' sum(1, 2)</span></span></code></pre></div>
 <p>Then add <code>@keywords internal</code> to remove the function from the documentation index. If you use pkgdown, also check that it’s no longer listed in <code>_pkgdown.yml</code>. These changes reduce the chance of new users coming across a deprecated function, but don’t prevent those who already know about it from referring to the docs.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#' @keywords internal</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#' @keywords internal</span></span></code></pre></div>
 <p>You’re now done with the docs, and it’s time to add a warning when the user calls your function. Do this by adding call to <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> on the first line of the function:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"add_two()"</span>, <span class="st">"base::sum()"</span><span class="op">)</span>
-  <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
-<span class="op">}</span>
-
-<span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; Warning: `add_two()` was deprecated in lifecycle 1.0.0.</span>
-<span class="co">#&gt; Please use `base::sum()` instead.</span>
-<span class="co">#&gt; [1] 3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"add_two()"</span>, <span class="st">"base::sum()"</span><span class="op">)</span></span>
+<span>  <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: `add_two()` was deprecated in lifecycle 1.0.0.</span></span>
+<span><span class="co">#&gt; Please use `base::sum()` instead.</span></span>
+<span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 <p><code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> generates user friendly messages for two common deprecation alternatives:</p>
 <ul>
 <li><p>Function in same package: <code>lifecycle::deprecate_warn("1.0.0", "fun_old()", "fun_new()")</code></p></li>
@@ -162,38 +162,38 @@
 </ul>
 <p>For other cases, use the <code>details</code> argument to provide your own message to the user:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span>
-    <span class="st">"1.0.0"</span>, 
-    <span class="st">"add_two()"</span>, 
-    details <span class="op">=</span> <span class="st">"This function is a special case of sum(); use it instead."</span>
-  <span class="op">)</span>
-  <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
-<span class="op">}</span>
-
-<span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; Warning: `add_two()` was deprecated in lifecycle 1.0.0.</span>
-<span class="co">#&gt; This function is a special case of sum(); use it instead.</span>
-<span class="co">#&gt; [1] 3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span></span>
+<span>    <span class="st">"1.0.0"</span>, </span>
+<span>    <span class="st">"add_two()"</span>, </span>
+<span>    details <span class="op">=</span> <span class="st">"This function is a special case of sum(); use it instead."</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: `add_two()` was deprecated in lifecycle 1.0.0.</span></span>
+<span><span class="co">#&gt; This function is a special case of sum(); use it instead.</span></span>
+<span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 <p>It’s good practice to test that you’ve correctly implemented the deprecation, testing that the deprecated function still works and that it generates a useful warning. Using an expectation inside <code><a href="https://testthat.r-lib.org/reference/expect_snapshot.html" class="external-link">testthat::expect_snapshot()</a></code><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;You can learn more about snapshot testing in &lt;code&gt;&lt;a href="https://testthat.r-lib.org/articles/snapshotting.html" class="external-link"&gt;vignette("snapshotting", package = "testthat")&lt;/a&gt;&lt;/code&gt;.&lt;/p&gt;'><sup>2</sup></a> is a convenient way to do this:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">test_that</a></span><span class="op">(</span><span class="st">"add_two is deprecated"</span>, <span class="op">{</span>
-  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_snapshot.html" class="external-link">expect_snapshot</a></span><span class="op">(</span><span class="op">{</span>
-    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
-    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html" class="external-link">expect_equal</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">test_that</a></span><span class="op">(</span><span class="st">"add_two is deprecated"</span>, <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_snapshot.html" class="external-link">expect_snapshot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html" class="external-link">expect_equal</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>If you have existing tests for the deprecated function you can suppress the warning in those tests with the <code>lifecycle_verbosity</code> option:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">test_that</a></span><span class="op">(</span><span class="st">"add_two returns the sum of its inputs"</span>, <span class="op">{</span>
-  <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html" class="external-link">local_options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"quiet"</span><span class="op">)</span>
-  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html" class="external-link">expect_equal</a></span><span class="op">(</span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">test_that</a></span><span class="op">(</span><span class="st">"add_two returns the sum of its inputs"</span>, <span class="op">{</span></span>
+<span>  <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html" class="external-link">local_options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"quiet"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html" class="external-link">expect_equal</a></span><span class="op">(</span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>And then add a separate test specifically for the deprecation.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">test_that</a></span><span class="op">(</span><span class="st">"add_two is deprecated"</span>, <span class="op">{</span>
-  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_snapshot.html" class="external-link">expect_snapshot</a></span><span class="op">(</span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">test_that</a></span><span class="op">(</span><span class="st">"add_two is deprecated"</span>, <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_snapshot.html" class="external-link">expect_snapshot</a></span><span class="op">(</span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="gradual-deprecation">Gradual deprecation<a class="anchor" aria-label="anchor" href="#gradual-deprecation"></a>
@@ -215,25 +215,25 @@
 </h3>
 <p>To rename a function without breaking existing code, move the implementation to the new function, then call the new function from the old function, along with a deprecation message:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#' Add two numbers</span>
-<span class="co">#' </span>
-<span class="co">#' @description </span>
-<span class="co">#' `r lifecycle::badge("deprecated")`</span>
-<span class="co">#' </span>
-<span class="co">#' `add_two()` was renamed to `number_add()` to create a more</span>
-<span class="co">#' consistent API.</span>
-<span class="co">#' @keywords internal</span>
-<span class="co">#' @export</span>
-<span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">foo</span>, <span class="va">bar</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"add_two()"</span>, <span class="st">"number_add()"</span><span class="op">)</span>
-  <span class="fu">number_add</span><span class="op">(</span><span class="va">foo</span>, <span class="va">bar</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co"># documentation goes here...</span>
-<span class="co">#' @export</span>
-<span class="va">number_add</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#' Add two numbers</span></span>
+<span><span class="co">#' </span></span>
+<span><span class="co">#' @description </span></span>
+<span><span class="co">#' `r lifecycle::badge("deprecated")`</span></span>
+<span><span class="co">#' </span></span>
+<span><span class="co">#' `add_two()` was renamed to `number_add()` to create a more</span></span>
+<span><span class="co">#' consistent API.</span></span>
+<span><span class="co">#' @keywords internal</span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">foo</span>, <span class="va">bar</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"add_two()"</span>, <span class="st">"number_add()"</span><span class="op">)</span></span>
+<span>  <span class="fu">number_add</span><span class="op">(</span><span class="va">foo</span>, <span class="va">bar</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># documentation goes here...</span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">number_add</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>If you are renaming many functions as part of an API overhaul, it’ll often make sense to document all the changes in one file, like <a href="https://rvest.tidyverse.org/reference/rename.html" class="external-link uri">https://rvest.tidyverse.org/reference/rename.html</a>.</p>
 </div>
 <div class="section level3">
@@ -241,27 +241,27 @@
 </h3>
 <p>Superseding a function is simpler than deprecating it, since you don’t need to steer users away from it with a warning. So all you need to do is add a superseded badge:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#' Gather columns into key-value pairs</span>
-<span class="co">#'</span>
-<span class="co">#' @description</span>
-<span class="co">#' `r lifecycle::badge("superseded")`</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#' Gather columns into key-value pairs</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @description</span></span>
+<span><span class="co">#' `r lifecycle::badge("superseded")`</span></span></code></pre></div>
 <p>Then describe why the function was superseded, and what the recommended alternative is:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#'</span>
-<span class="co">#' Development on `gather()` is complete, and for new code we recommend</span>
-<span class="co">#' switching to `pivot_longer()`, which is easier to use, more featureful,</span>
-<span class="co">#' and still under active development.</span>
-<span class="co">#' </span>
-<span class="co">#' In brief,</span>
-<span class="co">#' `df %&gt;% gather("key", "value", x, y, z)` is equivalent to</span>
-<span class="co">#' `df %&gt;% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")`.</span>
-<span class="co">#' See more details in `vignette("pivot")`.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#'</span></span>
+<span><span class="co">#' Development on `gather()` is complete, and for new code we recommend</span></span>
+<span><span class="co">#' switching to `pivot_longer()`, which is easier to use, more featureful,</span></span>
+<span><span class="co">#' and still under active development.</span></span>
+<span><span class="co">#' </span></span>
+<span><span class="co">#' In brief,</span></span>
+<span><span class="co">#' `df %&gt;% gather("key", "value", x, y, z)` is equivalent to</span></span>
+<span><span class="co">#' `df %&gt;% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")`.</span></span>
+<span><span class="co">#' See more details in `vignette("pivot")`.</span></span></code></pre></div>
 <p>The rest of the documentation can stay the same.</p>
 <p>If you’re willing to live on the bleeding edge of lifecycle, add a call to the experimental <code><a href="../reference/signal_stage.html">signal_stage()</a></code>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gather</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">key</span> <span class="op">=</span> <span class="st">"key"</span>, <span class="va">value</span> <span class="op">=</span> <span class="st">"value"</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/signal_stage.html">signal_stage</a></span><span class="op">(</span><span class="st">"superseded"</span>, <span class="st">"gather()"</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gather</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">key</span> <span class="op">=</span> <span class="st">"key"</span>, <span class="va">value</span> <span class="op">=</span> <span class="st">"value"</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/signal_stage.html">signal_stage</a></span><span class="op">(</span><span class="st">"superseded"</span>, <span class="st">"gather()"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>This signal isn’t currently hooked up to any behaviour, but we plan to provide logging and analysis tools in a future release.</p>
 </div>
 <div class="section level3">
@@ -269,14 +269,14 @@
 </h3>
 <p>To advertise that a function is experimental and the interface might change in the future, first add an experimental badge to the description:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#' @description</span>
-<span class="co">#' `r lifecycle::badge("experimental")`</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#' @description</span></span>
+<span><span class="co">#' `r lifecycle::badge("experimental")`</span></span></code></pre></div>
 <p>If the function is very experimental, you might want to add <code>@keywords internal</code> too.</p>
 <p>If you’re willing to try an experimental lifecycle feature, add a call to <code><a href="../reference/signal_stage.html">signal_stage()</a></code> in the body:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cool_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/signal_stage.html">signal_stage</a></span><span class="op">(</span><span class="st">"experimental"</span>, <span class="st">"cool_function()"</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cool_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/signal_stage.html">signal_stage</a></span><span class="op">(</span><span class="st">"experimental"</span>, <span class="st">"cool_function()"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>This signal isn’t currently hooked up to any behaviour, but we plan to provide logging and analysis tools in a future release.</p>
 </div>
 </div>
@@ -288,95 +288,95 @@
 </h3>
 <p>Take this example where we want to deprecate <code>na.rm</code> in favour of always making it <code>TRUE.</code></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>First, add a badge to the argument description:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#' @param na.rm `r lifecycle::badge("deprecated")` `na.rm = FALSE` is no</span>
-<span class="co">#'   longer supported; this function will always remove missing values</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#' @param na.rm `r lifecycle::badge("deprecated")` `na.rm = FALSE` is no</span></span>
+<span><span class="co">#'   longer supported; this function will always remove missing values</span></span></code></pre></div>
 <p>And add a deprecation warning if <code>na.rm</code> is FALSE. In this case, there’s no replacement to the behaviour, so we instead use <code>details</code> to provide a custom message:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span>
-      when <span class="op">=</span> <span class="st">"1.0.0"</span>, 
-      what <span class="op">=</span> <span class="st">"add_two(na.rm)"</span>,
-      details <span class="op">=</span> <span class="st">"Ability to retain missing values will be dropped in next release."</span>
-    <span class="op">)</span>
-  <span class="op">}</span>
-  
-  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; Warning: The `na.rm` argument of `add_two()` is deprecated as of lifecycle 1.0.0.</span>
-<span class="co">#&gt; Ability to retain missing values will be dropped in next release.</span>
-<span class="co">#&gt; [1] NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span></span>
+<span>      when <span class="op">=</span> <span class="st">"1.0.0"</span>, </span>
+<span>      what <span class="op">=</span> <span class="st">"add_two(na.rm)"</span>,</span>
+<span>      details <span class="op">=</span> <span class="st">"Ability to retain missing values will be dropped in next release."</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The `na.rm` argument of `add_two()` is deprecated as of lifecycle 1.0.0.</span></span>
+<span><span class="co">#&gt; Ability to retain missing values will be dropped in next release.</span></span>
+<span><span class="co">#&gt; [1] NA</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="deprecating-an-argument-providing-a-new-default">Deprecating an argument, providing a new default<a class="anchor" aria-label="anchor" href="#deprecating-an-argument-providing-a-new-default"></a>
 </h3>
 <p>Alternatively, you can change the default value to <code><a href="../reference/deprecated.html">lifecycle::deprecated()</a></code> to make the deprecation status more obvious from the outside, and use <code><a href="../reference/deprecated.html">lifecycle::is_present()</a></code> to test whether or not the argument was provided. Unlike <code><a href="https://rdrr.io/r/base/missing.html" class="external-link">missing()</a></code>, this works for both direct and indirect calls.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#' @importFrom lifecycle deprecated</span>
-<span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="fu"><a href="../reference/deprecated.html">deprecated</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecated.html">is_present</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span>
-      when <span class="op">=</span> <span class="st">"1.0.0"</span>, 
-      what <span class="op">=</span> <span class="st">"add_two(na.rm)"</span>,
-      details <span class="op">=</span> <span class="st">"Ability to retain missing values will be dropped in next release."</span>
-    <span class="op">)</span>
-  <span class="op">}</span>
-  
-  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#' @importFrom lifecycle deprecated</span></span>
+<span><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="fu"><a href="../reference/deprecated.html">deprecated</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecated.html">is_present</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span></span>
+<span>      when <span class="op">=</span> <span class="st">"1.0.0"</span>, </span>
+<span>      what <span class="op">=</span> <span class="st">"add_two(na.rm)"</span>,</span>
+<span>      details <span class="op">=</span> <span class="st">"Ability to retain missing values will be dropped in next release."</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>The chief advantage of this technique is that users will get a warning regardless of what value of <code>na.rm</code> they use:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; Warning: The `na.rm` argument of `add_two()` is deprecated as of lifecycle 1.0.0.</span>
-<span class="co">#&gt; Ability to retain missing values will be dropped in next release.</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; Warning: The `na.rm` argument of `add_two()` is deprecated as of lifecycle 1.0.0.</span>
-<span class="co">#&gt; Ability to retain missing values will be dropped in next release.</span>
-<span class="co">#&gt; [1] NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The `na.rm` argument of `add_two()` is deprecated as of lifecycle 1.0.0.</span></span>
+<span><span class="co">#&gt; Ability to retain missing values will be dropped in next release.</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The `na.rm` argument of `add_two()` is deprecated as of lifecycle 1.0.0.</span></span>
+<span><span class="co">#&gt; Ability to retain missing values will be dropped in next release.</span></span>
+<span><span class="co">#&gt; [1] NA</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="renaming-an-argument">Renaming an argument<a class="anchor" aria-label="anchor" href="#renaming-an-argument"></a>
 </h3>
 <p>You may want to rename an argument if you realise you have made a mistake with the name of an argument. For example, you’ve realised that an argument accidentally uses <code>.</code> to separate a compound name, instead of <code>_</code>. You’ll need to temporarily permit both arguments, generating a deprecation warning when the user supplies the old argument:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na_rm</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="fu"><a href="../reference/deprecated.html">deprecated</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecated.html">is_present</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"add_two(na.rm)"</span>, <span class="st">"add_two(na_rm)"</span><span class="op">)</span>
-    <span class="va">na_rm</span> <span class="op">&lt;-</span> <span class="va">na.rm</span>
-  <span class="op">}</span>
-  
-  <span class="fu">add_two</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na_rm</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">na_rm</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="fu"><a href="../reference/deprecated.html">deprecated</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecated.html">is_present</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"add_two(na.rm)"</span>, <span class="st">"add_two(na_rm)"</span><span class="op">)</span></span>
+<span>    <span class="va">na_rm</span> <span class="op">&lt;-</span> <span class="va">na.rm</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="fu">add_two</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, na.rm <span class="op">=</span> <span class="va">na_rm</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="reducing-allowed-inputs-to-an-argument">Reducing allowed inputs to an argument<a class="anchor" aria-label="anchor" href="#reducing-allowed-inputs-to-an-argument"></a>
 </h3>
 <p>To narrow the set of allowed inputs, call <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> only when the user supplies the previously supported inputs. Make sure you preserve the previous behaviour:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo(y = 'must be a scalar')"</span><span class="op">)</span>
-    <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-  <span class="op">}</span>
-  <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
-<span class="op">}</span>
-
-<span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; [1] 3</span>
-<span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt; Warning: The `y` argument of `foo()` must be a scalar as of lifecycle</span>
-<span class="co">#&gt; 1.0.0.</span>
-<span class="co">#&gt; [1] 16</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">add_two</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo(y = 'must be a scalar')"</span><span class="op">)</span></span>
+<span>    <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3</span></span>
+<span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The `y` argument of `foo()` must be a scalar as of lifecycle</span></span>
+<span><span class="co">#&gt; 1.0.0.</span></span>
+<span><span class="co">#&gt; [1] 16</span></span></code></pre></div>
 </div>
 </div>
 
@@ -395,7 +395,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
   </div></footer>
