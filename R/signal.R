@@ -21,7 +21,7 @@
 #'   x + y / z
 #' }
 #' foofy(1, 2, 3)
-signal_stage <- function(stage, what, env = caller_env()) {
+signal_stage <- function(stage, what, with = NULL, env = caller_env()) {
   stage <- arg_match(stage, c("experimental", "superseded", "deprecated"))
   what <- spec(what, env = env)
 
@@ -29,6 +29,11 @@ signal_stage <- function(stage, what, env = caller_env()) {
     msg <- glue::glue_data(what, "{fn}() is {stage}")
   } else {
     msg <- glue::glue_data(what, "{fn}(arg) is {stage}")
+  }
+
+  if (!is_null(with)) {
+    with <- spec(with, NULL, "signal_stage")
+    msg <- paste0(msg, "\n", lifecycle_message_with(with, what))
   }
 
   signal(msg, "lifecycle_stage",
@@ -52,6 +57,6 @@ signal_experimental <- function(when, what, env = caller_env()) {
 }
 #' @rdname signal_experimental
 #' @export
-signal_superseded <- function(when, what, with = NULL, env = caller_env()) {
+signal_superseded <- function(when, what, env = caller_env()) {
   signal_stage("superseded", what, env = env)
 }

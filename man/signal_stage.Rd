@@ -4,7 +4,7 @@
 \alias{signal_stage}
 \title{Signal other experimental or superseded features}
 \usage{
-signal_stage(stage, what, env = caller_env())
+signal_stage(stage, what, with = NULL, env = caller_env())
 }
 \arguments{
 \item{stage}{Life cycle stage, either "experimental" or "superseded".}
