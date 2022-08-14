@@ -10,6 +10,21 @@ test_that("default deprecations behave as expected", {
   expect_defunct(deprecate_stop("1.0.0", "foo()"))
 })
 
+test_that("deprecate_warn() only warns repeatedly if always = TRUE", {
+  on.exit(env_unbind(deprecation_env, "test"))
+  local_options(lifecycle_verbosity = "default")
+
+  deprecate <- function(...) {
+    deprecate_warn("1.0.0", "foo()", id = "test", ...)
+  }
+
+  expect_warning(deprecate(), class = "lifecycle_warning_deprecated")
+  expect_warning(deprecate(), NA)
+
+  expect_warning(deprecate(always = TRUE), class = "lifecycle_warning_deprecated")
+  expect_warning(deprecate(always = TRUE), class = "lifecycle_warning_deprecated")
+})
+
 test_that("quiet suppresses _soft and _warn", {
   local_options(lifecycle_verbosity = "quiet")
 

@@ -114,12 +114,16 @@ deprecate_soft <- function(when,
 }
 
 #' @rdname deprecate_soft
+#' @param always If `FALSE`, the default, will warn every 8 hours.
+#'   If `TRUE`, will always warn. Only use `always = TRUE` after at least
+#'   one release with the default.
 #' @export
 deprecate_warn <- function(when,
                            what,
                            with = NULL,
                            details = NULL,
                            id = NULL,
+                           always = FALSE,
                            env = caller_env()) {
   msg <- NULL # trick R CMD check
   msg %<~% lifecycle_message(when, what, with, details, env, "deprecate_warn")
@@ -136,7 +140,7 @@ deprecate_warn <- function(when,
   } else {
     id <- id %||% msg
 
-    if (needs_warning(id)) {
+    if (always || needs_warning(id)) {
       # Prevent warning from being displayed again
       env_poke(deprecation_env, id, Sys.time())
 
