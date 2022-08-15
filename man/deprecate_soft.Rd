@@ -36,6 +36,7 @@ deprecate_stop(when, what, with = NULL, details = NULL, env = caller_env())
 \item Deprecate an argument with \code{"foo(arg)"}.
 \item Partially deprecate an argument with
 \code{"foo(arg = 'must be a scalar integer')"}.
+\item Deprecate anything else with a custom message by wrapping it in \code{I()}.
 }
 
 You can optionally supply the namespace: \code{"ns::foo()"}, but this is

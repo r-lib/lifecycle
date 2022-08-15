@@ -1,5 +1,8 @@
 # lifecycle (development version)
 
+* You can now generate arbitrary text in a deprecation message by wrapping 
+  `what` or `with` in `I()` (#120).
+
 * `signal_stage()` now supports `with` (#116).
 
 # lifecycle 1.0.1

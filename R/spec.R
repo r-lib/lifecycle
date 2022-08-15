@@ -1,5 +1,15 @@
 
 spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
+  if (inherits(spec, "AsIs")) {
+    return(list(
+      fn = spec,
+      arg = NULL,
+      pkg = spec_package(env, signaller = signaller),
+      reason = NULL,
+      from = signaller
+    ))
+  }
+
   what <- spec_what(spec, "spec", signaller)
   fn <- spec_fn(what$call)
   arg <- spec_arg(what$call, signaller)
