@@ -53,7 +53,7 @@ conditionMessage.lifecycle_warning_deprecated <- function(c) {
 }
 
 #' @export
-print.lifecycle_warning_deprecated <- function(x, ..., simplify = c("branch", "collapse", "none")) {
+print.lifecycle_warning_deprecated <- function(x, ..., simplify = c("branch", "none")) {
   cat_line(bold("<deprecated>"))
 
   message <- x$message
@@ -66,10 +66,12 @@ print.lifecycle_warning_deprecated <- function(x, ..., simplify = c("branch", "c
   invisible(x)
 }
 
-print_trace <- function(cnd, ..., simplify = c("branch", "collapse", "none")) {
+print_trace <- function(cnd, ..., simplify = c("branch", "none")) {
   trace <- cnd$trace
 
   if (!is_null(trace)) {
+    simplify <- arg_match(simplify)
+
     cat_line(bold("Backtrace:"))
     cat_line(red(format(trace, ..., simplify = simplify)))
   }
