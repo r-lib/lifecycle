@@ -1,5 +1,7 @@
 # lifecycle (development version)
 
+* `signal_stage()` now supports `with` (#116).
+
 # lifecycle 1.0.1
 
 * `deprecate_soft()` now follows the verbosity option when called from
