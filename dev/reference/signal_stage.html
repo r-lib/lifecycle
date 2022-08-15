@@ -80,7 +80,7 @@ superseded functions.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">signal_stage</span><span class="op">(</span><span class="va">stage</span>, <span class="va">what</span>, env <span class="op">=</span> <span class="fu">caller_env</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">signal_stage</span><span class="op">(</span><span class="va">stage</span>, <span class="va">what</span>, with <span class="op">=</span> <span class="cn">NULL</span>, env <span class="op">=</span> <span class="fu">caller_env</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -92,6 +92,11 @@ superseded functions.</p>
 <dt>what</dt>
 <dd><p>String describing what feature the stage applies too, using
 the same syntax as <code><a href="deprecate_soft.html">deprecate_warn()</a></code>.</p></dd>
+
+
+<dt>with</dt>
+<dd><p>An optional string giving a recommended replacement for
+a superseded function.</p></dd>
 
 
 <dt>env</dt>
