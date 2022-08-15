@@ -12,6 +12,9 @@ signal_stage(stage, what, with = NULL, env = caller_env())
 \item{what}{String describing what feature the stage applies too, using
 the same syntax as \code{\link[=deprecate_warn]{deprecate_warn()}}.}
 
+\item{with}{An optional string giving a recommended replacement for
+a superseded function.}
+
 \item{env}{Environment used to determine where \code{signal_stage()}
 was called, used to determine the package name).}
 }

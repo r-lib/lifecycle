@@ -12,6 +12,8 @@
 #' @param stage Life cycle stage, either "experimental" or "superseded".
 #' @param what String describing what feature the stage applies too, using
 #'   the same syntax as [deprecate_warn()].
+#' @param with An optional string giving a recommended replacement for
+#'   a superseded function.
 #' @param env Environment used to determine where `signal_stage()`
 #'   was called, used to determine the package name).
 #' @export
