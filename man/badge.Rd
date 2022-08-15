@@ -19,10 +19,12 @@ To include lifecycle badges in your documentation:
 \item Call \code{usethis::use_lifecycle()} to copy the badge images into the
 \verb{man/} folder of your package.
 \item Call \code{lifecycle::badge()} inside R backticks to insert a
-lifecycle badge:\preformatted{#' `r lifecycle::badge("experimental")`
+lifecycle badge:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#' `r lifecycle::badge("experimental")`
 #' `r lifecycle::badge("deprecated")`
 #' `r lifecycle::badge("superseded")`
-}
+}\if{html}{\out{</div>}}
 
 If the deprecated feature is a function, a good place for this
 badge is at the top of the topic description. If it is an argument,

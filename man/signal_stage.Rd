@@ -12,14 +12,8 @@ signal_stage(stage, what, env = caller_env())
 \item{what}{String describing what feature the stage applies too, using
 the same syntax as \code{\link[=deprecate_warn]{deprecate_warn()}}.}
 
-\item{env}{Pair of environments that define where \verb{deprecate_*()}
-was called (used to determine the package name) and where the function
-called the deprecating function was called (used to determine if
-\code{deprecate_soft()} should message).
-
-These are only needed if you're calling \verb{deprecate_*()} from an internal
-helper, in which case you should forward \code{env = caller_env()} and
-\code{user_env = caller_env(2)}.}
+\item{env}{Environment used to determine where \code{signal_stage()}
+was called, used to determine the package name).}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
