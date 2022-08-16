@@ -18,7 +18,7 @@ cat_ruler <- function(title) {
 
 spec_data <- function(fn = NULL,
                       arg = NULL,
-                      pkg = spec_package(caller_env()),
+                      pkg = spec_pkg(NULL, caller_env()),
                       reason = NULL,
                       from = "signal_lifecycle") {
   list(
