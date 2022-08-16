@@ -364,3 +364,22 @@ add_two <- function(x, y) {
 add_two(1, 2)
 add_two(1, 1:5)
 ```
+
+## Anything else
+
+You can wrap `what` and `with` in `I()` to deprecate behaviours not otherwise described above:
+
+```{r}
+lifecycle::deprecate_warn(
+  when = "1.0.0",
+  what = I('Setting the global option "pkg.opt" to "foo"')
+)
+
+lifecycle::deprecate_warn(
+  when = "1.0.0",
+  what = I('The global option "pkg.another_opt"'),
+  with = I('"pkg.this_opt"')
+)
+```
+
+Note that your `what` fragment needs to make sense with "was deprecated ..." added to the end, and your `with` fragment needs to make sense in the sentence "Please use `{with}` instead".

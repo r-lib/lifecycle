@@ -1,26 +1,26 @@
-
 spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
-  what <- spec_what(spec, "spec", signaller)
-  fn <- spec_fn(what$call)
-  arg <- spec_arg(what$call, signaller)
-  reason <- spec_reason(what$call, signaller)
-
-  if (is_null(what$pkg) && !is.null(env)) {
-    pkg <- spec_package(env, signaller = signaller)
+  if (inherits(spec, "AsIs")) {
+    list(
+      fn = spec,
+      arg = NULL,
+      pkg = spec_pkg(NULL, env, signaller = signaller),
+      reason = NULL,
+      from = signaller
+    )
   } else {
-    pkg <- what$pkg
-  }
+    what <- parse_what(spec, signaller = signaller)
 
-  list(
-    fn = fn,
-    arg = arg,
-    pkg = pkg,
-    reason = reason,
-    from = signaller
-  )
+    list(
+      fn = spec_fn(what$call),
+      arg = spec_arg(what$call, signaller = signaller),
+      pkg = spec_pkg(what$pkg, env, signaller = signaller),
+      reason = spec_reason(what$call, signaller = signaller),
+      from = signaller
+    )
+  }
 }
 
-spec_what <- function(what, arg, signaller) {
+parse_what <- function(what, signaller) {
   if (is_string(what)) {
     call <- parse_expr(what)
   } else {
@@ -119,7 +119,11 @@ spec_reason <- function(call, signaller) {
   )
 }
 
-spec_package <- function(env, signaller) {
+spec_pkg <- function(pkg, env, signaller) {
+  if (!is_null(pkg) || is_null(env)) {
+    return(pkg)
+  }
+
   env <- topenv(env)
   if (is_reference(env, global_env())) {
     # Convenient for experimenting interactively

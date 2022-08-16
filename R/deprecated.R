@@ -26,9 +26,11 @@
 #'   * Deprecate an argument with `"foo(arg)"`.
 #'   * Partially deprecate an argument with
 #'     `"foo(arg = 'must be a scalar integer')"`.
+#'   * Deprecate anything else with a custom message by wrapping it in `I()`.
 #'
 #'   You can optionally supply the namespace: `"ns::foo()"`, but this is
 #'   usually not needed as it will be inferred from the caller environment.
+#'
 #' @param with An optional string giving a recommended replacement for the
 #'   deprecated behaviour. This takes the same form as `what`.
 #' @param details In most cases the deprecation message can be automatically
@@ -238,7 +240,9 @@ lifecycle_message <- function(when,
 lifecycle_message_what <- function(what, when) {
   glue_what <- function(x) glue::glue_data(what, x)
 
-  what$fn <- fun_label(what$fn)
+  if (!inherits(what$fn, "AsIs")) {
+    what$fn <- fun_label(what$fn)
+  }
 
   if (is_null(what$arg)) {
     if (what$from == "deprecate_stop") {
@@ -267,16 +271,20 @@ fun_label <- function(fn) {
 lifecycle_message_with <- function(with, what) {
   glue_with <- function(x) glue::glue_data(with, x)
 
-  if (!is_null(with$pkg) && what$pkg != with$pkg) {
-    with$fn <- glue_with("{ pkg }::{ fn }")
-  }
-
-  if (is_null(with$arg)) {
-    glue_with("Please use `{ fn }()` instead.")
-  } else if (what$fn == with$fn) {
-    glue_with("Please use the `{ arg }` argument instead.")
+  if (inherits(with$fn, "AsIs")) {
+    glue_with("Please use { fn } instead.")
   } else {
-    glue_with("Please use the `{ arg }` argument of `{ fn }()` instead.")
+    if (!is_null(with$pkg) && what$pkg != with$pkg) {
+      with$fn <- glue_with("{ pkg }::{ fn }")
+    }
+
+    if (is_null(with$arg)) {
+      glue_with("Please use `{ fn }()` instead.")
+    } else if (what$fn == with$fn) {
+      glue_with("Please use the `{ arg }` argument instead.")
+    } else {
+      glue_with("Please use the `{ arg }` argument of `{ fn }()` instead.")
+    }
   }
 }
 

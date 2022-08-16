@@ -43,6 +43,14 @@
       cat_line(lifecycle_message("1.0.0", "foo(arg)", signaller = "deprecate_stop"))
     Output
       The `arg` argument of `foo()` was deprecated in base 1.0.0 and is now defunct.
+    Code
+      cat_line(lifecycle_message("1.0.0", I("Use of bananas")))
+    Output
+      Use of bananas was deprecated in base 1.0.0.
+    Code
+      cat_line(lifecycle_message("1.0.0", I("Use of bananas"), signaller = "deprecate_stop"))
+    Output
+      Use of bananas was deprecated in base 1.0.0 and is now defunct.
 
 # replace deprecation messages are readable
 
@@ -66,6 +74,11 @@
     Output
       The `arg` argument of `foo()` is deprecated as of base 1.0.0.
       Please use the `arg` argument of `bar()` instead.
+    Code
+      cat_line(lifecycle_message("1.0.0", I("Use of bananas"), I("apples")))
+    Output
+      Use of bananas was deprecated in base 1.0.0.
+      Please use apples instead.
 
 # unusual names are handled gracefully
 

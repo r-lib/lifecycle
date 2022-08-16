@@ -99,6 +99,8 @@ test_that("what deprecation messages are readable", {
     cat_line(lifecycle_message("1.0.0", "foo()", signaller = "deprecate_stop"))
     cat_line(lifecycle_message("1.0.0", "foo(arg)"))
     cat_line(lifecycle_message("1.0.0", "foo(arg)", signaller = "deprecate_stop"))
+    cat_line(lifecycle_message("1.0.0", I("Use of bananas")))
+    cat_line(lifecycle_message("1.0.0", I("Use of bananas"), signaller = "deprecate_stop"))
   })
 })
 
@@ -109,6 +111,8 @@ test_that("replace deprecation messages are readable", {
     cat_line(lifecycle_message("1.0.0", "foo()", "bar()"))
     cat_line(lifecycle_message("1.0.0", "foo(arg1)", "foo(arg2)"))
     cat_line(lifecycle_message("1.0.0", "foo(arg)", "bar(arg)"))
+
+    cat_line(lifecycle_message("1.0.0", I("Use of bananas"), I("apples")))
   })
 })
 
