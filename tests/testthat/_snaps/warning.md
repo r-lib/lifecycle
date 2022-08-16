@@ -4,8 +4,11 @@
       last_lifecycle_warnings()
     Output
       [[1]]
-      <deprecated>
-      message: `trace()` was deprecated in lifecycle 1.0.0.
+      <warning/lifecycle_warning_deprecated>
+      Warning:
+      `trace()` was deprecated in lifecycle 1.0.0.
+      Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+      ---
       Backtrace:
         1. lifecycle::expect_deprecated(f())
         8. lifecycle (local) f()
