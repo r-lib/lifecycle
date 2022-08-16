@@ -49,30 +49,6 @@ cnd_footer.lifecycle_warning_deprecated <- function(cnd, ...) {
   cnd$internal$footer
 }
 
-#' @export
-print.lifecycle_warning_deprecated <- function(x, ..., simplify = c("branch", "none")) {
-  cat_line(bold("<deprecated>"))
-
-  message <- x$message
-  if (is_string(message) && nzchar(message)) {
-    cat_line(sprintf("message: %s", italic(message)))
-  }
-
-  print_trace(x, ..., simplify = simplify)
-
-  invisible(x)
-}
-
-print_trace <- function(cnd, ..., simplify = c("branch", "none")) {
-  trace <- cnd$trace
-
-  if (!is_null(trace)) {
-    simplify <- arg_match(simplify)
-
-    cat_line(bold("Backtrace:"))
-    cat_line(red(format(trace, ..., simplify = simplify)))
-  }
-}
 
 warnings_env <- env(empty_env())
 
