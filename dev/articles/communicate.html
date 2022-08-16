@@ -387,6 +387,28 @@
 <span><span class="co">#&gt; [1] 16</span></span></code></pre></div>
 </div>
 </div>
+<div class="section level2">
+<h2 id="anything-else">Anything else<a class="anchor" aria-label="anchor" href="#anything-else"></a>
+</h2>
+<p>You can wrap <code>what</code> and <code>with</code> in <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> to deprecate behaviours not otherwise described above:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span></span>
+<span>  when <span class="op">=</span> <span class="st">"1.0.0"</span>,</span>
+<span>  what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">'Setting the global option "pkg.opt" to "foo"'</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Setting the global option "pkg.opt" to "foo" was deprecated in lifecycle 1.0.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span></span>
+<span></span>
+<span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span></span>
+<span>  when <span class="op">=</span> <span class="st">"1.0.0"</span>,</span>
+<span>  what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">'The global option "pkg.another_opt"'</span><span class="op">)</span>,</span>
+<span>  with <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">'"pkg.this_opt"'</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The global option "pkg.another_opt" was deprecated in lifecycle 1.0.0.</span></span>
+<span><span class="co">#&gt; Please use "pkg.this_opt" instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span></span></code></pre></div>
+<p>Note that your <code>what</code> fragment needs to make sense with “was deprecated …” added to the end, and your <code>with</code> fragment needs to make sense in the sentence “Please use <code>{with}</code> instead”.</p>
+</div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

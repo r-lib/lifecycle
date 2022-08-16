@@ -126,6 +126,7 @@ the user. Control with <code><a href="verbosity.html">options(lifecycle_verbosit
 <li><p>Deprecate an argument with <code>"foo(arg)"</code>.</p></li>
 <li><p>Partially deprecate an argument with
 <code>"foo(arg = 'must be a scalar integer')"</code>.</p></li>
+<li><p>Deprecate anything else with a custom message by wrapping it in <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>.</p></li>
 </ul><p>You can optionally supply the namespace: <code>"ns::foo()"</code>, but this is
 usually not needed as it will be inferred from the caller environment.</p></dd>
 
