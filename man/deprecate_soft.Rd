@@ -22,6 +22,7 @@ deprecate_warn(
   with = NULL,
   details = NULL,
   id = NULL,
+  always = FALSE,
   env = caller_env()
 )
 
@@ -63,6 +64,10 @@ called the deprecating function was called (used to determine if
 These are only needed if you're calling \verb{deprecate_*()} from an internal
 helper, in which case you should forward \code{env = caller_env()} and
 \code{user_env = caller_env(2)}.}
+
+\item{always}{If \code{FALSE}, the default, will warn every 8 hours.
+If \code{TRUE}, will always warn. Only use \code{always = TRUE} after at least
+one release with the default.}
 }
 \value{
 \code{NULL}, invisibly.

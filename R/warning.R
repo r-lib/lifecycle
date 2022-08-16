@@ -45,11 +45,8 @@ new_deprecated_warning <- function(msg, trace, ...) {
 }
 
 #' @export
-conditionMessage.lifecycle_warning_deprecated <- function(c) {
-  paste_line(
-    c$message,
-    c$internal$footer
-  )
+cnd_footer.lifecycle_warning_deprecated <- function(cnd, ...) {
+  cnd$internal$footer
 }
 
 #' @export
