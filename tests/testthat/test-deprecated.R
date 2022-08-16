@@ -18,11 +18,15 @@ test_that("deprecate_warn() only warns repeatedly if always = TRUE", {
     deprecate_warn("1.0.0", "foo()", id = "test", ...)
   }
 
-  expect_warning(deprecate(), class = "lifecycle_warning_deprecated")
-  expect_warning(deprecate(), NA)
+  expect_snapshot({
+    deprecate()
+    deprecate()
+  })
 
-  expect_warning(deprecate(always = TRUE), class = "lifecycle_warning_deprecated")
-  expect_warning(deprecate(always = TRUE), class = "lifecycle_warning_deprecated")
+  expect_snapshot({
+    deprecate(always = TRUE)
+    deprecate(always = TRUE)
+  })
 })
 
 test_that("quiet suppresses _soft and _warn", {

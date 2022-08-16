@@ -1,3 +1,30 @@
+# deprecate_warn() only warns repeatedly if always = TRUE
+
+    Code
+      deprecate()
+    Condition
+      Warning:
+      `foo()` was deprecated in lifecycle 1.0.0.
+      This warning is displayed once every 8 hours.
+      Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+    Code
+      deprecate()
+
+---
+
+    Code
+      deprecate(always = TRUE)
+    Condition
+      Warning:
+      `foo()` was deprecated in lifecycle 1.0.0.
+      Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+    Code
+      deprecate(always = TRUE)
+    Condition
+      Warning:
+      `foo()` was deprecated in lifecycle 1.0.0.
+      Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+
 # what deprecation messages are readable
 
     Code
