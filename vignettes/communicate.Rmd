@@ -378,8 +378,8 @@ lifecycle::deprecate_warn(
 lifecycle::deprecate_warn(
   when = "1.0.0",
   what = I('The global option "pkg.another_opt"'),
-  with = I("`pkg.this_opt`")
+  with = I('"pkg.this_opt"')
 )
 ```
 
-Note that your `what` fragment needs to make sense with "was deprecated ..." added to the end, and you `with` fragment needs to make sense in the sentence "Please use `{with}` instead".
+Note that your `what` fragment needs to make sense with "was deprecated ..." added to the end, and your `with` fragment needs to make sense in the sentence "Please use `{with}` instead".

@@ -120,7 +120,7 @@ spec_reason <- function(call, signaller) {
 }
 
 spec_pkg <- function(pkg, env, signaller) {
-  if (!is_null(pkg) || is.null(env)) {
+  if (!is_null(pkg) || is_null(env)) {
     return(pkg)
   }
 
