@@ -105,7 +105,7 @@ deprecate_soft <- function(when,
   } else if (verbosity %in% "warning" ||
              (is_string(verbosity, "default") && env_inherits_global(user_env))) {
     trace <- trace_back(bottom = caller_env())
-    deprecate_warn0(msg, trace)
+    deprecate_warn0(msg, trace, always = TRUE)
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
   } else {
@@ -116,12 +116,16 @@ deprecate_soft <- function(when,
 }
 
 #' @rdname deprecate_soft
+#' @param always If `FALSE`, the default, will warn every 8 hours.
+#'   If `TRUE`, will always warn. Only use `always = TRUE` after at least
+#'   one release with the default.
 #' @export
 deprecate_warn <- function(when,
                            what,
                            with = NULL,
                            details = NULL,
                            id = NULL,
+                           always = FALSE,
                            env = caller_env()) {
   msg <- NULL # trick R CMD check
   msg %<~% lifecycle_message(when, what, with, details, env, "deprecate_warn")
@@ -132,23 +136,18 @@ deprecate_warn <- function(when,
     NULL
   } else if (verbosity == "warning") {
     trace <- trace_back(bottom = caller_env())
-    deprecate_warn0(msg, trace)
+    deprecate_warn0(msg, trace, always = TRUE)
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
   } else {
     id <- id %||% msg
 
-    if (needs_warning(id)) {
+    if (always || needs_warning(id)) {
       # Prevent warning from being displayed again
       env_poke(deprecation_env, id, Sys.time())
 
-      footer <- paste_line(
-        silver("This warning is displayed once every 8 hours."),
-        silver("Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.")
-      )
-
       trace <- trace_back(bottom = caller_env())
-      deprecate_warn0(msg, trace, footer)
+      deprecate_warn0(msg, trace, always = always)
     }
   }
 
@@ -174,7 +173,11 @@ deprecate_soft0 <- function(msg) {
   signal(msg, "lifecycle_soft_deprecated")
 }
 
-deprecate_warn0 <- function(msg, trace = NULL, footer = NULL) {
+deprecate_warn0 <- function(msg, trace = NULL, always = FALSE) {
+  footer <- paste_line(
+    if (!always) silver("This warning is displayed once every 8 hours."),
+    silver("Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.")
+  )
   wrn <- new_deprecated_warning(msg, trace, footer = footer)
 
   # Record muffled warnings if testthat is running because it
