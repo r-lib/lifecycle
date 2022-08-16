@@ -108,6 +108,7 @@ the user. Control with <code><a href="verbosity.html">options(lifecycle_verbosit
 <span>  with <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  details <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  always <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  env <span class="op">=</span> <span class="fu">caller_env</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -157,6 +158,12 @@ called the deprecating function was called (used to determine if
 <p>These are only needed if you're calling <code>deprecate_*()</code> from an internal
 helper, in which case you should forward <code>env = caller_env()</code> and
 <code>user_env = caller_env(2)</code>.</p></dd>
+
+
+<dt>always</dt>
+<dd><p>If <code>FALSE</code>, the default, will warn every 8 hours.
+If <code>TRUE</code>, will always warn. Only use <code>always = TRUE</code> after at least
+one release with the default.</p></dd>
 
 </dl></div>
     <div class="section level2">
