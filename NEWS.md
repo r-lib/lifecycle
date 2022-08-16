@@ -4,6 +4,8 @@
   occur every time, not every 8 hours. This adds an extra step in between
   `deprecate_warn()` and `deprecate_stop()` (#124).
 
+* `signal_stage()` now supports `with` (#116).
+
 # lifecycle 1.0.1
 
 * `deprecate_soft()` now follows the verbosity option when called from

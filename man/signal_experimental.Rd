@@ -7,7 +7,7 @@
 \usage{
 signal_experimental(when, what, env = caller_env())
 
-signal_superseded(when, what, with = NULL, env = caller_env())
+signal_superseded(when, what, env = caller_env())
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}

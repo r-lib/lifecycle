@@ -53,7 +53,7 @@ conditionMessage.lifecycle_warning_deprecated <- function(c) {
 }
 
 #' @export
-print.lifecycle_warning_deprecated <- function(x, ..., simplify = c("branch", "collapse", "none")) {
+print.lifecycle_warning_deprecated <- function(x, ..., simplify = c("branch", "none")) {
   cat_line(bold("<deprecated>"))
 
   message <- x$message
@@ -66,10 +66,12 @@ print.lifecycle_warning_deprecated <- function(x, ..., simplify = c("branch", "c
   invisible(x)
 }
 
-print_trace <- function(cnd, ..., simplify = c("branch", "collapse", "none")) {
+print_trace <- function(cnd, ..., simplify = c("branch", "none")) {
   trace <- cnd$trace
 
   if (!is_null(trace)) {
+    simplify <- arg_match(simplify)
+
     cat_line(bold("Backtrace:"))
     cat_line(red(format(trace, ..., simplify = simplify)))
   }
@@ -84,7 +86,7 @@ init_warnings <- function() {
 init_warnings()
 
 push_warning <- function(wrn) {
-  current <- sexp_address(sys.frame(1))
+  current <- obj_address(sys.frame(1))
 
   if (identical(warnings_env$last_top_frame, current)) {
     warnings_env$warnings <- c(warnings_env$warnings, list(wrn))
