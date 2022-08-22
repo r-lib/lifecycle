@@ -190,35 +190,25 @@ one release with the default.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># A deprecated function `foo`:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo()"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated argument `arg`:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo(arg)"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `arg` argument of `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A partially deprecated argument `arg`:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo(arg = 'must be a scalar integer')"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `arg` argument of `foo()` must be a scalar integer as of &lt;NA&gt; 1.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with a function replacement:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo()"</span>, <span class="st">"bar()"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `bar()` instead.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with a function replacement from a</span></span></span>
 <span class="r-in"><span><span class="co"># different package:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo()"</span>, <span class="st">"otherpackage::bar()"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `otherpackage::bar()` instead.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with custom message:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span></span></span>
@@ -228,8 +218,6 @@ one release with the default.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `otherpackage::bar(foo = TRUE)` instead</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with custom bulleted list:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span></span></span>
@@ -243,8 +231,6 @@ one release with the default.</p></dd>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> This is dangerous</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">ℹ</span> Did you mean `safe_foo()` instead?</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
