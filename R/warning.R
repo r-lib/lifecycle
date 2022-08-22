@@ -35,20 +35,15 @@ last_lifecycle_warnings <- function() {
   warnings_env$warnings
 }
 
-new_deprecated_warning <- function(msg, trace, ...) {
+new_deprecated_warning <- function(msg, trace, ..., footer = NULL) {
   warning_cnd(
     "lifecycle_warning_deprecated",
     message = msg,
     trace = trace,
+    footer = footer,
     internal = list(...)
   )
 }
-
-#' @export
-cnd_footer.lifecycle_warning_deprecated <- function(cnd, ...) {
-  cnd$internal$footer
-}
-
 
 warnings_env <- env(empty_env())
 
