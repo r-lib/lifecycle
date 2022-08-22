@@ -32,7 +32,10 @@
 #' }
 #' @export
 last_lifecycle_warnings <- function() {
-  warnings_env$warnings
+  structure(
+    warnings_env$warnings,
+    class = c("lifecycle_warnings", "list")
+  )
 }
 
 new_deprecated_warning <- function(msg, trace, ..., footer = NULL) {
@@ -43,6 +46,12 @@ new_deprecated_warning <- function(msg, trace, ..., footer = NULL) {
     footer = footer,
     internal = list(...)
   )
+}
+
+#' @export
+print.lifecycle_warnings <- function(x, ...) {
+  local_interactive(FALSE)
+  print(unclass(x))
 }
 
 warnings_env <- env(empty_env())
