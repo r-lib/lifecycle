@@ -174,10 +174,14 @@ deprecate_soft0 <- function(msg) {
 }
 
 deprecate_warn0 <- function(msg, trace = NULL, always = FALSE) {
-  footer <- paste_line(
-    if (!always) silver("This warning is displayed once every 8 hours."),
-    silver("Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.")
-  )
+  footer <- function(...) {
+    if (is_interactive()) {
+      c(
+        if (!always) silver("This warning is displayed once every 8 hours."),
+        silver("Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.")
+      )
+    }
+  }
   wrn <- new_deprecated_warning(msg, trace, footer = footer)
 
   # Record muffled warnings if testthat is running because it
