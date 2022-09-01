@@ -1,50 +1,52 @@
 # lifecycle (development version)
 
-* You can now generate arbitrary text in a deprecation message by wrapping 
-  `what` or `with` in `I()` (#120).
+* You can now generate arbitrary text in a deprecation message by
+  wrapping `what` or `with` in `I()` (#120).
 
-* `deprecate_warn()` gains an `always = TRUE` argument to force warnings to
-  occur every time, not every 8 hours. This adds an extra step in between
-  `deprecate_warn()` and `deprecate_stop()` (#124).
+* `deprecate_warn()` gains an `always = TRUE` argument to force
+  warnings to occur every time, not every 8 hours. This adds an extra
+  step in between `deprecate_warn()` and `deprecate_stop()` (#124).
 
 * `signal_stage()` now supports `with` (#116).
+
 
 # lifecycle 1.0.1
 
 * `deprecate_soft()` now follows the verbosity option when called from
   the global environment (#113).
-  
+
 * `last_warnings()` has been renamed to `last_lifecycle_warnings()`
   and `last_warning()` has been removed. This is for compatibility
   with the future `rlang::last_warnings()` function to be released in
   the next rlang version.
 
+
 # lifecycle 1.0.0
 
-* New vignettes: 
-  * `vignette("stages")` describes the lifecycle stages 
-  * `vignette("manage")` teaches you how to manage lifecycle changes in 
+* New vignettes:
+  * `vignette("stages")` describes the lifecycle stages
+  * `vignette("manage")` teaches you how to manage lifecycle changes in
      functions you _use_.
   * `vignette("communicate")` shows how to use lifecycle in functions that
      you _write_.
 
 * In `deprecate_soft()`, `deprecate_warn()`, and `deprecate_stop()`:
-  
-  * You can deprecate an argument with `foo(arg)` instead of `foo(arg =)` (#78). 
-    This syntax is similar in spirit to the formal arguments  of function 
-    definitions. 
-    
+
+  * You can deprecate an argument with `foo(arg)` instead of `foo(arg =)` (#78).
+    This syntax is similar in spirit to the formal arguments  of function
+    definitions.
+
   * You can deprecate R6 methods by using `class$method()` (#54).
-  
+
   * A character vector `details` is now converted into a bulleted list (#55).
-  
+
   * Messages for non-prefix functions (like "`x<-`()" and "`%>%`()")
     look a little nicer (#95).
 
   * Manually printed warnings now omit the advice footer (#68).
 
-* Experimental `signal_stage()` can be used to signal that a function is 
-  experimental or superseded. These signals are not currently hooked up to any 
+* Experimental `signal_stage()` can be used to signal that a function is
+  experimental or superseded. These signals are not currently hooked up to any
   behaviour, but we'll add tools in a future release (#44).
 
 * `lifecycle_cnd_data()` has been removed; as far as I can tell it wasn't
