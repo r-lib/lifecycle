@@ -23,11 +23,11 @@ supplied the argument with \code{is_present()}.
 We recommend importing \code{lifecycle::deprecated()} in your namespace
 and use it without the namespace qualifier.
 
-In general, we \href{https://principles.tidyverse.org/def-magical.html}{advise against} such
-magical defaults, i.e. defaults that cannot be evaluated by the
-user. In the case of \code{deprecated()}, the trade-off is worth it
-because the meaning of this default is obvious and there is no
-reason for the user to call \code{deprecated()} themselves.
+In general, we advise against such magical defaults, i.e. defaults
+that cannot be evaluated by the user. In the case of
+\code{deprecated()}, the trade-off is worth it because the meaning of
+this default is obvious and there is no reason for the user to call
+\code{deprecated()} themselves.
 }
 
 \examples{

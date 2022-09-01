@@ -9,12 +9,11 @@
 #' We recommend importing `lifecycle::deprecated()` in your namespace
 #' and use it without the namespace qualifier.
 #'
-#' In general, we [advise
-#' against](https://principles.tidyverse.org/def-magical.html) such
-#' magical defaults, i.e. defaults that cannot be evaluated by the
-#' user. In the case of `deprecated()`, the trade-off is worth it
-#' because the meaning of this default is obvious and there is no
-#' reason for the user to call `deprecated()` themselves.
+#' In general, we advise against such magical defaults, i.e. defaults
+#' that cannot be evaluated by the user. In the case of
+#' `deprecated()`, the trade-off is worth it because the meaning of
+#' this default is obvious and there is no reason for the user to call
+#' `deprecated()` themselves.
 #'
 #' @examples
 #' foobar_adder <- function(foo, bar, baz = deprecated()) {
