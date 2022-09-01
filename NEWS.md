@@ -1,4 +1,4 @@
-# lifecycle (development version)
+# lifecycle 1.0.2
 
 * You can now generate arbitrary text in a deprecation message by
   wrapping `what` or `with` in `I()` (#120).
