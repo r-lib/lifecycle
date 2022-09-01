@@ -17,7 +17,7 @@ Depends:
     R (>= 3.4)
 Imports:
     glue,
-    rlang (>= 1.0.4)
+    rlang (>= 1.0.5)
 Suggests:
     covr,
     crayon,
