@@ -1,14 +1,14 @@
-# tidygate
+# rapbase
 
 <details>
 
-* Version: 0.4.0
-* GitHub: NA
-* Source code: https://github.com/cran/tidygate
-* Date/Publication: 2021-01-18 16:30:03 UTC
-* Number of recursive dependencies: 72
+* Version: 1.23.0
+* GitHub: https://github.com/Rapporteket/rapbase
+* Source code: https://github.com/cran/rapbase
+* Date/Publication: 2022-08-17 14:20:02 UTC
+* Number of recursive dependencies: 110
 
-Run `cloud_details(, "tidygate")` for more info
+Run `cloud_details(, "rapbase")` for more info
 
 </details>
 
@@ -18,27 +18,21 @@ Run `cloud_details(, "tidygate")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(tidygate)
-      > 
-      > test_check("tidygate")
+    Last 13 lines of output:
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure (test-methods.R:75:5): gate DEPRECATED ──────────────────────────────
-      `\.` does not match "is deprecated as of tidygate 0.3.0.".
-      Actual value: "`gate\(\)` was deprecated in tidygate 0\.3\.0\.\\nPlease use `gate_chr\(\)` instead\.\\nThis warning is displayed once every 8 hours\.\\nCall `lifecycle::last_warnings\(\)` to see where this warning was generated\."
+      ── Failure (test-github.R:6:3): contributors are provided ──────────────────────
+      class(getGithub("contributors", "rapbase")) not equal to "character".
+      1/1 mismatches
+      x[1]: "NULL"
+      y[1]: "character"
+      ── Failure (test-github.R:10:3): key can be provided ───────────────────────────
+      grepl("ssh-rsa", getGithub("keys", "areedv")) is not TRUE
       
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 3 ]
+      `actual`:       
+      `expected`: TRUE
+      
+      [ FAIL 2 | WARN 0 | SKIP 25 | PASS 190 ]
       Error: Test failures
       Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘lme4’ ‘methods’ ‘stats’ ‘tidyselect’
-      All declared Imports should be used.
     ```
 

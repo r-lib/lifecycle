@@ -2,7 +2,7 @@
 
 ## New problems (1)
 
-|package                          |version |error  |warning |note |
-|:--------------------------------|:-------|:------|:-------|:----|
-|[tidygate](problems.md#tidygate) |0.4.0   |__+1__ |        |1    |
+|package |version |error  |warning |note |
+|:-------|:-------|:------|:-------|:----|
+|[rapbase](problems.md#rapbase)|1.23.0  |__+1__ |        |     |
 
