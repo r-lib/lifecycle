@@ -1,5 +1,5 @@
 test_that("deprecate_soft() warns when called from global env", {
-  local_options(lifecycle_verbosity = NULL)
+  withr::local_envvar(TESTTHAT_PKG = "testpackage")
 
   fn <- function(id) {
     deprecate_soft("1.0.0", "foo()", id = id)
@@ -79,10 +79,15 @@ test_that("the topenv of the empty env is not the global env", {
 })
 
 test_that("expect_deprecated() matches regexp", {
-  expect_deprecated(deprecate_soft("1.0", "fn()", details = "foo"), "foo")
-  expect_deprecated(deprecate_warn("1.0", "fn()", details = "foo.["), "foo.[", fixed = TRUE)
+  expect_deprecated(
+    deprecate_warn("1.0", "fn()", details = "foo.["), "foo.[", fixed = TRUE
+  )
 
+  fn <- function(id) {
+    deprecate_soft("1.0.0", "fn()", id = id)
+  }
+  expect_deprecated(fn(), "fn")
   expect_deprecated(expect_failure(
-    expect_deprecated(deprecate_soft("1.0", "fn()"), "foo")
+    expect_deprecated(fn(), "foo")
   ))
 })

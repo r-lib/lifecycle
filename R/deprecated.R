@@ -102,14 +102,15 @@ deprecate_soft <- function(when,
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
     NULL
-  } else if (verbosity %in% "warning" ||
-             (is_string(verbosity, "default") && env_inherits_global(user_env))) {
-    trace <- trace_back(bottom = caller_env())
-    deprecate_warn0(msg, trace, always = TRUE)
+  } else if (verbosity %in% c("warning", "default")) {
+    if (env_inherits_global(user_env) || from_testthat(user_env)) {
+      trace <- trace_back(bottom = caller_env())
+      deprecate_warn0(msg, trace, always = TRUE)
+    } else {
+      deprecate_soft0(msg)
+    }
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
-  } else {
-    deprecate_soft0(msg)
   }
 
   invisible(NULL)
@@ -304,6 +305,20 @@ env_inherits_global <- function(env) {
   }
 
   is_reference(topenv(env), global_env())
+}
+
+# TRUE if we are in unit tests and the package being tested is the
+# same as the package that called
+from_testthat <- function(env) {
+  tested_package <- Sys.getenv("TESTTHAT_PKG")
+
+  # browser()
+
+  # Test for environment names rather than reference/contents because
+  # testthat clones the namespace
+  nzchar(tested_package) &&
+    identical(Sys.getenv("NOT_CRAN"), "true") &&
+    env_name(topenv(env)) == paste0("namespace:", tested_package)
 }
 
 needs_warning <- function(id) {

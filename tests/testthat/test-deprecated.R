@@ -40,7 +40,6 @@ test_that("quiet suppresses _soft and _warn", {
 test_that("warning always warns in _soft and _warn", {
   local_options(lifecycle_verbosity = "warning")
 
-  expect_deprecated(deprecate_soft("1.0.0", "foo()"))
   expect_deprecated(deprecate_warn("1.0.0", "foo()"))
   expect_defunct(deprecate_stop("1.0.0", "foo()"))
 })
@@ -54,7 +53,7 @@ test_that("error coverts _soft and _warn to errors", {
 })
 
 test_that("soft deprecation uses correct calling envs", {
-  local_options(lifecycle_verbosity = "default")
+  withr::local_envvar(TESTTHAT_PKG = "testpackage")
 
   # Simulate package functions available from global environment
   env <- new_environment(parent = ns_env("lifecycle"))

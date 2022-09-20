@@ -1,5 +1,12 @@
 # lifecycle (development version)
 
+* `deprecate_soft()` now only deprecates in tests if the deprecation is 
+  you are not on CRAN and the function comes from the current package.
+  This ensures that soft deprecation never breaks `R CMD check` on CRAN
+  and is only ever signalled when you can do something about it (i.e.
+  when the deprecation comes from your package, not one of your 
+  dependencies).
+
 # lifecycle 1.0.2
 
 * You can now generate arbitrary text in a deprecation message by
