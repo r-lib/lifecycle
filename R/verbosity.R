@@ -13,10 +13,10 @@
 #' You can control the level of verbosity with the global option
 #' `lifecycle_verbosity`. It can be set to:
 #'
-#' * `"default"` or `NULL` for the default non-disruptive settings.
-#'
-#' * `"quiet"`, `"warning"` or `"error"` to force silence, warnings or
-#'   errors for deprecated functions.
+#' * `"quiet"` to suppress all deprecation messages.
+#' * `"default"` or `NULL` to warn once every 8 hours.
+#' * `"warning"` to warn every time.
+#' * `"error"` to error instead of warning.
 #'
 #' Note that functions calling [deprecate_stop()] invariably throw
 #' errors.

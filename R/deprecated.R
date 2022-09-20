@@ -105,7 +105,7 @@ deprecate_soft <- function(when,
   } else if (verbosity %in% c("warning", "default")) {
     if (env_inherits_global(user_env) || from_testthat(user_env)) {
       trace <- trace_back(bottom = caller_env())
-      deprecate_warn0(msg, trace, always = TRUE)
+      deprecate_warn0(msg, trace, always = verbosity == "warning")
     } else {
       deprecate_soft0(msg)
     }

@@ -7,6 +7,8 @@
   when the deprecation comes from your package, not one of your 
   dependencies).
 
+* Soft deprecations now only warn every 8 hours in non-package code.
+
 # lifecycle 1.0.2
 
 * You can now generate arbitrary text in a deprecation message by
