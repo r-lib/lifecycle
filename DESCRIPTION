@@ -28,7 +28,8 @@ Suggests:
     tibble,
     tidyverse,
     tools,
-    vctrs
+    vctrs,
+    withr
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
