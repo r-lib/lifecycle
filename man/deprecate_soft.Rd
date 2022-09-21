@@ -77,9 +77,11 @@ one release with the default.}
 These functions provide three levels of verbosity for deprecated
 functions. Learn how to use them in \code{vignette("communicate")}.
 \itemize{
-\item \code{deprecate_soft()} warns only if the deprecated function is
-called from the global environment or from the package currently
-being tested.
+\item \code{deprecate_soft()} warns only if the deprecated function is called
+directly, i.e. a user is calling a function they wrote in the global
+environment or a developer is calling it in their package. It does not
+warn when called indirectly, i.e. the deprecation comes from code that
+you don't control.
 \item \code{deprecate_warn()} warns unconditionally.
 \item \code{deprecate_stop()} fails unconditionally.
 }

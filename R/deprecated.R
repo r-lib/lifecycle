@@ -4,9 +4,11 @@
 #' These functions provide three levels of verbosity for deprecated
 #' functions. Learn how to use them in `vignette("communicate")`.
 #'
-#' * `deprecate_soft()` warns only if the deprecated function is
-#'   called from the global environment or from the package currently
-#'   being tested.
+#' * `deprecate_soft()` warns only if the deprecated function is called
+#'   directly, i.e. a user is calling a function they wrote in the global
+#'   environment or a developer is calling it in their package. It does not
+#'   warn when called indirectly, i.e. the deprecation comes from code that
+#'   you don't control.
 #'
 #' * `deprecate_warn()` warns unconditionally.
 #'
