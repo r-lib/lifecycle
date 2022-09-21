@@ -105,7 +105,7 @@ deprecate_soft <- function(when,
   if (verbosity == "quiet") {
     NULL
   } else if (verbosity %in% c("warning", "default")) {
-    if (env_inherits_global(user_env) || from_testthat(user_env)) {
+    if (is_direct(user_env)) {
       always <- verbosity == "warning"
       deprecate_warn0(msg, id, trace_back(bottom = caller_env()), always = always)
     }
@@ -289,6 +289,10 @@ lifecycle_message_with <- function(with, what) {
 
 # Helpers -----------------------------------------------------------------
 
+is_direct <- function(env) {
+  env_inherits_global(env) || from_testthat(env)
+}
+
 env_inherits_global <- function(env) {
   # `topenv(emptyenv())` returns the global env. Return `FALSE` in
   # that case to allow passing the empty env when the
@@ -305,8 +309,6 @@ env_inherits_global <- function(env) {
 # same as the package that called
 from_testthat <- function(env) {
   tested_package <- Sys.getenv("TESTTHAT_PKG")
-
-  # browser()
 
   # Test for environment names rather than reference/contents because
   # testthat clones the namespace
