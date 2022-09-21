@@ -106,8 +106,6 @@ deprecate_soft <- function(when,
     if (env_inherits_global(user_env) || from_testthat(user_env)) {
       trace <- trace_back(bottom = caller_env())
       deprecate_warn0(msg, trace, always = verbosity == "warning")
-    } else {
-      deprecate_soft0(msg)
     }
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
@@ -169,10 +167,6 @@ deprecate_stop <- function(when,
 }
 
 # Signals -----------------------------------------------------------------
-
-deprecate_soft0 <- function(msg) {
-  signal(msg, "lifecycle_soft_deprecated")
-}
 
 deprecate_warn0 <- function(msg, trace = NULL, always = FALSE) {
   footer <- function(...) {
