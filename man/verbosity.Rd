@@ -15,9 +15,10 @@ and whether the warning was already issued (see the help for
 You can control the level of verbosity with the global option
 \code{lifecycle_verbosity}. It can be set to:
 \itemize{
-\item \code{"default"} or \code{NULL} for the default non-disruptive settings.
-\item \code{"quiet"}, \code{"warning"} or \code{"error"} to force silence, warnings or
-errors for deprecated functions.
+\item \code{"quiet"} to suppress all deprecation messages.
+\item \code{"default"} or \code{NULL} to warn once every 8 hours.
+\item \code{"warning"} to warn every time.
+\item \code{"error"} to error instead of warning.
 }
 
 Note that functions calling \code{\link[=deprecate_stop]{deprecate_stop()}} invariably throw

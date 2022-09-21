@@ -4,9 +4,11 @@
 #' These functions provide three levels of verbosity for deprecated
 #' functions. Learn how to use them in `vignette("communicate")`.
 #'
-#' * `deprecate_soft()` warns only if the deprecated function is
-#'   called from the global environment or from the package currently
-#'   being tested.
+#' * `deprecate_soft()` warns only if the deprecated function is called
+#'   directly, i.e. a user is calling a function they wrote in the global
+#'   environment or a developer is calling it in their package. It does not
+#'   warn when called indirectly, i.e. the deprecation comes from code that
+#'   you don't control.
 #'
 #' * `deprecate_warn()` warns unconditionally.
 #'
@@ -102,14 +104,13 @@ deprecate_soft <- function(when,
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
     NULL
-  } else if (verbosity %in% "warning" ||
-             (is_string(verbosity, "default") && env_inherits_global(user_env))) {
-    trace <- trace_back(bottom = caller_env())
-    deprecate_warn0(msg, trace, always = TRUE)
+  } else if (verbosity %in% c("warning", "default")) {
+    if (is_direct(user_env)) {
+      always <- verbosity == "warning"
+      deprecate_warn0(msg, id, trace_back(bottom = caller_env()), always = always)
+    }
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
-  } else {
-    deprecate_soft0(msg)
   }
 
   invisible(NULL)
@@ -134,21 +135,11 @@ deprecate_warn <- function(when,
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
     NULL
-  } else if (verbosity == "warning") {
-    trace <- trace_back(bottom = caller_env())
-    deprecate_warn0(msg, trace, always = TRUE)
+  } else if (verbosity %in% c("default", "warning")) {
+    always <- always || verbosity == "warning"
+    deprecate_warn0(msg, id, trace_back(bottom = caller_env()), always = always)
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
-  } else {
-    id <- id %||% msg
-
-    if (always || needs_warning(id)) {
-      # Prevent warning from being displayed again
-      env_poke(deprecation_env, id, Sys.time())
-
-      trace <- trace_back(bottom = caller_env())
-      deprecate_warn0(msg, trace, always = always)
-    }
   }
 
   invisible(NULL)
@@ -169,11 +160,15 @@ deprecate_stop <- function(when,
 
 # Signals -----------------------------------------------------------------
 
-deprecate_soft0 <- function(msg) {
-  signal(msg, "lifecycle_soft_deprecated")
-}
+deprecate_warn0 <- function(msg, id = NULL, trace = NULL, always = FALSE) {
+  id <- id %||% msg
+  if (!always && !needs_warning(id)) {
+    return()
+  }
 
-deprecate_warn0 <- function(msg, trace = NULL, always = FALSE) {
+  # Prevent warning from being displayed again
+  env_poke(deprecation_env, id, Sys.time())
+
   footer <- function(...) {
     if (is_interactive()) {
       c(
@@ -294,6 +289,10 @@ lifecycle_message_with <- function(with, what) {
 
 # Helpers -----------------------------------------------------------------
 
+is_direct <- function(env) {
+  env_inherits_global(env) || from_testthat(env)
+}
+
 env_inherits_global <- function(env) {
   # `topenv(emptyenv())` returns the global env. Return `FALSE` in
   # that case to allow passing the empty env when the
@@ -304,6 +303,18 @@ env_inherits_global <- function(env) {
   }
 
   is_reference(topenv(env), global_env())
+}
+
+# TRUE if we are in unit tests and the package being tested is the
+# same as the package that called
+from_testthat <- function(env) {
+  tested_package <- Sys.getenv("TESTTHAT_PKG")
+
+  # Test for environment names rather than reference/contents because
+  # testthat clones the namespace
+  nzchar(tested_package) &&
+    identical(Sys.getenv("NOT_CRAN"), "true") &&
+    env_name(topenv(env)) == paste0("namespace:", tested_package)
 }
 
 needs_warning <- function(id) {
