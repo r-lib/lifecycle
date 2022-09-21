@@ -133,12 +133,8 @@ deprecate_warn <- function(when,
   verbosity <- lifecycle_verbosity()
   if (verbosity == "quiet") {
     NULL
-  } else if (verbosity == "warning") {
-    trace <- trace_back(bottom = caller_env())
-    deprecate_warn0(msg, trace, always = TRUE)
-  } else if (verbosity == "error") {
-    deprecate_stop0(msg)
-  } else {
+  } else if (verbosity %in% c("default", "warning")) {
+    always <- always || verbosity == "warning"
     id <- id %||% msg
 
     if (always || needs_warning(id)) {
@@ -148,6 +144,8 @@ deprecate_warn <- function(when,
       trace <- trace_back(bottom = caller_env())
       deprecate_warn0(msg, trace, always = always)
     }
+  } else if (verbosity == "error") {
+    deprecate_stop0(msg)
   }
 
   invisible(NULL)
