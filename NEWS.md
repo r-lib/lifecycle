@@ -1,13 +1,14 @@
 # lifecycle (development version)
 
-* `deprecate_soft()` now only deprecates in tests if you are testing
-  locally (not on CRAN) and the function comes from the current package.
-  This ensures that soft deprecation never breaks `R CMD check` on CRAN
-  and is only ever signalled when you can do something about it (i.e.
-  when the deprecation comes from your package, not one of your 
-  dependencies).
-
-* Soft deprecations now only warn every 8 hours in non-package code.
+* In tests, `deprecate_soft()` will only warn if the deprecated function
+  is called directly from the package being tested, not one of its dependencies.
+  This ensures that you only see the warning when it's your responsibility to 
+  do something about it (#134).
+  
+* `deprecate_soft()` will never warn when called on CRAN, ensuring that soft 
+  deprecation will never break a reverse dependency (#134).
+  
+* Soft deprecations now only warn every 8 hours in non-package code (#134).
 
 # lifecycle 1.0.2
 
