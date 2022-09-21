@@ -83,8 +83,8 @@ test_that("expect_deprecated() matches regexp", {
     deprecate_warn("1.0", "fn()", details = "foo.["), "foo.[", fixed = TRUE
   )
 
-  fn <- function(id) {
-    deprecate_soft("1.0.0", "fn()", id = id)
+  fn <- function() {
+    deprecate_soft("1.0.0", "fn()")
   }
   expect_deprecated(fn(), "fn")
   expect_deprecated(expect_failure(

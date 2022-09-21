@@ -106,8 +106,8 @@ deprecate_soft <- function(when,
     NULL
   } else if (verbosity %in% c("warning", "default")) {
     if (env_inherits_global(user_env) || from_testthat(user_env)) {
-      trace <- trace_back(bottom = caller_env())
-      deprecate_warn0(msg, trace, always = verbosity == "warning")
+      always <- verbosity == "warning"
+      deprecate_warn0(msg, id, trace_back(bottom = caller_env()), always = always)
     }
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
@@ -137,15 +137,7 @@ deprecate_warn <- function(when,
     NULL
   } else if (verbosity %in% c("default", "warning")) {
     always <- always || verbosity == "warning"
-    id <- id %||% msg
-
-    if (always || needs_warning(id)) {
-      # Prevent warning from being displayed again
-      env_poke(deprecation_env, id, Sys.time())
-
-      trace <- trace_back(bottom = caller_env())
-      deprecate_warn0(msg, trace, always = always)
-    }
+    deprecate_warn0(msg, id, trace_back(bottom = caller_env()), always = always)
   } else if (verbosity == "error") {
     deprecate_stop0(msg)
   }
@@ -168,7 +160,15 @@ deprecate_stop <- function(when,
 
 # Signals -----------------------------------------------------------------
 
-deprecate_warn0 <- function(msg, trace = NULL, always = FALSE) {
+deprecate_warn0 <- function(msg, id = NULL, trace = NULL, always = FALSE) {
+  id <- id %||% msg
+  if (!always && !needs_warning(id)) {
+    return()
+  }
+
+  # Prevent warning from being displayed again
+  env_poke(deprecation_env, id, Sys.time())
+
   footer <- function(...) {
     if (is_interactive()) {
       c(
