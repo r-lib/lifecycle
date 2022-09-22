@@ -109,11 +109,11 @@
 <p>We’ll cover the details shortly, but here are a few sample uses:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"old_fun()"</span>, <span class="st">"new_fun()"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `old_fun()` was deprecated in lifecycle 1.0.0.</span></span>
-<span><span class="co">#&gt; Please use `new_fun()` instead.</span></span>
+<span><span class="co">#&gt; Warning: `old_fun()` was deprecated in lifecycle 1.0.0. Please use `new_fun()`</span></span>
+<span><span class="co">#&gt; instead.</span></span>
 <span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"fun()"</span>, <span class="st">"testthat::fun()"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `fun()` was deprecated in lifecycle 1.0.0.</span></span>
-<span><span class="co">#&gt; Please use `testthat::fun()` instead.</span></span>
+<span><span class="co">#&gt; Warning: `fun()` was deprecated in lifecycle 1.0.0. Please use `testthat::fun()`</span></span>
+<span><span class="co">#&gt; instead.</span></span>
 <span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"fun(old_arg)"</span>, <span class="st">"fun(new_arg)"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: The `old_arg` argument of `fun()` is deprecated as of lifecycle 1.0.0.</span></span>
 <span><span class="co">#&gt; Please use the `new_arg` argument instead.</span></span></code></pre></div>
@@ -152,8 +152,8 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `add_two()` was deprecated in lifecycle 1.0.0.</span></span>
-<span><span class="co">#&gt; Please use `base::sum()` instead.</span></span>
+<span><span class="co">#&gt; Warning: `add_two()` was deprecated in lifecycle 1.0.0. Please use `base::sum()`</span></span>
+<span><span class="co">#&gt; instead.</span></span>
 <span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 <p><code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> generates user friendly messages for two common deprecation alternatives:</p>
 <ul>
@@ -172,8 +172,8 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `add_two()` was deprecated in lifecycle 1.0.0.</span></span>
-<span><span class="co">#&gt; This function is a special case of sum(); use it instead.</span></span>
+<span><span class="co">#&gt; Warning: `add_two()` was deprecated in lifecycle 1.0.0. This function is a special</span></span>
+<span><span class="co">#&gt; case of sum(); use it instead.</span></span>
 <span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 <p>It’s good practice to test that you’ve correctly implemented the deprecation, testing that the deprecated function still works and that it generates a useful warning. Using an expectation inside <code><a href="https://testthat.r-lib.org/reference/expect_snapshot.html" class="external-link">testthat::expect_snapshot()</a></code><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;You can learn more about snapshot testing in &lt;code&gt;&lt;a href="https://testthat.r-lib.org/articles/snapshotting.html" class="external-link"&gt;vignette("snapshotting", package = "testthat")&lt;/a&gt;&lt;/code&gt;.&lt;/p&gt;'><sup>2</sup></a> is a convenient way to do this:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -374,8 +374,8 @@
 <span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 3</span></span>
 <span><span class="fu">add_two</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The `y` argument of `foo()` must be a scalar as of lifecycle</span></span>
-<span><span class="co">#&gt; 1.0.0.</span></span>
+<span><span class="co">#&gt; Warning: The `y` argument of `foo()` must be a scalar as of</span></span>
+<span><span class="co">#&gt; lifecycle 1.0.0.</span></span>
 <span><span class="co">#&gt; [1] 16</span></span></code></pre></div>
 </div>
 </div>
@@ -388,8 +388,8 @@
 <span>  when <span class="op">=</span> <span class="st">"1.0.0"</span>,</span>
 <span>  what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">'Setting the global option "pkg.opt" to "foo"'</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Setting the global option "pkg.opt" to "foo" was deprecated in</span></span>
-<span><span class="co">#&gt; lifecycle 1.0.0.</span></span>
+<span><span class="co">#&gt; Warning: Setting the global option "pkg.opt" to "foo" was deprecated in lifecycle</span></span>
+<span><span class="co">#&gt; 1.0.0.</span></span>
 <span></span>
 <span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span></span>
 <span>  when <span class="op">=</span> <span class="st">"1.0.0"</span>,</span>

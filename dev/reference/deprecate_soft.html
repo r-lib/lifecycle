@@ -207,14 +207,13 @@ one release with the default.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with a function replacement:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo()"</span>, <span class="st">"bar()"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `bar()` instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0. Please use `bar()` instead.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with a function replacement from a</span></span></span>
 <span class="r-in"><span><span class="co"># different package:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo()"</span>, <span class="st">"otherpackage::bar()"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `otherpackage::bar()` instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0. Please use `otherpackage::bar()`</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> instead.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with custom message:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span></span></span>
@@ -222,8 +221,8 @@ one release with the default.</p></dd>
 <span class="r-in"><span>  what <span class="op">=</span> <span class="st">"foo()"</span>,</span></span>
 <span class="r-in"><span>  details <span class="op">=</span> <span class="st">"Please use `otherpackage::bar(foo = TRUE)` instead"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `otherpackage::bar(foo = TRUE)` instead</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0. Please use `otherpackage::bar(foo =</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> TRUE)` instead</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with custom bulleted list:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span></span></span>
@@ -234,9 +233,8 @@ one release with the default.</p></dd>
 <span class="r-in"><span>    i <span class="op">=</span> <span class="st">"Did you mean `safe_foo()` instead?"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> This is dangerous</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">ℹ</span> Did you mean `safe_foo()` instead?</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0. <span style="color: #BB0000;">✖</span> This is dangerous <span style="color: #0000BB;">ℹ</span> Did you mean</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> `safe_foo()` instead?</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
