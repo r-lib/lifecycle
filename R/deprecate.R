@@ -126,9 +126,11 @@ deprecate_soft <- function(when,
 }
 
 #' @rdname deprecate_soft
-#' @param always If `FALSE`, the default, will warn every 8 hours.
-#'   If `TRUE`, will always warn. Only use `always = TRUE` after at least
-#'   one release with the default.
+#' @param always If `FALSE`, the default, will warn every 8 hours.  If
+#'   `TRUE`, will always warn in direct usages. Indirect usages keep
+#'   warning every 8 hours to avoid disrupting users who can't fix the
+#'   issue. Only use `always = TRUE` after at least one release with
+#'   the default.
 #' @export
 deprecate_warn <- function(when,
                            what,
