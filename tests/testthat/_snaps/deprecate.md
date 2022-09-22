@@ -107,26 +107,27 @@
     Code
       lifecycle_message(1)
     Condition
-      Error in `lifecycle_abort()`:
-      ! Internal error in lifecycle: `when` must be a string
+      Error:
+      ! `when` must be a single string, not a number.
 
 ---
 
     Code
       lifecycle_message("1", details = 1)
     Condition
-      Error in `lifecycle_abort()`:
-      ! Internal error in lifecycle: `details` must be a character vector
+      Error:
+      ! `details` must be a character vector, not a number.
 
 # needs_warning works as expected
 
     Code
       needs_warning(1)
     Condition
-      Error in `lifecycle_abort()`:
-      ! Internal error in lifecycle: `id` must be a string
+      Error:
+      ! `id` must be a single string, not a number.
 
 ---
 
-    Internal error in lifecycle: Expected `POSIXct` value in `needs_warning()`.
+    Expected `POSIXct` value in `needs_warning()`.
+    i This is an internal error in the lifecycle package, please report it to the package authors.
 

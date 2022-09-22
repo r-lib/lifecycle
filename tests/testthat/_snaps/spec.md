@@ -3,8 +3,8 @@
     Code
       spec(1)
     Condition
-      Error in `lifecycle_abort()`:
-      ! Internal error in lifecycle: `what` must be a string.
+      Error:
+      ! `what` must be a single string, not a number.
 
 ---
 
@@ -25,16 +25,16 @@
     Code
       spec("foo()()")
     Condition
-      Error in `lifecycle_abort()`:
-      ! Internal error in lifecycle: `what` must be a function or method call.
+      Error:
+      ! `what` must be a function or method call.
 
 ---
 
     Code
       spec("foo(arg = , arg = )")
     Condition
-      Error in `lifecycle_abort()`:
-      ! Internal error in lifecycle: Function in `what` (foo) must have 1 argument, not 2.
+      Error:
+      ! Function in `what` (foo) must have 1 argument, not 2.
 
 ---
 

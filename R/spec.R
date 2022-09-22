@@ -1,31 +1,37 @@
-spec <- function(spec, env = caller_env(), signaller = "signal_lifecycle") {
+spec <- function(spec,
+                 env = caller_env(),
+                 signaller = "signal_lifecycle",
+                 error_call = caller_env()) {
+  ctxt <- list(
+    signaller = signaller,
+    call = error_call
+  )
+
   if (inherits(spec, "AsIs")) {
     list(
       fn = spec,
       arg = NULL,
-      pkg = spec_pkg(NULL, env, signaller = signaller),
+      pkg = spec_pkg(NULL, env, ctxt = ctxt),
       reason = NULL,
       from = signaller
     )
   } else {
-    what <- parse_what(spec, signaller = signaller)
+    what <- parse_what(spec, ctxt = ctxt)
 
     list(
-      fn = spec_fn(what$call),
-      arg = spec_arg(what$call, signaller = signaller),
-      pkg = spec_pkg(what$pkg, env, signaller = signaller),
-      reason = spec_reason(what$call, signaller = signaller),
+      fn = spec_fn(what$call, ctxt = ctxt),
+      arg = spec_arg(what$call, ctxt = ctxt),
+      pkg = spec_pkg(what$pkg, env, ctxt = ctxt),
+      reason = spec_reason(what$call, ctxt = ctxt),
       from = signaller
     )
   }
 }
 
-parse_what <- function(what, signaller) {
-  if (is_string(what)) {
-    call <- parse_expr(what)
-  } else {
-    lifecycle_abort("`what` must be a string.")
-  }
+parse_what <- function(what, ctxt) {
+  check_string(what, call = ctxt$call)
+
+  call <- parse_expr(what)
 
   if (!is_call(call)) {
     what <- as_string(what)
@@ -34,19 +40,19 @@ parse_what <- function(what, signaller) {
       `what` must have function call syntax.
 
         # Good:
-        { signaller }(\"{what}()\")
+        { ctxt$signaller }(\"{what}()\")
 
         # Bad:
-        { signaller }(\"{what}\")
+        { ctxt$signaller }(\"{what}\")
 
       "
     )
   }
 
-  head <- node_car(call)
+  head <- call[[1]]
   if (is_call(head, "::")) {
-    pkg <- as_string(node_cadr(head))
-    call[[1]] <- node_cadr(node_cdr(head))
+    pkg <- as_string(head[[2]])
+    call[[1]] <- head[[3]]
   } else {
     pkg <- NULL
   }
@@ -54,18 +60,22 @@ parse_what <- function(what, signaller) {
   list(pkg = pkg, call = call)
 }
 
-spec_fn <- function(call) {
+spec_fn <- function(call, ctxt) {
   fn <- node_car(call)
 
   if (!is_symbol(fn) && !is_call(fn, "$")) {
-    lifecycle_abort("`what` must be a function or method call.")
+    cli::cli_abort(
+      "{.arg what} must be a function or method call.",
+      call = ctxt$call,
+      arg = "what"
+    )
   }
 
   # Deparse so non-syntactic names are backticked
   expr_deparse(fn)
 }
 
-spec_arg <- function(call, signaller) {
+spec_arg <- function(call, ctxt) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
@@ -75,7 +85,10 @@ spec_arg <- function(call, signaller) {
   if (length(arg) != 1L) {
     fn <- as_label(node_car(call))
     n <- length(arg)
-    lifecycle_abort("Function in `what` ({fn}) must have 1 argument, not {n}.")
+    cli::cli_abort(
+      "Function in {.arg what} ({fn}) must have 1 argument, not {n}.",
+      call = ctxt$call
+    )
   }
 
   if (is_null(node_tag(arg))) {
@@ -85,7 +98,7 @@ spec_arg <- function(call, signaller) {
   }
 }
 
-spec_reason <- function(call, signaller) {
+spec_reason <- function(call, ctxt) {
   arg <- node_cdr(call)
 
   if (is_null(arg)) {
@@ -110,16 +123,16 @@ spec_reason <- function(call, signaller) {
     `what` must contain reason as a string on the RHS of `=`.
 
       # Good:
-      {signaller}(\"{fn}(arg = 'must be a string')\")
+      {ctxt$signaller}(\"{fn}(arg = 'must be a string')\")
 
       # Bad:
-      {signaller}(\"{fn}(arg = 42)\")
+      {ctxt$signaller}(\"{fn}(arg = 42)\")
 
     "
   )
 }
 
-spec_pkg <- function(pkg, env, signaller) {
+spec_pkg <- function(pkg, env, ctxt) {
   if (!is_null(pkg) || is_null(env)) {
     return(pkg)
   }
@@ -140,10 +153,10 @@ spec_pkg <- function(pkg, env, signaller) {
     Please mention the namespace:
 
       # Good:
-      { signaller }(what = \"namespace::myfunction()\")
+      { ctxt$signaller }(what = \"namespace::myfunction()\")
 
       # Bad:
-      { signaller }(what = \"myfunction()\")
+      { ctxt$signaller }(what = \"myfunction()\")
     "
   )
 }
