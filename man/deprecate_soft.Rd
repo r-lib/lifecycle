@@ -23,7 +23,8 @@ deprecate_warn(
   details = NULL,
   id = NULL,
   always = FALSE,
-  env = caller_env()
+  env = caller_env(),
+  user_env = caller_env(2)
 )
 
 deprecate_stop(when, what, with = NULL, details = NULL, env = caller_env())

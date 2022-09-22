@@ -128,7 +128,8 @@ deprecate_warn <- function(when,
                            details = NULL,
                            id = NULL,
                            always = FALSE,
-                           env = caller_env()) {
+                           env = caller_env(),
+                           user_env = caller_env(2)) {
   msg <- NULL # trick R CMD check
   msg %<~% lifecycle_message(when, what, with, details, env, "deprecate_warn")
   signal_stage("deprecated", what)
@@ -141,7 +142,7 @@ deprecate_warn <- function(when,
     error = deprecate_stop0(msg),
     warning = ,
     default = {
-      always <- always || verbosity == "warning"
+      always <- (always || verbosity == "warning") && is_direct(user_env)
       trace <- trace_back(bottom = caller_env())
       deprecate_warn0(msg, id, trace, always = always)
     }

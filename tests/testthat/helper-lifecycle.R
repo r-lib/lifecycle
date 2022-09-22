@@ -1,4 +1,3 @@
-
 expect_lifecycle_defunct <- function(object, ...) {
   expect_error(object, class = "defunctError")
 }
@@ -28,4 +27,14 @@ spec_data <- function(fn = NULL,
     reason = reason,
     from = from
   )
+}
+
+new_callers <- function(deprecated_feature, env = caller_env()) {
+  direct <- inject(function(...) (!!deprecated_feature)(...))
+  indirect <- inject(function(...) (!!deprecated_feature)(...))
+
+  environment(direct) <- global_env()
+  environment(indirect) <- ns_env("base")
+
+  list(direct, indirect)
 }

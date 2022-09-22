@@ -1,13 +1,16 @@
 # lifecycle (development version)
 
+* Indirect usages of `deprecate_warn()` no longer warn repeatedly,
+  even if `always = TRUE` (#135).
+
 * In tests, `deprecate_soft()` will only warn if the deprecated function
   is called directly from the package being tested, not one of its dependencies.
-  This ensures that you only see the warning when it's your responsibility to 
+  This ensures that you only see the warning when it's your responsibility to
   do something about it (#134).
-  
-* `deprecate_soft()` will never warn when called on CRAN, ensuring that soft 
+
+* `deprecate_soft()` will never warn when called on CRAN, ensuring that soft
   deprecation will never break a reverse dependency (#134).
-  
+
 * Soft deprecations now only warn every 8 hours in non-package code (#134).
 
 # lifecycle 1.0.2

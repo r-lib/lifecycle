@@ -4,8 +4,13 @@ test_that("default deprecations behave as expected", {
   on.exit(env_unbind(deprecation_env, "test"))
   local_options(lifecycle_verbosity = "default")
 
-  expect_warning(deprecate_warn("1.0.0", "foo()", id = "test"), class = "lifecycle_warning_deprecated")
-  expect_warning(deprecate_warn("1.0.0", "foo()", id = "test"), NA)
+  deprecated_feature <- function(...) deprecate_warn("1.0.0", "foo()", id = "test", ...)
+  c(direct, indirect) %<-% new_callers(deprecated_feature)
+
+  expect_warning(direct(), class = "lifecycle_warning_deprecated")
+  expect_warning(indirect(), NA)
+  expect_warning(indirect(), NA)
+
   expect_defunct(deprecate_stop("1.0.0", "foo()"))
 })
 
@@ -13,18 +18,21 @@ test_that("deprecate_warn() only warns repeatedly if always = TRUE", {
   on.exit(env_unbind(deprecation_env, "test"))
   local_options(lifecycle_verbosity = "default")
 
-  deprecate <- function(...) {
-    deprecate_warn("1.0.0", "foo()", id = "test", ...)
-  }
+  deprecated_feature <- function(...) deprecate_warn("1.0.0", "foo()", id = "test", ...)
+  c(direct, indirect) %<-% new_callers(deprecated_feature)
 
   expect_snapshot({
-    deprecate()
-    deprecate()
+    direct()
+    direct()
+    indirect()
+    indirect()
   })
 
   expect_snapshot({
-    deprecate(always = TRUE)
-    deprecate(always = TRUE)
+    direct(always = TRUE)
+    direct(always = TRUE)
+    indirect(always = TRUE)
+    indirect(always = TRUE)
   })
 })
 
@@ -79,10 +87,15 @@ test_that("soft deprecation uses correct calling envs", {
 test_that("warning conditions are signaled only once if warnings are suppressed", {
   local_options(lifecycle_verbosity = "warning")
 
+  deprecated_feature <- function(...) deprecate_warn(...)
+  c(direct, indirect) %<-% new_callers(deprecated_feature)
+
   x <- 0L
   suppressWarnings(withCallingHandlers(
-    warning = function(...) x <<- x + 1L,
-    deprecate_warn("1.0.0", "foo()")
+    warning = function(...) x <<- x + 1L, {
+      direct("1.0.0", "foo()")
+      indirect("1.0.0", "foo()")
+    }
   ))
 
   expect_identical(x, 1L)

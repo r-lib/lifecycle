@@ -1,25 +1,30 @@
 # deprecate_warn() only warns repeatedly if always = TRUE
 
     Code
-      deprecate()
+      direct()
     Condition
       Warning:
       `foo()` was deprecated in lifecycle 1.0.0.
     Code
-      deprecate()
+      direct()
+      indirect()
+      indirect()
 
 ---
 
     Code
-      deprecate(always = TRUE)
+      direct(always = TRUE)
     Condition
       Warning:
       `foo()` was deprecated in lifecycle 1.0.0.
     Code
-      deprecate(always = TRUE)
+      direct(always = TRUE)
     Condition
       Warning:
       `foo()` was deprecated in lifecycle 1.0.0.
+    Code
+      indirect(always = TRUE)
+      indirect(always = TRUE)
 
 # what deprecation messages are readable
 
