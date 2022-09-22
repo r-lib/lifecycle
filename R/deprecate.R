@@ -160,9 +160,13 @@ deprecate_stop <- function(when,
 
 # Signals -----------------------------------------------------------------
 
-deprecate_warn0 <- function(msg, id = NULL, trace = NULL, always = FALSE) {
+deprecate_warn0 <- function(msg,
+                            id = NULL,
+                            trace = NULL,
+                            always = FALSE,
+                            call = caller_env()) {
   id <- id %||% msg
-  if (!always && !needs_warning(id)) {
+  if (!always && !needs_warning(id, call = call)) {
     return()
   }
 
@@ -212,24 +216,24 @@ lifecycle_message <- function(when,
                               with = NULL,
                               details = NULL,
                               env = caller_env(2),
+                              call = caller_env(),
                               signaller = "signal_lifecycle") {
-  if (!is_string(when)) {
-    lifecycle_abort("`when` must be a string")
-  }
+  check_string(when, call = call)
 
-  details <- details %||% chr()
-  if (!is.character(details)) {
-    lifecycle_abort("`details` must be a character vector")
+  if (is_null(details)) {
+    details <- chr()
+  } else {
+    check_character(details, call = call)
   }
   if (length(details) > 1) {
     details <- format_error_bullets(details)
   }
 
-  what <- spec(what, env, signaller)
+  what <- spec(what, env, signaller = signaller)
   msg <- lifecycle_message_what(what, when)
 
   if (!is_null(with)) {
-    with <- spec(with, NULL, signaller)
+    with <- spec(with, NULL, signaller = signaller)
     msg <- paste0(msg, "\n", lifecycle_message_with(with, what))
   }
 
@@ -317,10 +321,8 @@ from_testthat <- function(env) {
     env_name(topenv(env)) == paste0("namespace:", tested_package)
 }
 
-needs_warning <- function(id) {
-  if (!is_string(id)) {
-    lifecycle_abort("`id` must be a string")
-  }
+needs_warning <- function(id, call = caller_env()) {
+  check_string(id, call = call)
 
   last <- deprecation_env[[id]]
   if (is_null(last)) {
@@ -328,7 +330,10 @@ needs_warning <- function(id) {
   }
 
   if (!inherits(last, "POSIXct")) {
-    lifecycle_abort("Expected `POSIXct` value in `needs_warning()`.")
+    abort(
+      "Expected `POSIXct` value in `needs_warning()`.",
+      .internal = TRUE
+    )
   }
 
   # Warn every 8 hours

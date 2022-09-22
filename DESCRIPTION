@@ -16,6 +16,7 @@ BugReports: https://github.com/r-lib/lifecycle/issues
 Depends:
     R (>= 3.4)
 Imports:
+    cli (>= 3.4.0),
     glue,
     rlang (>= 1.0.5)
 Suggests:
