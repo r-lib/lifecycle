@@ -102,18 +102,19 @@ deprecate_soft <- function(when,
   signal_stage("deprecated", what)
 
   verbosity <- lifecycle_verbosity()
-  if (verbosity == "quiet") {
-    NULL
-  } else if (verbosity %in% c("warning", "default")) {
-    if (is_direct(user_env)) {
-      always <- verbosity == "warning"
-      deprecate_warn0(msg, id, trace_back(bottom = caller_env()), always = always)
-    }
-  } else if (verbosity == "error") {
-    deprecate_stop0(msg)
-  }
 
-  invisible(NULL)
+  invisible(switch(
+    verbosity,
+    quiet = NULL,
+    error = deprecate_stop0(msg),
+    warning = ,
+    default =
+      if (is_direct(user_env)) {
+        always <- verbosity == "warning"
+        trace <- trace_back(bottom = caller_env())
+        deprecate_warn0(msg, id, trace, always = always)
+      }
+  ))
 }
 
 #' @rdname deprecate_soft
@@ -133,16 +134,18 @@ deprecate_warn <- function(when,
   signal_stage("deprecated", what)
 
   verbosity <- lifecycle_verbosity()
-  if (verbosity == "quiet") {
-    NULL
-  } else if (verbosity %in% c("default", "warning")) {
-    always <- always || verbosity == "warning"
-    deprecate_warn0(msg, id, trace_back(bottom = caller_env()), always = always)
-  } else if (verbosity == "error") {
-    deprecate_stop0(msg)
-  }
 
-  invisible(NULL)
+  invisible(switch(
+    verbosity,
+    quiet = NULL,
+    error = deprecate_stop0(msg),
+    warning = ,
+    default = {
+      always <- always || verbosity == "warning"
+      trace <- trace_back(bottom = caller_env())
+      deprecate_warn0(msg, id, trace, always = always)
+    }
+  ))
 }
 
 #' @rdname deprecate_soft
