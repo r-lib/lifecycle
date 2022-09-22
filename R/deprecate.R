@@ -107,7 +107,6 @@ deprecate_soft <- function(when,
   invisible(switch(
     verbosity,
     quiet = NULL,
-    error = deprecate_stop0(msg),
     warning = ,
     default =
       if (direct) {
@@ -121,7 +120,8 @@ deprecate_soft <- function(when,
           direct = TRUE,
           user_env = user_env
         )
-      }
+      },
+    error = deprecate_stop0(msg)
   ))
 }
 
@@ -147,7 +147,6 @@ deprecate_warn <- function(when,
   invisible(switch(
     verbosity,
     quiet = NULL,
-    error = deprecate_stop0(msg),
     warning = ,
     default = {
       direct <- is_direct(user_env)
@@ -161,7 +160,8 @@ deprecate_warn <- function(when,
         direct = direct,
         user_env = user_env
       )
-    }
+    },
+    error = deprecate_stop0(msg),
   ))
 }
 
