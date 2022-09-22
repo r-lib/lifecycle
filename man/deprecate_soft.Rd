@@ -23,7 +23,8 @@ deprecate_warn(
   details = NULL,
   id = NULL,
   always = FALSE,
-  env = caller_env()
+  env = caller_env(),
+  user_env = caller_env(2)
 )
 
 deprecate_stop(when, what, with = NULL, details = NULL, env = caller_env())
@@ -66,9 +67,11 @@ These are only needed if you're calling \verb{deprecate_*()} from an internal
 helper, in which case you should forward \code{env = caller_env()} and
 \code{user_env = caller_env(2)}.}
 
-\item{always}{If \code{FALSE}, the default, will warn every 8 hours.
-If \code{TRUE}, will always warn. Only use \code{always = TRUE} after at least
-one release with the default.}
+\item{always}{If \code{FALSE}, the default, will warn every 8 hours.  If
+\code{TRUE}, will always warn in direct usages. Indirect usages keep
+warning every 8 hours to avoid disrupting users who can't fix the
+issue. Only use \code{always = TRUE} after at least one release with
+the default.}
 }
 \value{
 \code{NULL}, invisibly.
