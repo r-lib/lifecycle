@@ -111,12 +111,18 @@
 <code class="sourceCode R"><span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"old_fun()"</span>, <span class="st">"new_fun()"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: `old_fun()` was deprecated in lifecycle 1.0.0. Please use `new_fun()`</span></span>
 <span><span class="co">#&gt; instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span></span>
+<span><span class="co">#&gt;   Please report the issue to the authors.</span></span>
 <span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"fun()"</span>, <span class="st">"testthat::fun()"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: `fun()` was deprecated in lifecycle 1.0.0. Please use `testthat::fun()`</span></span>
 <span><span class="co">#&gt; instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span></span>
+<span><span class="co">#&gt;   Please report the issue to the authors.</span></span>
 <span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"fun(old_arg)"</span>, <span class="st">"fun(new_arg)"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: The `old_arg` argument of `fun()` is deprecated as of lifecycle 1.0.0.</span></span>
-<span><span class="co">#&gt; Please use the `new_arg` argument instead.</span></span></code></pre></div>
+<span><span class="co">#&gt; Please use the `new_arg` argument instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span></span>
+<span><span class="co">#&gt;   Please report the issue to the authors.</span></span></code></pre></div>
 <p>(Note that the message includes the package name — this is automatically discovered from the environment of the calling function so will not work unless the function is called from the package namespace.)</p>
 <p>The following sections describe how to use lifecycle badges and functions together to handle a variety of common development tasks.</p>
 </div>
@@ -390,6 +396,8 @@
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Setting the global option "pkg.opt" to "foo" was deprecated in lifecycle</span></span>
 <span><span class="co">#&gt; 1.0.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span></span>
+<span><span class="co">#&gt;   Please report the issue to the authors.</span></span>
 <span></span>
 <span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span></span>
 <span>  when <span class="op">=</span> <span class="st">"1.0.0"</span>,</span>
@@ -397,7 +405,9 @@
 <span>  with <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">'"pkg.this_opt"'</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: The global option "pkg.another_opt" was deprecated in lifecycle 1.0.0.</span></span>
-<span><span class="co">#&gt; Please use "pkg.this_opt" instead.</span></span></code></pre></div>
+<span><span class="co">#&gt; Please use "pkg.this_opt" instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span></span>
+<span><span class="co">#&gt;   Please report the issue to the authors.</span></span></code></pre></div>
 <p>Note that your <code>what</code> fragment needs to make sense with “was deprecated …” added to the end, and your <code>with</code> fragment needs to make sense in the sentence “Please use <code>{with}</code> instead”.</p>
 </div>
 

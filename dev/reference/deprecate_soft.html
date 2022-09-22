@@ -115,7 +115,8 @@ the user. Control with <code><a href="verbosity.html">options(lifecycle_verbosit
 <span>  details <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  always <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  env <span class="op">=</span> <span class="fu">caller_env</span><span class="op">(</span><span class="op">)</span></span>
+<span>  env <span class="op">=</span> <span class="fu">caller_env</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  user_env <span class="op">=</span> <span class="fu">caller_env</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">deprecate_stop</span><span class="op">(</span><span class="va">when</span>, <span class="va">what</span>, with <span class="op">=</span> <span class="cn">NULL</span>, details <span class="op">=</span> <span class="cn">NULL</span>, env <span class="op">=</span> <span class="fu">caller_env</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -168,9 +169,11 @@ helper, in which case you should forward <code>env = caller_env()</code> and
 
 
 <dt>always</dt>
-<dd><p>If <code>FALSE</code>, the default, will warn every 8 hours.
-If <code>TRUE</code>, will always warn. Only use <code>always = TRUE</code> after at least
-one release with the default.</p></dd>
+<dd><p>If <code>FALSE</code>, the default, will warn every 8 hours.  If
+<code>TRUE</code>, will always warn in direct usages. Indirect usages keep
+warning every 8 hours to avoid disrupting users who can't fix the
+issue. Only use <code>always = TRUE</code> after at least one release with
+the default.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -196,24 +199,34 @@ one release with the default.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># A deprecated function `foo`:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo()"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue to the authors.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated argument `arg`:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo(arg)"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `arg` argument of `foo()` is deprecated as of &lt;NA&gt; 1.0.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue to the authors.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A partially deprecated argument `arg`:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo(arg = 'must be a scalar integer')"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `arg` argument of `foo()` must be a scalar integer as of &lt;NA&gt; 1.0.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue to the authors.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with a function replacement:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo()"</span>, <span class="st">"bar()"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0. Please use `bar()` instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue to the authors.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with a function replacement from a</span></span></span>
 <span class="r-in"><span><span class="co"># different package:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span><span class="st">"1.0.0"</span>, <span class="st">"foo()"</span>, <span class="st">"otherpackage::bar()"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0. Please use `otherpackage::bar()`</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue to the authors.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with custom message:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span></span></span>
@@ -223,6 +236,8 @@ one release with the default.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0. Please use `otherpackage::bar(foo =</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> TRUE)` instead</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue to the authors.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A deprecated function with custom bulleted list:</span></span></span>
 <span class="r-in"><span><span class="fu">deprecate_warn</span><span class="op">(</span></span></span>
@@ -235,6 +250,8 @@ one release with the default.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`foo()` was deprecated in &lt;NA&gt; 1.0.0. <span style="color: #BB0000;">✖</span> This is dangerous <span style="color: #0000BB;">ℹ</span> Did you mean</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> `safe_foo()` instead?</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">base</span> package.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue to the authors.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
