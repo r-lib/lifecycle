@@ -11,14 +11,14 @@
     Code
       spec("foo")
     Condition
-      Error in `lifecycle_abort()`:
-      ! Internal error in lifecycle: `what` must have function call syntax.
+      Error:
+      ! `what` must have function call syntax.
       
-      # Good:
-      signal_lifecycle("foo()")
+        # Good:
+        signal_lifecycle("foo()")
       
-      # Bad:
-      signal_lifecycle("foo")
+        # Bad:
+        signal_lifecycle("foo")
 
 ---
 
@@ -41,22 +41,22 @@
     Code
       spec("foo(arg = arg)")
     Condition
-      Error in `lifecycle_abort()`:
-      ! Internal error in lifecycle: `what` must contain reason as a string on the RHS of `=`.
+      Error:
+      ! `what` must contain reason as a string on the RHS of `=`.
       
-      # Good:
-      signal_lifecycle("foo(arg = 'must be a string')")
+        # Good:
+        signal_lifecycle("foo(arg = 'must be a string')")
       
-      # Bad:
-      signal_lifecycle("foo(arg = 42)")
+        # Bad:
+        signal_lifecycle("foo(arg = 42)")
 
 ---
 
     Code
       spec("foo()", env = e)
     Condition
-      Error in `lifecycle_abort()`:
-      ! Internal error in lifecycle: Can't detect the package of the deprecated function.
+      Error:
+      ! Can't detect the package of the deprecated function.
       Please mention the namespace:
       
         # Good:
@@ -70,12 +70,12 @@
     Code
       spec("A$foo(bar = 1)")
     Condition
-      Error in `lifecycle_abort()`:
-      ! Internal error in lifecycle: `what` must contain reason as a string on the RHS of `=`.
+      Error:
+      ! `what` must contain reason as a string on the RHS of `=`.
       
-      # Good:
-      signal_lifecycle("A$foo(arg = 'must be a string')")
+        # Good:
+        signal_lifecycle("A$foo(arg = 'must be a string')")
       
-      # Bad:
-      signal_lifecycle("A$foo(arg = 42)")
+        # Bad:
+        signal_lifecycle("A$foo(arg = 42)")
 

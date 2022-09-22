@@ -26,8 +26,3 @@ bold      <- function(x) if (has_crayon()) crayon::bold(x)      else x
 italic    <- function(x) if (has_crayon()) crayon::italic(x)    else x
 underline <- function(x) if (has_crayon()) crayon::underline(x) else x
 # nocov end
-
-lifecycle_abort <- function(x, env = parent.frame()) {
-  x <- paste0("Internal error in lifecycle: ", glue::trim(x))
-  abort(glue::glue(x, .envir = env))
-}

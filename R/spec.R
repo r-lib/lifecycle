@@ -35,17 +35,18 @@ parse_what <- function(what, ctxt) {
 
   if (!is_call(call)) {
     what <- as_string(what)
-    lifecycle_abort(
-      "
-      `what` must have function call syntax.
-
-        # Good:
-        { ctxt$signaller }(\"{what}()\")
-
-        # Bad:
-        { ctxt$signaller }(\"{what}\")
-
-      "
+    cli::cli_abort(
+      c(
+        "{.arg what} must have function call syntax.",
+        "",
+        " " = "# Good:",
+        " " = "{ ctxt$signaller }(\"{what}()\")",
+        "",
+        " " = "# Bad:",
+        " " = "{ ctxt$signaller }(\"{what}\")"
+      ),
+      call = ctxt$call,
+      arg = "what"
     )
   }
 
@@ -118,17 +119,17 @@ spec_reason <- function(call, ctxt) {
   }
 
   fn <- expr_deparse(node_car(call))
-  lifecycle_abort(
-    "
-    `what` must contain reason as a string on the RHS of `=`.
-
-      # Good:
-      {ctxt$signaller}(\"{fn}(arg = 'must be a string')\")
-
-      # Bad:
-      {ctxt$signaller}(\"{fn}(arg = 42)\")
-
-    "
+  cli::cli_abort(
+    c(
+      "{.arg what} must contain reason as a string on the RHS of `=`.",
+      "",
+      " " = "# Good:",
+      " " = "{ctxt$signaller}(\"{fn}(arg = 'must be a string')\")",
+      "",
+      " " = "# Bad:",
+      " " = "{ctxt$signaller}(\"{fn}(arg = 42)\")"
+    ),
+    call = ctxt$call
   )
 }
 
@@ -147,16 +148,18 @@ spec_pkg <- function(pkg, env, ctxt) {
     return(ns_env_name(env))
   }
 
-  lifecycle_abort(
-    "
-    Can't detect the package of the deprecated function.
-    Please mention the namespace:
-
-      # Good:
-      { ctxt$signaller }(what = \"namespace::myfunction()\")
-
-      # Bad:
-      { ctxt$signaller }(what = \"myfunction()\")
-    "
+  cli::cli_abort(
+    c(
+      "Can't detect the package of the deprecated function.",
+      "Please mention the namespace:",
+      "",
+      " " = "# Good:",
+      " " = "{ ctxt$signaller }(what = \"namespace::myfunction()\")",
+      "",
+      " " = "# Bad:",
+      " " = "{ ctxt$signaller }(what = \"myfunction()\")",
+      ""
+    ),
+    call = ctxt$call
   )
 }

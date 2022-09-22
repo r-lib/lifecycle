@@ -11,3 +11,7 @@ NULL
 .onLoad <- function(lib, pkg) {
   run_on_load()
 }
+
+on_load(
+  local_use_cli()
+)
