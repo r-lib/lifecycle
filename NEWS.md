@@ -1,5 +1,9 @@
 # lifecycle (development version)
 
+* Indirect usages of deprecated features now mention the package that
+  likely used the deprecated feature and recommends contacting the
+  authors (#135).
+
 * Indirect usages of `deprecate_warn()` no longer warn repeatedly,
   even if `always = TRUE` (#135).
 

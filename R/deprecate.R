@@ -102,6 +102,7 @@ deprecate_soft <- function(when,
   signal_stage("deprecated", what)
 
   verbosity <- lifecycle_verbosity()
+  direct <- is_direct(user_env)
 
   invisible(switch(
     verbosity,
@@ -109,10 +110,17 @@ deprecate_soft <- function(when,
     error = deprecate_stop0(msg),
     warning = ,
     default =
-      if (is_direct(user_env)) {
+      if (direct) {
         always <- verbosity == "warning"
         trace <- trace_back(bottom = caller_env())
-        deprecate_warn0(msg, id, trace, always = always)
+        deprecate_warn0(
+          msg,
+          id,
+          trace,
+          always = always,
+          direct = TRUE,
+          user_env = user_env
+        )
       }
   ))
 }
@@ -142,9 +150,17 @@ deprecate_warn <- function(when,
     error = deprecate_stop0(msg),
     warning = ,
     default = {
-      always <- (always || verbosity == "warning") && is_direct(user_env)
+      direct <- is_direct(user_env)
+      always <- direct && (always || verbosity == "warning")
       trace <- trace_back(bottom = caller_env())
-      deprecate_warn0(msg, id, trace, always = always)
+      deprecate_warn0(
+        msg,
+        id,
+        trace,
+        always = always,
+        direct = direct,
+        user_env = user_env
+      )
     }
   ))
 }
@@ -168,7 +184,9 @@ deprecate_warn0 <- function(msg,
                             id = NULL,
                             trace = NULL,
                             always = FALSE,
-                            call = caller_env()) {
+                            direct = FALSE,
+                            call = caller_env(),
+                            user_env = caller_env(2)) {
   id <- id %||% msg
   if (!always && !needs_warning(id, call = call)) {
     return()
@@ -178,12 +196,34 @@ deprecate_warn0 <- function(msg,
   env_poke(deprecation_env, id, Sys.time())
 
   footer <- function(...) {
+    footer <- NULL
+
+    if (!direct) {
+      top <- topenv(user_env)
+
+      if (is_namespace(top)) {
+        pkg <- ns_env_name(top)
+        footer <- c(
+          footer,
+          "i" = cli::format_inline(
+            "The deprecated feature was likely used in the {.pkg {pkg}} package."
+          ),
+          " " = cli::format_inline(
+            "Please report the issue to the authors."
+          )
+        )
+      }
+    }
+
     if (is_interactive()) {
-      c(
+      footer <- c(
+        footer,
         if (!always) silver("This warning is displayed once every 8 hours."),
         silver("Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.")
       )
     }
+
+    footer
   }
   wrn <- new_deprecated_warning(msg, trace, footer = footer)
 

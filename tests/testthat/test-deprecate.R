@@ -36,6 +36,18 @@ test_that("deprecate_warn() only warns repeatedly if always = TRUE", {
   })
 })
 
+test_that("indirect usage recommends contacting authors", {
+  on.exit(env_unbind(deprecation_env, "test"))
+  local_options(lifecycle_verbosity = "default")
+
+  deprecated_feature <- function(...) deprecate_warn("1.0.0", "foo()", id = "test", ...)
+  c(direct, indirect) %<-% new_callers(deprecated_feature)
+
+  expect_snapshot({
+    indirect()
+  })
+})
+
 test_that("quiet suppresses _soft and _warn", {
   local_options(lifecycle_verbosity = "quiet")
 

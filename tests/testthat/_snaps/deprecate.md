@@ -26,6 +26,16 @@
       indirect(always = TRUE)
       indirect(always = TRUE)
 
+# indirect usage recommends contacting authors
+
+    Code
+      indirect()
+    Condition
+      Warning:
+      `foo()` was deprecated in lifecycle 1.0.0.
+      i The deprecated feature was likely used in the base package.
+        Please report the issue to the authors.
+
 # what deprecation messages are readable
 
     Code
