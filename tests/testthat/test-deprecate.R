@@ -37,14 +37,19 @@ test_that("deprecate_warn() only warns repeatedly if always = TRUE", {
 })
 
 test_that("indirect usage recommends contacting authors", {
-  on.exit(env_unbind(deprecation_env, "test"))
+  on.exit(env_unbind(deprecation_env, c("test_base", "test_rlang")))
   local_options(lifecycle_verbosity = "default")
 
-  deprecated_feature <- function(...) deprecate_warn("1.0.0", "foo()", id = "test", ...)
+  deprecated_feature <- function(..., id) deprecate_warn("1.0.0", "foo()", id = id, ...)
   c(direct, indirect) %<-% new_callers(deprecated_feature)
 
+  # To test for URL
+  indirect_rlang <- indirect
+  environment(indirect_rlang) <- ns_env("rlang")
+
   expect_snapshot({
-    indirect()
+    indirect(id = "test_base")
+    indirect_rlang(id = "test_rlang")
   })
 })
 

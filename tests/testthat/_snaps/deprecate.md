@@ -29,12 +29,19 @@
 # indirect usage recommends contacting authors
 
     Code
-      indirect()
+      indirect(id = "test_base")
     Condition
       Warning:
       `foo()` was deprecated in lifecycle 1.0.0.
       i The deprecated feature was likely used in the base package.
         Please report the issue to the authors.
+    Code
+      indirect_rlang(id = "test_rlang")
+    Condition
+      Warning:
+      `foo()` was deprecated in lifecycle 1.0.0.
+      i The deprecated feature was likely used in the rlang package.
+        Please report the issue at <https://github.com/r-lib/rlang/issues>.
 
 # what deprecation messages are readable
 
