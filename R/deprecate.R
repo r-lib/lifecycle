@@ -205,14 +205,25 @@ deprecate_warn0 <- function(msg,
 
       if (is_namespace(top)) {
         pkg <- ns_env_name(top)
+        url <- pkg_url_bug(pkg)
+
+        likely_line <- cli::format_inline(
+          "The deprecated feature was likely used in the {.pkg {pkg}} package."
+        )
+
+        if (is_null(url)) {
+          report_line <-
+            "Please report the issue to the authors."
+        } else {
+          report_line <- cli::format_inline(
+            "Please report the issue at {.url {url}}."
+          )
+        }
+
         footer <- c(
           footer,
-          "i" = cli::format_inline(
-            "The deprecated feature was likely used in the {.pkg {pkg}} package."
-          ),
-          " " = cli::format_inline(
-            "Please report the issue to the authors."
-          )
+          "i" = likely_line,
+          " " = report_line
         )
       }
     }
