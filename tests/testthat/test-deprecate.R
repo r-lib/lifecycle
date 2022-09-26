@@ -11,7 +11,9 @@ test_that("default deprecations behave as expected", {
   expect_warning(indirect(), NA)
   expect_warning(indirect(), NA)
 
-  expect_defunct(deprecate_stop("1.0.0", "foo()"))
+  expect_snapshot({
+    (expect_defunct(deprecate_stop("1.0.0", "foo()")))
+  })
 })
 
 test_that("deprecate_warn() only warns repeatedly if always = TRUE", {

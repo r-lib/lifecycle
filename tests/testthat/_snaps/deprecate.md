@@ -1,3 +1,12 @@
+# default deprecations behave as expected
+
+    Code
+      (expect_defunct(deprecate_stop("1.0.0", "foo()")))
+    Output
+      <error/lifecycle_error_deprecated>
+      Error:
+      ! `foo()` was deprecated in lifecycle 1.0.0 and is now defunct.
+
 # deprecate_warn() only warns repeatedly if always = TRUE
 
     Code
