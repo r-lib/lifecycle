@@ -8,9 +8,10 @@ and whether the warning was already issued (see the help for
 deprecation functions).
 You can control the level of verbosity with the global option
 lifecycle_verbosity. It can be set to:
-"default" or NULL for the default non-disruptive settings.
-"quiet", "warning" or "error" to force silence, warnings or
-errors for deprecated functions.
+"quiet" to suppress all deprecation messages.
+"default" or NULL to warn once every 8 hours.
+"warning" to warn every time.
+"error" to error instead of warning.
 
 
 Note that functions calling deprecate_stop() invariably throw
@@ -23,9 +24,10 @@ and whether the warning was already issued (see the help for
 deprecation functions).
 You can control the level of verbosity with the global option
 lifecycle_verbosity. It can be set to:
-"default" or NULL for the default non-disruptive settings.
-"quiet", "warning" or "error" to force silence, warnings or
-errors for deprecated functions.
+"quiet" to suppress all deprecation messages.
+"default" or NULL to warn once every 8 hours.
+"warning" to warn every time.
+"error" to error instead of warning.
 
 
 Note that functions calling deprecate_stop() invariably throw
@@ -40,7 +42,7 @@ errors.'><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mat
     
     <a class="navbar-brand me-2" href="../index.html">lifecycle</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,9 +100,10 @@ stage of the deprecated function, on the context of the caller
 and whether the warning was already issued (see the help for
 <a href="deprecate_soft.html">deprecation functions</a>).</p>
 <p>You can control the level of verbosity with the global option
-<code>lifecycle_verbosity</code>. It can be set to:</p><ul><li><p><code>"default"</code> or <code>NULL</code> for the default non-disruptive settings.</p></li>
-<li><p><code>"quiet"</code>, <code>"warning"</code> or <code>"error"</code> to force silence, warnings or
-errors for deprecated functions.</p></li>
+<code>lifecycle_verbosity</code>. It can be set to:</p><ul><li><p><code>"quiet"</code> to suppress all deprecation messages.</p></li>
+<li><p><code>"default"</code> or <code>NULL</code> to warn once every 8 hours.</p></li>
+<li><p><code>"warning"</code> to warn every time.</p></li>
+<li><p><code>"error"</code> to error instead of warning.</p></li>
 </ul><p>Note that functions calling <code><a href="deprecate_soft.html">deprecate_stop()</a></code> invariably throw
 errors.</p>
     </div>
@@ -131,7 +134,7 @@ errors.</p>
 <span class="r-in"><span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html" class="external-link">expect_equal</a></span><span class="op">(</span><span class="fu">mytool</span><span class="op">(</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">Test passed</span> 🥇</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">Test passed</span> 😀</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">Test passed</span> 😸</span>
 </code></pre></div>
     </div>
