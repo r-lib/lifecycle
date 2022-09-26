@@ -367,12 +367,18 @@ env_inherits_global <- function(env) {
 # same as the package that called
 from_testthat <- function(env) {
   tested_package <- Sys.getenv("TESTTHAT_PKG")
+  if (!nzchar(tested_package)) {
+    return(FALSE)
+  }
+
+  top <- topenv(env)
+  if (!is_namespace(top)) {
+    return(FALSE)
+  }
 
   # Test for environment names rather than reference/contents because
   # testthat clones the namespace
-  nzchar(tested_package) &&
-    identical(Sys.getenv("NOT_CRAN"), "true") &&
-    env_name(topenv(env)) == paste0("namespace:", tested_package)
+  identical(ns_env_name(top), tested_package)
 }
 
 needs_warning <- function(id, call = caller_env()) {
