@@ -63,7 +63,6 @@
 <ul><li><p>Indirect usages of deprecated features now mention the package that likely used the deprecated feature and recommends contacting the authors (<a href="https://github.com/r-lib/lifecycle/issues/135" class="external-link">#135</a>).</p></li>
 <li><p>Indirect usages of <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> no longer warn repeatedly, even if <code>always = TRUE</code> (<a href="https://github.com/r-lib/lifecycle/issues/135" class="external-link">#135</a>).</p></li>
 <li><p>In tests, <code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> will only warn if the deprecated function is called directly from the package being tested, not one of its dependencies. This ensures that you only see the warning when it’s your responsibility to do something about it (<a href="https://github.com/r-lib/lifecycle/issues/134" class="external-link">#134</a>).</p></li>
-<li><p><code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> will never warn when called on CRAN, ensuring that soft deprecation will never break a reverse dependency (<a href="https://github.com/r-lib/lifecycle/issues/134" class="external-link">#134</a>).</p></li>
 <li><p>Soft deprecations now only warn every 8 hours in non-package code (<a href="https://github.com/r-lib/lifecycle/issues/134" class="external-link">#134</a>).</p></li>
 </ul></div>
     <div class="section level2">
