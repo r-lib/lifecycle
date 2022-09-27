@@ -154,16 +154,17 @@ test_that("unusual names are handled gracefully", {
 })
 
 test_that("can use bullets in details ", {
+  on.exit(env_unbind(deprecation_env, "test"))
   expect_snapshot({
-    cat_line(lifecycle_message(
+    deprecate_warn(
       "1.0.0", "foo()",
       details = c(
         "Unnamed",
         i = "Informative",
         x = "Error"
       ),
-      signaller = "deprecate_stop"
-    ))
+      id = "test"
+    )
   })
 })
 

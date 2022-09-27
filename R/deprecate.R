@@ -189,7 +189,7 @@ deprecate_warn0 <- function(msg,
                             direct = FALSE,
                             call = caller_env(),
                             user_env = caller_env(2)) {
-  id <- id %||% msg
+  id <- id %||% paste_line(msg)
   if (!always && !needs_warning(id, call = call)) {
     return()
   }
@@ -282,19 +282,16 @@ lifecycle_message <- function(when,
   } else {
     check_character(details, call = call)
   }
-  if (length(details) > 1) {
-    details <- format_error_bullets(details)
-  }
 
   what <- spec(what, env, signaller = signaller)
   msg <- lifecycle_message_what(what, when)
 
   if (!is_null(with)) {
     with <- spec(with, NULL, signaller = signaller)
-    msg <- paste0(msg, "\n", lifecycle_message_with(with, what))
+    msg <- c(msg, lifecycle_message_with(with, what))
   }
 
-  paste_line(msg, details)
+  c(msg, details)
 }
 
 lifecycle_message_what <- function(what, when) {

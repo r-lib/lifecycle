@@ -125,13 +125,16 @@
 # can use bullets in details 
 
     Code
-      cat_line(lifecycle_message("1.0.0", "foo()", details = c("Unnamed", i = "Informative",
-        x = "Error"), signaller = "deprecate_stop"))
-    Output
-      `foo()` was deprecated in base 1.0.0 and is now defunct.
+      deprecate_warn("1.0.0", "foo()", details = c("Unnamed", i = "Informative", x = "Error"),
+      id = "test")
+    Condition
+      Warning:
+      `foo()` was deprecated in lifecycle 1.0.0.
       Unnamed
       i Informative
       x Error
+      i The deprecated feature was likely used in the base package.
+        Please report the issue to the authors.
 
 # checks input types
 
