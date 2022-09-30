@@ -35,10 +35,14 @@
 #'
 #' @param with An optional string giving a recommended replacement for the
 #'   deprecated behaviour. This takes the same form as `what`.
-#' @param details In most cases the deprecation message can be automatically
-#'   generated from `with`. When it can't, use `details` to provide a
-#'   hand-written message. `details` can either be a single string or a
-#'   character vector, which will be converted to a bulleted list.
+#' @param details In most cases the deprecation message can be
+#'   automatically generated from `with`. When it can't, use `details`
+#'   to provide a hand-written message.
+#'
+#'   `details` can either be a single string or a character vector,
+#'   which will be converted to a [bulleted list][cli::cli_bullets].
+#'   By default, info bullets are used. Provide a named vectors to
+#'   override.
 #' @param id The id of the deprecation. A warning is issued only once
 #'   for each `id`. Defaults to the generated message, but you should
 #'   give a unique ID when the message in `details` is built
@@ -289,6 +293,10 @@ lifecycle_message <- function(when,
   if (!is_null(with)) {
     with <- spec(with, NULL, signaller = signaller)
     msg <- c(msg, "i" = lifecycle_message_with(with, what))
+  }
+
+  if (is_null(names(details))) {
+    details <- set_names(details, "i")
   }
 
   c(msg, details)

@@ -1,6 +1,7 @@
 # lifecycle (development version)
 
-* The `with` line is now an info bullet.
+* The `with` line is now an info bullet. The `details` lines are info
+  bullets by default, unless the argument is named.
 
 * Indirect usages of deprecated features now mention the package that
   likely used the deprecated feature and recommends contacting the

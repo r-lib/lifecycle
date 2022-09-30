@@ -155,6 +155,26 @@ test_that("unusual names are handled gracefully", {
   })
 })
 
+test_that("details uses an info bullet by default", {
+  on.exit(env_unbind(deprecation_env, "test"))
+  expect_snapshot({
+    deprecate_warn(
+      "1.0.0", "foo()",
+      details = "Please do that instead.",
+      id = "test"
+    )
+  })
+
+  env_unbind(deprecation_env, "test")
+  expect_snapshot({
+    deprecate_warn(
+      "1.0.0", "foo()",
+      details = c("Please do that instead.", "Also know that."),
+      id = "test"
+    )
+  })
+})
+
 test_that("can use bullets in details ", {
   on.exit(env_unbind(deprecation_env, "test"))
   expect_snapshot({

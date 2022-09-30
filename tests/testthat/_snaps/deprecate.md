@@ -132,6 +132,30 @@
     Output
       `+` was deprecated in base 1.0.0.
 
+# details uses an info bullet by default
+
+    Code
+      deprecate_warn("1.0.0", "foo()", details = "Please do that instead.", id = "test")
+    Condition
+      Warning:
+      `foo()` was deprecated in lifecycle 1.0.0.
+      i Please do that instead.
+      i The deprecated feature was likely used in the base package.
+        Please report the issue to the authors.
+
+---
+
+    Code
+      deprecate_warn("1.0.0", "foo()", details = c("Please do that instead.",
+        "Also know that."), id = "test")
+    Condition
+      Warning:
+      `foo()` was deprecated in lifecycle 1.0.0.
+      i Please do that instead.
+      i Also know that.
+      i The deprecated feature was likely used in the base package.
+        Please report the issue to the authors.
+
 # can use bullets in details 
 
     Code
