@@ -1,6 +1,16 @@
 # default deprecations behave as expected
 
     Code
+      (expect_warning(direct(), class = "lifecycle_warning_deprecated"))
+    Output
+      <warning/lifecycle_warning_deprecated>
+      Warning:
+      `foo()` was deprecated in lifecycle 1.0.0.
+      i Please use `bar()` instead.
+
+---
+
+    Code
       (expect_defunct(deprecate_stop("1.0.0", "foo()")))
     Output
       <error/lifecycle_error_deprecated>

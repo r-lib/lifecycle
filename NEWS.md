@@ -1,5 +1,7 @@
 # lifecycle (development version)
 
+* The `with` line is now an info bullet.
+
 * Indirect usages of deprecated features now mention the package that
   likely used the deprecated feature and recommends contacting the
   authors (#135).

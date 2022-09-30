@@ -288,7 +288,7 @@ lifecycle_message <- function(when,
 
   if (!is_null(with)) {
     with <- spec(with, NULL, signaller = signaller)
-    msg <- c(msg, lifecycle_message_with(with, what))
+    msg <- c(msg, "i" = lifecycle_message_with(with, what))
   }
 
   c(msg, details)
