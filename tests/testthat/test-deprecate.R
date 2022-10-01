@@ -4,10 +4,12 @@ test_that("default deprecations behave as expected", {
   on.exit(env_unbind(deprecation_env, "test"))
   local_options(lifecycle_verbosity = "default")
 
-  deprecated_feature <- function(...) deprecate_warn("1.0.0", "foo()", id = "test", ...)
+  deprecated_feature <- function(...) deprecate_warn("1.0.0", "foo()", with = "bar()", id = "test", ...)
   c(direct, indirect) %<-% new_callers(deprecated_feature)
 
-  expect_warning(direct(), class = "lifecycle_warning_deprecated")
+  expect_snapshot({
+    (expect_warning(direct(), class = "lifecycle_warning_deprecated"))
+  })
   expect_warning(indirect(), NA)
   expect_warning(indirect(), NA)
 
@@ -150,6 +152,26 @@ test_that("unusual names are handled gracefully", {
     cat_line(lifecycle_message("1.0.0", "`foo-fy`(`qu-ux` = )"))
     cat_line(lifecycle_message("1.0.0", "`foo<-`()"))
     cat_line(lifecycle_message("1.0.0", "`+`()"))
+  })
+})
+
+test_that("details uses an info bullet by default", {
+  on.exit(env_unbind(deprecation_env, "test"))
+  expect_snapshot({
+    deprecate_warn(
+      "1.0.0", "foo()",
+      details = "Please do that instead.",
+      id = "test"
+    )
+  })
+
+  env_unbind(deprecation_env, "test")
+  expect_snapshot({
+    deprecate_warn(
+      "1.0.0", "foo()",
+      details = c("Please do that instead.", "Also know that."),
+      id = "test"
+    )
   })
 })
 

@@ -47,10 +47,14 @@ usually not needed as it will be inferred from the caller environment.}
 \item{with}{An optional string giving a recommended replacement for the
 deprecated behaviour. This takes the same form as \code{what}.}
 
-\item{details}{In most cases the deprecation message can be automatically
-generated from \code{with}. When it can't, use \code{details} to provide a
-hand-written message. \code{details} can either be a single string or a
-character vector, which will be converted to a bulleted list.}
+\item{details}{In most cases the deprecation message can be
+automatically generated from \code{with}. When it can't, use \code{details}
+to provide a hand-written message.
+
+\code{details} can either be a single string or a character vector,
+which will be converted to a \link[cli:cli_bullets]{bulleted list}.
+By default, info bullets are used. Provide a named vectors to
+override.}
 
 \item{id}{The id of the deprecation. A warning is issued only once
 for each \code{id}. Defaults to the generated message, but you should
