@@ -100,8 +100,8 @@
 <p>That means if you use <code>data_frame()</code> in your own code you’ll get a warning:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0. Please use `tibble()`</span></span>
-<span><span class="co">#&gt; instead.</span></span>
+<span><span class="co">#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `tibble()` instead.</span></span>
 <span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
 <span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>a <span class="op">=</span> <span class="st">"apple"</span>, b <span class="op">=</span> <span class="st">"banana"</span><span class="op">)</span></span></code></pre></div>
@@ -120,19 +120,19 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span>
 <span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0. Please use `tibble()`</span></span>
-<span><span class="co">#&gt; instead.</span></span>
+<span><span class="co">#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `tibble()` instead.</span></span>
 <span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>a <span class="op">=</span> <span class="st">"apple"</span>, b <span class="op">=</span> <span class="st">"banana"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0. Please use `tibble()`</span></span>
-<span><span class="co">#&gt; instead.</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `tibble()` instead.</span></span></code></pre></div>
 <p>Then use <code><a href="../reference/last_lifecycle_warnings.html">lifecycle::last_lifecycle_warnings()</a></code> to track down the source.</p>
 <p>Alternatively, if you want to be really strict, you can turn all deprecation warnings into errors, forcing you to deal with them immediately:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"lifecycle_verbosity"</span> <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span></span>
 <span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> `data_frame()` was deprecated in tibble 1.1.0. Please use</span></span>
-<span><span class="co">#&gt;   `tibble()` instead.</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> `data_frame()` was deprecated in tibble 1.1.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `tibble()` instead.</span></span></code></pre></div>
   </main>
 </div>
 
