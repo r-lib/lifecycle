@@ -1,4 +1,4 @@
-# lifecycle (development version)
+# lifecycle 1.0.3
 
 * The `with` line is now an info bullet. The `details` lines are info
   bullets by default, unless the argument is named.
@@ -16,6 +16,7 @@
   do something about it (#134).
 
 * Soft deprecations now only warn every 8 hours in non-package code (#134).
+
 
 # lifecycle 1.0.2
 
