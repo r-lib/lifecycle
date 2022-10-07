@@ -1,6 +1,6 @@
 ## revdepcheck results
 
-We checked 221 reverse dependencies (220 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 220 reverse dependencies (219 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 2 new problems
  * We failed to check 1 packages
@@ -13,7 +13,7 @@ Issues with CRAN packages are summarised below.
 * admiral
   checking tests ... ERROR
 
-* readr
+* rapbase
   checking tests ... ERROR
 
 ### Failed to check

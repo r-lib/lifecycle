@@ -36,17 +36,17 @@ Run `cloud_details(, "admiral")` for more info
       Execution halted
     ```
 
-# readr
+# rapbase
 
 <details>
 
-* Version: 2.1.2
-* GitHub: https://github.com/tidyverse/readr
-* Source code: https://github.com/cran/readr
-* Date/Publication: 2022-01-30 22:30:02 UTC
-* Number of recursive dependencies: 73
+* Version: 1.23.0
+* GitHub: https://github.com/Rapporteket/rapbase
+* Source code: https://github.com/cran/rapbase
+* Date/Publication: 2022-08-17 14:20:02 UTC
+* Number of recursive dependencies: 110
 
-Run `cloud_details(, "readr")` for more info
+Run `cloud_details(, "rapbase")` for more info
 
 </details>
 
@@ -54,33 +54,23 @@ Run `cloud_details(, "readr")` for more info
 
 *   checking tests ... ERROR
     ```
-      Running ‘first_edition.R’
-      Running ‘second_edition.R’
-    Running the tests in ‘tests/second_edition.R’ failed.
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      > 
-      > test_check("readr")
-      [ FAIL 1 | WARN 0 | SKIP 36 | PASS 710 ]
-      
-      ══ Skipped tests ═══════════════════════════════════════════════════════════════
-      • On CRAN (22)
-      • edition_first() is not TRUE (14)
-      
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure (test-read-fwf.R:65:3): ragged last column shrunk with warning ──────
-      `x <- read_fwf("1a\n2ab\n3abc", fwf_widths(c(1, 3)))` did not throw the expected warning.
+      ── Failure (test-github.R:6:3): contributors are provided ──────────────────────
+      class(getGithub("contributors", "rapbase")) not equal to "character".
+      1/1 mismatches
+      x[1]: "NULL"
+      y[1]: "character"
+      ── Failure (test-github.R:10:3): key can be provided ───────────────────────────
+      grepl("ssh-rsa", getGithub("keys", "areedv")) is not TRUE
       
-      [ FAIL 1 | WARN 0 | SKIP 36 | PASS 710 ]
+      `actual`:       
+      `expected`: TRUE
+      
+      [ FAIL 2 | WARN 0 | SKIP 25 | PASS 190 ]
       Error: Test failures
       Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 10.8Mb
-      sub-directories of 1Mb or more:
-        libs   9.9Mb
     ```
 

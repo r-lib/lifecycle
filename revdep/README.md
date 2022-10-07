@@ -12,5 +12,5 @@
 |package |version |error  |warning |note |
 |:-------|:-------|:------|:-------|:----|
 |[admiral](problems.md#admiral)|0.8.2   |__+1__ |        |     |
-|[readr](problems.md#readr)|2.1.2   |__+1__ |        |1    |
+|[rapbase](problems.md#rapbase)|1.23.0  |__+1__ |        |     |
 
