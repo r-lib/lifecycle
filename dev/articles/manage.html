@@ -8,12 +8,12 @@
 <meta name="description" content="lifecycle">
 <title>Manage lifecycle changes in functions you use • lifecycle</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.5/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.5/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Manage lifecycle changes in functions you use">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Manage lifecycle changes in functions you use">
 <meta property="og:description" content="lifecycle">
 <meta name="robots" content="noindex">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -91,14 +91,21 @@
 
     
     
-<p>The lifecycle package uses warnings to tell you about deprecated functions. Deprecated functions will be removed in a future release, so it’s good practice to eliminate the warnings as soon as you see them.</p>
-<p>For example, lets imagine your code uses <code><a href="https://tibble.tidyverse.org/reference/deprecated.html" class="external-link">tibble::data_frame()</a></code>, which was deprecated in favour of <code>tibble()</code> in version 1.1.0. <code>data_frame()</code> now looks something like this:</p>
+<p>The lifecycle package uses warnings to tell you about deprecated
+functions. Deprecated functions will be removed in a future release, so
+it’s good practice to eliminate the warnings as soon as you see
+them.</p>
+<p>For example, lets imagine your code uses
+<code><a href="https://tibble.tidyverse.org/reference/deprecated.html" class="external-link">tibble::data_frame()</a></code>, which was deprecated in favour of
+<code>tibble()</code> in version 1.1.0. <code>data_frame()</code> now
+looks something like this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_frame</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/deprecate_soft.html">deprecate_warn</a></span><span class="op">(</span><span class="st">"1.1.0"</span>, <span class="st">"data_frame()"</span>, <span class="st">"tibble()"</span><span class="op">)</span></span>
 <span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>That means if you use <code>data_frame()</code> in your own code you’ll get a warning:</p>
+<p>That means if you use <code>data_frame()</code> in your own code
+you’ll get a warning:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0.</span></span>
@@ -106,8 +113,14 @@
 <span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
 <span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>a <span class="op">=</span> <span class="st">"apple"</span>, b <span class="op">=</span> <span class="st">"banana"</span><span class="op">)</span></span></code></pre></div>
-<p>You’ll notice that the warning only appears the first time we call it — lifecycle only notifies you every 8 hours so it’s not overly disruptive if you’ve used a deprecated function in many places.</p>
-<p>So how do you track down exactly where the warning came from? Firstly, you might notice the deprecation warning message includes the advice to call <code><a href="../reference/last_lifecycle_warnings.html">lifecycle::last_lifecycle_warnings()</a></code>. That’ll give you a list of all the deprecation warnings that have happened recently:</p>
+<p>You’ll notice that the warning only appears the first time we call it
+— lifecycle only notifies you every 8 hours so it’s not overly
+disruptive if you’ve used a deprecated function in many places.</p>
+<p>So how do you track down exactly where the warning came from?
+Firstly, you might notice the deprecation warning message includes the
+advice to call <code><a href="../reference/last_lifecycle_warnings.html">lifecycle::last_lifecycle_warnings()</a></code>.
+That’ll give you a list of all the deprecation warnings that have
+happened recently:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="../reference/last_lifecycle_warnings.html">last_lifecycle_warnings</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
@@ -116,8 +129,12 @@
 <span><span class="co">#&gt; Please use `tibble()` instead.</span></span>
 <span><span class="co">#&gt; Backtrace:</span></span>
 <span><span class="co">#&gt;  1. global::data_frame(x = 1)</span></span></code></pre></div>
-<p>Each warning comes with a back trace that shows you the full sequence of calls that lead to the deprecated function.</p>
-<p>Alternatively, if you’re ready to spend some time tracking down all your uses of deprecated functions, you can use the <code>lifecycle_verbosity</code> option to make deprecated functions warn every time:</p>
+<p>Each warning comes with a back trace that shows you the full sequence
+of calls that lead to the deprecated function.</p>
+<p>Alternatively, if you’re ready to spend some time tracking down all
+your uses of deprecated functions, you can use the
+<code>lifecycle_verbosity</code> option to make deprecated functions
+warn every time:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>lifecycle_verbosity <span class="op">=</span> <span class="st">"warning"</span><span class="op">)</span></span>
 <span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
@@ -126,8 +143,11 @@
 <span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>a <span class="op">=</span> <span class="st">"apple"</span>, b <span class="op">=</span> <span class="st">"banana"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: `data_frame()` was deprecated in tibble 1.1.0.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `tibble()` instead.</span></span></code></pre></div>
-<p>Then use <code><a href="../reference/last_lifecycle_warnings.html">lifecycle::last_lifecycle_warnings()</a></code> to track down the source.</p>
-<p>Alternatively, if you want to be really strict, you can turn all deprecation warnings into errors, forcing you to deal with them immediately:</p>
+<p>Then use <code><a href="../reference/last_lifecycle_warnings.html">lifecycle::last_lifecycle_warnings()</a></code> to track
+down the source.</p>
+<p>Alternatively, if you want to be really strict, you can turn all
+deprecation warnings into errors, forcing you to deal with them
+immediately:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"lifecycle_verbosity"</span> <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span></span>
 <span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu">data_frame</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
@@ -143,12 +163,12 @@
   <footer><div class="container">
   <div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+<p>Developed by <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
   </div></footer>
