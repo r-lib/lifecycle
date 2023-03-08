@@ -22,7 +22,7 @@ lifecycle provides a set of tools and conventions to manage the life cycle of yo
 install.packages("lifecycle")
 
 # Install development version from GitHub
-devtools::install_github("r-lib/lifecycle")
+pak::pak("r-lib/lifecycle")
 ```
 
 
