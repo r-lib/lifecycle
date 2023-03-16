@@ -18,7 +18,7 @@ Depends:
 Imports:
     cli (>= 3.4.0),
     glue,
-    rlang (>= 1.0.6)
+    rlang (>= 1.1.0)
 Suggests:
     covr,
     crayon,
