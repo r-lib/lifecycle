@@ -122,15 +122,15 @@
     Code
       cat_line(lifecycle_message("1.0.0", "`foo-fy`(`qu-ux` = )"))
     Output
-      The `qu-ux` argument of `foo-fy` is deprecated as of base 1.0.0.
+      The `qu-ux` argument of `foo-fy()` is deprecated as of base 1.0.0.
     Code
       cat_line(lifecycle_message("1.0.0", "`foo<-`()"))
     Output
-      `foo<-` was deprecated in base 1.0.0.
+      `foo<-()` was deprecated in base 1.0.0.
     Code
       cat_line(lifecycle_message("1.0.0", "`+`()"))
     Output
-      `+` was deprecated in base 1.0.0.
+      `+()` was deprecated in base 1.0.0.
 
 # details uses an info bullet by default
 

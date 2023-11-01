@@ -1,5 +1,9 @@
 # lifecycle (development version)
 
+* Switch from `expr_deparse()` to `deparse()`. This improves performance
+  considerably and the cost of making some unusual function calls mildly 
+  less appealing (#167).
+
 # lifecycle 1.0.3
 
 * The `with` line is now an info bullet. The `details` lines are info
