@@ -343,8 +343,10 @@ add_two <- function(x, y, na_rm = TRUE, na.rm = deprecated()) {
     na_rm <- na.rm
   }
   
-  add_two(x, y, na.rm = na_rm)
+  sum(x, y, na.rm = na_rm)
 }
+
+add_two(1, NA, na.rm = TRUE)
 ```
 
 ### Reducing allowed inputs to an argument
