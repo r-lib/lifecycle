@@ -73,7 +73,7 @@ spec_fn <- function(call, ctxt) {
   }
 
   # Deparse so non-syntactic names are backticked
-  expr_deparse(fn)
+  deparse(fn)
 }
 
 spec_arg <- function(call, ctxt) {
@@ -118,7 +118,7 @@ spec_reason <- function(call, ctxt) {
     return(node_car(arg))
   }
 
-  fn <- expr_deparse(node_car(call))
+  fn <- deparse(node_car(call))
   cli::cli_abort(
     c(
       "{.arg what} must contain reason as a string on the RHS of `=`.",
