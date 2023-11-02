@@ -32,7 +32,7 @@ When the bug is fixed, your code breaks, but this is not a breaking change.
 A good way of making your code more robust to this sort of behaviour change is to only use a function for its explicitly intended effects.
 For example, using `c()` to concatenate two vectors will not put your code at risk because it clearly is the intended usage of this function.
 On the other hand, using `c()` just for the side effect of removing attributes is probably not a good idea.
-If you use `c(factor("foo"))` to retrieve the underlying integers of the factor levels, your code is at risk of breaking if `c()` ever implements a factor method.
+For example, if you had used `c(factor("foo"))` to retrieve the underlying integers of a factor, your code will have broken when R added support for concatenating factors in R 4.1.0.
 
 Stable functions come with two promises related to breaking changes:
 
