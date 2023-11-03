@@ -115,13 +115,13 @@ deprecate_soft <- function(when,
     default =
       if (direct) {
         always <- verbosity == "warning"
-        trace <- trace_back(bottom = caller_env())
+        trace_env <- caller_env()
         deprecate_warn0(
           msg,
           id,
-          trace,
           always = always,
           direct = TRUE,
+          trace_env = trace_env,
           user_env = user_env
         )
       },
@@ -157,13 +157,13 @@ deprecate_warn <- function(when,
     default = {
       direct <- is_direct(user_env)
       always <- direct && (always || verbosity == "warning")
-      trace <- trace_back(bottom = caller_env())
+      trace_env <- caller_env()
       deprecate_warn0(
         msg,
         id,
-        trace,
         always = always,
         direct = direct,
+        trace_env = trace_env,
         user_env = user_env
       )
     },
@@ -188,10 +188,10 @@ deprecate_stop <- function(when,
 
 deprecate_warn0 <- function(msg,
                             id = NULL,
-                            trace = NULL,
                             always = FALSE,
                             direct = FALSE,
                             call = caller_env(),
+                            trace_env = caller_env(),
                             user_env = caller_env(2)) {
   id <- id %||% paste_line(msg)
   if (!always && !needs_warning(id, call = call)) {
@@ -242,6 +242,9 @@ deprecate_warn0 <- function(msg,
 
     footer
   }
+
+  trace <- trace_back(bottom = trace_env)
+
   wrn <- new_deprecated_warning(msg, trace, footer = footer)
 
   # Record muffled warnings if testthat is running because it
