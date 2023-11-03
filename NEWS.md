@@ -1,5 +1,8 @@
 # lifecycle (development version)
 
+* Repeated calls to `deprecate_soft()` and `deprecate_warn()` are faster thanks
+  to some internal refactoring (#177).
+
 * Switch from `expr_deparse()` to `deparse()`. This improves performance
   considerably and the cost of making some unusual function calls mildly 
   less appealing (#167).
