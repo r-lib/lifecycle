@@ -1,6 +1,6 @@
 Package: lifecycle
 Title: Manage the Life Cycle of your Package Functions
-Version: 1.0.3.9000
+Version: 1.0.4
 Authors@R: c(
     person("Lionel", "Henry", , "lionel@posit.co", role = c("aut", "cre")),
     person("Hadley", "Wickham", , "hadley@posit.co", role = "aut",
