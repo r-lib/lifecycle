@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">lifecycle</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,6 +58,11 @@
       <small>Source: <a href="https://github.com/r-lib/lifecycle/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.4" id="lifecycle-104">lifecycle 1.0.4<a class="anchor" aria-label="anchor" href="#lifecycle-104"></a></h2>
+<ul><li><p>Repeated calls to <code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> and <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> are faster thanks to some internal refactoring (<a href="https://github.com/r-lib/lifecycle/issues/177" class="external-link">#177</a>).</p></li>
+<li><p>Switch from <code>expr_deparse()</code> to <code><a href="https://rdrr.io/r/base/deparse.html" class="external-link">deparse()</a></code>. This improves performance considerably and the cost of making some unusual function calls mildly less appealing (<a href="https://github.com/r-lib/lifecycle/issues/167" class="external-link">#167</a>).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.3" id="lifecycle-103">lifecycle 1.0.3<a class="anchor" aria-label="anchor" href="#lifecycle-103"></a></h2><p class="text-muted">CRAN release: 2022-10-07</p>
 <ul><li><p>The <code>with</code> line is now an info bullet. The <code>details</code> lines are info bullets by default, unless the argument is named.</p></li>

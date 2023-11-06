@@ -28,7 +28,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">lifecycle</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,10 +125,10 @@ change is to only use a function for its explicitly intended effects.
 For example, using <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> to concatenate two vectors will not
 put your code at risk because it clearly is the intended usage of this
 function. On the other hand, using <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> just for the side
-effect of removing attributes is probably not a good idea. If you use
-<code>c(factor("foo"))</code> to retrieve the underlying integers of the
-factor levels, your code is at risk of breaking if <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> ever
-implements a factor method.</p>
+effect of removing attributes is probably not a good idea. For example,
+if you had used <code>c(factor("foo"))</code> to retrieve the underlying
+integers of a factor, your code will have broken when R added support
+for concatenating factors in R 4.1.0.</p>
 <p>Stable functions come with two promises related to breaking
 changes:</p>
 <ul>
