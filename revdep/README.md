@@ -1,16 +1,22 @@
 # Revdeps
 
-## Failed to check (2)
+## Failed to check (15)
 
-|package |version |error |warning |note |
-|:-------|:-------|:-----|:-------|:----|
-|NA      |?       |      |        |     |
-|OpenMx  |?       |      |        |     |
-
-## New problems (2)
-
-|package |version |error  |warning |note |
-|:-------|:-------|:------|:-------|:----|
-|[admiral](problems.md#admiral)|0.8.2   |__+1__ |        |     |
-|[rapbase](problems.md#rapbase)|1.23.0  |__+1__ |        |     |
+|package                  |version |error |warning |note |
+|:------------------------|:-------|:-----|:-------|:----|
+|atSNP                    |?       |      |        |     |
+|BindingSiteFinder        |?       |      |        |     |
+|biodb                    |?       |      |        |     |
+|biodbKegg                |?       |      |        |     |
+|biodbLipidmaps           |?       |      |        |     |
+|hermes                   |?       |      |        |     |
+|ISAnalytics              |?       |      |        |     |
+|ngsReports               |?       |      |        |     |
+|OpenMx                   |2.21.8  |1     |        |     |
+|ppcseq                   |?       |      |        |     |
+|sccomp                   |?       |      |        |     |
+|tidybulk                 |?       |      |        |     |
+|tidySingleCellExperiment |?       |      |        |     |
+|tidySummarizedExperiment |?       |      |        |     |
+|Voyager                  |?       |      |        |     |
 
