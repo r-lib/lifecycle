@@ -87,7 +87,13 @@ get_usage_function_names <- function(x) {
 #' @param pattern Any files matching this pattern will be searched. The default
 #'   searches any files ending in `.R` or `.Rmd`.
 #' @export
-lint_lifecycle <- function(packages, path = ".", pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$", which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
+lint_lifecycle <- function(
+    packages,
+    path = ".",
+    pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$",
+    which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired"),
+    symbol_is_undesirable = TRUE
+) {
   which <- match.arg(which, several.ok = TRUE)
 
   check_installed(c("lintr", "vctrs", "xml2"))
@@ -95,18 +101,29 @@ lint_lifecycle <- function(packages, path = ".", pattern = "(?i)[.](r|rmd|qmd|rn
   lintr::lint_dir(
     path = path,
     pattern = pattern,
-    linters = lifecycle_linter(packages = packages, which = which)
+    linters = lifecycle_linter(packages = packages, which = which, symbol_is_undesirable = symbol_is_undesirable)
   )
 }
 
 #' @rdname lifecycle_linter
 #' @export
-lint_tidyverse_lifecycle <- function(path = ".", pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$", which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
+lint_tidyverse_lifecycle <- function(
+    path = ".",
+    pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$",
+    which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired"),
+    symbol_is_undesirable = TRUE
+) {
   which <- match.arg(which, several.ok = TRUE)
 
   check_installed(c("lintr", "vctrs", "xml2", "tidyverse"))
 
-  lint_lifecycle(packages = tidyverse::tidyverse_packages(), pattern = pattern, path = path, which = which)
+  lint_lifecycle(
+    packages = tidyverse::tidyverse_packages(),
+    pattern = pattern,
+    path = path,
+    which = which,
+    symbol_is_undesirable = symbol_is_undesirable
+  )
 }
 
 #' Lint usages of functions that have a non-stable life cycle.
