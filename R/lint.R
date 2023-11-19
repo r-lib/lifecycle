@@ -97,52 +97,65 @@ get_usage_function_names <- function(x) {
 #' @param pattern Any files matching this pattern will be searched. The default
 #'   searches any files ending in `.R` or `.Rmd`.
 #' @export
-lint_lifecycle <- function(packages, path = ".", pattern = "[.][Rr](md)?", which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
+lint_lifecycle <- function(packages, path = ".", pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$", which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
   which <- match.arg(which, several.ok = TRUE)
 
-  check_installed(c("lintr", "vctrs"))
+  check_installed(c("lintr", "vctrs", "xml2"))
 
-  life_cycles <- vctrs::vec_rbind(!!!lapply(packages, pkg_lifecycle_statuses, which = which))
-
-  msgs <- sprintf("`%s::%s` is %s", life_cycles$package, life_cycles$fun, life_cycles$lifecycle)
-
-  lifecycle_linter <- function(source_file) {
-    lapply(
-      lintr::ids_with_token(source_file, "SYMBOL_FUNCTION_CALL", fun = `%in%`),
-      function(id) {
-        token <- lintr::with_id(source_file, id)
-        fun_name <- token[["text"]]
-        has_lifecycle_fun <- fun_name == life_cycles$fun
-        if (any(has_lifecycle_fun)) {
-          line_num <- token[["line1"]]
-          start_col_num <- token[["col1"]]
-          end_col_num <- token[["col2"]]
-
-          # In case more than one lifecycle function matches, we only take the first one.
-          msg <- msgs[has_lifecycle_fun][[1]]
-          lintr::Lint(
-            filename = source_file[["filename"]],
-            line_number = line_num,
-            column_number = start_col_num,
-            type = "warning",
-            message = msg,
-            line = source_file[["lines"]][[as.character(line_num)]],
-            ranges = list(c(start_col_num, end_col_num))
-          )
-        }
-      }
-    )
-  }
-
-  lintr::lint_dir(path = path, pattern = pattern, linters = lifecycle_linter)
+  lintr::lint_dir(
+    path = path,
+    pattern = pattern,
+    linters = lifecycle_linter(packages = packages, which = which)
+  )
 }
 
 #' @rdname lint_lifecycle
 #' @export
-lint_tidyverse_lifecycle <- function(path = ".", pattern = "[.][Rr](md)?", which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
+lint_tidyverse_lifecycle <- function(path = ".", pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$", which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
   which <- match.arg(which, several.ok = TRUE)
 
-  check_installed(c("lintr", "vctrs", "tidyverse"))
+  check_installed(c("lintr", "vctrs", "xml2", "tidyverse"))
 
-  lint_lifecycle(packages = tidyverse::tidyverse_packages(), path = path, which = which)
+  lint_lifecycle(packages = tidyverse::tidyverse_packages(), pattern = pattern, path = path, which = which)
+}
+
+lifecycle_linter <- function(
+    packages = tidyverse::tidyverse_packages(),
+    which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired"),
+    symbol_is_undesirable = TRUE
+) {
+  check_installed(c("lintr", "vctrs", "xml2"))
+
+  life_cycles <- vctrs::vec_rbind(!!!lapply(packages, pkg_lifecycle_statuses, which = which))
+  bad_usages <- setNames(
+    sprintf("`%s::%s` is %s", life_cycles$package, life_cycles$fun, life_cycles$lifecycle),
+    life_cycles$fun
+  )
+
+  if (symbol_is_undesirable) {
+    xpath <- sprintf(
+      "//SYMBOL_FUNCTION_CALL[%1$s] | //SYMBOL[%1$s]",
+      paste0("text() = '", names(bad_usages), "'", collapse = " or ")
+    )
+  } else {
+    xpath <- sprintf(
+      "//SYMBOL_FUNCTION_CALL[%s]",
+      paste0("text() = '", names(bad_usages), "'", collapse = " or ")
+    )
+  }
+
+  lintr::Linter(function(source_expression) {
+    if (!lintr::is_lint_level(source_expression, "expression")) {
+      return(list())
+    }
+
+    matched_nodes <- xml2::xml_find_all(source_expression$xml_parsed_content, xpath)
+    fun_names <- lintr::get_r_string(matched_nodes)
+
+    lintr::xml_nodes_to_lints(
+      matched_nodes,
+      source_expression = source_expression,
+      lint_message = unname(bad_usages[fun_names])
+    )
+  })
 }

@@ -1,5 +1,13 @@
 # lifecycle (development version)
 
+* Improvements to `lint_lifecycle()` and `lint_tidyverse_lifecycle()` (@AshesITR):
+  * Updated to support lintr >= 3.0.0 (#178).
+  * Fixed default `pattern=` argument to only find R files (#165).
+  * Fixed `lint_tidyverse_lifecycle()` ignoring the `pattern=` argument (#179).
+  * Added support for Quarto qmd files to the default `pattern=` argument (#155).
+  * Added support for Rnw, Rhtml, Rrst, Rtex and Rtxt files to the default `pattern=` argument.
+  * Exported `lifecycle_linter()` to allow including the linter in `.lintr` configurations when using `lintr` (#122).
+
 # lifecycle 1.0.4
 
 * Repeated calls to `deprecate_soft()` and `deprecate_warn()` are faster thanks
