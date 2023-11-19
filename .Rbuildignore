@@ -7,6 +7,7 @@
 ^pkgdown$
 ^lifecycle\.Rproj$
 ^\.Rproj\.user$
+^\.idea$
 ^README\.Rmd$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
