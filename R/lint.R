@@ -92,7 +92,7 @@ lint_lifecycle <- function(
     path = ".",
     pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$",
     which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired"),
-    symbol_is_undesirable = TRUE
+    symbol_is_undesirable = FALSE
 ) {
   which <- match.arg(which, several.ok = TRUE)
 
@@ -111,7 +111,7 @@ lint_tidyverse_lifecycle <- function(
     path = ".",
     pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$",
     which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired"),
-    symbol_is_undesirable = TRUE
+    symbol_is_undesirable = FALSE
 ) {
   which <- match.arg(which, several.ok = TRUE)
 
@@ -150,7 +150,7 @@ lint_tidyverse_lifecycle <- function(
 lifecycle_linter <- function(
     packages = tidyverse::tidyverse_packages(),
     which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired"),
-    symbol_is_undesirable = TRUE
+    symbol_is_undesirable = FALSE
 ) {
   check_installed(c("lintr", "vctrs", "xml2"))
 

@@ -18,21 +18,23 @@ lint_lifecycle(
   path = ".",
   pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$",
   which = c("superseded", "deprecated", "questioning", "defunct", "experimental",
-    "soft-deprecated", "retired")
+    "soft-deprecated", "retired"),
+  symbol_is_undesirable = FALSE
 )
 
 lint_tidyverse_lifecycle(
   path = ".",
   pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$",
   which = c("superseded", "deprecated", "questioning", "defunct", "experimental",
-    "soft-deprecated", "retired")
+    "soft-deprecated", "retired"),
+  symbol_is_undesirable = FALSE
 )
 
 lifecycle_linter(
   packages = tidyverse::tidyverse_packages(),
   which = c("superseded", "deprecated", "questioning", "defunct", "experimental",
     "soft-deprecated", "retired"),
-  symbol_is_undesirable = TRUE
+  symbol_is_undesirable = FALSE
 )
 }
 \arguments{
