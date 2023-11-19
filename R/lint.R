@@ -139,12 +139,13 @@ lint_tidyverse_lifecycle <- function(
 #'   annotations for an installed package.
 #'
 #' @param packages One or more installed packages to query for lifecycle statuses.
-#' @param which Vector of statuses to lint
+#' @param which Vector of lifecycle statuses to lint.
 #' @param symbol_is_undesirable Also lint symbol usages, e.g. `lapply(x, is_na)`?
 #'
 #' @examples
 #'
-#' lintr::lint(text = "lapply(x, is_na)", linters = lifecycle_linter(packages = "rlang"))
+#' lintr::lint(text = "is_na(x)", linters = lifecycle_linter(packages = "rlang"))
+#' lintr::lint(text = "lapply(x, is_na)", linters = lifecycle_linter(packages = "rlang", symbol_is_undesirable = TRUE))
 #'
 #' @export
 lifecycle_linter <- function(

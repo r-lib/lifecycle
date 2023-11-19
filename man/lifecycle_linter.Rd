@@ -40,7 +40,7 @@ lifecycle_linter(
 \arguments{
 \item{package}{The name of an installed package.}
 
-\item{which}{Vector of statuses to lint}
+\item{which}{Vector of lifecycle statuses to lint.}
 
 \item{packages}{One or more installed packages to query for lifecycle statuses.}
 
@@ -66,6 +66,7 @@ annotations for an installed package.
 }
 \examples{
 
-lintr::lint(text = "lapply(x, is_na)", linters = lifecycle_linter(packages = "rlang"))
+lintr::lint(text = "is_na(x)", linters = lifecycle_linter(packages = "rlang"))
+lintr::lint(text = "lapply(x, is_na)", linters = lifecycle_linter(packages = "rlang", symbol_is_undesirable = TRUE))
 
 }
