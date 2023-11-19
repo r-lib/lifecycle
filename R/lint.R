@@ -34,7 +34,7 @@ db_function <- function(db) {
 #'   Include `NA` if you want to include functions without a specified lifecycle
 #'   status in the results.
 #' @export
-#' @rdname lint_lifecycle
+#' @rdname lifecycle_linter
 pkg_lifecycle_statuses <- function(package, which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
   check_installed("vctrs")
   which <- match.arg(which, several.ok = TRUE)
@@ -82,17 +82,7 @@ get_usage_function_names <- function(x) {
   }
 }
 
-#' Lint usages of functions that have a non-stable life cycle.
-#'
-#' - `lint_lifecycle` dynamically queries the package documentation for packages
-#'   in `packages` for lifecycle annotations and then searches the directory in
-#'   `path` for usages of those functions.
-#' - `lint_tidyverse_lifecycle` is a convenience function to call `lint_lifecycle`
-#'   for all the packages in the tidyverse.
-#' - `pkg_lifecycle_statuses` returns a data frame of functions with lifecycle
-#'   annotations for an installed package.
-#'
-#' @param packages One or more installed packages to query for lifecycle statuses.
+#' @rdname lifecycle_linter
 #' @param path The directory path to the files you want to search.
 #' @param pattern Any files matching this pattern will be searched. The default
 #'   searches any files ending in `.R` or `.Rmd`.
@@ -109,7 +99,7 @@ lint_lifecycle <- function(packages, path = ".", pattern = "(?i)[.](r|rmd|qmd|rn
   )
 }
 
-#' @rdname lint_lifecycle
+#' @rdname lifecycle_linter
 #' @export
 lint_tidyverse_lifecycle <- function(path = ".", pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$", which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
   which <- match.arg(which, several.ok = TRUE)
@@ -119,6 +109,27 @@ lint_tidyverse_lifecycle <- function(path = ".", pattern = "(?i)[.](r|rmd|qmd|rn
   lint_lifecycle(packages = tidyverse::tidyverse_packages(), pattern = pattern, path = path, which = which)
 }
 
+#' Lint usages of functions that have a non-stable life cycle.
+#'
+#' - `lifecycle_linter()` creates a linter for lifecycle annotations which can be
+#'   included in a `.lintr` configuration if `lintr` is used directly.
+#' - `lint_lifecycle()` dynamically queries the package documentation for packages
+#'   in `packages` for lifecycle annotations and then searches the directory in
+#'   `path` for usages of those functions.
+#' - `lint_tidyverse_lifecycle()` is a convenience function to call `lint_lifecycle()`
+#'   for all the packages in the tidyverse.
+#' - `pkg_lifecycle_statuses()` returns a data frame of functions with lifecycle
+#'   annotations for an installed package.
+#'
+#' @param packages One or more installed packages to query for lifecycle statuses.
+#' @param which Vector of statuses to lint
+#' @param symbol_is_undesirable Also lint symbol usages, e.g. `lapply(x, is_na)`?
+#'
+#' @examples
+#'
+#' lintr::lint(text = "lapply(x, is_na)", linters = lifecycle_linter(packages = "rlang"))
+#'
+#' @export
 lifecycle_linter <- function(
     packages = tidyverse::tidyverse_packages(),
     which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired"),
