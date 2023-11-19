@@ -138,10 +138,8 @@ lifecycle_linter <- function(
   check_installed(c("lintr", "vctrs", "xml2"))
 
   life_cycles <- vctrs::vec_rbind(!!!lapply(packages, pkg_lifecycle_statuses, which = which))
-  bad_usages <- setNames(
-    sprintf("`%s::%s` is %s", life_cycles$package, life_cycles$fun, life_cycles$lifecycle),
-    life_cycles$fun
-  )
+  bad_usages <- sprintf("`%s::%s` is %s", life_cycles$package, life_cycles$fun, life_cycles$lifecycle)
+  names(bad_usages) <- life_cycles$fun
 
   if (symbol_is_undesirable) {
     xpath <- sprintf(

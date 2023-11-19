@@ -30,7 +30,8 @@ Suggests:
     tidyverse,
     tools,
     vctrs,
-    withr
+    withr,
+    xml2
 VignetteBuilder: 
     knitr
 Config/Needs/website: tidyverse/tidytemplate, usethis
