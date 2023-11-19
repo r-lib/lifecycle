@@ -23,7 +23,7 @@ Suggests:
     covr,
     crayon,
     knitr,
-    lintr,
+    lintr (>= 3.1.0),
     rmarkdown,
     testthat (>= 3.0.1),
     tibble,
