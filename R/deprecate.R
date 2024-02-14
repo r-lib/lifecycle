@@ -236,7 +236,7 @@ deprecate_warn0 <- function(msg,
       footer <- c(
         footer,
         if (!always) silver("This warning is displayed once every 8 hours."),
-        cli::col_silver("Call {.run lifecycle::last_lifecycle_warnings()} to see where this warning was generated.")
+        cli::format_inline(cli::col_silver("Call {.run lifecycle::last_lifecycle_warnings()} to see where this warning was generated."))
       )
     }
 
