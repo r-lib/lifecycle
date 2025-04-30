@@ -3,7 +3,7 @@
 \name{signal_experimental}
 \alias{signal_experimental}
 \alias{signal_superseded}
-\title{Deprecated funtions for signalling experimental and lifecycle stages}
+\title{Deprecated functions for signalling experimental and lifecycle stages}
 \usage{
 signal_experimental(when, what, env = caller_env())
 

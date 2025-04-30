@@ -47,7 +47,7 @@ signal_stage <- function(stage, what, with = NULL, env = caller_env()) {
   )
 }
 
-#' Deprecated funtions for signalling experimental and lifecycle stages
+#' Deprecated functions for signalling experimental and lifecycle stages
 #'
 #' @description
 #' `r badge("deprecated")`
