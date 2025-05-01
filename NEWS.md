@@ -106,7 +106,7 @@
 * New `expect_deprecated()` and `expect_defunct()` functions for
   testting lifecycle warnings and errors. `expect_deprecated()`
   automatically sets the `lifecycle_verbosity` option to `"warning"`
-  to enforce warnings at each invokation rather than once per session.
+  to enforce warnings at each invocation rather than once per session.
 
 * New syntax `"foo(arg = 'can\\'t be a baz')"` to describe that specific inputs
   for an argument are deprecated (#30, @krlmlr).
