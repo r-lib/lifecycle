@@ -6,8 +6,7 @@ test_that("deprecation warning is displayed with backtrace", {
 
   local_options(
     rlang_trace_top_env = current_env(),
-    rlang_trace_format_srcrefs = FALSE,
-    crayon.enabled = FALSE
+    rlang_trace_format_srcrefs = FALSE
   )
 
   f <- function() g()

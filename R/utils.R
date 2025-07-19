@@ -11,20 +11,17 @@ paste_line <- function(...) {
 }
 
 # nocov start
-has_crayon <- function() {
-  is_installed("crayon") && crayon::has_color()
-}
-red       <- function(x) if (has_crayon()) crayon::red(x)       else x
-blue      <- function(x) if (has_crayon()) crayon::blue(x)      else x
-green     <- function(x) if (has_crayon()) crayon::green(x)     else x
-yellow    <- function(x) if (has_crayon()) crayon::yellow(x)    else x
-magenta   <- function(x) if (has_crayon()) crayon::magenta(x)   else x
-cyan      <- function(x) if (has_crayon()) crayon::cyan(x)      else x
-blurred   <- function(x) if (has_crayon()) crayon::blurred(x)   else x
-silver    <- function(x) if (has_crayon()) crayon::silver(x)    else x
-bold      <- function(x) if (has_crayon()) crayon::bold(x)      else x
-italic    <- function(x) if (has_crayon()) crayon::italic(x)    else x
-underline <- function(x) if (has_crayon()) crayon::underline(x) else x
+red       <- function(x) cli::col_red(x)
+blue      <- function(x) cli::col_blue(x)
+green     <- function(x) cli::col_green(x)
+yellow    <- function(x) cli::col_yellow(x)
+magenta   <- function(x) cli::col_magenta(x)
+cyan      <- function(x) cli::col_cyan(x)
+blurred   <- function(x) cli::style_blurred(x)
+silver    <- function(x) cli::col_silver(x)
+bold      <- function(x) cli::style_bold(x)
+italic    <- function(x) cli::style_italic(x)
+underline <- function(x) cli::style_underline(x)
 # nocov end
 
 pkg_url_bug <- function(pkg) {
