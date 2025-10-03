@@ -122,8 +122,6 @@ deprecate_soft <- function(
     )
   )
 
-  signal_stage("deprecated", what)
-
   verbosity <- lifecycle_verbosity()
   direct <- is_direct(user_env)
 
@@ -180,8 +178,6 @@ deprecate_warn <- function(
     )
   )
 
-  signal_stage("deprecated", what)
-
   verbosity <- lifecycle_verbosity()
 
   invisible(switch(
@@ -223,7 +219,6 @@ deprecate_stop <- function(
     env,
     signaller = "deprecate_stop"
   )
-  signal_stage("deprecated", what)
   deprecate_stop0(msg)
 }
 
