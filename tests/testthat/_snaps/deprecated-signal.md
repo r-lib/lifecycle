@@ -22,3 +22,27 @@
       <lifecycle_stage: foo(bar) is superseded
       Please use the `baz` argument instead.>
 
+# `signal_stage()` and friends are deprecated
+
+    Code
+      signal_stage("superseded", "foo()", "bar()")
+    Condition
+      Warning:
+      `signal_stage()` was deprecated in lifecycle 1.1.0.
+
+---
+
+    Code
+      signal_experimental("1.1.0", "foo()")
+    Condition
+      Warning:
+      `signal_experimental()` was deprecated in lifecycle 1.1.0.
+
+---
+
+    Code
+      signal_superseded("1.1.0", "foo()")
+    Condition
+      Warning:
+      `signal_superseded()` was deprecated in lifecycle 1.1.0.
+

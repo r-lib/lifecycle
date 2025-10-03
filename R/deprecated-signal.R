@@ -1,29 +1,45 @@
-#' Signal other experimental or superseded features
+#' Deprecated functions for signalling lifecycle stages
 #'
 #' @description
-#' `r badge("experimental")`
-#'
-#' `signal_stage()` allows you to signal life cycle stages other than
-#' deprecation (for which you should use [deprecate_warn()] and friends).
-#' There is no behaviour associated with this signal, but in the future
-#' we will provide tools to log and report on usage of experimental and
-#' superseded functions.
-#'
-#' @param stage Life cycle stage, either "experimental" or "superseded".
-#' @param what String describing what feature the stage applies too, using
-#'   the same syntax as [deprecate_warn()].
-#' @param with An optional string giving a recommended replacement for
-#'   a superseded function.
-#' @param env Environment used to determine where `signal_stage()`
-#'   was called, used to determine the package name).
+#' `r badge("deprecated")`
+#' @name deprecated-signallers
+#' @keywords internal
+NULL
+
+#' @rdname deprecated-signallers
 #' @export
-#' @examples
-#' foofy <- function(x, y, z) {
-#'   signal_stage("experimental", "foofy()")
-#'   x + y / z
-#' }
-#' foofy(1, 2, 3)
 signal_stage <- function(stage, what, with = NULL, env = caller_env()) {
+  deprecate_soft(
+    "1.1.0",
+    what = "signal_stage()",
+    id = "lifecycle_signal_stage"
+  )
+  signal_stage_impl(stage, what, with, env)
+}
+
+#' @rdname deprecated-signallers
+#' @export
+signal_experimental <- function(when, what, env = caller_env()) {
+  deprecate_soft(
+    "1.1.0",
+    what = "signal_experimental()",
+    id = "lifecycle_signal_experimental"
+  )
+  signal_stage_impl("experimental", what, with = NULL, env = env)
+}
+
+#' @rdname deprecated-signallers
+#' @export
+signal_superseded <- function(when, what, env = caller_env()) {
+  deprecate_soft(
+    "1.1.0",
+    what = "signal_superseded()",
+    id = "lifecycle_signal_superseded"
+  )
+  signal_stage_impl("superseded", what, with = NULL, env = env)
+}
+
+signal_stage_impl <- function(stage, what, with, env) {
   stage <- arg_match0(stage, c("experimental", "superseded", "deprecated"))
   cnd <- new_lifecycle_stage_cnd(stage, what, with, env)
   cnd_signal(cnd)
@@ -35,8 +51,6 @@ new_lifecycle_stage_cnd <- function(stage, what, with, env) {
   out
 }
 
-# We could export this if packages have a need to capture a lifecycle
-# condition and manipulate this data to generate their own custom message
 lifecycle_stage_cnd_data <- function(cnd) {
   stage <- cnd$stage
   what <- cnd$what
@@ -76,20 +90,4 @@ lifecycle_stage_cnd_data <- function(cnd) {
 #' @export
 conditionMessage.lifecycle_stage <- function(c) {
   lifecycle_stage_cnd_data(c)$message
-}
-
-#' Deprecated functions for signalling experimental and lifecycle stages
-#'
-#' @description
-#' `r badge("deprecated")`
-#' Please use [signal_stage()] instead
-#' @keywords internal
-#' @export
-signal_experimental <- function(when, what, env = caller_env()) {
-  signal_stage("experimental", what, env = env)
-}
-#' @rdname signal_experimental
-#' @export
-signal_superseded <- function(when, what, env = caller_env()) {
-  signal_stage("superseded", what, env = env)
 }

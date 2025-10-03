@@ -229,7 +229,7 @@ test_that("lifecycle message is never generated when an `id` is supplied and we'
   expect_snapshot({
     deprecate_soft(
       when = stop("when"),
-      what = I("needed by signal_stage()"),
+      what = stop("what"),
       with = stop("with"),
       details = stop("details"),
       env = stop("env"),
@@ -239,7 +239,7 @@ test_that("lifecycle message is never generated when an `id` is supplied and we'
   expect_snapshot({
     deprecate_warn(
       when = stop("when"),
-      what = I("needed by signal_stage()"),
+      what = stop("what"),
       with = stop("with"),
       details = stop("details"),
       env = stop("env"),

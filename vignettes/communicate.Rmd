@@ -233,16 +233,6 @@ Then describe why the function was superseded, and what the recommended alternat
 
 The rest of the documentation can stay the same.
 
-If you're willing to live on the bleeding edge of lifecycle, add a call to the experimental `signal_stage()`:
-
-```{r}
-gather <- function(data, key = "key", value = "value", ...) {
-  lifecycle::signal_stage("superseded", "gather()")
-}
-```
-
-This signal isn't currently hooked up to any behaviour, but we plan to provide logging and analysis tools in a future release.
-
 ### Mark function as experimental
 
 To advertise that a function is experimental and the interface might change in the future, first add an experimental badge to the description:
@@ -253,16 +243,6 @@ To advertise that a function is experimental and the interface might change in t
 ```
 
 If the function is very experimental, you might want to add `@keywords internal` too.
-
-If you're willing to try an experimental lifecycle feature, add a call to `signal_stage()` in the body:
-
-```{r}
-cool_function <- function() {
-  lifecycle::signal_stage("experimental", "cool_function()")
-}
-```
-
-This signal isn't currently hooked up to any behaviour, but we plan to provide logging and analysis tools in a future release.
 
 ## Arguments
 
