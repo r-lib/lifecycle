@@ -14,7 +14,7 @@
 #' `lifecycle_verbosity`. It can be set to:
 #'
 #' * `"quiet"` to suppress all deprecation messages.
-#' * `"default"` or `NULL` to warn once every 8 hours.
+#' * `"default"` or `NULL` to warn once per session.
 #' * `"warning"` to warn every time.
 #' * `"error"` to error instead of warning.
 #'
