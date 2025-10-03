@@ -104,6 +104,9 @@ deprecate_soft <- function(
   user_env = caller_env(2)
 ) {
   msg <- NULL # trick R CMD check
+  # Delay message generation until required, in particular if an `id`
+  # is provided and we've already warned this session, then we won't ever
+  # materialize this `msg`.
   msg %<~%
     lifecycle_message(
       when,
@@ -156,6 +159,9 @@ deprecate_warn <- function(
   user_env = caller_env(2)
 ) {
   msg <- NULL # trick R CMD check
+  # Delay message generation until required, in particular if an `id`
+  # is provided and we've already warned this session, then we won't ever
+  # materialize this `msg`.
   msg %<~%
     lifecycle_message(
       when,
