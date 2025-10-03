@@ -25,6 +25,24 @@
 #' foofy(1, 2, 3)
 signal_stage <- function(stage, what, with = NULL, env = caller_env()) {
   stage <- arg_match0(stage, c("experimental", "superseded", "deprecated"))
+  cnd <- new_lifecycle_stage_cnd(stage, what, with, env)
+  cnd_signal(cnd)
+}
+
+new_lifecycle_stage_cnd <- function(stage, what, with, env) {
+  out <- list(stage = stage, what = what, with = with, env = env)
+  class(out) <- c("lifecycle_stage", "condition")
+  out
+}
+
+# We could export this if packages have a need to capture a lifecycle
+# condition and manipulate this data to generate their own custom message
+lifecycle_stage_cnd_data <- function(cnd) {
+  stage <- cnd$stage
+  what <- cnd$what
+  with <- cnd$with
+  env <- cnd$env
+
   what <- spec(what, env = env)
 
   if (is_null(what$arg)) {
@@ -38,18 +56,26 @@ signal_stage <- function(stage, what, with = NULL, env = caller_env()) {
     message <- paste0(message, "\n", lifecycle_message_with(with, what))
   }
 
-  # Much faster than calling `rlang::signal()` directly.
-  # `message` is already formatted so we don't need to worry about cli.
-  cnd_signal(cnd(
-    class = "lifecycle_stage",
+  list(
     message = message,
     stage = stage,
     package = what$pkg,
     function_nm = what$fn,
     argument = what$arg,
-    reason = what$reason,
-    use_cli_format = FALSE
-  ))
+    reason = what$reason
+  )
+}
+
+# `cnd_signal()` calls `signalCondition()`, which currently eagerly evaluates
+# `conditionMessage()`, meaning that right now we don't save any time by making
+# the message generation lazy. But we are hoping to fix this in base R in the
+# future, since the message is only used in the error path and could be
+# generated on demand at that point.
+# https://github.com/wch/r-source/blob/f200c30b1a20dfa9394d7facff616e9cb2a42c6d/src/library/base/R/conditions.R#L157-L163
+# https://github.com/wch/r-source/blob/f200c30b1a20dfa9394d7facff616e9cb2a42c6d/src/main/errors.c#L1904-L1909
+#' @export
+conditionMessage.lifecycle_stage <- function(c) {
+  lifecycle_stage_cnd_data(c)$message
 }
 
 #' Deprecated functions for signalling experimental and lifecycle stages

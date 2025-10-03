@@ -4,11 +4,12 @@ test_that("signal stage captures desired data", {
   }
 
   cnd <- expect_condition(f(), class = "lifecycle_stage")
-  expect_equal(cnd$stage, "experimental")
-  expect_equal(cnd$package, "pkg")
-  expect_equal(cnd$function_nm, "foo")
-  expect_equal(cnd$argument, "bar")
-  expect_equal(cnd$reason, "baz")
+  data <- lifecycle_stage_cnd_data(cnd)
+  expect_equal(data$stage, "experimental")
+  expect_equal(data$package, "pkg")
+  expect_equal(data$function_nm, "foo")
+  expect_equal(data$argument, "bar")
+  expect_equal(data$reason, "baz")
 })
 
 test_that("signal generates user friendly message", {
