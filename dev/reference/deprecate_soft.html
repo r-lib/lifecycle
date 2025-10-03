@@ -142,11 +142,14 @@ override.</p></dd>
 
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
-<dd><p>The id of the deprecation. A warning is issued only once
-for each <code>id</code>. Defaults to the generated message, but you should
-give a unique ID when the message in <code>details</code> is built
-programmatically and depends on inputs, or when you'd like to
-deprecate multiple functions but warn only once for all of them.</p></dd>
+<dd><p>The id of the deprecation. A warning is issued only once for each
+<code>id</code>. Defaults to the generated message, but you should provide a unique
+<code>id</code> when the message in <code>details</code> is built programmatically and depends on
+inputs, or when you'd like to deprecate multiple functions but warn only
+once for all of them. Repeated calls to <code>deprecate_soft()</code> and
+<code>deprecate_warn()</code> are also much faster if you supply an <code>id</code> because it
+avoids spending time generating the message only to immediately exit if the
+once per session warning has already been thrown before.</p></dd>
 
 
 <dt id="arg-env-user-env">env, user_env<a class="anchor" aria-label="anchor" href="#arg-env-user-env"></a></dt>
