@@ -26,7 +26,10 @@
 signal_stage <- function(stage, what, with = NULL, env = caller_env()) {
   stage <- arg_match0(stage, c("experimental", "superseded", "deprecated"))
   cnd <- new_lifecycle_stage_cnd(stage, what, with, env)
-  cnd_signal(cnd)
+  # Using `signalCondition()` over `cnd_signal()` because `cnd_signal()` is a
+  # bit slower due to adding a `rlang_muffle` restart on with `withRestarts()`,
+  # which we've decided we don't need for a `lifecycle_stage` condition.
+  signalCondition(cnd)
 }
 
 new_lifecycle_stage_cnd <- function(stage, what, with, env) {
