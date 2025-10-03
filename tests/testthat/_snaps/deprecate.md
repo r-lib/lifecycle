@@ -186,6 +186,18 @@
       Error:
       ! `details` must be a character vector, not a number.
 
+# lifecycle message is never generated when an `id` is supplied and we've already warned
+
+    Code
+      deprecate_soft(when = stop("when"), what = I("needed by signal_stage()"), with = stop(
+        "with"), details = stop("details"), env = stop("env"), id = "test")
+
+---
+
+    Code
+      deprecate_warn(when = stop("when"), what = I("needed by signal_stage()"), with = stop(
+        "with"), details = stop("details"), env = stop("env"), id = "test")
+
 # needs_warning works as expected
 
     Code
