@@ -48,7 +48,11 @@
 NULL
 
 lifecycle_verbosity <- function() {
-  opt <- peek_option("lifecycle_verbosity") %||% "default"
+  opt <- peek_option("lifecycle_verbosity")
+
+  if (is_null(opt)) {
+    return("default")
+  }
 
   if (!is_string(opt, c("quiet", "default", "warning", "error"))) {
     options(lifecycle_verbosity = "default")
