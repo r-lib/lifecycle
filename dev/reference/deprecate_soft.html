@@ -10,7 +10,7 @@ deprecate_warn() warns unconditionally.
 deprecate_stop() fails unconditionally.
 
 
-Warnings are only issued once every 8 hours to avoid overwhelming
+Warnings are only issued once per session to avoid overwhelming
 the user. Control with options(lifecycle_verbosity)."><meta property="og:description" content="These functions provide three levels of verbosity for deprecated
 functions. Learn how to use them in vignette(&quot;communicate&quot;).
 deprecate_soft() warns only if the deprecated function is called
@@ -22,7 +22,7 @@ deprecate_warn() warns unconditionally.
 deprecate_stop() fails unconditionally.
 
 
-Warnings are only issued once every 8 hours to avoid overwhelming
+Warnings are only issued once per session to avoid overwhelming
 the user. Control with options(lifecycle_verbosity)."><meta name="robots" content="noindex"><script defer data-domain="lifecycle.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
 
@@ -78,7 +78,7 @@ warn when called indirectly, i.e. the deprecation comes from code that
 you don't control.</p></li>
 <li><p><code>deprecate_warn()</code> warns unconditionally.</p></li>
 <li><p><code>deprecate_stop()</code> fails unconditionally.</p></li>
-</ul><p>Warnings are only issued once every 8 hours to avoid overwhelming
+</ul><p>Warnings are only issued once per session to avoid overwhelming
 the user. Control with <code><a href="verbosity.html">options(lifecycle_verbosity)</a></code>.</p>
     </div>
 
@@ -160,9 +160,9 @@ helper, in which case you should forward <code>env = caller_env()</code> and
 
 
 <dt id="arg-always">always<a class="anchor" aria-label="anchor" href="#arg-always"></a></dt>
-<dd><p>If <code>FALSE</code>, the default, will warn every 8 hours.  If
+<dd><p>If <code>FALSE</code>, the default, will warn once per session. If
 <code>TRUE</code>, will always warn in direct usages. Indirect usages keep
-warning every 8 hours to avoid disrupting users who can't fix the
+warning once per session to avoid disrupting users who can't fix the
 issue. Only use <code>always = TRUE</code> after at least one release with
 the default.</p></dd>
 
