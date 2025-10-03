@@ -74,7 +74,7 @@ test_that("deprecation warnings are not displayed again", {
     "foo()",
     id = "once-every-8-hours-no-note"
   ))
-  expect_false(grepl("once every 8 hours", wrn$message))
+  expect_false(grepl("once every 8 hours", conditionMessage(wrn)))
 })
 
 test_that("the topenv of the empty env is not the global env", {
