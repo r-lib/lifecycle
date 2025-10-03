@@ -38,7 +38,9 @@ signal_stage <- function(stage, what, with = NULL, env = caller_env()) {
     msg <- paste0(msg, "\n", lifecycle_message_with(with, what))
   }
 
-  signal(msg, "lifecycle_stage",
+  signal(
+    msg,
+    "lifecycle_stage",
     stage = stage,
     package = what$pkg,
     function_nm = what$fn,

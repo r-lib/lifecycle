@@ -1,7 +1,9 @@
-spec <- function(spec,
-                 env = caller_env(),
-                 signaller = "signal_lifecycle",
-                 error_call = caller_env()) {
+spec <- function(
+  spec,
+  env = caller_env(),
+  signaller = "signal_lifecycle",
+  error_call = caller_env()
+) {
   ctxt <- list(
     signaller = signaller,
     call = error_call
