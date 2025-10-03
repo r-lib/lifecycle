@@ -213,6 +213,41 @@ test_that("checks input types", {
   expect_snapshot(lifecycle_message("1", details = 1), error = TRUE)
 })
 
+test_that("lifecycle message is never generated when an `id` is supplied and we've already warned", {
+  # This is an important test for performance reasons. Supplying an `id` makes
+  # repeated calls to `deprecate_soft()` and `deprecate_warn()` much faster by
+  # avoiding message generation via `lifecycle_message()`.
+
+  on.exit(env_unbind(deprecation_env, c("test")))
+  local_options(lifecycle_verbosity = "default")
+
+  # Mock having already warned this session
+  env_poke(deprecation_env, "test", TRUE)
+
+  # These arguments are never touched again if we supply an `id`,
+  # we expect silence in the snapshot
+  expect_snapshot({
+    deprecate_soft(
+      when = stop("when"),
+      what = I("needed by signal_stage()"),
+      with = stop("with"),
+      details = stop("details"),
+      env = stop("env"),
+      id = "test"
+    )
+  })
+  expect_snapshot({
+    deprecate_warn(
+      when = stop("when"),
+      what = I("needed by signal_stage()"),
+      with = stop("with"),
+      details = stop("details"),
+      env = stop("env"),
+      id = "test"
+    )
+  })
+})
+
 # helpers -----------------------------------------------------------------
 
 test_that("env_inherits_global works for simple cases", {

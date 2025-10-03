@@ -43,11 +43,14 @@
 #'   which will be converted to a [bulleted list][cli::cli_bullets].
 #'   By default, info bullets are used. Provide a named vectors to
 #'   override.
-#' @param id The id of the deprecation. A warning is issued only once
-#'   for each `id`. Defaults to the generated message, but you should
-#'   give a unique ID when the message in `details` is built
-#'   programmatically and depends on inputs, or when you'd like to
-#'   deprecate multiple functions but warn only once for all of them.
+#' @param id The id of the deprecation. A warning is issued only once for each
+#'   `id`. Defaults to the generated message, but you should provide a unique
+#'   `id` when the message in `details` is built programmatically and depends on
+#'   inputs, or when you'd like to deprecate multiple functions but warn only
+#'   once for all of them. Repeated calls to `deprecate_soft()` and
+#'   `deprecate_warn()` are also much faster if you supply an `id` because it
+#'   avoids spending time generating the message only to immediately exit if the
+#'   once per session warning has already been thrown before.
 #' @param env,user_env Pair of environments that define where `deprecate_*()`
 #'   was called (used to determine the package name) and where the function
 #'   called the deprecating function was called (used to determine if
