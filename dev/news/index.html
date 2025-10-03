@@ -46,7 +46,10 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="lifecycle-development-version">lifecycle (development version)<a class="anchor" aria-label="anchor" href="#lifecycle-development-version"></a></h2>
-<ul><li>Improvements to <code><a href="../reference/lifecycle_linter.html">lint_lifecycle()</a></code> and <code><a href="../reference/lifecycle_linter.html">lint_tidyverse_lifecycle()</a></code> (<a href="https://github.com/AshesITR" class="external-link">@AshesITR</a>):
+<ul><li><p><code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> and <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> are faster thanks to some internal refactoring.</p></li>
+<li><p><code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> now actually warns after every 8 hours.</p></li>
+<li>
+<p>Improvements to <code><a href="../reference/lifecycle_linter.html">lint_lifecycle()</a></code> and <code><a href="../reference/lifecycle_linter.html">lint_tidyverse_lifecycle()</a></code> (<a href="https://github.com/AshesITR" class="external-link">@AshesITR</a>):</p>
 <ul><li>Updated to support lintr &gt;= 3.0.0 (<a href="https://github.com/r-lib/lifecycle/issues/178" class="external-link">#178</a>).</li>
 <li>Fixed default <code>pattern=</code> argument to only find R files (<a href="https://github.com/r-lib/lifecycle/issues/165" class="external-link">#165</a>).</li>
 <li>Fixed <code><a href="../reference/lifecycle_linter.html">lint_tidyverse_lifecycle()</a></code> ignoring the <code>pattern=</code> argument (<a href="https://github.com/r-lib/lifecycle/issues/179" class="external-link">#179</a>).</li>
