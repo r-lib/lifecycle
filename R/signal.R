@@ -26,7 +26,8 @@
 signal_stage <- function(stage, what, with = NULL, env = caller_env()) {
   stage <- arg_match0(stage, c("experimental", "superseded", "deprecated"))
   cnd <- new_lifecycle_stage_cnd(stage, what, with, env)
-  cnd_signal(cnd)
+  # cnd_signal(cnd)
+  .Internal(.signalCondition(cnd, "dummy", NULL))
 }
 
 new_lifecycle_stage_cnd <- function(stage, what, with, env) {
