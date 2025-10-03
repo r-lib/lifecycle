@@ -23,7 +23,7 @@ signal_experimental <- function(when, what, env = caller_env()) {
   deprecate_soft(
     "1.1.0",
     what = "signal_experimental()",
-    id = "lifecycle_signal_stage_experimental"
+    id = "lifecycle_signal_experimental"
   )
   signal_stage_impl("experimental", what, with = NULL, env = env)
 }
@@ -34,7 +34,7 @@ signal_superseded <- function(when, what, env = caller_env()) {
   deprecate_soft(
     "1.1.0",
     what = "signal_superseded()",
-    id = "lifecycle_signal_stage_superseded"
+    id = "lifecycle_signal_superseded"
   )
   signal_stage_impl("superseded", what, with = NULL, env = env)
 }
