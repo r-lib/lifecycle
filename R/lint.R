@@ -35,7 +35,18 @@ db_function <- function(db) {
 #'   status in the results.
 #' @export
 #' @rdname lifecycle_linter
-pkg_lifecycle_statuses <- function(package, which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired")) {
+pkg_lifecycle_statuses <- function(
+  package,
+  which = c(
+    "superseded",
+    "deprecated",
+    "questioning",
+    "defunct",
+    "experimental",
+    "soft-deprecated",
+    "retired"
+  )
+) {
   check_installed("vctrs")
   which <- match.arg(which, several.ok = TRUE)
   stopifnot(is_string(package))
@@ -44,7 +55,18 @@ pkg_lifecycle_statuses <- function(package, which = c("superseded", "deprecated"
   lc <- db_lifecycle(db)
   funs <- db_function(db)
 
-  res <- mapply(function(lc, f) data.frame(fun = f, lifecycle = rep(lc, length(f)), stringsAsFactors = FALSE), lc, funs, SIMPLIFY = FALSE)
+  res <- mapply(
+    function(lc, f) {
+      data.frame(
+        fun = f,
+        lifecycle = rep(lc, length(f)),
+        stringsAsFactors = FALSE
+      )
+    },
+    lc,
+    funs,
+    SIMPLIFY = FALSE
+  )
 
   res <- vctrs::vec_rbind(!!!res)
 
@@ -63,7 +85,11 @@ pkg_lifecycle_statuses <- function(package, which = c("superseded", "deprecated"
   res <- res[res$lifecycle %in% which, ]
 
   if (nrow(res) == 0) {
-    return(data.frame(package = character(), fun = character(), lifecycle = character()))
+    return(data.frame(
+      package = character(),
+      fun = character(),
+      lifecycle = character()
+    ))
   }
 
   res$package <- package
@@ -76,9 +102,13 @@ get_usage_function_names <- function(x) {
     character(1)
   } else {
     res <- asNamespace("tools")$.parse_usage_as_much_as_possible(x)
-    vapply(res, function(x) {
-      if (is.call(x)) as.character(x[[1]]) else character(1)
-    }, character(1))
+    vapply(
+      res,
+      function(x) {
+        if (is.call(x)) as.character(x[[1]]) else character(1)
+      },
+      character(1)
+    )
   }
 }
 
@@ -88,11 +118,19 @@ get_usage_function_names <- function(x) {
 #'   searches any files ending in `.R` or `.Rmd`.
 #' @export
 lint_lifecycle <- function(
-    packages,
-    path = ".",
-    pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$",
-    which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired"),
-    symbol_is_undesirable = FALSE
+  packages,
+  path = ".",
+  pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$",
+  which = c(
+    "superseded",
+    "deprecated",
+    "questioning",
+    "defunct",
+    "experimental",
+    "soft-deprecated",
+    "retired"
+  ),
+  symbol_is_undesirable = FALSE
 ) {
   which <- match.arg(which, several.ok = TRUE)
 
@@ -101,17 +139,29 @@ lint_lifecycle <- function(
   lintr::lint_dir(
     path = path,
     pattern = pattern,
-    linters = lifecycle_linter(packages = packages, which = which, symbol_is_undesirable = symbol_is_undesirable)
+    linters = lifecycle_linter(
+      packages = packages,
+      which = which,
+      symbol_is_undesirable = symbol_is_undesirable
+    )
   )
 }
 
 #' @rdname lifecycle_linter
 #' @export
 lint_tidyverse_lifecycle <- function(
-    path = ".",
-    pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$",
-    which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired"),
-    symbol_is_undesirable = FALSE
+  path = ".",
+  pattern = "(?i)[.](r|rmd|qmd|rnw|rhtml|rrst|rtex|rtxt)$",
+  which = c(
+    "superseded",
+    "deprecated",
+    "questioning",
+    "defunct",
+    "experimental",
+    "soft-deprecated",
+    "retired"
+  ),
+  symbol_is_undesirable = FALSE
 ) {
   which <- match.arg(which, several.ok = TRUE)
 
@@ -149,14 +199,29 @@ lint_tidyverse_lifecycle <- function(
 #'
 #' @export
 lifecycle_linter <- function(
-    packages = tidyverse::tidyverse_packages(),
-    which = c("superseded", "deprecated", "questioning", "defunct", "experimental", "soft-deprecated", "retired"),
-    symbol_is_undesirable = FALSE
+  packages = tidyverse::tidyverse_packages(),
+  which = c(
+    "superseded",
+    "deprecated",
+    "questioning",
+    "defunct",
+    "experimental",
+    "soft-deprecated",
+    "retired"
+  ),
+  symbol_is_undesirable = FALSE
 ) {
   check_installed(c("lintr", "vctrs", "xml2"))
 
-  life_cycles <- vctrs::vec_rbind(!!!lapply(packages, pkg_lifecycle_statuses, which = which))
-  bad_usages <- sprintf("`%s::%s` is %s", life_cycles$package, life_cycles$fun, life_cycles$lifecycle)
+  life_cycles <- vctrs::vec_rbind(
+    !!!lapply(packages, pkg_lifecycle_statuses, which = which)
+  )
+  bad_usages <- sprintf(
+    "`%s::%s` is %s",
+    life_cycles$package,
+    life_cycles$fun,
+    life_cycles$lifecycle
+  )
   names(bad_usages) <- life_cycles$fun
 
   if (symbol_is_undesirable) {
@@ -176,7 +241,10 @@ lifecycle_linter <- function(
       return(list())
     }
 
-    matched_nodes <- xml2::xml_find_all(source_expression$xml_parsed_content, xpath)
+    matched_nodes <- xml2::xml_find_all(
+      source_expression$xml_parsed_content,
+      xpath
+    )
     fun_names <- lintr::get_r_string(matched_nodes)
 
     lintr::xml_nodes_to_lints(

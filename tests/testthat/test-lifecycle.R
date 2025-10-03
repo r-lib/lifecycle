@@ -69,18 +69,29 @@ test_that("deprecation warnings are not displayed again", {
 
   local_options(lifecycle_verbosity = "warning")
 
-  wrn <- catch_cnd(deprecate_warn("1.0.0", "foo()", id = "once-every-8-hours-no-note"))
+  wrn <- catch_cnd(deprecate_warn(
+    "1.0.0",
+    "foo()",
+    id = "once-every-8-hours-no-note"
+  ))
   expect_false(grepl("once every 8 hours", wrn$message))
 })
 
 test_that("the topenv of the empty env is not the global env", {
   local_options(lifecycle_verbosity = NULL)
-  expect_silent(deprecate_soft("1.0.0", "foo()", env = empty_env(), id = "topenv of empty env"))
+  expect_silent(deprecate_soft(
+    "1.0.0",
+    "foo()",
+    env = empty_env(),
+    id = "topenv of empty env"
+  ))
 })
 
 test_that("expect_deprecated() matches regexp", {
   expect_deprecated(
-    deprecate_warn("1.0", "fn()", details = "foo.["), "foo.[", fixed = TRUE
+    deprecate_warn("1.0", "fn()", details = "foo.["),
+    "foo.[",
+    fixed = TRUE
   )
 
   fn <- function() {

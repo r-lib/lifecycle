@@ -59,7 +59,7 @@ lifecycle_verbosity <- function() {
       "\"quiet\", \"default\", \"warning\", or \"error\".",
       "Resetting to \"default\"."
     )
-    
+
     warn(message)
   }
 

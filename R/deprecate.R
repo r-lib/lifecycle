@@ -94,15 +94,25 @@
 #'   )
 #' )
 #' @export
-deprecate_soft <- function(when,
-                           what,
-                           with = NULL,
-                           details = NULL,
-                           id = NULL,
-                           env = caller_env(),
-                           user_env = caller_env(2)) {
+deprecate_soft <- function(
+  when,
+  what,
+  with = NULL,
+  details = NULL,
+  id = NULL,
+  env = caller_env(),
+  user_env = caller_env(2)
+) {
   msg <- NULL # trick R CMD check
-  msg %<~% lifecycle_message(when, what, with, details, env, signaller = "deprecate_soft")
+  msg %<~%
+    lifecycle_message(
+      when,
+      what,
+      with,
+      details,
+      env,
+      signaller = "deprecate_soft"
+    )
   signal_stage("deprecated", what)
 
   verbosity <- lifecycle_verbosity()
@@ -112,19 +122,18 @@ deprecate_soft <- function(when,
     verbosity,
     quiet = NULL,
     warning = ,
-    default =
-      if (direct) {
-        always <- verbosity == "warning"
-        trace_env <- caller_env()
-        deprecate_warn0(
-          msg,
-          id,
-          always = always,
-          direct = TRUE,
-          trace_env = trace_env,
-          user_env = user_env
-        )
-      },
+    default = if (direct) {
+      always <- verbosity == "warning"
+      trace_env <- caller_env()
+      deprecate_warn0(
+        msg,
+        id,
+        always = always,
+        direct = TRUE,
+        trace_env = trace_env,
+        user_env = user_env
+      )
+    },
     error = deprecate_stop0(msg)
   ))
 }
@@ -136,16 +145,26 @@ deprecate_soft <- function(when,
 #'   issue. Only use `always = TRUE` after at least one release with
 #'   the default.
 #' @export
-deprecate_warn <- function(when,
-                           what,
-                           with = NULL,
-                           details = NULL,
-                           id = NULL,
-                           always = FALSE,
-                           env = caller_env(),
-                           user_env = caller_env(2)) {
+deprecate_warn <- function(
+  when,
+  what,
+  with = NULL,
+  details = NULL,
+  id = NULL,
+  always = FALSE,
+  env = caller_env(),
+  user_env = caller_env(2)
+) {
   msg <- NULL # trick R CMD check
-  msg %<~% lifecycle_message(when, what, with, details, env, signaller = "deprecate_warn")
+  msg %<~%
+    lifecycle_message(
+      when,
+      what,
+      with,
+      details,
+      env,
+      signaller = "deprecate_warn"
+    )
   signal_stage("deprecated", what)
 
   verbosity <- lifecycle_verbosity()
@@ -173,26 +192,38 @@ deprecate_warn <- function(when,
 
 #' @rdname deprecate_soft
 #' @export
-deprecate_stop <- function(when,
-                           what,
-                           with = NULL,
-                           details = NULL,
-                           env = caller_env()) {
+deprecate_stop <- function(
+  when,
+  what,
+  with = NULL,
+  details = NULL,
+  env = caller_env()
+) {
   msg <- NULL # trick R CMD check
-  msg %<~% lifecycle_message(when, what, with, details, env, signaller =  "deprecate_stop")
+  msg %<~%
+    lifecycle_message(
+      when,
+      what,
+      with,
+      details,
+      env,
+      signaller = "deprecate_stop"
+    )
   signal_stage("deprecated", what)
   deprecate_stop0(msg)
 }
 
 # Signals -----------------------------------------------------------------
 
-deprecate_warn0 <- function(msg,
-                            id = NULL,
-                            always = FALSE,
-                            direct = FALSE,
-                            call = caller_env(),
-                            trace_env = caller_env(),
-                            user_env = caller_env(2)) {
+deprecate_warn0 <- function(
+  msg,
+  id = NULL,
+  always = FALSE,
+  direct = FALSE,
+  call = caller_env(),
+  trace_env = caller_env(),
+  user_env = caller_env(2)
+) {
   id <- id %||% paste_line(msg)
   if (!always && !needs_warning(id, call = call)) {
     return()
@@ -236,7 +267,9 @@ deprecate_warn0 <- function(msg,
       footer <- c(
         footer,
         if (!always) silver("This warning is displayed once every 8 hours."),
-        silver("Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.")
+        silver(
+          "Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated."
+        )
       )
     }
 
@@ -275,13 +308,15 @@ deprecate_stop0 <- function(msg) {
 
 # Messages ----------------------------------------------------------------
 
-lifecycle_message <- function(when,
-                              what,
-                              with = NULL,
-                              details = NULL,
-                              env = caller_env(2),
-                              call = caller_env(),
-                              signaller = "signal_lifecycle") {
+lifecycle_message <- function(
+  when,
+  what,
+  with = NULL,
+  details = NULL,
+  env = caller_env(2),
+  call = caller_env(),
+  signaller = "signal_lifecycle"
+) {
   check_string(when, call = call)
 
   if (is_null(details)) {
@@ -312,16 +347,39 @@ lifecycle_message_what <- function(what, when) {
 
   if (is_null(what$arg)) {
     if (what$from == "deprecate_stop") {
-      sprintf("%s was deprecated in %s %s and is now defunct.", what$fn, what$pkg, when)
+      sprintf(
+        "%s was deprecated in %s %s and is now defunct.",
+        what$fn,
+        what$pkg,
+        when
+      )
     } else {
-      sprintf("%s was deprecated in %s %s.", what$fn, what$pkg, when)
+      sprintf(
+        "%s was deprecated in %s %s.",
+        what$fn,
+        what$pkg,
+        when
+      )
     }
   } else {
     if (what$from == "deprecate_stop" && is_null(what$reason)) {
-      sprintf("The `%s` argument of %s was deprecated in %s %s and is now defunct.", what$arg, what$fn, what$pkg, when)
+      sprintf(
+        "The `%s` argument of %s was deprecated in %s %s and is now defunct.",
+        what$arg,
+        what$fn,
+        what$pkg,
+        when
+      )
     } else {
       what$reason <- what$reason %||% "is deprecated"
-      sprintf("The `%s` argument of %s %s as of %s %s.", what$arg, what$fn, what$reason, what$pkg, when)
+      sprintf(
+        "The `%s` argument of %s %s as of %s %s.",
+        what$arg,
+        what$fn,
+        what$reason,
+        what$pkg,
+        when
+      )
     }
   }
 }
@@ -343,11 +401,21 @@ lifecycle_message_with <- function(with, what) {
     }
 
     if (is_null(with$arg)) {
-      sprintf("Please use `%s()` instead.", with$fn)
+      sprintf(
+        "Please use `%s()` instead.",
+        with$fn
+      )
     } else if (what$fn == with$fn) {
-      sprintf("Please use the `%s` argument instead.", with$arg)
+      sprintf(
+        "Please use the `%s` argument instead.",
+        with$arg
+      )
     } else {
-      sprintf("Please use the `%s` argument of `%s()` instead.", with$arg, with$fn)
+      sprintf(
+        "Please use the `%s` argument of `%s()` instead.",
+        with$arg,
+        with$fn
+      )
     }
   }
 }
