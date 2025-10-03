@@ -14,7 +14,7 @@
 #'
 #' * `deprecate_stop()` fails unconditionally.
 #'
-#' Warnings are only issued once every 8 hours to avoid overwhelming
+#' Warnings are only issued once per session to avoid overwhelming
 #' the user. Control with [`options(lifecycle_verbosity)`][verbosity].
 #'
 #' @section Conditions:
@@ -139,9 +139,9 @@ deprecate_soft <- function(
 }
 
 #' @rdname deprecate_soft
-#' @param always If `FALSE`, the default, will warn every 8 hours.  If
+#' @param always If `FALSE`, the default, will warn once per session. If
 #'   `TRUE`, will always warn in direct usages. Indirect usages keep
-#'   warning every 8 hours to avoid disrupting users who can't fix the
+#'   warning once per session to avoid disrupting users who can't fix the
 #'   issue. Only use `always = TRUE` after at least one release with
 #'   the default.
 #' @export
@@ -229,8 +229,8 @@ deprecate_warn0 <- function(
     return()
   }
 
-  # Prevent warning from being displayed again
-  env_poke(deprecation_env, id, Sys.time())
+  # Prevent warning from being displayed again this session
+  env_poke(deprecation_env, id, TRUE)
 
   footer <- function(...) {
     footer <- NULL
@@ -266,7 +266,7 @@ deprecate_warn0 <- function(
     if (is_interactive()) {
       footer <- c(
         footer,
-        if (!always) silver("This warning is displayed once every 8 hours."),
+        if (!always) silver("This warning is displayed once per session."),
         silver(
           "Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated."
         )
@@ -458,21 +458,5 @@ from_testthat <- function(env) {
 
 needs_warning <- function(id, call = caller_env()) {
   check_string(id, call = call)
-
-  last <- deprecation_env[[id]]
-  if (is_null(last)) {
-    return(TRUE)
-  }
-
-  if (!inherits(last, "POSIXct")) {
-    abort(
-      "Expected `POSIXct` value in `needs_warning()`.",
-      .internal = TRUE
-    )
-  }
-
-  # Warn every 8 hours
-  # Must unclass to ensure we always compare in units of seconds, also much
-  # faster this way.
-  (unclass(Sys.time()) - unclass(last)) > (8 * 60 * 60)
+  is_null(deprecation_env[[id]])
 }

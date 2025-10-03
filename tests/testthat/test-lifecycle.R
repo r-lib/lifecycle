@@ -61,20 +61,20 @@ test_that("deprecation warnings are not displayed again", {
   local_interactive()
 
   wrn <- catch_cnd(
-    deprecate_warn("1.0.0", "foo()", id = "once-every-8-hours-note"),
+    deprecate_warn("1.0.0", "foo()", id = "once-per-session-note"),
     classes = "warning"
   )
   footer <- cnd_footer(wrn)
-  expect_true(is_character(footer) && any(grepl("once every 8 hours", footer)))
+  expect_true(is_character(footer) && any(grepl("once per session", footer)))
 
   local_options(lifecycle_verbosity = "warning")
 
   wrn <- catch_cnd(deprecate_warn(
     "1.0.0",
     "foo()",
-    id = "once-every-8-hours-no-note"
+    id = "once-per-session-no-note"
   ))
-  expect_false(grepl("once every 8 hours", conditionMessage(wrn)))
+  expect_false(grepl("once per session", conditionMessage(wrn)))
 })
 
 test_that("the topenv of the empty env is not the global env", {

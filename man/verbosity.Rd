@@ -16,7 +16,7 @@ You can control the level of verbosity with the global option
 \code{lifecycle_verbosity}. It can be set to:
 \itemize{
 \item \code{"quiet"} to suppress all deprecation messages.
-\item \code{"default"} or \code{NULL} to warn once every 8 hours.
+\item \code{"default"} or \code{NULL} to warn once per session.
 \item \code{"warning"} to warn every time.
 \item \code{"error"} to error instead of warning.
 }

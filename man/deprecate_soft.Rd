@@ -71,9 +71,9 @@ These are only needed if you're calling \verb{deprecate_*()} from an internal
 helper, in which case you should forward \code{env = caller_env()} and
 \code{user_env = caller_env(2)}.}
 
-\item{always}{If \code{FALSE}, the default, will warn every 8 hours.  If
+\item{always}{If \code{FALSE}, the default, will warn once per session. If
 \code{TRUE}, will always warn in direct usages. Indirect usages keep
-warning every 8 hours to avoid disrupting users who can't fix the
+warning once per session to avoid disrupting users who can't fix the
 issue. Only use \code{always = TRUE} after at least one release with
 the default.}
 }
@@ -93,7 +93,7 @@ you don't control.
 \item \code{deprecate_stop()} fails unconditionally.
 }
 
-Warnings are only issued once every 8 hours to avoid overwhelming
+Warnings are only issued once per session to avoid overwhelming
 the user. Control with \code{\link[=verbosity]{options(lifecycle_verbosity)}}.
 }
 \section{Conditions}{

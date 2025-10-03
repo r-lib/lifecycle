@@ -194,9 +194,3 @@
       Error:
       ! `id` must be a single string, not a number.
 
----
-
-    Expected `POSIXct` value in `needs_warning()`.
-    i This is an internal error that was detected in the lifecycle package.
-      Please report it at <https://github.com/r-lib/lifecycle/issues> with a reprex (<https://tidyverse.org/help/>) and the full backtrace.
-
