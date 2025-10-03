@@ -4,7 +4,7 @@
 
 * `deprecate_soft()` and `deprecate_warn()` are faster thanks to some internal refactoring.
 
-* `deprecate_soft()` and `deprecate_warn()` now only warn once per session rather than attempting to warn once every 8 hours.
+* `deprecate_soft()` and `deprecate_warn()` now only warn once per session rather than attempting to warn once every 8 hours. This never actually worked.
 
 * Improvements to `lint_lifecycle()` and `lint_tidyverse_lifecycle()` (@AshesITR):
   * Updated to support lintr >= 3.0.0 (#178).
