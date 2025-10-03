@@ -306,24 +306,22 @@ lifecycle_message <- function(when,
 }
 
 lifecycle_message_what <- function(what, when) {
-  glue_what <- function(x) glue::glue_data(what, x)
-
   if (!inherits(what$fn, "AsIs")) {
     what$fn <- fun_label(what$fn)
   }
 
   if (is_null(what$arg)) {
     if (what$from == "deprecate_stop") {
-      glue_what("{ fn } was deprecated in { pkg } { when } and is now defunct.")
+      sprintf("%s was deprecated in %s %s and is now defunct.", what$fn, what$pkg, when)
     } else {
-      glue_what("{ fn } was deprecated in { pkg } { when }.")
+      sprintf("%s was deprecated in %s %s.", what$fn, what$pkg, when)
     }
   } else {
     if (what$from == "deprecate_stop" && is_null(what$reason)) {
-      glue_what("The `{ arg }` argument of { fn } was deprecated in { pkg } { when } and is now defunct.")
+      sprintf("The `%s` argument of %s was deprecated in %s %s and is now defunct.", what$arg, what$fn, what$pkg, when)
     } else {
       what$reason <- what$reason %||% "is deprecated"
-      glue_what("The `{ arg }` argument of { fn } { reason } as of { pkg } { when }.")
+      sprintf("The `%s` argument of %s %s as of %s %s.", what$arg, what$fn, what$reason, what$pkg, when)
     }
   }
 }
@@ -337,21 +335,19 @@ fun_label <- function(fn) {
 }
 
 lifecycle_message_with <- function(with, what) {
-  glue_with <- function(x) glue::glue_data(with, x)
-
   if (inherits(with$fn, "AsIs")) {
-    glue_with("Please use { fn } instead.")
+    sprintf("Please use %s instead.", with$fn)
   } else {
     if (!is_null(with$pkg) && what$pkg != with$pkg) {
-      with$fn <- glue_with("{ pkg }::{ fn }")
+      with$fn <- sprintf("%s::%s", with$pkg, with$fn)
     }
 
     if (is_null(with$arg)) {
-      glue_with("Please use `{ fn }()` instead.")
+      sprintf("Please use `%s()` instead.", with$fn)
     } else if (what$fn == with$fn) {
-      glue_with("Please use the `{ arg }` argument instead.")
+      sprintf("Please use the `%s` argument instead.", with$arg)
     } else {
-      glue_with("Please use the `{ arg }` argument of `{ fn }()` instead.")
+      sprintf("Please use the `%s` argument of `%s()` instead.", with$arg, with$fn)
     }
   }
 }
@@ -408,5 +404,7 @@ needs_warning <- function(id, call = caller_env()) {
   }
 
   # Warn every 8 hours
-  (Sys.time() - last) > (8 * 60 * 60)
+  # Must unclass to ensure we always compare in units of seconds, also much
+  # faster this way.
+  (unclass(Sys.time()) - unclass(last)) > (8 * 60 * 60)
 }

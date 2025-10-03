@@ -213,8 +213,9 @@ test_that("needs_warning works as expected", {
   env_poke(deprecation_env, "test", Sys.time())
   expect_false(needs_warning("test"))
 
+  # More than 8 hours
   env_poke(deprecation_env, "test", Sys.time() - 9 * 60 * 60)
-  expect_false(needs_warning("test"))
+  expect_true(needs_warning("test"))
 
   env_poke(deprecation_env, "test", "x")
   expect_snapshot_error(needs_warning("test"))

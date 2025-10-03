@@ -17,7 +17,6 @@ Depends:
     R (>= 3.6)
 Imports:
     cli (>= 3.4.0),
-    glue,
     rlang (>= 1.1.0)
 Suggests:
     covr,

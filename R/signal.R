@@ -24,13 +24,13 @@
 #' }
 #' foofy(1, 2, 3)
 signal_stage <- function(stage, what, with = NULL, env = caller_env()) {
-  stage <- arg_match(stage, c("experimental", "superseded", "deprecated"))
+  stage <- arg_match0(stage, c("experimental", "superseded", "deprecated"))
   what <- spec(what, env = env)
 
   if (is_null(what$arg)) {
-    msg <- glue::glue_data(what, "{fn}() is {stage}")
+    msg <- sprintf("%s() is %s", what$fn, stage)
   } else {
-    msg <- glue::glue_data(what, "{fn}(arg) is {stage}")
+    msg <- sprintf("%s(%s) is %s", what$fn, what$arg, stage)
   }
 
   if (!is_null(with)) {

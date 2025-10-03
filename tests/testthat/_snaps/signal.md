@@ -7,7 +7,7 @@
     Code
       (expect_condition(signal_stage("superseded", "foo(bar)")))
     Output
-      <lifecycle_stage: foo(arg) is superseded>
+      <lifecycle_stage: foo(bar) is superseded>
 
 # signal_stage supports with
 
@@ -19,6 +19,6 @@
     Code
       (expect_condition(signal_stage("superseded", "foo(bar=)", "foo(baz=)")))
     Output
-      <lifecycle_stage: foo(arg) is superseded
+      <lifecycle_stage: foo(bar) is superseded
       Please use the `baz` argument instead.>
 
