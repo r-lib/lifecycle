@@ -408,5 +408,7 @@ needs_warning <- function(id, call = caller_env()) {
   }
 
   # Warn every 8 hours
-  (Sys.time() - last) > (8 * 60 * 60)
+  # Must unclass to ensure we always compare in units of seconds, also much
+  # faster this way.
+  (unclass(Sys.time()) - unclass(last)) > (8 * 60 * 60)
 }

@@ -1,5 +1,7 @@
 # lifecycle (development version)
 
+* `deprecate_soft()` now actually warns after every 8 hours.
+
 * Improvements to `lint_lifecycle()` and `lint_tidyverse_lifecycle()` (@AshesITR):
   * Updated to support lintr >= 3.0.0 (#178).
   * Fixed default `pattern=` argument to only find R files (#165).
