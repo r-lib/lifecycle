@@ -109,8 +109,9 @@ deprecate_soft <- function(
   msg <- NULL # trick R CMD check
   # Delay message generation until required, in particular if an `id`
   # is provided and we've already warned this session, then we won't ever
-  # materialize this `msg`.
-  msg %<~%
+  # materialize this `msg`. Faster than using the more ergonomic `%<~%`.
+  delayedAssign(
+    "msg",
     lifecycle_message(
       when,
       what,
@@ -119,6 +120,8 @@ deprecate_soft <- function(
       env,
       signaller = "deprecate_soft"
     )
+  )
+
   signal_stage("deprecated", what)
 
   verbosity <- lifecycle_verbosity()
@@ -164,8 +167,9 @@ deprecate_warn <- function(
   msg <- NULL # trick R CMD check
   # Delay message generation until required, in particular if an `id`
   # is provided and we've already warned this session, then we won't ever
-  # materialize this `msg`.
-  msg %<~%
+  # materialize this `msg`. Faster than using the more ergonomic `%<~%`.
+  delayedAssign(
+    "msg",
     lifecycle_message(
       when,
       what,
@@ -174,6 +178,8 @@ deprecate_warn <- function(
       env,
       signaller = "deprecate_warn"
     )
+  )
+
   signal_stage("deprecated", what)
 
   verbosity <- lifecycle_verbosity()
@@ -208,16 +214,15 @@ deprecate_stop <- function(
   details = NULL,
   env = caller_env()
 ) {
-  msg <- NULL # trick R CMD check
-  msg %<~%
-    lifecycle_message(
-      when,
-      what,
-      with,
-      details,
-      env,
-      signaller = "deprecate_stop"
-    )
+  # No need to be lazy here, `deprecate_stop0()` will always force `msg`
+  msg <- lifecycle_message(
+    when,
+    what,
+    with,
+    details,
+    env,
+    signaller = "deprecate_stop"
+  )
   signal_stage("deprecated", what)
   deprecate_stop0(msg)
 }
