@@ -65,8 +65,13 @@ annotations for an installed package.
 }
 }
 \examples{
-
-lintr::lint(text = "is_na(x)", linters = lifecycle_linter(packages = "rlang"))
-lintr::lint(text = "lapply(x, is_na)", linters = lifecycle_linter(packages = "rlang", symbol_is_undesirable = TRUE))
-
+lintr::lint(
+  text = "is_na(x)",
+  linters = lifecycle_linter(packages = "rlang")
+)
+lintr::lint(
+  text = "lapply(x, is_na)",
+  linters = lifecycle_linter(packages = "rlang",
+  symbol_is_undesirable = TRUE)
+)
 }
