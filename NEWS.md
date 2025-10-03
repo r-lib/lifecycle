@@ -1,5 +1,7 @@
 # lifecycle (development version)
 
+* `deprecate_soft()` and `deprecate_warn()` are faster thanks to some internal refactoring.
+
 * `deprecate_soft()` now actually warns after every 8 hours.
 
 * Improvements to `lint_lifecycle()` and `lint_tidyverse_lifecycle()` (@AshesITR):
