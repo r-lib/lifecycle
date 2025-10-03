@@ -28,25 +28,28 @@ signal_stage <- function(stage, what, with = NULL, env = caller_env()) {
   what <- spec(what, env = env)
 
   if (is_null(what$arg)) {
-    msg <- sprintf("%s() is %s", what$fn, stage)
+    message <- sprintf("%s() is %s", what$fn, stage)
   } else {
-    msg <- sprintf("%s(%s) is %s", what$fn, what$arg, stage)
+    message <- sprintf("%s(%s) is %s", what$fn, what$arg, stage)
   }
 
   if (!is_null(with)) {
     with <- spec(with, NULL, "signal_stage")
-    msg <- paste0(msg, "\n", lifecycle_message_with(with, what))
+    message <- paste0(message, "\n", lifecycle_message_with(with, what))
   }
 
-  signal(
-    msg,
-    "lifecycle_stage",
+  # Much faster than calling `rlang::signal()` directly.
+  # `message` is already formatted so we don't need to worry about cli.
+  cnd_signal(cnd(
+    class = "lifecycle_stage",
+    message = message,
     stage = stage,
     package = what$pkg,
     function_nm = what$fn,
     argument = what$arg,
-    reason = what$reason
-  )
+    reason = what$reason,
+    use_cli_format = FALSE
+  ))
 }
 
 #' Deprecated functions for signalling experimental and lifecycle stages
