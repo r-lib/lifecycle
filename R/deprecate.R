@@ -233,6 +233,10 @@ deprecate_warn0 <- function(
   trace_env = caller_env(),
   user_env = caller_env(2)
 ) {
+  # declare(
+  #   params(msg = lazy)
+  # )
+
   # `msg` is passed lazily for performance reasons! Avoid evaluating it before
   # checking if we can early exit using the `id`.
   id <- id %||% paste_line(msg)
