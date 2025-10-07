@@ -57,24 +57,41 @@ test_that("soft-deprecation warnings are issued when called from child of global
 })
 
 test_that("deprecation warnings are not displayed again", {
-  local_options(lifecycle_verbosity = NULL)
   local_interactive()
+  on.exit(env_unbind(deprecation_env, c("once-per-session", "unconditional")))
 
-  wrn <- catch_cnd(
-    deprecate_warn("1.0.0", "foo()", id = "once-per-session-note"),
-    classes = "warning"
-  )
-  footer <- cnd_footer(wrn)
-  expect_true(is_character(footer) && any(grepl("once per session", footer)))
+  # With `"default"` - warning only shown once per session
+  local_options(lifecycle_verbosity = "default")
 
+  retired <- function() {
+    deprecate_warn("1.0.0", "foo()", id = "once-per-session")
+  }
+
+  # First and only time shows "once per session" message
+  wrn <- catch_cnd(retired(), classes = "lifecycle_warning_deprecated")
+  expect_s3_class(wrn, "lifecycle_warning_deprecated")
+  expect_snapshot(wrn)
+
+  # Calling it again gives no warning at all
+  wrn <- catch_cnd(retired(), classes = "lifecycle_warning_deprecated")
+  expect_null(wrn)
+
+  # With `"warning"` - warning shows unconditionally
   local_options(lifecycle_verbosity = "warning")
 
-  wrn <- catch_cnd(deprecate_warn(
-    "1.0.0",
-    "foo()",
-    id = "once-per-session-no-note"
-  ))
-  expect_false(grepl("once per session", conditionMessage(wrn)))
+  retired <- function() {
+    deprecate_warn("1.0.0", "foo()", id = "unconditional")
+  }
+
+  # First time doesn't show "once per session" message because we always warn
+  wrn <- catch_cnd(retired(), classes = "lifecycle_warning_deprecated")
+  expect_s3_class(wrn, "lifecycle_warning_deprecated")
+  expect_snapshot(wrn)
+
+  # Calling it again shows the warning again, again without "once per session"
+  wrn <- catch_cnd(retired(), classes = "lifecycle_warning_deprecated")
+  expect_s3_class(wrn, "lifecycle_warning_deprecated")
+  expect_snapshot(wrn)
 })
 
 test_that("the topenv of the empty env is not the global env", {

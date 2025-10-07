@@ -122,8 +122,6 @@ deprecate_soft <- function(
     )
   )
 
-  signal_stage("deprecated", what)
-
   verbosity <- lifecycle_verbosity()
   direct <- is_direct(user_env)
 
@@ -180,8 +178,6 @@ deprecate_warn <- function(
     )
   )
 
-  signal_stage("deprecated", what)
-
   verbosity <- lifecycle_verbosity()
 
   invisible(switch(
@@ -223,7 +219,6 @@ deprecate_stop <- function(
     env,
     signaller = "deprecate_stop"
   )
-  signal_stage("deprecated", what)
   deprecate_stop0(msg)
 }
 
@@ -238,6 +233,12 @@ deprecate_warn0 <- function(
   trace_env = caller_env(),
   user_env = caller_env(2)
 ) {
+  # declare(
+  #   params(msg = lazy)
+  # )
+
+  # `msg` is passed lazily for performance reasons! Avoid evaluating it before
+  # checking if we can early exit using the `id`.
   id <- id %||% paste_line(msg)
   if (!always && !needs_warning(id, call = call)) {
     return()
