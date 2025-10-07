@@ -11,14 +11,13 @@
 <url><loc>https://lifecycle.r-lib.org/dev/news/index.html</loc></url>
 <url><loc>https://lifecycle.r-lib.org/dev/reference/badge.html</loc></url>
 <url><loc>https://lifecycle.r-lib.org/dev/reference/deprecate_soft.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/dev/reference/deprecated-signallers.html</loc></url>
 <url><loc>https://lifecycle.r-lib.org/dev/reference/deprecated.html</loc></url>
 <url><loc>https://lifecycle.r-lib.org/dev/reference/expect_deprecated.html</loc></url>
 <url><loc>https://lifecycle.r-lib.org/dev/reference/index.html</loc></url>
 <url><loc>https://lifecycle.r-lib.org/dev/reference/last_lifecycle_warnings.html</loc></url>
 <url><loc>https://lifecycle.r-lib.org/dev/reference/lifecycle-package.html</loc></url>
 <url><loc>https://lifecycle.r-lib.org/dev/reference/lifecycle_linter.html</loc></url>
-<url><loc>https://lifecycle.r-lib.org/dev/reference/signal_experimental.html</loc></url>
-<url><loc>https://lifecycle.r-lib.org/dev/reference/signal_stage.html</loc></url>
 <url><loc>https://lifecycle.r-lib.org/dev/reference/verbosity.html</loc></url>
 </urlset>
 
