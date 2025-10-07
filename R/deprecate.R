@@ -233,6 +233,8 @@ deprecate_warn0 <- function(
   trace_env = caller_env(),
   user_env = caller_env(2)
 ) {
+  # `msg` is passed lazily for performance reasons! Avoid evaluating it before
+  # checking if we can early exit using the `id`.
   id <- id %||% paste_line(msg)
   if (!always && !needs_warning(id, call = call)) {
     return()
