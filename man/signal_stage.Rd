@@ -4,7 +4,7 @@
 \alias{signal_stage}
 \title{Signal other experimental or superseded features}
 \usage{
-signal_stage(stage, what, with = NULL, env = caller_env())
+signal_stage(stage, what, with = NULL, env = deprecated())
 }
 \arguments{
 \item{stage}{Life cycle stage, either \code{"experimental"} or \code{"superseded"}.}
@@ -15,8 +15,7 @@ same syntax as \code{\link[=deprecate_warn]{deprecate_warn()}}.}
 \item{with}{An optional string giving a recommended replacement for a
 superseded function.}
 
-\item{env}{Environment to determine where \code{signal_stage()} was called, used
-to determine the package name.}
+\item{env}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
