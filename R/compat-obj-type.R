@@ -26,7 +26,6 @@
 # - Added documentation.
 # - Added changelog.
 
-
 #' Return English-friendly type
 #' @param x Any R object.
 #' @param value Whether to describe the value of `x`.
@@ -204,11 +203,13 @@ obj_type_oo <- function(x) {
 #' @param ... Arguments passed to [abort()].
 #' @inheritParams args_error_context
 #' @noRd
-stop_input_type <- function(x,
-                            what,
-                            ...,
-                            arg = caller_arg(x),
-                            call = caller_env()) {
+stop_input_type <- function(
+  x,
+  what,
+  ...,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   # From compat-cli.R
   format_arg <- env_get(
     nm = "format_arg",

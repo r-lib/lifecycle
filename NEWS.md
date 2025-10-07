@@ -1,10 +1,26 @@
+# lifecycle (development version)
+
+* `signal_stage()` is now deprecated. This was never hooked up to anything, and our original ideas for it never panned out, so the overhead it entails no longer feels worth it.
+
+* `deprecate_soft()` and `deprecate_warn()` are faster thanks to some internal refactoring (#191, #194, #195, #201).
+
+* `deprecate_soft()` and `deprecate_warn()` now only warn once per session rather than attempting to warn once every 8 hours. This never actually worked (#196).
+
+* Improvements to `lint_lifecycle()` and `lint_tidyverse_lifecycle()` (@AshesITR):
+  * Updated to support lintr >= 3.0.0 (#178).
+  * Fixed default `pattern=` argument to only find R files (#165).
+  * Fixed `lint_tidyverse_lifecycle()` ignoring the `pattern=` argument (#179).
+  * Added support for Quarto qmd files to the default `pattern=` argument (#155).
+  * Added support for Rnw, Rhtml, Rrst, Rtex and Rtxt files to the default `pattern=` argument.
+  * Exported `lifecycle_linter()` to allow including the linter in `.lintr` configurations when using `lintr` (#122).
+
 # lifecycle 1.0.4
 
 * Repeated calls to `deprecate_soft()` and `deprecate_warn()` are faster thanks
   to some internal refactoring (#177).
 
 * Switch from `expr_deparse()` to `deparse()`. This improves performance
-  considerably and the cost of making some unusual function calls mildly 
+  considerably and the cost of making some unusual function calls mildly
   less appealing (#167).
 
 # lifecycle 1.0.3
@@ -96,7 +112,7 @@
 * New `expect_deprecated()` and `expect_defunct()` functions for
   testting lifecycle warnings and errors. `expect_deprecated()`
   automatically sets the `lifecycle_verbosity` option to `"warning"`
-  to enforce warnings at each invokation rather than once per session.
+  to enforce warnings at each invocation rather than once per session.
 
 * New syntax `"foo(arg = 'can\\'t be a baz')"` to describe that specific inputs
   for an argument are deprecated (#30, @krlmlr).
