@@ -23,7 +23,8 @@ superseded function.}
 \code{signal_stage()} allows you to signal life cycle stages other than
 deprecation (for which you should use \code{\link[=deprecate_warn]{deprecate_warn()}} and friends). There
 is no behaviour associated with this signal, it is currently purely a way to
-express intent at the call site.
+express intent at the call site. In the future, we hope to replace this with
+a standardized call to \code{base::declare()}.
 }
 \examples{
 foofy <- function(x, y, z) {
