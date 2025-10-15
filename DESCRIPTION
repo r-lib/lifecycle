@@ -1,6 +1,6 @@
 Package: lifecycle
 Title: Manage the Life Cycle of your Package Functions
-Version: 1.0.4
+Version: 1.0.4.9000
 Authors@R: c(
     person("Lionel", "Henry", , "lionel@posit.co", role = c("aut", "cre")),
     person("Hadley", "Wickham", , "hadley@posit.co", role = "aut",
@@ -17,23 +17,23 @@ Depends:
     R (>= 3.6)
 Imports:
     cli (>= 3.4.0),
-    glue,
     rlang (>= 1.1.0)
 Suggests:
     covr,
     knitr,
-    lintr,
+    lintr (>= 3.1.0),
     rmarkdown,
     testthat (>= 3.0.1),
     tibble,
     tidyverse,
     tools,
     vctrs,
-    withr
+    withr,
+    xml2
 VignetteBuilder: 
     knitr
 Config/Needs/website: tidyverse/tidytemplate, usethis
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.3

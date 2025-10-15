@@ -25,7 +25,7 @@
 #' @details
 #' `expect_deprecated()` sets the [lifecycle_verbosity][verbosity]
 #' option to `"warning"` to enforce deprecation warnings which are
-#' otherwise only shown once every 8 hours.
+#' otherwise only shown once per session.
 #'
 #' @export
 expect_deprecated <- function(expr, regexp = NULL, ...) {

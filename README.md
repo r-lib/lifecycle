@@ -1,8 +1,8 @@
 # lifecycle
 
 <!-- badges: start -->
-
 [![R-CMD-check](https://github.com/r-lib/lifecycle/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/lifecycle/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/r-lib/lifecycle/graph/badge.svg)](https://app.codecov.io/gh/r-lib/lifecycle)
 <!-- badges: end -->
 
 lifecycle provides a set of tools and conventions to manage the life cycle of your exported functions.

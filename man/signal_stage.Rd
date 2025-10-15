@@ -4,28 +4,27 @@
 \alias{signal_stage}
 \title{Signal other experimental or superseded features}
 \usage{
-signal_stage(stage, what, with = NULL, env = caller_env())
+signal_stage(stage, what, with = NULL, env = deprecated())
 }
 \arguments{
-\item{stage}{Life cycle stage, either "experimental" or "superseded".}
+\item{stage}{Life cycle stage, either \code{"experimental"} or \code{"superseded"}.}
 
-\item{what}{String describing what feature the stage applies too, using
-the same syntax as \code{\link[=deprecate_warn]{deprecate_warn()}}.}
+\item{what}{String describing what feature the stage applies too, using the
+same syntax as \code{\link[=deprecate_warn]{deprecate_warn()}}.}
 
-\item{with}{An optional string giving a recommended replacement for
-a superseded function.}
+\item{with}{An optional string giving a recommended replacement for a
+superseded function.}
 
-\item{env}{Environment used to determine where \code{signal_stage()}
-was called, used to determine the package name).}
+\item{env}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \code{signal_stage()} allows you to signal life cycle stages other than
-deprecation (for which you should use \code{\link[=deprecate_warn]{deprecate_warn()}} and friends).
-There is no behaviour associated with this signal, but in the future
-we will provide tools to log and report on usage of experimental and
-superseded functions.
+deprecation (for which you should use \code{\link[=deprecate_warn]{deprecate_warn()}} and friends). There
+is no behaviour associated with this signal, it is currently purely a way to
+express intent at the call site. In the future, we hope to replace this with
+a standardized call to \code{base::declare()}.
 }
 \examples{
 foofy <- function(x, y, z) {

@@ -56,11 +56,14 @@ which will be converted to a \link[cli:cli_bullets]{bulleted list}.
 By default, info bullets are used. Provide a named vectors to
 override.}
 
-\item{id}{The id of the deprecation. A warning is issued only once
-for each \code{id}. Defaults to the generated message, but you should
-give a unique ID when the message in \code{details} is built
-programmatically and depends on inputs, or when you'd like to
-deprecate multiple functions but warn only once for all of them.}
+\item{id}{The id of the deprecation. A warning is issued only once for each
+\code{id}. Defaults to the generated message, but you should provide a unique
+\code{id} when the message in \code{details} is built programmatically and depends on
+inputs, or when you'd like to deprecate multiple functions but warn only
+once for all of them. Repeated calls to \code{deprecate_soft()} and
+\code{deprecate_warn()} are also much faster if you supply an \code{id} because it
+avoids spending time generating the message only to immediately exit if the
+once per session warning has already been thrown before.}
 
 \item{env, user_env}{Pair of environments that define where \verb{deprecate_*()}
 was called (used to determine the package name) and where the function
@@ -71,9 +74,9 @@ These are only needed if you're calling \verb{deprecate_*()} from an internal
 helper, in which case you should forward \code{env = caller_env()} and
 \code{user_env = caller_env(2)}.}
 
-\item{always}{If \code{FALSE}, the default, will warn every 8 hours.  If
+\item{always}{If \code{FALSE}, the default, will warn once per session. If
 \code{TRUE}, will always warn in direct usages. Indirect usages keep
-warning every 8 hours to avoid disrupting users who can't fix the
+warning once per session to avoid disrupting users who can't fix the
 issue. Only use \code{always = TRUE} after at least one release with
 the default.}
 }
@@ -93,7 +96,7 @@ you don't control.
 \item \code{deprecate_stop()} fails unconditionally.
 }
 
-Warnings are only issued once every 8 hours to avoid overwhelming
+Warnings are only issued once per session to avoid overwhelming
 the user. Control with \code{\link[=verbosity]{options(lifecycle_verbosity)}}.
 }
 \section{Conditions}{

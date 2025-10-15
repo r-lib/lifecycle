@@ -11,16 +11,16 @@ paste_line <- function(...) {
 }
 
 # nocov start
-red       <- function(x) cli::col_red(x)
-blue      <- function(x) cli::col_blue(x)
-green     <- function(x) cli::col_green(x)
-yellow    <- function(x) cli::col_yellow(x)
-magenta   <- function(x) cli::col_magenta(x)
-cyan      <- function(x) cli::col_cyan(x)
-blurred   <- function(x) cli::style_blurred(x)
-silver    <- function(x) cli::col_silver(x)
-bold      <- function(x) cli::style_bold(x)
-italic    <- function(x) cli::style_italic(x)
+red <- function(x) cli::col_red(x)
+blue <- function(x) cli::col_blue(x)
+green <- function(x) cli::col_green(x)
+yellow <- function(x) cli::col_yellow(x)
+magenta <- function(x) cli::col_magenta(x)
+cyan <- function(x) cli::col_cyan(x)
+blurred <- function(x) cli::style_blurred(x)
+silver <- function(x) cli::col_silver(x)
+bold <- function(x) cli::style_bold(x)
+italic <- function(x) cli::style_italic(x)
 underline <- function(x) cli::style_underline(x)
 # nocov end
 

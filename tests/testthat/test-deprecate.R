@@ -4,7 +4,9 @@ test_that("default deprecations behave as expected", {
   on.exit(env_unbind(deprecation_env, "test"))
   local_options(lifecycle_verbosity = "default")
 
-  deprecated_feature <- function(...) deprecate_warn("1.0.0", "foo()", with = "bar()", id = "test", ...)
+  deprecated_feature <- function(...) {
+    deprecate_warn("1.0.0", "foo()", with = "bar()", id = "test", ...)
+  }
   c(direct, indirect) %<-% new_callers(deprecated_feature)
 
   expect_snapshot({
@@ -22,7 +24,9 @@ test_that("deprecate_warn() only warns repeatedly if always = TRUE", {
   on.exit(env_unbind(deprecation_env, "test"))
   local_options(lifecycle_verbosity = "default")
 
-  deprecated_feature <- function(...) deprecate_warn("1.0.0", "foo()", id = "test", ...)
+  deprecated_feature <- function(...) {
+    deprecate_warn("1.0.0", "foo()", id = "test", ...)
+  }
   c(direct, indirect) %<-% new_callers(deprecated_feature)
 
   expect_snapshot({
@@ -44,7 +48,9 @@ test_that("indirect usage recommends contacting authors", {
   on.exit(env_unbind(deprecation_env, c("test_base", "test_rlang")))
   local_options(lifecycle_verbosity = "default")
 
-  deprecated_feature <- function(..., id) deprecate_warn("1.0.0", "foo()", id = id, ...)
+  deprecated_feature <- function(..., id) {
+    deprecate_warn("1.0.0", "foo()", id = id, ...)
+  }
   c(direct, indirect) %<-% new_callers(deprecated_feature)
 
   # To test for URL
@@ -113,7 +119,8 @@ test_that("warning conditions are signaled only once if warnings are suppressed"
 
   x <- 0L
   suppressWarnings(withCallingHandlers(
-    warning = function(...) x <<- x + 1L, {
+    warning = function(...) x <<- x + 1L,
+    {
       direct("1.0.0", "foo()")
       indirect("1.0.0", "foo()")
     }
@@ -129,9 +136,17 @@ test_that("what deprecation messages are readable", {
     cat_line(lifecycle_message("1.0.0", "foo()"))
     cat_line(lifecycle_message("1.0.0", "foo()", signaller = "deprecate_stop"))
     cat_line(lifecycle_message("1.0.0", "foo(arg)"))
-    cat_line(lifecycle_message("1.0.0", "foo(arg)", signaller = "deprecate_stop"))
+    cat_line(lifecycle_message(
+      "1.0.0",
+      "foo(arg)",
+      signaller = "deprecate_stop"
+    ))
     cat_line(lifecycle_message("1.0.0", I("Use of bananas")))
-    cat_line(lifecycle_message("1.0.0", I("Use of bananas"), signaller = "deprecate_stop"))
+    cat_line(lifecycle_message(
+      "1.0.0",
+      I("Use of bananas"),
+      signaller = "deprecate_stop"
+    ))
   })
 })
 
@@ -159,7 +174,8 @@ test_that("details uses an info bullet by default", {
   on.exit(env_unbind(deprecation_env, "test"))
   expect_snapshot({
     deprecate_warn(
-      "1.0.0", "foo()",
+      "1.0.0",
+      "foo()",
       details = "Please do that instead.",
       id = "test"
     )
@@ -168,7 +184,8 @@ test_that("details uses an info bullet by default", {
   env_unbind(deprecation_env, "test")
   expect_snapshot({
     deprecate_warn(
-      "1.0.0", "foo()",
+      "1.0.0",
+      "foo()",
       details = c("Please do that instead.", "Also know that."),
       id = "test"
     )
@@ -179,7 +196,8 @@ test_that("can use bullets in details ", {
   on.exit(env_unbind(deprecation_env, "test"))
   expect_snapshot({
     deprecate_warn(
-      "1.0.0", "foo()",
+      "1.0.0",
+      "foo()",
       details = c(
         "Unnamed",
         i = "Informative",
@@ -193,6 +211,41 @@ test_that("can use bullets in details ", {
 test_that("checks input types", {
   expect_snapshot(lifecycle_message(1), error = TRUE)
   expect_snapshot(lifecycle_message("1", details = 1), error = TRUE)
+})
+
+test_that("lifecycle message is never generated when an `id` is supplied and we've already warned", {
+  # This is an important test for performance reasons. Supplying an `id` makes
+  # repeated calls to `deprecate_soft()` and `deprecate_warn()` much faster by
+  # avoiding message generation via `lifecycle_message()`.
+
+  on.exit(env_unbind(deprecation_env, c("test")))
+  local_options(lifecycle_verbosity = "default")
+
+  # Mock having already warned this session
+  env_poke(deprecation_env, "test", TRUE)
+
+  # These arguments are never touched again if we supply an `id`,
+  # we expect silence in the snapshot
+  expect_snapshot({
+    deprecate_soft(
+      when = stop("when"),
+      what = stop("what"),
+      with = stop("with"),
+      details = stop("details"),
+      env = stop("env"),
+      id = "test"
+    )
+  })
+  expect_snapshot({
+    deprecate_warn(
+      when = stop("when"),
+      what = stop("what"),
+      with = stop("with"),
+      details = stop("details"),
+      env = stop("env"),
+      id = "test"
+    )
+  })
 })
 
 # helpers -----------------------------------------------------------------
@@ -210,12 +263,6 @@ test_that("needs_warning works as expected", {
   expect_snapshot(needs_warning(1), error = TRUE)
   expect_true(needs_warning("test"))
 
-  env_poke(deprecation_env, "test", Sys.time())
+  env_poke(deprecation_env, "test", TRUE)
   expect_false(needs_warning("test"))
-
-  env_poke(deprecation_env, "test", Sys.time() - 9 * 60 * 60)
-  expect_false(needs_warning("test"))
-
-  env_poke(deprecation_env, "test", "x")
-  expect_snapshot_error(needs_warning("test"))
 })

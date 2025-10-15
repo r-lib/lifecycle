@@ -14,7 +14,7 @@
 #' `lifecycle_verbosity`. It can be set to:
 #'
 #' * `"quiet"` to suppress all deprecation messages.
-#' * `"default"` or `NULL` to warn once every 8 hours.
+#' * `"default"` or `NULL` to warn once per session.
 #' * `"warning"` to warn every time.
 #' * `"error"` to error instead of warning.
 #'
@@ -48,17 +48,23 @@
 NULL
 
 lifecycle_verbosity <- function() {
-  opt <- peek_option("lifecycle_verbosity") %||% "default"
+  opt <- peek_option("lifecycle_verbosity")
+
+  if (is_null(opt)) {
+    return("default")
+  }
 
   if (!is_string(opt, c("quiet", "default", "warning", "error"))) {
     options(lifecycle_verbosity = "default")
-    warn(glue::glue(
-      "
-      The `lifecycle_verbosity` option must be set to one of:
-      \"quiet\", \"default\", \"warning\", or \"error\".
-      Resetting to \"default\".
-      "
-    ))
+
+    message <- paste(
+      sep = " ",
+      "The `lifecycle_verbosity` option must be set to one of:",
+      "\"quiet\", \"default\", \"warning\", or \"error\".",
+      "Resetting to \"default\"."
+    )
+
+    warn(message)
   }
 
   opt

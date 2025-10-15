@@ -1,24 +1,18 @@
-# signal generates user friendly message
+# `signal_experimental()` and `signal_superseded()` are deprecated
 
     Code
-      (expect_condition(signal_stage("experimental", "foo()")))
-    Output
-      <lifecycle_stage: foo() is experimental>
-    Code
-      (expect_condition(signal_stage("superseded", "foo(bar)")))
-    Output
-      <lifecycle_stage: foo(arg) is superseded>
+      signal_experimental("1.1.0", "foo()")
+    Condition
+      Warning:
+      `signal_experimental()` was deprecated in lifecycle 1.1.0.
+      i Please use `signal_stage()` instead.
 
-# signal_stage supports with
+---
 
     Code
-      (expect_condition(signal_stage("superseded", "foo()", "bar()")))
-    Output
-      <lifecycle_stage: foo() is superseded
-      Please use `bar()` instead.>
-    Code
-      (expect_condition(signal_stage("superseded", "foo(bar=)", "foo(baz=)")))
-    Output
-      <lifecycle_stage: foo(arg) is superseded
-      Please use the `baz` argument instead.>
+      signal_superseded("1.1.0", "foo()")
+    Condition
+      Warning:
+      `signal_superseded()` was deprecated in lifecycle 1.1.0.
+      i Please use `signal_stage()` instead.
 
