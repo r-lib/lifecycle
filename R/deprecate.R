@@ -281,7 +281,7 @@ deprecate_warn0 <- function(
     if (is_interactive()) {
       footer <- c(
         footer,
-        if (!always) silver("This warning is displayed once per session."),
+        if (!always) cli::col_silver("This warning is displayed once per session."),
         cli::format_inline(cli::col_silver(
           "Call {.run lifecycle::last_lifecycle_warnings()} to see where this warning was generated."
         ))
