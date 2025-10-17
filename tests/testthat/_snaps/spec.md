@@ -4,7 +4,7 @@
       spec(1)
     Condition
       Error:
-      ! `what` must be a single string, not a number.
+      ! `what` must be a single string, not the number 1.
 
 ---
 

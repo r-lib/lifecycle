@@ -176,7 +176,7 @@
       lifecycle_message(1)
     Condition
       Error:
-      ! `when` must be a single string, not a number.
+      ! `when` must be a single string, not the number 1.
 
 ---
 
@@ -184,7 +184,7 @@
       lifecycle_message("1", details = 1)
     Condition
       Error:
-      ! `details` must be a character vector, not a number.
+      ! `details` must be a character vector, not the number 1.
 
 # lifecycle message is never generated when an `id` is supplied and we've already warned
 
@@ -204,5 +204,5 @@
       needs_warning(1)
     Condition
       Error:
-      ! `id` must be a single string, not a number.
+      ! `id` must be a single string, not the number 1.
 
