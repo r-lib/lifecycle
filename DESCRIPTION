@@ -20,7 +20,6 @@ Imports:
     rlang (>= 1.1.0)
 Suggests:
     covr,
-    crayon,
     knitr,
     lintr (>= 3.1.0),
     rmarkdown,
