@@ -12,8 +12,8 @@ test_that("default deprecations behave as expected", {
   expect_snapshot({
     (expect_warning(direct(), class = "lifecycle_warning_deprecated"))
   })
-  expect_warning(indirect(), NA)
-  expect_warning(indirect(), NA)
+  expect_no_warning(indirect())
+  expect_no_warning(indirect())
 
   expect_snapshot({
     (expect_defunct(deprecate_stop("1.0.0", "foo()")))
@@ -66,8 +66,8 @@ test_that("indirect usage recommends contacting authors", {
 test_that("quiet suppresses _soft and _warn", {
   local_options(lifecycle_verbosity = "quiet")
 
-  expect_warning(deprecate_soft("1.0.0", "foo()"), NA)
-  expect_warning(deprecate_warn("1.0.0", "foo()"), NA)
+  expect_no_warning(deprecate_soft("1.0.0", "foo()"))
+  expect_no_warning(deprecate_warn("1.0.0", "foo()"))
   expect_defunct(deprecate_stop("1.0.0", "foo()"))
 })
 
@@ -108,7 +108,7 @@ test_that("soft deprecation uses correct calling envs", {
 
   # Calling package function indirectly from global env shouldn't
   cnd <- catch_cnd(evalq(softly_softly(), global_env()), "warning")
-  expect_equal(cnd, NULL)
+  expect_null(cnd)
 })
 
 test_that("warning conditions are signaled only once if warnings are suppressed", {
