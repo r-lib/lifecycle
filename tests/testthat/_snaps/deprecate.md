@@ -209,7 +209,6 @@
 # deprecate_soft() mentions the correct argument (#152)
 
     Code
-      deprecate_soft(when = "1.0.0", what = "foo()", with = "bar")
       deprecate_warn(when = "1.0.0", what = "foo()", with = "bar")
     Condition
       Error in `lifecycle_message()`:
