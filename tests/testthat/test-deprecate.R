@@ -266,3 +266,10 @@ test_that("needs_warning works as expected", {
   env_poke(deprecation_env, "test", TRUE)
   expect_false(needs_warning("test"))
 })
+
+test_that("deprecate_soft() mentions the correct argument (#152)", {
+  expect_snapshot(error = TRUE, {
+    deprecate_soft(when = "1.0.0", what = "foo()", with = "bar")
+    deprecate_warn(when = "1.0.0", what = "foo()", with = "bar")
+  })
+})
