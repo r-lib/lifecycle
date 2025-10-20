@@ -2,6 +2,7 @@ spec <- function(
   spec,
   env = caller_env(),
   signaller = "signal_lifecycle",
+  type = c("what", "with"),
   error_call = caller_env()
 ) {
   ctxt <- list(
@@ -18,7 +19,7 @@ spec <- function(
       from = signaller
     )
   } else {
-    what <- parse_what(spec, ctxt = ctxt)
+    what <- parse_what(spec, ctxt = ctxt, type = type)
 
     list(
       fn = spec_fn(what$call, ctxt = ctxt),
@@ -30,16 +31,16 @@ spec <- function(
   }
 }
 
-parse_what <- function(what, ctxt) {
+parse_what <- function(what, ctxt, type = c("what", "with")) {
   check_string(what, call = ctxt$call)
-
+  type <- arg_match(type)
   call <- parse_expr(what)
 
   if (!is_call(call)) {
     what <- as_string(what)
     cli::cli_abort(
       c(
-        "{.arg what} must have function call syntax.",
+        "{.arg {type}} must have function call syntax.",
         "",
         " " = "# Good:",
         " " = "{ ctxt$signaller }(\"{what}()\")",
