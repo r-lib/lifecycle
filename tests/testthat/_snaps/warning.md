@@ -12,7 +12,7 @@
            x
         1. +-lifecycle::expect_deprecated(f())
         2. | \-testthat::expect_warning(...)
-        3. |   \-testthat:::expect_condition_matching(...)
+        3. |   \-testthat:::expect_condition_matching_(...)
         4. |     \-testthat:::quasi_capture(...)
         5. |       +-testthat (local) .capture(...)
         6. |       | \-base::withCallingHandlers(...)
