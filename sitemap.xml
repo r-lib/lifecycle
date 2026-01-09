@@ -1,69 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://lifecycle.r-lib.org/404.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/articles/communicate.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/articles/manage.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/articles/stages.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/index.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/reference/badge.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/reference/deprecate_soft.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/reference/deprecated.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/reference/expect_deprecated.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/reference/last_lifecycle_warnings.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/reference/lifecycle-package.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/reference/lint_lifecycle.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/reference/signal_experimental.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/reference/signal_stage.html</loc>
-  </url>
-  <url>
-    <loc>https://lifecycle.r-lib.org/reference/verbosity.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://lifecycle.r-lib.org/404.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/LICENSE-text.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/LICENSE.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/articles/communicate.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/articles/index.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/articles/manage.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/articles/stages.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/authors.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/index.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/news/index.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/reference/badge.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/reference/deprecate_soft.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/reference/deprecated-signallers.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/reference/deprecated.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/reference/expect_deprecated.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/reference/index.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/reference/last_lifecycle_warnings.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/reference/lifecycle-package.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/reference/lifecycle_linter.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/reference/signal_stage.html</loc></url>
+<url><loc>https://lifecycle.r-lib.org/reference/verbosity.html</loc></url>
 </urlset>
+
