@@ -1,3 +1,5 @@
+# lifecycle (development version)
+
 # lifecycle 1.0.5
 
 * `signal_stage()` no longer does anything, and is now purely a way to express intent at the call site of whether a function is superseded or experimental (#203).
