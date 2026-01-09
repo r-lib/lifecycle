@@ -1,0 +1,79 @@
+# lifecycle
+
+lifecycle provides a set of tools and conventions to manage the life
+cycle of your exported functions.
+
+- For a general motivation and introduction to the key concepts, watch
+  Hadley’s rstudio::global(2021) keynote [“Maintaining the house that
+  the tidyverse
+  built”](https://posit.co/resources/videos/maintaining-the-house-the-tidyverse-built/).
+
+- Read
+  [`vignette("stages")`](https://lifecycle.r-lib.org/dev/articles/stages.md)
+  to learn what it means for a function to be experimental, stable,
+  deprecated, or superseded.
+
+- Read
+  [`vignette("manage")`](https://lifecycle.r-lib.org/dev/articles/manage.md)
+  to learn how to manage lifecycle changes in functions that you use.
+
+- Read
+  [`vignette("communicate")`](https://lifecycle.r-lib.org/dev/articles/communicate.md)
+  to learn how to communicate lifecycle changes in the functions you
+  write.
+
+## Installation
+
+``` r
+# Install release version from CRAN
+install.packages("lifecycle")
+
+# Install development version from GitHub
+pak::pak("r-lib/lifecycle")
+```
+
+## Code of Conduct
+
+Please note that the lifecycle project is released with a [Contributor
+Code of Conduct](https://lifecycle.r-lib.org/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms.
+
+# Package index
+
+## All functions
+
+- [`badge()`](https://lifecycle.r-lib.org/dev/reference/badge.md) :
+  Embed a lifecycle badge in documentation
+- [`deprecate_soft()`](https://lifecycle.r-lib.org/dev/reference/deprecate_soft.md)
+  [`deprecate_warn()`](https://lifecycle.r-lib.org/dev/reference/deprecate_soft.md)
+  [`deprecate_stop()`](https://lifecycle.r-lib.org/dev/reference/deprecate_soft.md)
+  : Deprecate functions and arguments
+- [`deprecated()`](https://lifecycle.r-lib.org/dev/reference/deprecated.md)
+  [`is_present()`](https://lifecycle.r-lib.org/dev/reference/deprecated.md)
+  : Mark an argument as deprecated
+- [`expect_deprecated()`](https://lifecycle.r-lib.org/dev/reference/expect_deprecated.md)
+  [`expect_defunct()`](https://lifecycle.r-lib.org/dev/reference/expect_deprecated.md)
+  : Does expression produce lifecycle warnings or errors?
+- [`last_lifecycle_warnings()`](https://lifecycle.r-lib.org/dev/reference/last_lifecycle_warnings.md)
+  : Display last deprecation warnings
+- [`pkg_lifecycle_statuses()`](https://lifecycle.r-lib.org/dev/reference/lifecycle_linter.md)
+  [`lint_lifecycle()`](https://lifecycle.r-lib.org/dev/reference/lifecycle_linter.md)
+  [`lint_tidyverse_lifecycle()`](https://lifecycle.r-lib.org/dev/reference/lifecycle_linter.md)
+  [`lifecycle_linter()`](https://lifecycle.r-lib.org/dev/reference/lifecycle_linter.md)
+  : Lint usages of functions that have a non-stable life cycle.
+- [`signal_stage()`](https://lifecycle.r-lib.org/dev/reference/signal_stage.md)
+  **\[experimental\]** : Signal other experimental or superseded
+  features
+- [`verbosity`](https://lifecycle.r-lib.org/dev/reference/verbosity.md)
+  : Control the verbosity of deprecation signals
+
+# Articles
+
+### All vignettes
+
+- [Communicate lifecycle changes in your
+  functions](https://lifecycle.r-lib.org/dev/articles/communicate.md):
+- [Manage lifecycle changes in functions you
+  use](https://lifecycle.r-lib.org/dev/articles/manage.md):
+- [Lifecycle
+  stages](https://lifecycle.r-lib.org/dev/articles/stages.md):
