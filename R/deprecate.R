@@ -346,7 +346,7 @@ lifecycle_message <- function(
   msg <- lifecycle_message_what(what, when)
 
   if (!is_null(with)) {
-    with <- spec(with, NULL, signaller = signaller)
+    with <- spec(with, NULL, signaller = signaller, type = "with")
     msg <- c(msg, "i" = lifecycle_message_with(with, what))
   }
 
