@@ -247,55 +247,17 @@ deprecate_warn0 <- function(
   # Prevent warning from being displayed again this session
   env_poke(deprecation_env, id, TRUE)
 
-  footer <- function(...) {
-    footer <- NULL
-
-    if (!direct) {
-      top <- topenv(user_env)
-
-      if (is_namespace(top)) {
-        pkg <- ns_env_name(top)
-        url <- pkg_url_bug(pkg)
-
-        likely_line <- cli::format_inline(
-          "The deprecated feature was likely used in the {.pkg {pkg}} package."
-        )
-
-        if (is_null(url)) {
-          report_line <-
-            "Please report the issue to the authors."
-        } else {
-          report_line <- cli::format_inline(
-            "Please report the issue at {.url {url}}."
-          )
-        }
-
-        footer <- c(
-          footer,
-          "i" = likely_line,
-          " " = report_line
-        )
-      }
-    }
-
-    if (is_interactive()) {
-      footer <- c(
-        footer,
-        if (!always) {
-          cli::col_silver("This warning is displayed once per session.")
-        },
-        cli::format_inline(cli::col_silver(
-          "Call {.run lifecycle::last_lifecycle_warnings()} to see where this warning was generated."
-        ))
-      )
-    }
-
-    footer
-  }
-
   trace <- trace_back(bottom = trace_env)
 
-  wrn <- new_deprecated_warning(msg, trace, footer = footer)
+  pkg <- NULL
+  if (!direct) {
+    top <- topenv(user_env)
+    if (is_namespace(top)) {
+      pkg <- ns_env_name(top)
+    }
+  }
+
+  wrn <- new_deprecated_warning(msg, trace, pkg, always)
 
   # Record muffled warnings if testthat is running because it
   # muffles all warnings but we still want to examine them after a

@@ -38,14 +38,59 @@ last_lifecycle_warnings <- function() {
   )
 }
 
-new_deprecated_warning <- function(msg, trace, ..., footer = NULL) {
+new_deprecated_warning <- function(msg, trace, pkg, always) {
   warning_cnd(
     "lifecycle_warning_deprecated",
     message = msg,
     trace = trace,
-    footer = footer,
-    internal = list(...)
+    pkg = pkg,
+    always = always
   )
+}
+
+#' @export
+cnd_footer.lifecycle_warning_deprecated <- function(cnd, ...) {
+  footer <- NULL
+
+  pkg <- cnd$pkg
+  always <- cnd$always
+
+  if (!is_null(pkg)) {
+    likely_line <- cli::format_inline(
+      "The deprecated feature was likely used in the {.pkg {pkg}} package."
+    )
+
+    url <- pkg_url_bug(pkg)
+
+    if (is_null(url)) {
+      report_line <-
+        "Please report the issue to the authors."
+    } else {
+      report_line <- cli::format_inline(
+        "Please report the issue at {.url {url}}."
+      )
+    }
+
+    footer <- c(
+      footer,
+      "i" = likely_line,
+      " " = report_line
+    )
+  }
+
+  if (is_interactive()) {
+    footer <- c(
+      footer,
+      if (!always) {
+        cli::col_silver("This warning is displayed once per session.")
+      },
+      cli::format_inline(cli::col_silver(
+        "Call {.run lifecycle::last_lifecycle_warnings()} to see where this warning was generated."
+      ))
+    )
+  }
+
+  footer
 }
 
 #' @export
