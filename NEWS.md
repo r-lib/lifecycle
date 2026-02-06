@@ -1,5 +1,7 @@
 # lifecycle (development version)
 
+* `deprecate_soft()` and `deprecate_warn()` no longer accidentally capture the surrounding environment in the condition object (#211).
+
 # lifecycle 1.0.5
 
 * `signal_stage()` no longer does anything, and is now purely a way to express intent at the call site of whether a function is superseded or experimental (#203).
