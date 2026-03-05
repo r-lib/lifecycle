@@ -2,6 +2,13 @@
 
 ## lifecycle (development version)
 
+- [`deprecate_soft()`](https://lifecycle.r-lib.org/dev/reference/deprecate_soft.md)
+  and
+  [`deprecate_warn()`](https://lifecycle.r-lib.org/dev/reference/deprecate_soft.md)
+  no longer accidentally capture the surrounding environment in the
+  condition object
+  ([\#211](https://github.com/r-lib/lifecycle/issues/211)).
+
 ## lifecycle 1.0.5
 
 CRAN release: 2026-01-08

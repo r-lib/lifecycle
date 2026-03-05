@@ -46,7 +46,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="lifecycle-development-version">lifecycle (development version)<a class="anchor" aria-label="anchor" href="#lifecycle-development-version"></a></h2>
-</div>
+<ul><li>
+<code><a href="../reference/deprecate_soft.html">deprecate_soft()</a></code> and <code><a href="../reference/deprecate_soft.html">deprecate_warn()</a></code> no longer accidentally capture the surrounding environment in the condition object (<a href="https://github.com/r-lib/lifecycle/issues/211" class="external-link">#211</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.5" id="lifecycle-105">lifecycle 1.0.5<a class="anchor" aria-label="anchor" href="#lifecycle-105"></a></h2><p class="text-muted">CRAN release: 2026-01-08</p>
 <ul><li><p><code><a href="../reference/signal_stage.html">signal_stage()</a></code> no longer does anything, and is now purely a way to express intent at the call site of whether a function is superseded or experimental (<a href="https://github.com/r-lib/lifecycle/issues/203" class="external-link">#203</a>).</p></li>
