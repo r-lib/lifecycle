@@ -206,3 +206,17 @@
       Error:
       ! `id` must be a single string, not the number 1.
 
+# deprecate_soft() mentions the correct argument (#152)
+
+    Code
+      deprecate_warn(when = "1.0.0", what = "foo()", with = "bar")
+    Condition
+      Error in `lifecycle_message()`:
+      ! `with` must have function call syntax.
+      
+        # Good:
+        deprecate_warn("bar()")
+      
+        # Bad:
+        deprecate_warn("bar")
+
