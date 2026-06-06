@@ -350,9 +350,9 @@ lifecycle_message_what <- function(what, when) {
         when
       )
     } else {
-      what$reason <- what$reason %||% "is deprecated"
+      what$reason <- what$reason %||% "was deprecated"
       sprintf(
-        "The `%s` argument of %s %s as of %s %s.",
+        "The `%s` argument of %s %s in %s %s.",
         what$arg,
         what$fn,
         what$reason,

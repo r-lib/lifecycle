@@ -75,7 +75,7 @@
     Code
       cat_line(lifecycle_message("1.0.0", "foo(arg)"))
     Output
-      The `arg` argument of `foo()` is deprecated as of base 1.0.0.
+      The `arg` argument of `foo()` was deprecated in base 1.0.0.
     Code
       cat_line(lifecycle_message("1.0.0", "foo(arg)", signaller = "deprecate_stop"))
     Output
@@ -104,12 +104,12 @@
     Code
       cat_line(lifecycle_message("1.0.0", "foo(arg1)", "foo(arg2)"))
     Output
-      The `arg1` argument of `foo()` is deprecated as of base 1.0.0.
+      The `arg1` argument of `foo()` was deprecated in base 1.0.0.
       Please use the `arg2` argument instead.
     Code
       cat_line(lifecycle_message("1.0.0", "foo(arg)", "bar(arg)"))
     Output
-      The `arg` argument of `foo()` is deprecated as of base 1.0.0.
+      The `arg` argument of `foo()` was deprecated in base 1.0.0.
       Please use the `arg` argument of `bar()` instead.
     Code
       cat_line(lifecycle_message("1.0.0", I("Use of bananas"), I("apples")))
@@ -122,7 +122,7 @@
     Code
       cat_line(lifecycle_message("1.0.0", "`foo-fy`(`qu-ux` = )"))
     Output
-      The `qu-ux` argument of `foo-fy()` is deprecated as of base 1.0.0.
+      The `qu-ux` argument of `foo-fy()` was deprecated in base 1.0.0.
     Code
       cat_line(lifecycle_message("1.0.0", "`foo<-`()"))
     Output
