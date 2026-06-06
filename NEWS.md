@@ -1,5 +1,8 @@
 # lifecycle (development version)
 
+* The `deprecated()` example now uses the same function name in the example
+  definition and the `deprecate_warn()` call (#166, @LeonidasZhak).
+
 * `deprecate_soft()` and `deprecate_warn()` no longer accidentally capture the surrounding environment in the condition object (#211).
 
 # lifecycle 1.0.5
