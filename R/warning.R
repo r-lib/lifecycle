@@ -11,6 +11,9 @@
 #' one of `"branch"` (the default), `"collapse"`, and `"none"` (in
 #' increasing order of verbosity).
 #'
+#' @return A list of class `"lifecycle_warnings"`, where each element
+#'   represents a deprecation warning and its backtrace.
+#'
 #' @examples
 #' # These examples are not run because `last_lifecycle_warnings()` does not
 #' # work well within knitr and pkgdown

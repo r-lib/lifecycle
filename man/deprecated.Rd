@@ -12,6 +12,11 @@ is_present(arg)
 \arguments{
 \item{arg}{A \code{deprecated()} function argument.}
 }
+\value{
+\code{deprecated()} returns a sentinel value that signals the
+argument is deprecated. \code{is_present()} returns \code{TRUE} if the
+argument was supplied by the caller, \code{FALSE} otherwise.
+}
 \description{
 Signal deprecated argument by using self-documenting sentinel
 \code{deprecated()} as default argument. Test whether the caller has

@@ -19,6 +19,8 @@
 #'
 #' @param env `r badge("deprecated")`
 #'
+#' @return `NULL`, invisibly.
+#'
 #' @export
 #' @examples
 #' foofy <- function(x, y, z) {

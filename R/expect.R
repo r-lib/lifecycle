@@ -27,6 +27,9 @@
 #' option to `"warning"` to enforce deprecation warnings which are
 #' otherwise only shown once per session.
 #'
+#' @return `expect_deprecated()` and `expect_defunct()` return the
+#'   test expectation result invisibly (a `"expectation"` object).
+#'
 #' @export
 expect_deprecated <- function(expr, regexp = NULL, ...) {
   local_options(lifecycle_verbosity = "warning")

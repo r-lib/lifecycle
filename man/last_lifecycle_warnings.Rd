@@ -6,6 +6,10 @@
 \usage{
 last_lifecycle_warnings()
 }
+\value{
+A list of class \code{"lifecycle_warnings"}, where each element
+represents a deprecation warning and its backtrace.
+}
 \description{
 \code{last_lifecycle_warnings()} returns a list of all warnings that
 occurred during the last top-level R command, along with a

@@ -51,6 +51,12 @@ searches any files ending in \code{.R} or \code{.Rmd}.}
 
 \item{symbol_is_undesirable}{Also lint symbol usages, e.g. \code{lapply(x, is_na)}?}
 }
+\value{
+\code{lifecycle_linter()} returns a \code{lintr::Linter} object.
+\code{lint_lifecycle()} and \code{lint_tidyverse_lifecycle()} return a list
+of \code{lintr::lint} objects. \code{pkg_lifecycle_statuses()} returns a
+data frame with columns \code{package}, \code{fun}, and \code{lifecycle}.
+}
 \description{
 \itemize{
 \item \code{lifecycle_linter()} creates a linter for lifecycle annotations which can be

@@ -15,6 +15,10 @@
 #' this default is obvious and there is no reason for the user to call
 #' `deprecated()` themselves.
 #'
+#' @return `deprecated()` returns a sentinel value that signals the
+#'   argument is deprecated. `is_present()` returns `TRUE` if the
+#'   argument was supplied by the caller, `FALSE` otherwise.
+#'
 #' @examples
 #' foobar_adder <- function(foo, bar, baz = deprecated()) {
 #'   # Check if user has supplied `baz` instead of `bar`

@@ -22,6 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Lionel Henry \email{lionel@posit.co}
   \item Hadley Wickham \email{hadley@posit.co} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID})
 }
 

@@ -192,6 +192,11 @@ lint_tidyverse_lifecycle <- function(
 #' @param which Vector of lifecycle statuses to lint.
 #' @param symbol_is_undesirable Also lint symbol usages, e.g. `lapply(x, is_na)`?
 #'
+#' @return `lifecycle_linter()` returns a `lintr::Linter` object.
+#'   `lint_lifecycle()` and `lint_tidyverse_lifecycle()` return a list
+#'   of `lintr::lint` objects. `pkg_lifecycle_statuses()` returns a
+#'   data frame with columns `package`, `fun`, and `lifecycle`.
+#'
 #' @export
 #' @examples
 #' lintr::lint(
