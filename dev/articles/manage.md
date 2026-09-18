@@ -10,6 +10,7 @@ which was deprecated in favour of `tibble()` in version 1.1.0.
 `data_frame()` now looks something like this:
 
 ``` r
+
 data_frame <- function(...) {
   lifecycle::deprecate_warn("1.1.0", "data_frame()", "tibble()")
   tibble::tibble(...)
@@ -20,6 +21,7 @@ That means if you use `data_frame()` in your own code you’ll get a
 warning:
 
 ``` r
+
 df1 <- data_frame(x = 1, y = 2)
 #> Warning: `data_frame()` was deprecated in tibble 1.1.0.
 #> ℹ Please use `tibble()` instead.
@@ -43,6 +45,7 @@ That’ll give you a list of all the deprecation warnings that have
 happened recently:
 
 ``` r
+
 lifecycle::last_lifecycle_warnings()
 #> [[1]]
 #> <deprecated>
@@ -60,6 +63,7 @@ uses of deprecated functions, you can use the `lifecycle_verbosity`
 option to make deprecated functions warn every time:
 
 ``` r
+
 options(lifecycle_verbosity = "warning")
 df1 <- data_frame(x = 1, y = 2)
 #> Warning: `data_frame()` was deprecated in tibble 1.1.0.
@@ -82,6 +86,7 @@ deprecation warnings into errors, forcing you to deal with them
 immediately:
 
 ``` r
+
 options("lifecycle_verbosity" = "error")
 df1 <- data_frame(x = 1, y = 2)
 #> Error:

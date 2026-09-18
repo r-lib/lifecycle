@@ -49,5 +49,5 @@ if (rlang::is_installed("testthat")) {
   })
 }
 #> Test passed with 1 success 🥇.
-#> Test passed with 1 success 🥇.
+#> Test passed with 1 success 🎊.
 ```

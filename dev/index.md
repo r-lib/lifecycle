@@ -25,6 +25,7 @@ cycle of your exported functions.
 ## Installation
 
 ``` r
+
 # Install release version from CRAN
 install.packages("lifecycle")
 

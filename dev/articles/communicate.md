@@ -17,6 +17,7 @@ once), then use
 to insert a badge:
 
 ``` r
+
 #' `r lifecycle::badge("experimental")`
 #' `r lifecycle::badge("deprecated")`
 #' `r lifecycle::badge("superseded")`
@@ -37,6 +38,7 @@ which takes three main arguments:
 We’ll cover the details shortly, but here are a few sample uses:
 
 ``` r
+
 lifecycle::deprecate_warn("1.0.0", "old_fun()", "new_fun()")
 #> Warning: `old_fun()` was deprecated in lifecycle 1.0.0.
 #> ℹ Please use `new_fun()` instead.
@@ -74,10 +76,11 @@ functions together to handle a variety of common development tasks.
 
 ### Deprecate a function
 
-First, add a badge to the the `@description` block[¹](#fn1). Briefly
-describe why the deprecation occurred and what to use instead.
+First, add a badge to the the `@description` block[^1]. Briefly describe
+why the deprecation occurred and what to use instead.
 
 ``` r
+
 #' Add two numbers
 #' 
 #' @description
@@ -91,6 +94,7 @@ Next, update the examples to show how to convert from the old usage to
 the new usage:
 
 ``` r
+
 #' @examples 
 #' add_two(1, 2)
 #' # ->
@@ -104,6 +108,7 @@ coming across a deprecated function, but don’t prevent those who already
 know about it from referring to the docs.
 
 ``` r
+
 #' @keywords internal
 ```
 
@@ -113,6 +118,7 @@ user calls your function. Do this by adding call to
 on the first line of the function:
 
 ``` r
+
 add_two <- function(x, y) {
   lifecycle::deprecate_warn("1.0.0", "add_two()", "base::sum()")
   x + y
@@ -140,6 +146,7 @@ For other cases, use the `details` argument to provide your own message
 to the user:
 
 ``` r
+
 add_two <- function(x, y) {
   lifecycle::deprecate_warn(
     "1.0.0", 
@@ -160,10 +167,11 @@ add_two(1, 2)
 It’s good practice to test that you’ve correctly implemented the
 deprecation, testing that the deprecated function still works and that
 it generates a useful warning. Using an expectation inside
-[`testthat::expect_snapshot()`](https://testthat.r-lib.org/reference/expect_snapshot.html)[²](#fn2)
+[`testthat::expect_snapshot()`](https://testthat.r-lib.org/reference/expect_snapshot.html)[^2]
 is a convenient way to do this:
 
 ``` r
+
 test_that("add_two is deprecated", {
   expect_snapshot({
     x <- add_two(1, 1)
@@ -176,6 +184,7 @@ If you have existing tests for the deprecated function you can suppress
 the warning in those tests with the `lifecycle_verbosity` option:
 
 ``` r
+
 test_that("add_two returns the sum of its inputs", {
   withr::local_options(lifecycle_verbosity = "quiet")
   expect_equal(add_two(1, 1), 2)
@@ -185,6 +194,7 @@ test_that("add_two returns the sum of its inputs", {
 And then add a separate test specifically for the deprecation.
 
 ``` r
+
 test_that("add_two is deprecated", {
   expect_snapshot(add_two(1, 1))
 })
@@ -202,7 +212,7 @@ stages to the deprecation process:
   environment and (b) developers who directly use the feature (when
   running testthat tests). There is no warning when the deprecated
   feature is called indirectly by another package — the goal is to
-  ensure that warn only the person who has the power to stop using the
+  ensure to warn only the person who has the power to stop using the
   deprecated feature.
 
 - [`deprecate_stop()`](https://lifecycle.r-lib.org/dev/reference/deprecate_soft.md)
@@ -238,6 +248,7 @@ implementation to the new function, then call the new function from the
 old function, along with a deprecation message:
 
 ``` r
+
 #' Add two numbers
 #' 
 #' @description 
@@ -270,6 +281,7 @@ need to steer users away from it with a warning. So all you need to do
 is add a superseded badge:
 
 ``` r
+
 #' Gather columns into key-value pairs
 #'
 #' @description
@@ -280,6 +292,7 @@ Then describe why the function was superseded, and what the recommended
 alternative is:
 
 ``` r
+
 #'
 #' Development on `gather()` is complete, and for new code we recommend
 #' switching to `pivot_longer()`, which is easier to use, more featureful,
@@ -300,6 +313,7 @@ change in the future, first add an experimental badge to the
 description:
 
 ``` r
+
 #' @description
 #' `r lifecycle::badge("experimental")`
 ```
@@ -315,6 +329,7 @@ Take this example where we want to deprecate `na.rm` in favour of always
 making it `TRUE.`
 
 ``` r
+
 add_two <- function(x, y, na.rm = TRUE) {
   sum(x, y, na.rm = na.rm)
 }
@@ -323,6 +338,7 @@ add_two <- function(x, y, na.rm = TRUE) {
 First, add a badge to the argument description:
 
 ``` r
+
 #' @param na.rm `r lifecycle::badge("deprecated")` `na.rm = FALSE` is no
 #'   longer supported; this function will always remove missing values
 ```
@@ -332,6 +348,7 @@ no replacement to the behaviour, so we instead use `details` to provide
 a custom message:
 
 ``` r
+
 add_two <- function(x, y, na.rm = TRUE) {
   if (!isTRUE(na.rm)) {
     lifecycle::deprecate_warn(
@@ -366,6 +383,7 @@ to test whether or not the argument was provided. Unlike
 direct and indirect calls.
 
 ``` r
+
 #' @importFrom lifecycle deprecated
 add_two <- function(x, y, na.rm = deprecated()) {
   if (lifecycle::is_present(na.rm)) {
@@ -384,6 +402,7 @@ The chief advantage of this technique is that users will get a warning
 regardless of what value of `na.rm` they use:
 
 ``` r
+
 add_two(1, NA, na.rm = TRUE)
 #> Warning: The `na.rm` argument of `add_two()` is deprecated as of lifecycle
 #> 1.0.0.
@@ -409,6 +428,7 @@ of `_`. You’ll need to temporarily permit both arguments, generating a
 deprecation warning when the user supplies the old argument:
 
 ``` r
+
 add_two <- function(x, y, na_rm = TRUE, na.rm = deprecated()) {
   if (lifecycle::is_present(na.rm)) {
     lifecycle::deprecate_warn("1.0.0", "add_two(na.rm)", "add_two(na_rm)")
@@ -435,6 +455,7 @@ only when the user supplies the previously supported inputs. Make sure
 you preserve the previous behaviour:
 
 ``` r
+
 add_two <- function(x, y) {
   if (length(y) != 1) {
     lifecycle::deprecate_warn("1.0.0", "foo(y = 'must be a scalar')")
@@ -459,6 +480,7 @@ You can wrap `what` and `with` in
 otherwise described above:
 
 ``` r
+
 lifecycle::deprecate_warn(
   when = "1.0.0",
   what = I('Setting the global option "pkg.opt" to "foo"')
@@ -489,10 +511,8 @@ Note that your `what` fragment needs to make sense with “was deprecated
 …” added to the end, and your `with` fragment needs to make sense in the
 sentence “Please use `{with}` instead”.
 
-------------------------------------------------------------------------
+[^1]: We only use an explicit `@description` when the description will
+    be multiple paragraphs, as in these examples.
 
-1.  We only use an explicit `@description` when the description will be
-    multiple paragraphs, as in these examples.
-
-2.  You can learn more about snapshot testing in
+[^2]: You can learn more about snapshot testing in
     [`vignette("snapshotting", package = "testthat")`](https://testthat.r-lib.org/articles/snapshotting.html).

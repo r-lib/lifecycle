@@ -67,6 +67,7 @@ For example, take
 [`tibble::data_frame()`](https://tibble.tidyverse.org/reference/deprecated.html):
 
 ``` r
+
 df <- tibble::data_frame(x = 1)
 #> Warning message:
 #> `data_frame()` was deprecated in tibble 1.1.0.
@@ -104,8 +105,8 @@ deprecation:
 ## Superseded
 
 A softer alternative to deprecation is superseded. A
-![superseded](figures/lifecycle-superseded.svg)[¹](#fn1) function has a
-known better alternative, but the function itself is not going away . A
+![superseded](figures/lifecycle-superseded.svg)[^1] function has a known
+better alternative, but the function itself is not going away . A
 superseded function will not emit a warning (since there’s no risk if
 you keep using it), but the documentation will tell you what we
 recommend instead .
@@ -156,6 +157,4 @@ functions that lay somewhere between experimental and stable. We stopped
 using this stage because, like questioning, it’s not clear what
 actionable information this stage delivers.
 
-------------------------------------------------------------------------
-
-1.  This stage was previously called retired.
+[^1]: This stage was previously called retired.
