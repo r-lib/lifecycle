@@ -71,7 +71,7 @@ pkg_lifecycle_statuses <- function(
   res <- vctrs::vec_rbind(!!!res)
 
   # Filter funs without a lifecycle
-  if (!NA %in% which) {
+  if (!anyNA(which)) {
     res <- res[!is.na(res$lifecycle), ]
   }
 
