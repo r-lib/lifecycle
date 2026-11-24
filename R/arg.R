@@ -21,7 +21,11 @@
 #'   if (lifecycle::is_present(baz)) {
 #'
 #'     # Signal the deprecation to the user
-#'     deprecate_warn("1.0.0", "foo::bar_adder(baz = )", "foo::bar_adder(bar = )")
+#'     deprecate_warn(
+#'       "1.0.0",
+#'       "foo::foobar_adder(baz = )",
+#'       "foo::foobar_adder(bar = )"
+#'     )
 #'
 #'     # Deal with the deprecated argument for compatibility
 #'     bar <- baz
