@@ -72,7 +72,12 @@ called the deprecating function was called (used to determine if
 
 These are only needed if you're calling \verb{deprecate_*()} from an internal
 helper, in which case you should forward \code{env = caller_env()} and
-\code{user_env = caller_env(2)}.}
+\code{user_env = caller_env(2)}.
+
+If you cannot forward the original caller environment, use
+\code{user_env = rlang::global_env()} to apply the rules for direct use.
+At the default verbosity, \code{deprecate_soft()} can then warn for calls
+from other packages.}
 
 \item{always}{If \code{FALSE}, the default, will warn once per session. If
 \code{TRUE}, will always warn in direct usages. Indirect usages keep
