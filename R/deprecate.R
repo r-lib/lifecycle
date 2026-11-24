@@ -59,6 +59,11 @@
 #'   These are only needed if you're calling `deprecate_*()` from an internal
 #'   helper, in which case you should forward `env = caller_env()` and
 #'   `user_env = caller_env(2)`.
+#'
+#'   If you cannot forward the original caller environment, use
+#'   `user_env = rlang::global_env()` to apply the rules for direct use.
+#'   At the default verbosity, `deprecate_soft()` can then warn for calls
+#'   from other packages.
 #' @return `NULL`, invisibly.
 #'
 #' @seealso [lifecycle()]
