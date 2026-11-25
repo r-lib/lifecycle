@@ -2,6 +2,8 @@
 
 * `deprecate_soft()` and `deprecate_warn()` no longer accidentally capture the surrounding environment in the condition object (#211).
 
+* `lifecycle_linter()` uses the specified package when checking namespace-qualified names (#190).
+
 # lifecycle 1.0.5
 
 * `signal_stage()` no longer does anything, and is now purely a way to express intent at the call site of whether a function is superseded or experimental (#203).

@@ -228,6 +228,10 @@ lifecycle_linter <- function(
     life_cycles$lifecycle
   )
   names(bad_usages) <- life_cycles$fun
+  qualified_usages <- set_names(
+    bad_usages,
+    sprintf("%s::%s", life_cycles$package, life_cycles$fun)
+  )
 
   if (symbol_is_undesirable) {
     xpath <- sprintf(
@@ -241,6 +245,13 @@ lifecycle_linter <- function(
     )
   }
 
+  # The package name and namespace operator are siblings of the matched node.
+  namespace_xpath <- paste0(
+    "preceding-sibling::*[not(self::COMMENT)][1]",
+    "[self::NS_GET or self::NS_GET_INT]",
+    "/preceding-sibling::*[not(self::COMMENT)][1]"
+  )
+
   lintr::Linter(function(source_expression) {
     if (!lintr::is_lint_level(source_expression, "expression")) {
       return(list())
@@ -251,11 +262,20 @@ lifecycle_linter <- function(
       xpath
     )
     fun_names <- lintr::get_r_string(matched_nodes)
+    namespace_nodes <- xml2::xml_find_first(matched_nodes, namespace_xpath)
+    namespaces <- lintr::get_r_string(namespace_nodes)
+    qualified <- !is.na(namespaces)
+
+    messages <- bad_usages[fun_names]
+    messages[qualified] <- qualified_usages[
+      sprintf("%s::%s", namespaces[qualified], fun_names[qualified])
+    ]
+    keep <- !is.na(messages)
 
     lintr::xml_nodes_to_lints(
-      matched_nodes,
+      matched_nodes[keep],
       source_expression = source_expression,
-      lint_message = unname(bad_usages[fun_names])
+      lint_message = unname(messages[keep])
     )
   })
 }
